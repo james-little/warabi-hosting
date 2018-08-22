@@ -35,16 +35,17 @@ define('DB_USER', 'hosting');
 define('DB_PASSWORD', 'T9xQ7b6@mn0X');
 
 /** MySQL のホスト名 */
-// define('DB_HOST', '127.0.0.1:/var/run/mysql/mysqld.sock');
-define('DB_HOST', '127.0.0.1:3306');
+define('DB_HOST', '127.0.0.1:/var/run/mysql/mysqld.sock');
+// define('DB_HOST', '127.0.0.1:3306');
 
 /** データベースのテーブルを作成する際のデータベースの文字セット */
 define('DB_CHARSET', 'utf8');
 
 /** データベースの照合順序 (ほとんどの場合変更する必要はありません) */
 define('DB_COLLATE', '');
-
 define('WP_USE_EXT_MYSQL', false);
+
+define('WP_REDIS_PATH', '/var/run/redis/6379.sock');
 
 
 /**#@+

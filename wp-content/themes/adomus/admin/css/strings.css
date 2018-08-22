@@ -1,0 +1,31 @@
+.string-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: -5px;
+}
+
+.string-lang {
+	font-weight: normal;
+}
+
+.string-lang span {
+	font-size: 11px;
+}
+
+.string-input {
+	width: 300px;
+}
+
+.hotelwp-saving-settings {
+    background: url(../img/spinner.gif);
+    display: none;
+    height: 20px;
+    margin-left: 10px;
+    vertical-align: -25%;
+    width: 20px;
+}
+
+.hotelwp-settings-saved {
+	display: none;
+	font-weight: bold;
+}

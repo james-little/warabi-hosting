@@ -1,0 +1,104 @@
+msgctxt "Learn more"
+msgid "learn_more"
+msgstr ""
+
+msgctxt "Read more"
+msgid "read_more"
+msgstr ""
+
+msgctxt "Published on: "
+msgid "post_date"
+msgstr ""
+
+msgctxt "Filed under: "
+msgid "post_categories"
+msgstr ""
+
+msgctxt "Tagged: "
+msgid "post_tags"
+msgstr ""
+
+msgctxt "Previous post:"
+msgid "previous_post"
+msgstr ""
+
+msgctxt "Next post:"
+msgid "next_post"
+msgstr ""
+
+msgctxt "No comments yet"
+msgid "no_comments"
+msgstr ""
+
+msgctxt "One comment"
+msgid "one_comment"
+msgstr ""
+
+msgctxt "%s comments"
+msgid "x_comments"
+msgstr ""
+
+msgctxt "(Post author)"
+msgid "comment_by_author"
+msgstr ""
+
+msgctxt "at"
+msgid "comment_date_time_at"
+msgstr ""
+
+msgctxt "This post is password protected. Enter the password to view any comments."
+msgid "password_protected_comments"
+msgstr ""
+
+msgctxt "Search results for: %s"
+msgid "search_page_title"
+msgstr ""
+
+msgctxt "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgid "search_page_no_results"
+msgstr ""
+
+msgctxt "404 not found"
+msgid "404_page_title"
+msgstr ""
+
+msgctxt "It seems we can not find what you are looking for. Perhaps searching can help."
+msgid "404_page_text"
+msgstr ""
+
+msgctxt "Continue reading:"
+msgid "paginated_post_pagination_title"
+msgstr ""
+
+msgctxt "Send"
+msgid "send_button"
+msgstr ""
+
+msgctxt "Invalid email."
+msgid "invalid_email"
+msgstr ""
+
+msgctxt "Required field."
+msgid "required_field"
+msgstr ""
+
+msgctxt "This field can only contain numbers."
+msgid "invalid_number"
+msgstr ""
+
+msgctxt "There was a connection error. Please try again."
+msgid "connection_error"
+msgstr ""
+
+msgctxt "Thanks for your message! We will reply as soon as possible."
+msgid "contact_message_sent"
+msgstr ""
+
+msgctxt "An error occured. Your message has not been sent."
+msgid "contact_message_not_sent"
+msgstr ""
+
+msgctxt "Your message has already been sent."
+msgid "contact_already_sent"
+msgstr ""
+

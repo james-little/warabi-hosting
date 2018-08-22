@@ -1,0 +1,99 @@
+#hotelwp-cf-add-field-top {
+	margin-bottom: 20px;
+}
+
+.hotelwp-cf-field {
+	background: #fff; 
+	border: 2px solid #ddd;
+	margin-bottom: 10px;
+	padding: 9px 15px 5px;
+	position: relative;
+	width: 330px; 
+}
+
+.hotelwp-cf-field p {
+	margin: 3px 0 7px;
+}
+
+.hotelwp-cf-field p.hotelwp-cf-field-name {
+	border-bottom: 1px solid #ddd;
+	font-weight: bold;
+	margin-bottom: 12px;
+	padding-bottom: 10px;
+}
+
+.hotelwp-cf-field-name input[type="text"] {
+	width: 175px;
+}
+
+.hotelwp-cf-field-edit-name {
+	line-height: 0.8;
+	margin-left: 2px;
+}
+
+.hotelwp-cf-field-delete {
+	position: absolute;
+	right: 16px;
+	top: 8px;
+}
+
+.hotelwp-cf-field-attribute {
+	display: inline-block;
+	width: 130px;
+}
+
+.hotelwp-cf-field-delete.dashicons-no:before {
+	color: #FF6344;
+	font-size: 24px;
+}
+
+.hotelwp-cf-field-select {
+	display: inline-block; 
+	margin: -3px 0 -2px;
+	width: 130px;
+}
+
+.hotelwp-cf-field-choices {
+	margin-top: 10px;
+}
+
+.hb-form-field-choices a {
+	margin-top: 0;
+}
+
+.hotelwp-cf-field-choices ul {
+	margin-top: 5px;
+}
+
+.hotelwp-cf-fields-choices-ul li {
+	background:#eee; 
+	padding: 5px 5px 5px 8px;
+	position: relative;
+}
+
+.hotelwp-cf-fields-choices-ul input[type="text"] {
+	width: 175px;
+}
+
+.hotelwp-cf-field-remove-choice {
+	position: absolute;
+	right: 2px;
+	top: 4px;
+}
+
+.hotelwp-cf-field-edit-choice {
+	position: absolute;
+	right: 21px;
+	top: 3px;
+}
+
+.hotelwp-settings-saved {
+	display: none;
+	font-weight: bold;
+}
+
+.hotelwp-contact-form-settings input[type="text"],
+.hotelwp-contact-form-settings textarea {
+	max-width: 400px;
+	width: 100%;
+}

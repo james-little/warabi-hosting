@@ -1,0 +1,3116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: HBook\n"
+"POT-Creation-Date: 2016-12-22 14:05+0100\n"
+"PO-Revision-Date: 2016-12-26 13:52+0100\n"
+"Last-Translator: HotelWP <contact@hotelwp.com>\n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../hbook.php:162
+msgid "Reservation reader"
+msgstr "Lezer van reservaties"
+
+#: ../hbook.php:163
+msgid "Reservation manager"
+msgstr "Manager van reservaties"
+
+#: ../hbook.php:187
+msgid ""
+"Thanks for using <b>HBook</b> plugin. Before setting the plugin up do not "
+"forget to have a look at the documentation by clicking <a href=\"http://"
+"hotelwp.com/documentation/hbook/\" target=\"_blank\">here</a>."
+msgstr ""
+"Dank u dat u <b>HBook</b> plugin gebruikt. Vergeet niet de <a href=\"http://"
+"hotelwp.com/documentation/hbook/\" target=\"_blank\">documentatie</a> te "
+"lezen voor u begint de plugin in te stellen."
+
+#: ../hbook.php:208 ../accom-post-type/accommodation.php:173
+#: ../admin-pages/admin-page.php:54 ../admin-pages/admin-page.php:56
+#: ../admin-pages/admin-page.php:58
+#: ../admin-pages/pages/reservations/reservations.php:246
+#: ../admin-pages/pages/reservations/reservations.php:672
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: ../hbook.php:209
+#, php-format
+msgid ""
+"Delete accommodation %s? Note that all reservations linked to the %s will "
+"also be deleted."
+msgstr ""
+"Verwijder accommodatie %s? Merk op dat ook alle reservaties gelinked met %s "
+"zullen gewist worden."
+
+#: ../hbook.php:210
+msgid ""
+"Move this accommodation type to trash? Note that all reservations linked to "
+"this accommodtion will also be deleted when you will empty the trash."
+msgstr ""
+"Dit accommodatietype naar de prullenbak verplaatsen? Merk op dat ook alle "
+"reservaties gelinked met deze accommodatie gewist zullen worden bij het "
+"legen van de prullenbak."
+
+#: ../hbook.php:291 ../hbook.php:293
+#: ../admin-pages/pages/reservations/reservations.php:111
+msgid "Reservations"
+msgstr "Reservaties"
+
+#: ../hbook.php:298
+msgid "HBook"
+msgstr "HBook"
+
+#: ../hbook.php:311 ../admin-pages/pages/text/text.php:83
+msgid "Contact form"
+msgstr "Contact formulier"
+
+#: ../accom-post-type/accommodation.php:14
+#: ../admin-pages/pages/fees/fees.php:65
+#: ../admin-pages/pages/ical/ical.php:124
+#: ../admin-pages/pages/options/options.php:50
+#: ../admin-pages/pages/rates/rates.php:146
+#: ../admin-pages/pages/rates/rates.php:248
+#: ../admin-pages/pages/reservations/reservations.php:233
+#: ../admin-pages/pages/rules/rules.php:67
+#: ../admin-pages/pages/rules/rules.php:123
+#: ../admin-pages/pages/rules/rules.php:179
+#: ../admin-pages/pages/rules/rules.php:235 ../utils/utils.php:952
+#: ../utils/utils.php:1494
+msgid "Accommodation"
+msgstr "Accommodatie"
+
+#: ../accom-post-type/accommodation.php:15
+msgid "All Accommodation"
+msgstr "Alle accommodaties"
+
+#: ../accom-post-type/accommodation.php:16
+msgid "Add New Accommodation"
+msgstr "Nieuwe accommodatie toevoegen"
+
+#: ../accom-post-type/accommodation.php:17
+msgid "Edit Accommodation"
+msgstr "Accommodatie wijzigen"
+
+#: ../accom-post-type/accommodation.php:18
+msgid "New Accommodation"
+msgstr "Nieuwe accommodatie"
+
+#: ../accom-post-type/accommodation.php:19
+msgid "View Accommodation post"
+msgstr "Bekijk accommodatie bericht"
+
+#: ../accom-post-type/accommodation.php:20
+msgid "Search Accommodation"
+msgstr "Zoek accommodatie"
+
+#: ../accom-post-type/accommodation.php:21
+msgid "No accommodation found."
+msgstr "Geen accommodatie gevonden"
+
+#: ../accom-post-type/accommodation.php:22
+msgid "No accommodation post found in trash."
+msgstr "Geen accommodatie bericht gevonden in prullenbak."
+
+#: ../accom-post-type/accommodation.php:39
+msgid "Accommodation settings"
+msgstr "Accommodatie instellingen"
+
+#: ../accom-post-type/accommodation.php:40
+msgid "Accommodation display"
+msgstr "Accommodatie weergave"
+
+#: ../accom-post-type/accommodation.php:59
+msgid "Use this post to display the accommodation"
+msgstr "Gebruikt dit bericht om de accommodatie weer te geven"
+
+#: ../accom-post-type/accommodation.php:67
+msgid "Use another post or page to display the accommodation"
+msgstr "Gebruik een ander bericht of pagina om de accommodatie weer te geven"
+
+#: ../accom-post-type/accommodation.php:72
+msgid "Enter the ID of the page used for displaying the accommodation:"
+msgstr "Geef de ID in van de pagina voor het weergeven van de accommodatie:"
+
+#: ../accom-post-type/accommodation.php:79
+msgid "Select a template:"
+msgstr "Selecteer een sjabloon:"
+
+#: ../accom-post-type/accommodation.php:83
+msgid "Accommodation post"
+msgstr "Accommodatie bericht"
+
+#: ../accom-post-type/accommodation.php:84
+msgid "Advanced layout Template"
+msgstr "Geavanceerde opmaak sjabloon"
+
+#: ../accom-post-type/accommodation.php:88
+msgid "Post"
+msgstr "Bericht"
+
+#: ../accom-post-type/accommodation.php:89
+msgid "Page"
+msgstr "Pagina"
+
+#: ../accom-post-type/accommodation.php:114
+msgid "Normal occupancy:"
+msgstr "Normale bezetting:"
+
+#: ../accom-post-type/accommodation.php:116
+msgid "Extra people might pay a fee as defined in the \"Rates page\"."
+msgstr ""
+"Extra personen betalen mogelijks een toeslag zoals opgegeven op de “Prijzen "
+"pagina”. "
+
+#: ../accom-post-type/accommodation.php:121
+msgid "Maximum occupancy:"
+msgstr "Maximum bezetting:"
+
+#: ../accom-post-type/accommodation.php:128
+msgid "Description displayed in search results:"
+msgstr "Omschrijving weergegeven in de zoekresultaten:"
+
+#: ../accom-post-type/accommodation.php:132
+msgid "Description displayed in Accommodation list:"
+msgstr "Omschrijving weergegeven in de accommodatielijst"
+
+#: ../accom-post-type/accommodation.php:139
+msgid "Starting price:"
+msgstr "Startprijs:"
+
+#: ../accom-post-type/accommodation.php:156
+msgid "Number of accommodation of this type:"
+msgstr "Aantal accommodaties van dit type:"
+
+#: ../accom-post-type/accommodation.php:161
+msgid "Edit accommodation numbering"
+msgstr "Wijzig accommodatienummering"
+
+#: ../accom-post-type/accommodation.php:234
+msgid "Accommodation id: "
+msgstr "Accommodatie ID:"
+
+#: ../admin-pages/admin-ajax-actions.php:18
+msgid "Your session has expired. Please refresh the page."
+msgstr "Uw sessie is verlopen. Gelieve de pagina te herladen."
+
+#: ../admin-pages/admin-ajax-actions.php:248
+#: ../admin-pages/admin-ajax-actions.php:334
+#, php-format
+msgid "The %s (%s) is no longer available."
+msgstr "De %s (%s) is niet meer beschikbaar."
+
+#: ../admin-pages/admin-page.php:18 ../admin-pages/admin-page.php:99
+#: ../admin-pages/pages/emails/emails.php:16
+#: ../admin-pages/pages/rates/rates.php:264
+#: ../admin-pages/pages/reservations/reservations.php:35
+#: ../admin-pages/pages/reservations/reservations.php:196
+#: ../admin-pages/pages/reservations/reservations.php:458
+msgid "All"
+msgstr "Alle"
+
+#: ../admin-pages/admin-page.php:19 ../admin-pages/pages/ical/ical.php:181
+#: ../admin-pages/pages/reservations/reservations.php:568
+#: ../admin-pages/pages/reservations/reservations.php:586
+#: ../admin-pages/pages/reservations/reservations.php:601
+#: ../admin-pages/pages/reservations/reservations.php:614
+#: ../admin-pages/pages/reservations/reservations.php:620
+#: ../admin-pages/pages/reservations/reservations.php:655
+msgid "Save"
+msgstr "Bewaren"
+
+#: ../admin-pages/admin-page.php:20 ../admin-pages/pages/text/text.php:112
+#: ../utils/options-utils.php:685
+msgid "Saving..."
+msgstr "Aan het opslaan"
+
+#: ../admin-pages/admin-page.php:21
+#, php-format
+msgid "Delete '%setting_name'?"
+msgstr "Verwijder '%setting_name'?"
+
+#: ../admin-pages/admin-page.php:22
+msgid "Confirm deletion?"
+msgstr "Bevestig verwijderen?"
+
+#: ../admin-pages/admin-page.php:23
+msgid "It seems some changes have not been saved."
+msgstr "Het lijkt dat sommige wijzigingen niet zijn opgeslagen."
+
+#: ../admin-pages/admin-page.php:24
+msgid "No accommodation selected"
+msgstr "Geen accommodatie geselecteerd"
+
+#: ../admin-pages/admin-page.php:42
+msgid "Add season dates"
+msgstr "Voeg de datums van het seizoen toe"
+
+#: ../admin-pages/admin-page.php:45
+msgid "Add option choice"
+msgstr "Voeg optie keuze toe"
+
+#: ../admin-pages/admin-page.php:52
+#: ../admin-pages/pages/reservations/reservations.php:561
+#: ../admin-pages/pages/reservations/reservations.php:577
+#: ../admin-pages/pages/reservations/reservations.php:597
+#: ../admin-pages/pages/reservations/reservations.php:610
+msgid "Edit"
+msgstr "Wijzig"
+
+#: ../admin-pages/admin-page.php:62
+#: ../admin-pages/pages/reservations/reservations.php:249
+#: ../admin-pages/pages/reservations/reservations.php:679
+msgid "Deleting..."
+msgstr "Aan het verwijderen…"
+
+#: ../admin-pages/admin-page.php:70 ../admin-pages/admin-page.php:72
+#: ../admin-pages/admin-page.php:74 ../admin-pages/admin-page.php:76
+#: ../admin-pages/pages/ical/ical.php:167
+#: ../admin-pages/pages/ical/ical.php:182
+#: ../admin-pages/pages/reservations/reservations.php:505
+#: ../admin-pages/pages/reservations/reservations.php:569
+#: ../admin-pages/pages/reservations/reservations.php:588
+#: ../admin-pages/pages/reservations/reservations.php:603
+#: ../admin-pages/pages/reservations/reservations.php:616
+#: ../admin-pages/pages/reservations/reservations.php:622
+#: ../admin-pages/pages/reservations/reservations.php:657
+#: ../admin-pages/pages/reservations/reservations.php:671
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: ../admin-pages/admin-page.php:90 ../admin-pages/admin-page.php:110
+#: ../admin-pages/pages/rates/rates.php:286
+#: ../admin-pages/pages/reservations/reservations.php:469
+msgid "Select all"
+msgstr "Sellecteer alle"
+
+#: ../admin-pages/admin-page.php:91 ../admin-pages/admin-page.php:114
+#: ../admin-pages/pages/rates/rates.php:274
+#: ../admin-pages/pages/rates/rates.php:287
+#: ../admin-pages/pages/reservations/reservations.php:470
+msgid "Unselect all"
+msgstr "De-selecteer alle"
+
+#: ../admin-pages/admin-page.php:121
+msgid "Amount type:"
+msgstr "Hoeveelheid type:"
+
+#: ../admin-pages/admin-page.php:122 ../utils/options-utils.php:84
+msgid "Fixed"
+msgstr "Vast"
+
+#: ../admin-pages/admin-page.php:123 ../utils/options-utils.php:83
+msgid "Percentage"
+msgstr "Percentage"
+
+#: ../admin-pages/admin-page.php:132
+msgid "Remove field"
+msgstr "Verwijder veld"
+
+#: ../admin-pages/admin-page.php:136
+msgid "Edit field name"
+msgstr "Wijzig naam veld"
+
+#: ../admin-pages/admin-page.php:137 ../admin-pages/admin-page.php:188
+msgid "OK"
+msgstr "OK"
+
+#: ../admin-pages/admin-page.php:141 ../utils/options-utils.php:443
+#: ../utils/utils.php:1549
+msgid "Text"
+msgstr "Tekst"
+
+#: ../admin-pages/admin-page.php:142
+msgid "Email"
+msgstr "E-mail"
+
+#: ../admin-pages/admin-page.php:143
+msgid "Number"
+msgstr "Getal"
+
+#: ../admin-pages/admin-page.php:144
+msgid "Text area"
+msgstr "Tekstvak"
+
+#: ../admin-pages/admin-page.php:145
+msgid "Select"
+msgstr "Selecteer"
+
+#: ../admin-pages/admin-page.php:146
+msgid "Radio buttons"
+msgstr "Radioknoppen"
+
+#: ../admin-pages/admin-page.php:147
+msgid "Check boxes"
+msgstr "Selectievakjes"
+
+#: ../admin-pages/admin-page.php:148 ../utils/utils.php:947
+msgid "Title"
+msgstr "Titel"
+
+#: ../admin-pages/admin-page.php:149
+msgid "Explanation"
+msgstr "Verklaring"
+
+#: ../admin-pages/admin-page.php:157
+msgid "Displayed?"
+msgstr "Weergeven?"
+
+#: ../admin-pages/admin-page.php:159 ../admin-pages/admin-page.php:168
+#: ../admin-pages/pages/options/options.php:10
+#: ../admin-pages/pages/options/options.php:91
+#: ../admin-pages/pages/payment/payment.php:39
+#: ../admin-pages/pages/rules/rules.php:22 ../utils/options-utils.php:27
+#: ../utils/options-utils.php:49 ../utils/options-utils.php:60
+#: ../utils/options-utils.php:71 ../utils/options-utils.php:172
+#: ../utils/options-utils.php:208 ../utils/options-utils.php:217
+#: ../utils/options-utils.php:271 ../utils/options-utils.php:294
+#: ../utils/options-utils.php:330 ../utils/options-utils.php:339
+#: ../utils/options-utils.php:348 ../utils/options-utils.php:366
+#: ../utils/options-utils.php:376 ../utils/options-utils.php:386
+#: ../utils/options-utils.php:410 ../utils/options-utils.php:420
+msgid "Yes"
+msgstr "Ja"
+
+#: ../admin-pages/admin-page.php:162 ../admin-pages/admin-page.php:171
+#: ../admin-pages/pages/options/options.php:11
+#: ../admin-pages/pages/options/options.php:93
+#: ../admin-pages/pages/payment/payment.php:40
+#: ../admin-pages/pages/rules/rules.php:23 ../utils/options-utils.php:28
+#: ../utils/options-utils.php:50 ../utils/options-utils.php:61
+#: ../utils/options-utils.php:72 ../utils/options-utils.php:173
+#: ../utils/options-utils.php:209 ../utils/options-utils.php:218
+#: ../utils/options-utils.php:272 ../utils/options-utils.php:295
+#: ../utils/options-utils.php:331 ../utils/options-utils.php:340
+#: ../utils/options-utils.php:349 ../utils/options-utils.php:367
+#: ../utils/options-utils.php:377 ../utils/options-utils.php:387
+#: ../utils/options-utils.php:411 ../utils/options-utils.php:421
+msgid "No"
+msgstr "Nee"
+
+#: ../admin-pages/admin-page.php:166
+msgid "Required?"
+msgstr "Vereist?"
+
+#: ../admin-pages/admin-page.php:175
+msgid "Field type:"
+msgstr "Veld type:"
+
+#: ../admin-pages/admin-page.php:181
+msgid "Choices:"
+msgstr "Keuzes:"
+
+#: ../admin-pages/admin-page.php:182
+msgid "Add a choice"
+msgstr "Voeg een keuze toe"
+
+#: ../admin-pages/admin-page.php:187
+msgid "Edit choice"
+msgstr "Wijzig een keuze"
+
+#: ../admin-pages/admin-page.php:189
+msgid "Remove choice"
+msgstr "Verwijder een keuze"
+
+#: ../admin-pages/admin-page.php:205
+msgid "HBook settings"
+msgstr "HBook instellingen"
+
+#: ../admin-pages/admin-page.php:227
+msgid "Per person"
+msgstr "Per persoon"
+
+#: ../admin-pages/admin-page.php:231
+msgid "Per person / per day"
+msgstr "Per persoon / per dag"
+
+#: ../admin-pages/admin-page.php:235
+msgid "Per accommodation"
+msgstr "Per accommodatie"
+
+#: ../admin-pages/admin-page.php:239
+msgid "Per accommodation / per day"
+msgstr "Per accommodatie / per dag"
+
+#: ../admin-pages/admin-page.php:243
+msgid "Quantity"
+msgstr "Hoeveelheid"
+
+#: ../admin-pages/admin-page.php:244
+msgid "Quantity per day"
+msgstr "Hoeveelheid per dag"
+
+#: ../admin-pages/pages/appearance/appearance.php:7
+#: ../admin-pages/pages/contact/contact.php:13
+#: ../admin-pages/pages/misc/misc.php:7
+#: ../admin-pages/pages/payment/payment.php:7
+msgid "Settings have been saved."
+msgstr "Instellingen zijn opgeslagen."
+
+#: ../admin-pages/pages/appearance/appearance.php:20 ../utils/utils.php:1544
+msgid "Appearance"
+msgstr "Weergave"
+
+#: ../admin-pages/pages/contact/contact.php:14
+#: ../admin-pages/pages/forms/forms.php:9
+msgid "New field"
+msgstr "Nieuw veld"
+
+#: ../admin-pages/pages/contact/contact.php:15
+#: ../admin-pages/pages/forms/forms.php:10
+#, php-format
+msgid "Remove '%field_name'?"
+msgstr "Verwijder '%field_name'?"
+
+#: ../admin-pages/pages/contact/contact.php:16
+#: ../admin-pages/pages/forms/forms.php:12
+msgid "New choice"
+msgstr "Nieuwe keuze"
+
+#: ../admin-pages/pages/contact/contact.php:17
+#: ../admin-pages/pages/forms/forms.php:13
+#, php-format
+msgid "Remove '%choice_name'?"
+msgstr "Verwijder '%choice_name'?"
+
+#: ../admin-pages/pages/contact/contact.php:18
+msgid "In the following fields you can use these variables:"
+msgstr "In de volgende velden kan u deze variabelen gebruiken:"
+
+#: ../admin-pages/pages/contact/contact.php:33
+msgid "Contact form settings"
+msgstr "Instellingen contactformulier"
+
+#: ../admin-pages/pages/contact/contact.php:37
+msgid "Fields"
+msgstr "Velden"
+
+#: ../admin-pages/pages/contact/contact.php:41
+msgid "Customize the Contact form."
+msgstr "Contactformulier aanpassen"
+
+#: ../admin-pages/pages/contact/contact.php:42
+#: ../admin-pages/pages/forms/forms.php:68
+msgid "Drag and drop fields to reorder them."
+msgstr "Velden slepen en neerzetten om de volgorde te wijzigen."
+
+#: ../admin-pages/pages/contact/contact.php:48
+#: ../admin-pages/pages/contact/contact.php:53
+#: ../admin-pages/pages/forms/forms.php:74
+#: ../admin-pages/pages/forms/forms.php:79
+msgid "Add a field"
+msgstr "Veld toevoegen"
+
+#: ../admin-pages/pages/contact/contact.php:60
+msgid "Email settings"
+msgstr "E-mail instellingen"
+
+#: ../admin-pages/pages/emails/emails.php:20
+msgid "New email template"
+msgstr "Nieuw e-mail sjabloon"
+
+#: ../admin-pages/pages/emails/emails.php:27
+#: ../database-actions/database-creation.php:392
+msgid "New reservation"
+msgstr "Nieuwe reservatie"
+
+#: ../admin-pages/pages/emails/emails.php:31
+#: ../database-actions/database-creation.php:428
+#: ../database-actions/database-creation.php:874
+msgid "Reservation confirmation"
+msgstr "Reservatie bevestigd"
+
+#: ../admin-pages/pages/emails/emails.php:35
+msgid "Reservation cancellation"
+msgstr "Reservatie geannulleerd"
+
+#: ../admin-pages/pages/emails/emails.php:40
+msgid "Inactive"
+msgstr "Niet actef"
+
+#: ../admin-pages/pages/emails/emails.php:53
+msgid "Email templates"
+msgstr "E-mail sjablonen"
+
+#: ../admin-pages/pages/emails/emails.php:54
+msgid "Add new email template"
+msgstr "Voeg nieuw e-mail sjabloon toe"
+
+#: ../admin-pages/pages/emails/emails.php:63
+msgid "No email templates set yet."
+msgstr "Nog geen e-mail sjablonen."
+
+#: ../admin-pages/pages/emails/emails.php:77
+#: ../admin-pages/pages/rules/rules.php:292
+msgid "Name"
+msgstr "Naam"
+
+#: ../admin-pages/pages/emails/emails.php:78
+msgid "To address"
+msgstr "Aan adres"
+
+#: ../admin-pages/pages/emails/emails.php:79
+msgid "From address"
+msgstr "Van adres"
+
+#: ../admin-pages/pages/emails/emails.php:80
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: ../admin-pages/pages/emails/emails.php:81
+msgid "Message"
+msgstr "Bericht"
+
+#: ../admin-pages/pages/emails/emails.php:82
+msgid "Format"
+msgstr "Formaat"
+
+#: ../admin-pages/pages/emails/emails.php:83
+msgid "Send on"
+msgstr "Verzend bij"
+
+#: ../admin-pages/pages/emails/emails.php:84
+msgid "For language"
+msgstr "Voor taal"
+
+#: ../admin-pages/pages/emails/emails.php:85
+#: ../admin-pages/pages/fees/fees.php:66
+#: ../admin-pages/pages/options/options.php:51
+#: ../admin-pages/pages/rates/rates.php:150
+#: ../admin-pages/pages/rates/rates.php:254
+#: ../admin-pages/pages/reservations/reservations.php:236
+#: ../admin-pages/pages/reservations/reservations.php:538
+#: ../admin-pages/pages/rules/rules.php:69
+#: ../admin-pages/pages/rules/rules.php:125
+#: ../admin-pages/pages/rules/rules.php:181
+#: ../admin-pages/pages/rules/rules.php:237
+#: ../admin-pages/pages/rules/rules.php:300
+#: ../admin-pages/pages/seasons/seasons.php:43
+msgid "Actions"
+msgstr "Acties"
+
+#: ../admin-pages/pages/emails/emails.php:112
+msgid "TEXT"
+msgstr "TEXT"
+
+#: ../admin-pages/pages/emails/emails.php:114 ../utils/options-utils.php:444
+msgid "HTML"
+msgstr "HTML"
+
+#: ../admin-pages/pages/emails/emails.php:130
+msgid "\"From address\" fields:"
+msgstr "\"Van adres\" velden:"
+
+#: ../admin-pages/pages/emails/emails.php:131
+msgid ""
+"Insert a complete e-mail address eg. <b>Name &lt;email@domain.com&gt;</b>"
+msgstr ""
+"Voeg een volledig e-mail adres in bijv. <b>Naam &lt;email@domain.com&gt;</b>"
+
+#: ../admin-pages/pages/emails/emails.php:132
+msgid "\"To address\" and \"From address\" fields:"
+msgstr "\"Aan adres\" en \"Van adres\" velden:"
+
+#: ../admin-pages/pages/emails/emails.php:133
+msgid ""
+"If the field is blank the email address of the WordPress administrator will "
+"be use."
+msgstr ""
+"Indien het veld leeg is wordt het e-mail adres van de WordPress "
+"administrator gebruikt."
+
+#: ../admin-pages/pages/emails/emails.php:134
+msgid "\"To address\", \"From address\", \"Subject\" and \"Message\" fields:"
+msgstr "\"Aan adres”, \"Van adres”, “Onderwerp” en “Bericht” velden:"
+
+#: ../admin-pages/pages/emails/emails.php:137
+msgid "You can use the following variables:"
+msgstr "U kan de volgende variabelen gebruiken:"
+
+#: ../admin-pages/pages/fees/fees.php:10
+msgid "New fee"
+msgstr "Nieuwe toeslag"
+
+#: ../admin-pages/pages/fees/fees.php:11
+#: ../admin-pages/pages/options/options.php:12
+#: ../admin-pages/pages/rates/rates.php:37
+msgid "Invalid amount."
+msgstr "Ongeldig bedrag."
+
+#: ../admin-pages/pages/fees/fees.php:12 ../admin-pages/pages/fees/fees.php:91
+#: ../admin-pages/pages/options/options.php:13
+#: ../admin-pages/pages/options/options.php:107
+#: ../admin-pages/pages/options/options.php:147
+#: ../admin-pages/pages/reservations/reservations.php:23
+#: ../admin-pages/pages/reservations/reservations.php:306
+#: ../admin-pages/pages/reservations/reservations.php:580
+msgid "Adults:"
+msgstr "Volwassenen:"
+
+#: ../admin-pages/pages/fees/fees.php:13 ../admin-pages/pages/fees/fees.php:95
+#: ../admin-pages/pages/options/options.php:14
+#: ../admin-pages/pages/options/options.php:111
+#: ../admin-pages/pages/options/options.php:151
+#: ../admin-pages/pages/reservations/reservations.php:24
+#: ../admin-pages/pages/reservations/reservations.php:310
+#: ../admin-pages/pages/reservations/reservations.php:583
+msgid "Children:"
+msgstr "Kinderen:"
+
+#: ../admin-pages/pages/fees/fees.php:22
+msgid "Per accommodation (percentage)"
+msgstr "Per accommodatie (percentage)"
+
+#: ../admin-pages/pages/fees/fees.php:26
+msgid "Global (fixed)"
+msgstr "Globaal (vast)"
+
+#: ../admin-pages/pages/fees/fees.php:30
+msgid "Global (percentage)"
+msgstr "Globaal (percentage)"
+
+#: ../admin-pages/pages/fees/fees.php:45 ../utils/utils.php:1519
+msgid "Fees"
+msgstr "Toeslagen"
+
+#: ../admin-pages/pages/fees/fees.php:46
+msgid "Add new fee"
+msgstr "Voeg nieuwe toeslag toe"
+
+#: ../admin-pages/pages/fees/fees.php:55
+msgid "No fees have been created yet."
+msgstr "Er zijn nog geen toeslagen aangemaakt."
+
+#: ../admin-pages/pages/fees/fees.php:62
+msgid "Fee name"
+msgstr "Toeslag naam"
+
+#: ../admin-pages/pages/fees/fees.php:63
+#: ../admin-pages/pages/options/options.php:48
+msgid "Type"
+msgstr "Type"
+
+#: ../admin-pages/pages/fees/fees.php:64
+#: ../admin-pages/pages/options/options.php:49
+#: ../admin-pages/pages/rates/rates.php:149
+#: ../admin-pages/pages/rates/rates.php:253
+msgid "Amount"
+msgstr "Bedrag"
+
+#: ../admin-pages/pages/forms/forms.php:8
+msgid "Forms settings have been saved."
+msgstr "Formulierinstellingen zijn opgeslagen."
+
+#: ../admin-pages/pages/forms/forms.php:11
+msgid "(This will also erase all customer data associated to this field.)"
+msgstr "(Dit zal ook alle klantgegevens wissen gerelateerd aan dit veld)"
+
+#: ../admin-pages/pages/forms/forms.php:28 ../utils/utils.php:1524
+msgid "Forms"
+msgstr "Formulieren"
+
+#: ../admin-pages/pages/forms/forms.php:33
+msgid "Search form"
+msgstr "Zoekformulier"
+
+#: ../admin-pages/pages/forms/forms.php:45
+#: ../admin-pages/pages/text/text.php:25
+msgid "Accommodation selection"
+msgstr "Selectie accomodatie"
+
+#: ../admin-pages/pages/forms/forms.php:63
+msgid "Customer details form"
+msgstr "Formulier klantgegevens"
+
+#: ../admin-pages/pages/forms/forms.php:67
+msgid "Customize the Customer details form."
+msgstr "Het formulier voor klantgegevens aanpassen"
+
+#: ../admin-pages/pages/ical/ical.php:12
+msgid "Stop synchronizing with this calendar?"
+msgstr "Stop synchronisatie met deze kalender?"
+
+#: ../admin-pages/pages/ical/ical.php:23
+msgid "Ical synchronization and import/export"
+msgstr "iCal synchronisatie en import/export"
+
+#: ../admin-pages/pages/ical/ical.php:64
+#, php-format
+msgid ""
+"There seems to be a problem : %s Check that you have entered a valid URL."
+msgstr "Er is een probleem : %s Controleer of de url geldig is."
+
+#: ../admin-pages/pages/ical/ical.php:101
+msgid ""
+"At least one accommodation must be created in order to set iCal "
+"synchronization."
+msgstr ""
+"Er moet minstens één accommodatie aangemaakt zijn om de iCal synchronisatie "
+"in te stellen."
+
+#: ../admin-pages/pages/ical/ical.php:108
+msgid "Update calendars"
+msgstr "Kalenders updaten"
+
+#: ../admin-pages/pages/ical/ical.php:113
+msgid "Last synchronized on: "
+msgstr "Laatst gesynchroniseerd op: "
+
+#: ../admin-pages/pages/ical/ical.php:123 ../utils/utils.php:1364
+msgid "Accommodation type"
+msgstr "Accommodatie type"
+
+#: ../admin-pages/pages/ical/ical.php:125
+msgid "Export"
+msgstr "Exporteer"
+
+#: ../admin-pages/pages/ical/ical.php:126
+msgid "Import file"
+msgstr "Bestand importeren"
+
+#: ../admin-pages/pages/ical/ical.php:127
+msgid "Synchronize calendars"
+msgstr "Kalenders synchroniseren"
+
+#: ../admin-pages/pages/ical/ical.php:157
+msgid "Download .ics file"
+msgstr "Download .ics bestand"
+
+#: ../admin-pages/pages/ical/ical.php:157
+msgid "Get url"
+msgstr "Haal url op"
+
+#: ../admin-pages/pages/ical/ical.php:158
+msgid "Import a calendar file"
+msgstr "Importeer een kalenderbestand"
+
+#: ../admin-pages/pages/ical/ical.php:160
+#: ../admin-pages/pages/ical/ical.php:172
+msgid "Calendar name: "
+msgstr "Naam kalender:"
+
+#: ../admin-pages/pages/ical/ical.php:166
+#: ../admin-pages/pages/langfiles/langfiles.php:81
+msgid "Import"
+msgstr "Importeer"
+
+#: ../admin-pages/pages/ical/ical.php:170
+msgid "New calendar"
+msgstr "Nieuwe Kalender"
+
+#: ../admin-pages/pages/ical/ical.php:173
+msgid "Enter calendar URL: "
+msgstr "Geef kalender url:"
+
+#: ../admin-pages/pages/ical/ical.php:180
+msgid "Add"
+msgstr "Toevoegen"
+
+#: ../admin-pages/pages/langfiles/langfiles.php:10
+msgid "Select a language."
+msgstr "Kies taal"
+
+#: ../admin-pages/pages/langfiles/langfiles.php:11
+msgid "Choose a file to import."
+msgstr "Kies een bestand om te importeren."
+
+#: ../admin-pages/pages/langfiles/langfiles.php:22
+msgid "Languages (Import / Export language files)"
+msgstr "Talen (Importeer / Exporteer taalbestanden)"
+
+#: ../admin-pages/pages/langfiles/langfiles.php:38
+msgid "The language file is not valid."
+msgstr "Het taalbestand is niet geldig."
+
+#: ../admin-pages/pages/langfiles/langfiles.php:54
+#, php-format
+msgid "The import was successful (%d strings have been imported)."
+msgstr "Het importeren was succesvol (%d strings zijn geïmporteerd)."
+
+#: ../admin-pages/pages/langfiles/langfiles.php:63
+msgid "Import a file"
+msgstr "Bestand importeren"
+
+#: ../admin-pages/pages/langfiles/langfiles.php:66
+msgid "Language"
+msgstr "Taal"
+
+#: ../admin-pages/pages/langfiles/langfiles.php:89
+msgid "Export a file"
+msgstr "Bestand exporteren"
+
+#: ../admin-pages/pages/licence/licence.php:7
+msgid "Remove purchase code for this website?"
+msgstr "Verwijder de aankoopcode voor deze website?"
+
+#: ../admin-pages/pages/licence/licence.php:18 ../utils/utils.php:1564
+#: ../utils/utils.php:1572
+msgid "Licence"
+msgstr "Licentie"
+
+#: ../admin-pages/pages/licence/licence.php:22
+msgid "Where can I find my purchase code?"
+msgstr "Waar kan ik mijn aankoopcode vinden"
+
+#: ../admin-pages/pages/licence/licence.php:28
+msgid "Enter your purchase code"
+msgstr "Geef uw aankoopcode in"
+
+#: ../admin-pages/pages/licence/licence.php:30
+msgid "Verify purchase code"
+msgstr "Controleer aankoopcode"
+
+#: ../admin-pages/pages/licence/licence.php:38
+msgid "Your purchase code is valid."
+msgstr "Uw aankoopcode is geldig."
+
+#: ../admin-pages/pages/licence/licence.php:40
+msgid "Your purchase code is not valid."
+msgstr "Uw aankoopcode is niet geldig."
+
+#: ../admin-pages/pages/licence/licence.php:42
+msgid "This purchase code is already in use."
+msgstr "Uw aankoopcode is reeds in gebruik."
+
+#: ../admin-pages/pages/licence/licence.php:44
+msgid "The purchase code has been removed."
+msgstr "De aankoopcode is verwijderd."
+
+#: ../admin-pages/pages/licence/licence.php:56
+msgid "Remove purchase code for this website."
+msgstr "Verwijder de aankoopcode voor deze website."
+
+#: ../admin-pages/pages/misc/misc.php:20
+msgid "Miscellaneous"
+msgstr "Diversen"
+
+#: ../admin-pages/pages/misc/misc.php:108
+#, php-format
+msgid "Usual setting: first day is %s and date format is %s"
+msgstr "Gebruikelijke instelling: eerste dag is %s en datum formaat is %s"
+
+#: ../admin-pages/pages/misc/misc.php:121
+msgid "First day of the week"
+msgstr "Eerste dag van de week"
+
+#: ../admin-pages/pages/misc/misc.php:126
+msgid "Date format"
+msgstr "Datum formaat"
+
+#: ../admin-pages/pages/options/options.php:8
+msgid "New extra"
+msgstr "Nieuwe extra"
+
+#: ../admin-pages/pages/options/options.php:9
+msgid "New extra choice"
+msgstr "Nieuwe extra keuze"
+
+#: ../admin-pages/pages/options/options.php:29 ../utils/utils.php:1514
+msgid "Extra services"
+msgstr "Extra diensten"
+
+#: ../admin-pages/pages/options/options.php:30
+msgid "Add new extra"
+msgstr "Voeg nieuwe extra toe"
+
+#: ../admin-pages/pages/options/options.php:39
+msgid "No extra services have been created yet."
+msgstr "Er zijn nog geen extra diensten aangemaakt"
+
+#: ../admin-pages/pages/options/options.php:46
+msgid "Extra name"
+msgstr "Naam extra"
+
+#: ../admin-pages/pages/options/options.php:47
+msgid "Multiple choice"
+msgstr "Meerkeuze"
+
+#: ../admin-pages/pages/options/options.php:94
+msgid "Save to add choices."
+msgstr "Opslaan om keuzes toe te voegen."
+
+#: ../admin-pages/pages/payment/payment.php:20 ../utils/utils.php:1529
+msgid "Payment"
+msgstr "Betaling"
+
+#: ../admin-pages/pages/payment/payment.php:27
+msgid "Active payment gateways"
+msgstr "Actieve betaal gateways"
+
+#: ../admin-pages/pages/payment/payment.php:36
+#, php-format
+msgid "Activate %s:"
+msgstr "Activeer %s:"
+
+#: ../admin-pages/pages/rates/rates.php:20
+msgid "accommodation"
+msgstr "accommodatie"
+
+#: ../admin-pages/pages/rates/rates.php:21
+msgid "Accommodation rates"
+msgstr "Accommodatie prijzen"
+
+#: ../admin-pages/pages/rates/rates.php:25
+msgid "extra adults"
+msgstr "extra volwassenen"
+
+#: ../admin-pages/pages/rates/rates.php:26
+msgid "Price per adult above normal occupancy"
+msgstr "Prijs per volwassene boven de normale bezetting"
+
+#: ../admin-pages/pages/rates/rates.php:30
+msgid "extra children"
+msgstr "extra kinderen"
+
+#: ../admin-pages/pages/rates/rates.php:31
+msgid "Price per child above normal occupancy"
+msgstr "Prijs per kind boven de normale bezetting"
+
+#: ../admin-pages/pages/rates/rates.php:38
+#: ../admin-pages/pages/rules/rules.php:24
+msgid "No seasons selected"
+msgstr "Geen seizoenen geselecteerd"
+
+#: ../admin-pages/pages/rates/rates.php:40
+msgid "No discounts selected"
+msgstr "Geen kortingen geselecteerd"
+
+#: ../admin-pages/pages/rates/rates.php:41
+msgid "per night"
+msgstr "per nacht"
+
+#: ../admin-pages/pages/rates/rates.php:42
+#, php-format
+msgid "for a %s-night stay"
+msgstr "voor een verblijf van %s nachten"
+
+#: ../admin-pages/pages/rates/rates.php:43
+msgid "Unset"
+msgstr "Unset"
+
+#: ../admin-pages/pages/rates/rates.php:44
+msgid "nights and more"
+msgstr "nachten en meer"
+
+#: ../admin-pages/pages/rates/rates.php:62 ../utils/utils.php:1509
+msgid "Rates"
+msgstr "Prijzen"
+
+#: ../admin-pages/pages/rates/rates.php:74
+msgid ""
+"It seems Polylang is not set properly. Please read <a target=\"_blank\" href="
+"\"http://hotelwp.com/documentation/hbook/#faq-polylang\">HBook documentation "
+"about setting up Polylang and HBook.</a>"
+msgstr ""
+"Blijkbaar is Polylang niet correct ingesteld. Lees aub de <a target=\"_blank"
+"\" href=\"http://hotelwp.com/documentation/hbook/#faq-polylang\">HBook "
+"documentatie over het instellen van Polylang en HBook.</a>"
+
+#: ../admin-pages/pages/rates/rates.php:76
+msgid ""
+"It seems WPML is not set properly. Please read <a target=\"_blank\" href="
+"\"http://hotelwp.com/documentation/hbook/#faq-wpml\">HBook documentation "
+"about setting up WPML and HBook.</a>"
+msgstr ""
+"Blijkbaar is WPML niet correct ingesteld. Lees aub de <a target=\"_blank\" "
+"href=\"http://hotelwp.com/documentation/hbook/#faq-wpml\">HBook documentatie "
+"over het instellen van WPML en HBook.</a>"
+
+#: ../admin-pages/pages/rates/rates.php:78
+msgid ""
+"At least one accommodation which uses the default website language must be "
+"created in order to set rates."
+msgstr ""
+"Minstens één accommodatie die de default website taal gebruikt moet zijn "
+"aangemaakt om prijzen te kunnen instellen."
+
+#: ../admin-pages/pages/rates/rates.php:82
+msgid ""
+"At least one accommodation and one season must be created in order to set "
+"rates."
+msgstr ""
+"Minstens één accommodatie en één seizoen moet zijn aangemaakt om prijzen te "
+"kunnen instellen."
+
+#: ../admin-pages/pages/rates/rates.php:84
+msgid "At least one accommodation must be created in order to set rates."
+msgstr ""
+"Minstens één accommodatie moet zijn aangemaakt om prijzen te kunnen instellen"
+
+#: ../admin-pages/pages/rates/rates.php:88
+msgid "At least one one season must be created in order to set rates."
+msgstr ""
+"Minstens één seizoen moet zijn aangemaakt om prijzen te kunnen instellen"
+
+#: ../admin-pages/pages/rates/rates.php:95
+msgid "Add rate"
+msgstr "Voeg prijs toe"
+
+#: ../admin-pages/pages/rates/rates.php:100
+#, php-format
+msgid "No %s rates have been defined yet."
+msgstr "Geen %s prijzen zijn gedefinieerd."
+
+#: ../admin-pages/pages/rates/rates.php:119
+#: ../admin-pages/pages/rates/rates.php:148
+msgid "Discounts"
+msgstr "Kortingen"
+
+#: ../admin-pages/pages/rates/rates.php:121
+msgid "Add discount rate"
+msgstr "Voeg een korting toe"
+
+#: ../admin-pages/pages/rates/rates.php:130
+#, php-format
+msgid ""
+"No discount rules have been defined yet. You can define a discount rule on "
+"the <a href=\"%s\">Booking rules page</a>."
+msgstr ""
+"Er zijn nog geen kortingsregels gedefinieerd. U kan een kortingsregel "
+"definiëren op de pagina <a href=\"%s\">Boekingsregels</a>."
+
+#: ../admin-pages/pages/rates/rates.php:138
+msgid "No discount rates have been defined yet."
+msgstr "Er zijn nog geen kortingen gedefinieerd."
+
+#: ../admin-pages/pages/rates/rates.php:147
+#: ../admin-pages/pages/rates/rates.php:249
+#: ../admin-pages/pages/rules/rules.php:68
+#: ../admin-pages/pages/rules/rules.php:124
+#: ../admin-pages/pages/rules/rules.php:180
+#: ../admin-pages/pages/rules/rules.php:236
+#: ../admin-pages/pages/seasons/seasons.php:22 ../utils/utils.php:1499
+msgid "Seasons"
+msgstr "Seizoenen"
+
+#: ../admin-pages/pages/rates/rates.php:206
+msgid "for"
+msgstr "voor"
+
+#: ../admin-pages/pages/rates/rates.php:208
+msgid "night(s)"
+msgstr "nacht(en)"
+
+#: ../admin-pages/pages/rates/rates.php:251
+msgid "Special rates"
+msgstr "Speciale tarieven"
+
+#: ../admin-pages/pages/reservations/reservations.php:6
+msgid "New"
+msgstr "Nieuw"
+
+#: ../admin-pages/pages/reservations/reservations.php:7
+msgid "Pending"
+msgstr "Hangende"
+
+#: ../admin-pages/pages/reservations/reservations.php:8
+msgid "Confirmed"
+msgstr "Bevestigd"
+
+#: ../admin-pages/pages/reservations/reservations.php:9
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+#: ../admin-pages/pages/reservations/reservations.php:10
+#: ../utils/utils.php:1058
+msgid "Processing"
+msgstr "Processing"
+
+#: ../admin-pages/pages/reservations/reservations.php:11
+msgid "(not allocated)"
+msgstr "(niet toegewezen)"
+
+#: ../admin-pages/pages/reservations/reservations.php:12
+msgid "Paid"
+msgstr "Betaald"
+
+#: ../admin-pages/pages/reservations/reservations.php:13
+msgid "Unpaid"
+msgstr "Niet betaald"
+
+#: ../admin-pages/pages/reservations/reservations.php:14
+msgid "Not fully paid"
+msgstr "Niet volledig betaald"
+
+#: ../admin-pages/pages/reservations/reservations.php:15
+#: ../admin-pages/pages/reservations/reservations.php:652
+msgid "Paid:"
+msgstr "Betaald:"
+
+#: ../admin-pages/pages/reservations/reservations.php:16
+msgid "To be paid:"
+msgstr "Te betalen:"
+
+#: ../admin-pages/pages/reservations/reservations.php:17
+msgid "Delete reservation?"
+msgstr "Verwijder reservatie?"
+
+#: ../admin-pages/pages/reservations/reservations.php:18
+msgid "Select accommodation:"
+msgstr "Kies accommodatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:19
+msgid "Please select an accommodation."
+msgstr "Kies een accommodatie a.u.b."
+
+#: ../admin-pages/pages/reservations/reservations.php:20
+msgid "Please enter a customer id or customer details."
+msgstr "Geef een klant ID of de klantgegevens in."
+
+#: ../admin-pages/pages/reservations/reservations.php:21
+msgid "Please enter the id of an existing customer."
+msgstr "Geef het ID van een bestande klant in"
+
+#: ../admin-pages/pages/reservations/reservations.php:22
+msgid "No accommodation available."
+msgstr "Geen accommodatie beschikbaar"
+
+#: ../admin-pages/pages/reservations/reservations.php:25
+msgid "Reservation origin:"
+msgstr "Reservatiebron:"
+
+#: ../admin-pages/pages/reservations/reservations.php:26
+msgid "Invalid price."
+msgstr "Ongeldige prijs"
+
+#: ../admin-pages/pages/reservations/reservations.php:27
+#: ../admin-pages/pages/reservations/reservations.php:362
+msgid "Customer id:"
+msgstr "Klant ID:"
+
+#: ../admin-pages/pages/reservations/reservations.php:28
+#: ../utils/utils.php:534
+msgid "More information"
+msgstr "Meer informatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:29
+#: ../utils/utils.php:535
+msgid "Less information"
+msgstr "Minder informatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:30
+#: ../admin-pages/pages/reservations/reservations.php:377
+msgid "Comment:"
+msgstr "Opmerking:"
+
+#: ../admin-pages/pages/reservations/reservations.php:31
+msgid "Error:"
+msgstr "Fout:"
+
+#: ../admin-pages/pages/reservations/reservations.php:32
+msgid ""
+"The reservation could not be confirmed because there is no accommodation "
+"available for the reservation date."
+msgstr ""
+"De reservatie kon niet worden bevestigd omdat er geen accommodatie "
+"beschikbaar is voor de reservatiedatum."
+
+#: ../admin-pages/pages/reservations/reservations.php:33
+msgid "Please select the data you want to export."
+msgstr "Selecteer de data die u wil exporteren."
+
+#: ../admin-pages/pages/reservations/reservations.php:34
+msgid "Remove blocked dates?"
+msgstr "Verwijder geblokkeerde data?"
+
+#: ../admin-pages/pages/reservations/reservations.php:36
+msgid "Delete synchronization errors messages?"
+msgstr "Verwijder synchronisatie foutboodschappen?"
+
+#: ../admin-pages/pages/reservations/reservations.php:80
+msgid "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+msgstr "Jan,Feb,Maa,Apr,Mei,Jun,Jul,Aug,Sep,Okt,Nov,Dec"
+
+#: ../admin-pages/pages/reservations/reservations.php:82
+msgid "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
+msgstr "Zo,Ma,Di,Wo,Do,Vr,Za"
+
+#: ../admin-pages/pages/reservations/reservations.php:119
+msgid "Reservation details"
+msgstr "Details van de reservatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:122
+msgid "Click on a number in the calendar to view the reservation details"
+msgstr ""
+"Klik op een nummer in de kalender om de details van de reservatie te zien"
+
+#: ../admin-pages/pages/reservations/reservations.php:127
+msgid "Hide"
+msgstr "Verberg"
+
+#: ../admin-pages/pages/reservations/reservations.php:149
+msgid "Calendar"
+msgstr "Kalender"
+
+#: ../admin-pages/pages/reservations/reservations.php:154
+msgid "All accommodations"
+msgstr "Alle accommodaties"
+
+#: ../admin-pages/pages/reservations/reservations.php:184
+#: ../admin-pages/pages/reservations/reservations.php:215
+msgid "Block accommodation"
+msgstr "Blokkeer accommodatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:194
+#: ../admin-pages/pages/reservations/reservations.php:321
+#: ../admin-pages/pages/reservations/reservations.php:339
+msgid "Accommodation type:"
+msgstr "Accommodatie type:"
+
+#: ../admin-pages/pages/reservations/reservations.php:203
+msgid "Accommodation number:"
+msgstr "Accommodatie nummer:"
+
+#: ../admin-pages/pages/reservations/reservations.php:207
+#: ../utils/options-utils.php:450
+msgid "From:"
+msgstr "Van:"
+
+#: ../admin-pages/pages/reservations/reservations.php:211
+msgid "To:"
+msgstr "Tot:"
+
+#: ../admin-pages/pages/reservations/reservations.php:224
+msgid "There are no blocked accommodation at the moment"
+msgstr "Er zijn momenteel geen geblokkeerde accomodaties"
+
+#: ../admin-pages/pages/reservations/reservations.php:228
+msgid "Blocked accommodation"
+msgstr "Geblokkeerde accommodatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:234
+#: ../admin-pages/pages/seasons/seasons.php:40
+msgid "Start date"
+msgstr "Startdatum"
+
+#: ../admin-pages/pages/reservations/reservations.php:235
+#: ../admin-pages/pages/seasons/seasons.php:41
+msgid "End date"
+msgstr "Einddatum"
+
+#: ../admin-pages/pages/reservations/reservations.php:268
+msgid "Add a reservation"
+msgstr "Voeg een reservatie toe"
+
+#: ../admin-pages/pages/reservations/reservations.php:277
+#: ../database-actions/database-creation.php:416
+#: ../database-actions/database-creation.php:435
+msgid "Check-in date:"
+msgstr "Check-in datum:"
+
+#: ../admin-pages/pages/reservations/reservations.php:281
+#: ../database-actions/database-creation.php:417
+#: ../database-actions/database-creation.php:436
+msgid "Check-out date:"
+msgstr "Check-out datum:"
+
+#: ../admin-pages/pages/reservations/reservations.php:326
+msgid "Check price and availability"
+msgstr "Check prijs en beschikbaarheid"
+
+#: ../admin-pages/pages/reservations/reservations.php:344
+msgid "Total price:"
+msgstr "Totaalprijs:"
+
+#: ../admin-pages/pages/reservations/reservations.php:350
+msgid "Set a different price:"
+msgstr "Geef een andere prijs op"
+
+#: ../admin-pages/pages/reservations/reservations.php:356
+msgid "Customer:"
+msgstr "Klant:"
+
+#: ../admin-pages/pages/reservations/reservations.php:357
+msgid "Enter customer id"
+msgstr "Geef klant ID in"
+
+#: ../admin-pages/pages/reservations/reservations.php:358
+msgid "Enter customer details"
+msgstr "Geef de gegevens van de klant in"
+
+#: ../admin-pages/pages/reservations/reservations.php:382
+msgid "Create reservation"
+msgstr "Maak reservatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:387
+msgid "Updating database..."
+msgstr "Database aan het updaten..."
+
+#: ../admin-pages/pages/reservations/reservations.php:410
+msgid "Reservation list"
+msgstr "Reservatielijst"
+
+#: ../admin-pages/pages/reservations/reservations.php:413
+msgid "No reservations yet."
+msgstr "Nog geen reservaties."
+
+#: ../admin-pages/pages/reservations/reservations.php:445
+msgid "Export reservations"
+msgstr "Reservaties exporteren"
+
+#: ../admin-pages/pages/reservations/reservations.php:454
+msgid "Select reservations to be exported:"
+msgstr "Selecteer de te exporteren reservaties:"
+
+#: ../admin-pages/pages/reservations/reservations.php:460
+msgid "Received between"
+msgstr "Ontvangen tussen"
+
+#: ../admin-pages/pages/reservations/reservations.php:462
+msgid "and"
+msgstr "en"
+
+#: ../admin-pages/pages/reservations/reservations.php:466
+msgid "Select data to be exported:"
+msgstr "Selecteer de gegevens om te exporteren:"
+
+#: ../admin-pages/pages/reservations/reservations.php:488
+msgid "Customer information:"
+msgstr "Klant informatie:"
+
+#: ../admin-pages/pages/reservations/reservations.php:503
+msgid "Download file"
+msgstr "Bestand downloaden"
+
+#: ../admin-pages/pages/reservations/reservations.php:526
+#: ../utils/utils.php:1361
+msgid "Num"
+msgstr "Nummer"
+
+#: ../admin-pages/pages/reservations/reservations.php:527
+#: ../utils/utils.php:1371
+msgid "Status"
+msgstr "Status"
+
+#: ../admin-pages/pages/reservations/reservations.php:528
+msgid "Check-in / Check-out"
+msgstr "Check-in / Check-out"
+
+#: ../admin-pages/pages/reservations/reservations.php:530
+msgid "Accom. type"
+msgstr "Accom. type"
+
+#: ../admin-pages/pages/reservations/reservations.php:531
+msgid "(number)"
+msgstr "(aantal)"
+
+#: ../admin-pages/pages/reservations/reservations.php:533
+msgid "Information"
+msgstr "Informatie"
+
+#: ../admin-pages/pages/reservations/reservations.php:534
+#: ../utils/utils.php:1372
+msgid "Comment"
+msgstr "Opmerking"
+
+#: ../admin-pages/pages/reservations/reservations.php:535
+msgid "Customer"
+msgstr "Klant"
+
+#: ../admin-pages/pages/reservations/reservations.php:536
+msgid "Price / Payment"
+msgstr "Prijs / Betaling"
+
+#: ../admin-pages/pages/reservations/reservations.php:537
+#: ../utils/utils.php:1373
+msgid "Received on"
+msgstr "Ontvangen op"
+
+#: ../admin-pages/pages/reservations/reservations.php:554
+msgid "night"
+msgstr "nacht"
+
+#: ../admin-pages/pages/reservations/reservations.php:555
+#: ../admin-pages/pages/rules/rules.php:193
+#: ../admin-pages/pages/rules/rules.php:202
+#: ../admin-pages/pages/rules/rules.php:249
+#: ../admin-pages/pages/rules/rules.php:258
+#: ../admin-pages/pages/rules/rules.php:319
+#: ../admin-pages/pages/rules/rules.php:327
+#: ../admin-pages/pages/rules/rules.php:343
+#: ../admin-pages/pages/rules/rules.php:350
+msgid "nights"
+msgstr "nachten"
+
+#: ../admin-pages/pages/reservations/reservations.php:558
+msgid "Current accom.:"
+msgstr "Huidige accomm:"
+
+#: ../admin-pages/pages/reservations/reservations.php:562
+msgid "Updating..."
+msgstr "Aan het updaten..."
+
+#: ../admin-pages/pages/reservations/reservations.php:563
+msgid "Fetching available accom..."
+msgstr "Beschikbare accommodaties ophalen..."
+
+#: ../admin-pages/pages/reservations/reservations.php:566
+msgid "Select new accom.:"
+msgstr "Selecteer nieuwe accomm.:"
+
+#: ../admin-pages/pages/reservations/reservations.php:587
+#: ../admin-pages/pages/reservations/reservations.php:602
+#: ../admin-pages/pages/reservations/reservations.php:615
+#: ../admin-pages/pages/reservations/reservations.php:621
+#: ../admin-pages/pages/reservations/reservations.php:656
+msgid "Saving"
+msgstr "Opslaan"
+
+#: ../admin-pages/pages/reservations/reservations.php:596
+msgid "Add a comment"
+msgstr "Voeg opmerking toe"
+
+#: ../admin-pages/pages/reservations/reservations.php:613
+msgid "Customer details"
+msgstr "Klantgegevens"
+
+#: ../admin-pages/pages/reservations/reservations.php:627
+msgid "Create customer"
+msgstr "Klant aanmaken"
+
+#: ../admin-pages/pages/reservations/reservations.php:628
+msgid "Creating customer..."
+msgstr "Klant wordt aangemaakt..."
+
+#: ../admin-pages/pages/reservations/reservations.php:640
+msgid "Mark as paid"
+msgstr "Markeer als betaald"
+
+#: ../admin-pages/pages/reservations/reservations.php:641
+msgid "Marking as paid..."
+msgstr "Aan het markeren als betaald"
+
+#: ../admin-pages/pages/reservations/reservations.php:646
+msgid "Edit payment"
+msgstr "Betaling wijzigen"
+
+#: ../admin-pages/pages/reservations/reservations.php:649
+#: ../database-actions/database-creation.php:421
+#: ../database-actions/database-creation.php:440
+msgid "Price:"
+msgstr "Prijs:"
+
+#: ../admin-pages/pages/reservations/reservations.php:669
+#: ../admin-pages/pages/reservations/reservations.php:670
+msgid "Confirm"
+msgstr "Bevestig"
+
+#: ../admin-pages/pages/reservations/reservations.php:675
+msgid "Processing..."
+msgstr "Bezig…"
+
+#: ../admin-pages/pages/reservations/reservations.php:696
+#, php-format
+msgid "Viewing page %s of %s"
+msgstr "Weergave pagina %s van %s"
+
+#: ../admin-pages/pages/reservations/reservations.php:717
+#, php-format
+msgid ""
+"There was a connection error to synchronize the calendar named %1$s and with "
+"the url %2$s for the accommodation %3$s (%4$s)"
+msgstr ""
+"Er was een connectiefout bij het synchroniseren van de kalender %1$s met de "
+"url %2$s voor de accommodatie %3$s (%4$s)"
+
+#: ../admin-pages/pages/reservations/reservations.php:720
+#, php-format
+msgid ""
+"A reservation of the calendar named %1$s could not be imported as the "
+"accommodation %2$s (%3$s) is not available for a check-in on %4$s and a "
+"check-out on %5$s"
+msgstr ""
+"Een reservatie van de kalender %1$s kon niet worden geïmporteerd aangezien "
+"de accommodatie %2$s (%3$s) niet beschikbaar is voor check-in op %4$s en "
+"check-out op %5$s"
+
+#: ../admin-pages/pages/reservations/reservations.php:723
+#, php-format
+msgid ""
+"A reservation of the calendar named %1$s has been modified. Changes have not "
+"been reflected in the Reservation list below. This reservation is for the "
+"accommodation %2$s (%3$s) and appears in the Reservation list with a check-"
+"in on %4$s and a check-out on %5$s."
+msgstr ""
+"Een reservatie van de kalender %1$s werd gewijzigd. De wijzigingen worden "
+"niet weergegeven in de reservatielijst hieronder. Deze reservatie is voor "
+"accommodatie %2$s (%3$s) en komt voor in de reservatielijst met check-in op "
+"%4$s en check-out op %5$s."
+
+#: ../admin-pages/pages/rules/rules.php:12
+msgid "Compulsory"
+msgstr "Verplicht"
+
+#: ../admin-pages/pages/rules/rules.php:13
+msgid "Special rate"
+msgstr "Speciaal tarief"
+
+#: ../admin-pages/pages/rules/rules.php:14
+msgid "Compulsory and special rate"
+msgstr "Verplicht en speciaal tarief"
+
+#: ../admin-pages/pages/rules/rules.php:15
+msgid "Discount"
+msgstr "Korting"
+
+#: ../admin-pages/pages/rules/rules.php:19
+msgid "Any"
+msgstr "Elke"
+
+#: ../admin-pages/pages/rules/rules.php:20
+#: ../admin-pages/pages/seasons/seasons.php:8
+msgid "No days selected"
+msgstr "Geen dagen geselecteerd"
+
+#: ../admin-pages/pages/rules/rules.php:21
+msgid "New rule"
+msgstr "Nieuwe regel"
+
+#: ../admin-pages/pages/rules/rules.php:41 ../utils/utils.php:1504
+msgid "Booking rules"
+msgstr "Boekingsregels"
+
+#: ../admin-pages/pages/rules/rules.php:52
+msgid "Check-in days"
+msgstr "Check-in dagen"
+
+#: ../admin-pages/pages/rules/rules.php:53
+#: ../admin-pages/pages/rules/rules.php:109
+#: ../admin-pages/pages/rules/rules.php:165
+#: ../admin-pages/pages/rules/rules.php:221
+#: ../admin-pages/pages/rules/rules.php:277
+msgid "Add rule"
+msgstr "Regel toevoegen"
+
+#: ../admin-pages/pages/rules/rules.php:58
+msgid "Customers can check-in any day."
+msgstr "Klanten kunnen elke dag inchecken."
+
+#: ../admin-pages/pages/rules/rules.php:66
+msgid "Allowed check-in days"
+msgstr "Toegelaten check-in dagen"
+
+#: ../admin-pages/pages/rules/rules.php:108
+msgid "Check-out days"
+msgstr "Check-out dagen"
+
+#: ../admin-pages/pages/rules/rules.php:114
+msgid "Customers can check-out any day."
+msgstr "Klanten kunnen elke dag uitchecken."
+
+#: ../admin-pages/pages/rules/rules.php:122
+msgid "Allowed check-out days"
+msgstr "Toegelaten check-out dagen"
+
+#: ../admin-pages/pages/rules/rules.php:164
+msgid "Minimum stay length"
+msgstr "Minimum lengte verblijf"
+
+#: ../admin-pages/pages/rules/rules.php:170
+msgid "There is no minimum stay rules."
+msgstr "Er zijn geen regels voor minimum verblijf"
+
+#: ../admin-pages/pages/rules/rules.php:178
+msgid "Minimum stay"
+msgstr "Minimum verblijf"
+
+#: ../admin-pages/pages/rules/rules.php:220
+msgid "Maximum stay length"
+msgstr "Maximum lengte verblijf"
+
+#: ../admin-pages/pages/rules/rules.php:226
+msgid "There is no maximum stay rules."
+msgstr "Er zijn geen regels voor maximum verblijf"
+
+#: ../admin-pages/pages/rules/rules.php:234
+msgid "Maximum stay"
+msgstr "Maximum verblijf"
+
+#: ../admin-pages/pages/rules/rules.php:276
+msgid "Advanced booking rules"
+msgstr "Geavanceerde boekingsregels"
+
+#: ../admin-pages/pages/rules/rules.php:281
+msgid ""
+"You may define advanced rules to create compulsory settings for stays, "
+"special rates, or discounts."
+msgstr ""
+"U kan geavanceerde boekingsregels definiëren om verplichte instellingen aan "
+"te maken voor verblijven, speciale tarieven of kortingen."
+
+#: ../admin-pages/pages/rules/rules.php:284
+msgid "There is no advanced rules."
+msgstr "Er zijn geen geavanceerde regels."
+
+#: ../admin-pages/pages/rules/rules.php:293
+msgid "If check-in is on a:"
+msgstr "Als check-in is op een:"
+
+#: ../admin-pages/pages/rules/rules.php:294
+msgid "then check-out is on a:"
+msgstr "dan is check-out op een:"
+
+#: ../admin-pages/pages/rules/rules.php:295
+msgid "and minimum stay is:"
+msgstr "en minimum verblijf is:"
+
+#: ../admin-pages/pages/rules/rules.php:295
+#: ../admin-pages/pages/rules/rules.php:296
+msgid "(leave empty if not applicable)"
+msgstr "(Laat leeg indien niet van toepassing)"
+
+#: ../admin-pages/pages/rules/rules.php:296
+msgid "and maximum stay is:"
+msgstr "en maximum verblijf is:"
+
+#: ../admin-pages/pages/rules/rules.php:297
+msgid "for accommodation:"
+msgstr "voor accommodatie:"
+
+#: ../admin-pages/pages/rules/rules.php:298
+msgid "for season:"
+msgstr "voor seizoen:"
+
+#: ../admin-pages/pages/rules/rules.php:299
+msgid "Rule type"
+msgstr "Regel type"
+
+#: ../admin-pages/pages/seasons/seasons.php:7
+msgid "New season"
+msgstr "Nieuw seizoen"
+
+#: ../admin-pages/pages/seasons/seasons.php:23
+msgid "Add new season"
+msgstr "Nieuw seizoen toevoegen"
+
+#: ../admin-pages/pages/seasons/seasons.php:32
+msgid "No seasons set yet."
+msgstr "Nog geen seizoenen ingesteld."
+
+#: ../admin-pages/pages/seasons/seasons.php:39
+msgid "Season name"
+msgstr "Naam seizoen"
+
+#: ../admin-pages/pages/seasons/seasons.php:42
+msgid "Days"
+msgstr "Dagen"
+
+#: ../admin-pages/pages/text/text.php:12
+msgid "All text has been saved."
+msgstr "Alle tekst is opgeslagen."
+
+#: ../admin-pages/pages/text/text.php:17
+msgid "Search form text"
+msgstr "Tekst bij zoekformulier"
+
+#: ../admin-pages/pages/text/text.php:21
+msgid "Search form messages"
+msgstr "Berichten bij zoekformulier"
+
+#: ../admin-pages/pages/text/text.php:29
+msgid "Extra services selection"
+msgstr "Selectie extra diensten"
+
+#: ../admin-pages/pages/text/text.php:33
+msgid "Booking details form text"
+msgstr "Tekst bij formulier met boekingsdetails"
+
+#: ../admin-pages/pages/text/text.php:37
+msgid "Booking details form messages"
+msgstr "Berichten bij formulier met boekingsdetails"
+
+#: ../admin-pages/pages/text/text.php:41
+msgid "Summary"
+msgstr "Samenvatting"
+
+#: ../admin-pages/pages/text/text.php:45
+msgid "Payment choice"
+msgstr "Keuze betaling"
+
+#: ../admin-pages/pages/text/text.php:49
+msgid "Stripe payment"
+msgstr "Betaling via Stripe"
+
+#: ../admin-pages/pages/text/text.php:53
+msgid "Paypal payment"
+msgstr "Betaling via PayPal"
+
+#: ../admin-pages/pages/text/text.php:61
+msgid "Book now area"
+msgstr "Boek nu gebied"
+
+#: ../admin-pages/pages/text/text.php:65
+msgid "Error messages"
+msgstr "Foutboodschappen"
+
+#: ../admin-pages/pages/text/text.php:69
+msgid "Calendars legend"
+msgstr "Legende kalenders"
+
+#: ../admin-pages/pages/text/text.php:73
+msgid "Rates table"
+msgstr "Prijstabel"
+
+#: ../admin-pages/pages/text/text.php:77
+msgid "Accommodation list"
+msgstr "Lijst van accommmodaties"
+
+#: ../admin-pages/pages/text/text.php:104
+msgid "HBook text"
+msgstr "HBook tekst"
+
+#: ../admin-pages/pages/text/text.php:108 ../utils/options-utils.php:691
+msgid "Save changes"
+msgstr "Wijzigingen bewaren"
+
+#: ../admin-pages/pages/text/text.php:127
+msgid "Leave the following fields blank to use their default name."
+msgstr "Laat de volgende velden leeg om hun standaard naam te gebruiken"
+
+#: ../admin-pages/pages/text/text.php:141
+msgid "You can use these variables:"
+msgstr "U kan deze variabelen gebruiken:"
+
+#: ../admin-pages/pages/text/text.php:143
+msgid "You can use this variable:"
+msgstr "U kan deze variabele gebruiken:"
+
+#: ../database-actions/database-creation.php:389
+#: ../database-actions/database-creation.php:872
+msgid "Admin notification"
+msgstr "Notificatie voor beheerder"
+
+#: ../database-actions/database-creation.php:394
+msgid "New reservation:"
+msgstr "Nieuwe reservatie:"
+
+#: ../database-actions/database-creation.php:395
+msgid "- Customer first name:"
+msgstr "- Voornaam klant"
+
+#: ../database-actions/database-creation.php:396
+msgid "- Customer last name:"
+msgstr "- Familienaam klant:"
+
+#: ../database-actions/database-creation.php:397
+msgid "- Customer email:"
+msgstr "- E-mail klant"
+
+#: ../database-actions/database-creation.php:398
+msgid "- Check-in date:"
+msgstr "- Check-in datum"
+
+#: ../database-actions/database-creation.php:399
+msgid "- Check-out date:"
+msgstr "- Check-out datum:"
+
+#: ../database-actions/database-creation.php:400
+msgid "- Number of adults:"
+msgstr "- Aantal volwassenen"
+
+#: ../database-actions/database-creation.php:401
+msgid "- Number of children:"
+msgstr "- Aantal kinderen:"
+
+#: ../database-actions/database-creation.php:402
+msgid "- Accommodation:"
+msgstr "- Accommodatie:"
+
+#: ../database-actions/database-creation.php:403
+msgid "- Price:"
+msgstr "- Prijs:"
+
+#: ../database-actions/database-creation.php:409
+#: ../database-actions/database-creation.php:873
+msgid "Customer notification"
+msgstr "Notificatie naar de klant"
+
+#: ../database-actions/database-creation.php:412
+#: ../database-actions/database-creation.php:431
+msgid "Your reservation"
+msgstr "Uw reservatie"
+
+#: ../database-actions/database-creation.php:414
+#: ../database-actions/database-creation.php:433
+msgid "Hello"
+msgstr "Hallo"
+
+#: ../database-actions/database-creation.php:415
+#: ../database-actions/database-creation.php:434
+msgid ""
+"Thank you for choosing to stay with us! We are pleased to confirm your "
+"reservation as follows:"
+msgstr ""
+"Dank u dat u ons gekozen heeft voor uw verblijf. We bevestigen graag uw "
+"reservatie als volgt:"
+
+#: ../database-actions/database-creation.php:418
+#: ../database-actions/database-creation.php:437
+msgid "Number of adults:"
+msgstr "Aantal volwassenen"
+
+#: ../database-actions/database-creation.php:419
+#: ../database-actions/database-creation.php:438
+msgid "Number of children:"
+msgstr "Aantal kinderen:"
+
+#: ../database-actions/database-creation.php:420
+#: ../database-actions/database-creation.php:439
+msgid "Accommodation:"
+msgstr "Accommodatie:"
+
+#: ../database-actions/database-creation.php:422
+#: ../database-actions/database-creation.php:441
+msgid "See you soon!"
+msgstr "Tot binnenkort!"
+
+#: ../front-end/shortcode_hb_availability.php:25
+msgid "Invalid shortcode. Use: [hb_availability accom_id=\"ID\"]"
+msgstr "Ongeldige shortcode. Gebruik: [hb_availability accom_id=\"ID\"]"
+
+#: ../front-end/shortcode_hb_availability.php:27
+#: ../front-end/shortcode_hb_rates.php:44
+msgid ""
+"Invalid shortcode. Please use the id of an accommodation which is set in the "
+"website default language."
+msgstr ""
+"Ongeldige shortcode. Gebruik de ID van een accommodatie welke in de "
+"standaard websitetaal staat."
+
+#: ../front-end/shortcode_hb_availability.php:29
+#: ../front-end/shortcode_hb_rates.php:46
+#, php-format
+msgid "Invalid shortcode. Could not find an accommodation whose id is %s."
+msgstr "Ongeldige shortcode. Kon geen accommodatie vinden met ID %s."
+
+#: ../front-end/shortcode_hb_booking_form.php:166
+msgid ""
+"You have activated PayPal payment gateway: therefore you need to add a "
+"\"paypal_return_url\" parameter in the [hb_booking_form] shortcode. "
+msgstr ""
+"U hebt een PayPal gateway geactiveerd: daarom moet u een \"paypal_return_url"
+"\" parameter toevoegen in de [hb_booking_form] shortcode. "
+
+#: ../front-end/shortcode_hb_booking_form.php:167
+msgid ""
+"The value of this \"paypal_return_url\" parameter must be the url of a page "
+"that contains a [hb_paypal_confirmation] shortcode. "
+msgstr ""
+"De waarde van deze \"paypal_return_url\" parameter moet de url zijn van een "
+"pagina die de [hb_paypal_confirmation] shortcode bevat."
+
+#: ../front-end/shortcode_hb_booking_form.php:168
+#, php-format
+msgid "Consult the %s documentation %s for more information."
+msgstr "Raadpleeg de %s documentatie %s voor meer informatie."
+
+#: ../front-end/shortcode_hb_rates.php:42
+msgid "Invalid shortcode. Use: [hb_rates accom_id=\"ID\"]"
+msgstr "Ongeldige shortcode. Gebruik: [hb_rates accom_id=\"ID\"]"
+
+#: ../front-end/booking-form/details-form.php:72
+msgid ""
+"There is no active payment gateways. Please activate at least one payment "
+"gateway in HBook settings (Hbook > Payment)."
+msgstr ""
+"Er is geen actieve betalingsgateway. Activeer ten minste één gateway in de "
+"HBook instellingen (Hbook > Betaling)"
+
+#: ../payment/paypal/paypal.php:37
+msgid "Paypal settings"
+msgstr "PayPal instellingen"
+
+#: ../payment/paypal/paypal.php:41
+msgid "Paypal mode:"
+msgstr "PayPal modus:"
+
+#: ../payment/paypal/paypal.php:44 ../payment/stripe/stripe.php:41
+msgid "Live"
+msgstr "Live"
+
+#: ../payment/paypal/paypal.php:45
+msgid "Sandbox"
+msgstr "Sandbox"
+
+#: ../payment/paypal/paypal.php:50
+msgid "Sandbox API Username:"
+msgstr "Sandbox API gebruikersnaam:"
+
+#: ../payment/paypal/paypal.php:55
+msgid "Sandbox API Password:"
+msgstr "Sandbox API paswoord:"
+
+#: ../payment/paypal/paypal.php:60
+msgid "Sandbox API Signature:"
+msgstr "Sandbox API handtekening:"
+
+#: ../payment/paypal/paypal.php:65
+msgid "Live API Username:"
+msgstr "Live API gebruikersnaam:"
+
+#: ../payment/paypal/paypal.php:70
+msgid "Live API Password:"
+msgstr "Live API paswoord:"
+
+#: ../payment/paypal/paypal.php:75
+msgid "Live API Signature:"
+msgstr "Live API handtekening:"
+
+#: ../payment/stripe/stripe.php:34
+msgid "Stripe settings"
+msgstr "Stripe instellingen"
+
+#: ../payment/stripe/stripe.php:38
+msgid "Stripe mode:"
+msgstr "Stripe modus:"
+
+#: ../payment/stripe/stripe.php:42
+msgid "Test"
+msgstr "Test"
+
+#: ../payment/stripe/stripe.php:47
+msgid "Test Secret Key:"
+msgstr "Test Secret Key:"
+
+#: ../payment/stripe/stripe.php:52
+msgid "Test Publishable Key:"
+msgstr "Test Publishable Key:"
+
+#: ../payment/stripe/stripe.php:57
+msgid "Live Secret Key:"
+msgstr "Live Secret Key:"
+
+#: ../payment/stripe/stripe.php:62
+msgid "Live Publishable Key:"
+msgstr "Live Publishable Key:"
+
+#: ../payment/stripe/stripe.php:159
+msgid "from"
+msgstr "van"
+
+#: ../payment/stripe/stripe.php:159
+msgid "to"
+msgstr "aan"
+
+#: ../utils/options-utils.php:20
+msgid "Booking payment settings"
+msgstr "Instellingen voor de betaling van de boeking"
+
+#: ../utils/options-utils.php:24
+msgid "Customers can choose between different payment options:"
+msgstr "Klanten kunnen kiezen tussen verschillende betaalmogelijkheden:"
+
+#: ../utils/options-utils.php:34
+msgid "Booking payment:"
+msgstr "Betaling van de boeking:"
+
+#: ../utils/options-utils.php:37
+msgid "Customers do not have to pay online to book an accommodation"
+msgstr "Klanten moeten niet online betalen om een accommodatie te boeken"
+
+#: ../utils/options-utils.php:38
+msgid "Customers have to pay a deposit online to book an accommodation"
+msgstr ""
+"Klanten moeten een voorschot online betalen om een accommodatie te boeken"
+
+#: ../utils/options-utils.php:39
+msgid ""
+"Customers have to pay the full stay price online to book an accommodation"
+msgstr ""
+"Klanten moeten de volledige prijs voor het verblijf online betalen om een "
+"accommodatie te boeken"
+
+#: ../utils/options-utils.php:46
+msgid "Customers can pay offline / on arrival:"
+msgstr "Klanten kunnen offline / bij aankomst betalen:"
+
+#: ../utils/options-utils.php:57
+msgid "Customers can pay an online deposit:"
+msgstr "Klanten kunnen online een voorschot betalen:"
+
+#: ../utils/options-utils.php:68
+msgid "Customers can pay the full amount online:"
+msgstr "Klanten kunnen online het volledige bedrag betalen:"
+
+#: ../utils/options-utils.php:79
+msgid "Deposit type:"
+msgstr "Type voorschot"
+
+#: ../utils/options-utils.php:82
+msgid "None"
+msgstr "Geen"
+
+#: ../utils/options-utils.php:90
+msgid "Deposit amount:"
+msgstr "Voorschotbedrag:"
+
+#: ../utils/options-utils.php:99
+msgid "Price settings"
+msgstr "Prijs instellingen"
+
+#: ../utils/options-utils.php:103
+msgid "Payment currency:"
+msgstr "Munteenheid betaling:"
+
+#: ../utils/options-utils.php:109
+msgid "Currency symbol position:"
+msgstr "Plaatsing symbool munteenheid:"
+
+#: ../utils/options-utils.php:112
+msgid "Before price"
+msgstr "Voor de prijs"
+
+#: ../utils/options-utils.php:113
+msgid "After price"
+msgstr "Na de prijs"
+
+#: ../utils/options-utils.php:118
+msgid "Price precision:"
+msgstr "Prijs nauwkeurigeid"
+
+#: ../utils/options-utils.php:121
+msgid "Two decimals"
+msgstr "Twee decimalen"
+
+#: ../utils/options-utils.php:122
+msgid "No decimals"
+msgstr "Geen decimalen"
+
+#: ../utils/options-utils.php:135
+msgid "General settings"
+msgstr "Algemene instellingen"
+
+#: ../utils/options-utils.php:139
+msgid "Form style:"
+msgstr "Stijl formulier:"
+
+#: ../utils/options-utils.php:142
+msgid "Theme (use the theme styles)"
+msgstr "Thema (gebruik de stijlen van het thema)"
+
+#: ../utils/options-utils.php:143
+msgid "Plugin (use the HBook plugin styles)"
+msgstr "Plugin (gebruik de stijlen van de HBook plugin)"
+
+#: ../utils/options-utils.php:148
+msgid "Minimum width required for displaying a horizontal form:"
+msgstr ""
+"Minimum breedte nodig voor het weergeven van een horizontaal formulier:"
+
+#: ../utils/options-utils.php:149
+msgid ""
+"If the available space is less than the minimum width the form will be "
+"displayed vertically."
+msgstr ""
+"Indien de beschikbare ruimte minder is dan het minimum zal het formulier "
+"verticaal worden weergegeven."
+
+#: ../utils/options-utils.php:155
+msgid "Page padding top:"
+msgstr "Pagina padding top:"
+
+#: ../utils/options-utils.php:165
+msgid "Calendars appearance"
+msgstr "Weergave kalenders"
+
+#: ../utils/options-utils.php:169
+msgid "Add a shadow to calendars:"
+msgstr "Voeg een schaduw toe aan de kalenders:"
+
+#: ../utils/options-utils.php:181
+msgid "Custom CSS"
+msgstr "Maatwerk CSS"
+
+#: ../utils/options-utils.php:185
+msgid "Custom CSS for the front-end pages:"
+msgstr "Maatwerk CSS voor de front-end pagina's:"
+
+#: ../utils/options-utils.php:189
+msgid "Custom CSS for the admin pages:"
+msgstr "Maatwerk CSS voor de admin pagina's:"
+
+#: ../utils/options-utils.php:201
+msgid "Confirmation settings"
+msgstr "Confirmatie instellingen"
+
+#: ../utils/options-utils.php:205
+msgid "Unpaid reservations have to be confirmed before dates are blocked out:"
+msgstr ""
+"Onbetaalde reservaties moeten eerst bevestigd zijn voor de data worden "
+"geblokkeerd:"
+
+#: ../utils/options-utils.php:214
+msgid "Paid reservations have to be confirmed before dates are blocked out:"
+msgstr ""
+"Betaalde reservaties moeten eerst bevestigd zijn voor de data worden "
+"geblokkkeerd:"
+
+#: ../utils/options-utils.php:226
+msgid "Opening dates"
+msgstr "Openingsdata"
+
+#: ../utils/options-utils.php:230
+msgid "Minimum selectable date for a reservation:"
+msgstr "Minimum selecteerbare datum voor een reservatie:"
+
+#: ../utils/options-utils.php:231
+msgid "Enter a number of <u>days</u> from current date..."
+msgstr "Geef een aantal <u>dagen</u> in vanaf de huidige datum..."
+
+#: ../utils/options-utils.php:236 ../utils/options-utils.php:248
+msgid "...or enter a fixed date (yyyy-mm-dd format)"
+msgstr "... of geef een vaste datum in (yyyy-mm-dd formaat)"
+
+#: ../utils/options-utils.php:241
+msgid "Maximum selectable date for a reservation:"
+msgstr "Maximum selecteerbare datum voor een reservatie:"
+
+#: ../utils/options-utils.php:242
+msgid "Enter the maximum number of <u>months</u> ahead..."
+msgstr "Geef het maximum aantal <u>maanden</u> voorop in..."
+
+#: ../utils/options-utils.php:256
+msgid "Date settings"
+msgstr "Datum instellingen"
+
+#: ../utils/options-utils.php:263
+msgid "Terms and conditions"
+msgstr "Algemene voorwaarden"
+
+#: ../utils/options-utils.php:267
+msgid "Display a terms and conditions checkbox:"
+msgstr "Toon een \"algemene voorwaarden\" checkbox:"
+
+#: ../utils/options-utils.php:268
+#, php-format
+msgid ""
+"You can change the text of the terms and conditions checkbox on the %s Text "
+"page%s."
+msgstr ""
+"U kan de tekst van de checkbox voor de algemene voorwaarden aanpassen op de "
+"%s Text page%s."
+
+#: ../utils/options-utils.php:281 ../utils/utils.php:1559
+msgid "Misc"
+msgstr "Diversen"
+
+#: ../utils/options-utils.php:285
+msgid "Accommodation url slug:"
+msgstr "Accommodatie url slug:"
+
+#: ../utils/options-utils.php:286
+msgid ""
+"The url slug can not be blank. If you leave this field empty the slug will "
+"be set to \"hb_accommodation\"."
+msgstr ""
+"De url slug mag niet leeg zijn. Indien u dit veld leeg laat wordt de slug "
+"ingesteld op \"hb_accommodation\"."
+
+#: ../utils/options-utils.php:291
+msgid "Delete all stored information on uninstall:"
+msgstr "Wis alle opgeslagen informatie bij de-installeren:"
+
+#: ../utils/options-utils.php:300
+msgid "Delay before a timeout error occurs (in ms) :"
+msgstr "Vertraging alvorens een time-out fout optreedt (in ms) :"
+
+#: ../utils/options-utils.php:315
+msgid "Maximum adults number"
+msgstr "Maximum aantal volwassenen"
+
+#: ../utils/options-utils.php:321
+msgid "Maximum children number"
+msgstr "Maximum aantal kinderen"
+
+#: ../utils/options-utils.php:327
+msgid "Display an Adults field?"
+msgstr "Toon een veld \"Volwassenen\"?"
+
+#: ../utils/options-utils.php:336
+msgid "Display a Children field?"
+msgstr "Toon een veld \"Kinderen\"?"
+
+#: ../utils/options-utils.php:345
+msgid "Display placeholders instead of labels?"
+msgstr "Toon plaatshouderstekst in plaats van labels?"
+
+#: ../utils/options-utils.php:363
+msgid "Link title towards accommodation pages?"
+msgstr "Link de titel naar de accommodatiepagina's?"
+
+#: ../utils/options-utils.php:373
+msgid "Display an accommodation thumbnail?"
+msgstr "Geen accommodatie thumbnail tonen?"
+
+#: ../utils/options-utils.php:383
+msgid "Link thumbnail towards accommodation pages?"
+msgstr "Link de thumbnail naar de accommodatiepagina's?"
+
+#: ../utils/options-utils.php:393
+msgid "Thumbnail width (in px)"
+msgstr "Thumbnail breedte (in px)"
+
+#: ../utils/options-utils.php:400
+msgid "Thumbnail height (in px)"
+msgstr "Thumbnail hoogte (in px)"
+
+#: ../utils/options-utils.php:407
+msgid "Display a button that links towards accommodation pages?"
+msgstr "Toon een knop die doorlinkt naar de accommodatiepagina's?"
+
+#: ../utils/options-utils.php:417
+msgid "Display price breakdown?"
+msgstr "Toon een prijsberekening?"
+
+#: ../utils/options-utils.php:435
+msgid "Email address:"
+msgstr "E-mailadres:"
+
+#: ../utils/options-utils.php:435
+msgid "(leave blank to use WordPress admin email)"
+msgstr ""
+"(laat leeg om het e-mail adres van de WordPress beheerder te gebruiken)"
+
+#: ../utils/options-utils.php:440
+msgid "Message type:"
+msgstr "Type bericht:"
+
+#: ../utils/options-utils.php:456
+msgid "Subject:"
+msgstr "Onderwerp:"
+
+#: ../utils/options-utils.php:458
+msgid "New message sent from your website"
+msgstr "Nieuw bericht verstuurd vanaf uw website"
+
+#: ../utils/options-utils.php:462 ../utils/options-utils.php:468
+msgid "Message:"
+msgstr "Bericht:"
+
+#: ../utils/options-utils.php:465
+msgid "Here is a message sent from your website:"
+msgstr "Hier is een bericht verstuurd vanaf uw website:"
+
+#: ../utils/options-utils.php:466
+msgid "Name:"
+msgstr "Naam:"
+
+#: ../utils/options-utils.php:467
+msgid "Email:"
+msgstr "E-mail:"
+
+#: ../utils/price-calc.php:295
+#, php-format
+msgid "Season is not defined for %s"
+msgstr "Seizoen is niet gedefinieerd voor %s"
+
+#: ../utils/price-calc.php:326
+#, php-format
+msgid "Rate is not defined for accommodation named %s and season named %s."
+msgstr "Tarief is niet bepaald voor de accommodatie  %s en seizoen %s."
+
+#: ../utils/resa-ical.php:133 ../utils/resa-ical.php:134
+msgid "Accommodation blocked"
+msgstr "Accommodatie geblokkeerd"
+
+#: ../utils/resa-ical.php:233
+msgid ""
+"No reservation could be imported. Please check that your file contain a "
+"calendar with events."
+msgstr ""
+"Geen enkele reservatie kon worden geïmporteerd. Controleer of uw bestand een "
+"kalender bevat met events."
+
+#: ../utils/resa-ical.php:240
+#, php-format
+msgid "Your calendar has been imported: %1$s reservation(s) have been added."
+msgstr "Uw kalender werd geïmporteerd: %1$s reservatie(s) werd(en) toegevoegd."
+
+#: ../utils/resa-ical.php:245
+#, php-format
+msgid ""
+"The following reservation(s) could not be imported as the accommodation %1$s "
+"(%2$s) is not available:"
+msgstr ""
+"De volgende reservatie(s) kon(den) niet worden geïmporteerd aangezien de "
+"accommodatie %1$s (%2$s) niet beschikbaar is:"
+
+#: ../utils/resa-ical.php:249
+#, php-format
+msgid "A reservation with check-in on %1$s and check-out on %2$s"
+msgstr "Een reservatie met check-in op %1$s en check-out op %2$s"
+
+#: ../utils/resa-ical.php:341
+msgid "Phone: "
+msgstr "Telefoon:"
+
+#: ../utils/resa-ical.php:349
+msgid "Email: "
+msgstr "E-mail:"
+
+#: ../utils/resa-ical.php:355
+msgid "Summary: "
+msgstr "Samenvatting:"
+
+#: ../utils/resa-options.php:25 ../utils/utils.php:510
+msgid "Extra services:"
+msgstr "Extra’s"
+
+#: ../utils/resa-options.php:27
+msgid "Options total price:"
+msgstr "Totaalprijs extra’s"
+
+#: ../utils/utils.php:61
+msgid "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"
+msgstr "Maandag,Dinsdag,Woensdag,Donderdag,Vrijdag,Zaterdag,Zondag"
+
+#: ../utils/utils.php:67
+msgid "Mon,Tue,Wed,Thu,Fri,Sat,Sun"
+msgstr "Ma,Di,Wo,Do,Vr,Za,Zo"
+
+#: ../utils/utils.php:74
+msgid "Error: price should be a numerical value."
+msgstr "Fout: prijs moet een numerieke waarde zijn."
+
+#: ../utils/utils.php:515
+msgid "Reservation language:"
+msgstr "Taal van de reservatie:"
+
+#: ../utils/utils.php:527
+msgid "Paid via:"
+msgstr "Betaald via:"
+
+#: ../utils/utils.php:810
+msgid "Calendar background:"
+msgstr "Achtergrond kalender:"
+
+#: ../utils/utils.php:816
+msgid "Available day background:"
+msgstr "Achtergrond beschikbare dagen:"
+
+#: ../utils/utils.php:822
+msgid "Not selectable day background:"
+msgstr "Achtergrond niet-selecteerbare dagen:"
+
+#: ../utils/utils.php:830
+msgid "Not selectable day number:"
+msgstr "Nummer van niet-selecteerbare dag:"
+
+#: ../utils/utils.php:836
+msgid "Selected day background:"
+msgstr "Achtergrond geselecteerde dag:"
+
+#: ../utils/utils.php:842
+msgid "Occupied day background:"
+msgstr "Achtergrond bezette dagen:"
+
+#: ../utils/utils.php:848
+msgid "Buttons background:"
+msgstr "Achtergrond knoppen:"
+
+#: ../utils/utils.php:854
+msgid "Buttons background on hover:"
+msgstr "Achtergrond knoppen bij hover:"
+
+#: ../utils/utils.php:860
+msgid "Disabled buttons background:"
+msgstr "Achtergrond uitgeschakelde knoppen:"
+
+#: ../utils/utils.php:866
+msgid "Button arrows:"
+msgstr "Pijlen bij knoppen"
+
+#: ../utils/utils.php:872
+msgid "Calendar inner borders:"
+msgstr "Binnenkader kalender:"
+
+#: ../utils/utils.php:882
+msgid "Default form title"
+msgstr "Standaard formuliertitel"
+
+#: ../utils/utils.php:883
+msgid "Form title on accommodation page"
+msgstr "Formuliertitel op de accommodatiepagina"
+
+#: ../utils/utils.php:884
+msgid "Check-in date"
+msgstr "Check-in datum"
+
+#: ../utils/utils.php:885
+msgid "Check-out date"
+msgstr "Check-out datum"
+
+#: ../utils/utils.php:886
+msgid "Adults number"
+msgstr "Aantal volwassenen"
+
+#: ../utils/utils.php:887
+msgid "Children number"
+msgstr "Aantal kinderen"
+
+#: ../utils/utils.php:888
+msgid "Chosen check-in date"
+msgstr "Gekozen check-in datum"
+
+#: ../utils/utils.php:889
+msgid "Chosen check-out date"
+msgstr "Gekozen check-out datum"
+
+#: ../utils/utils.php:890
+msgid "Chosen adults number"
+msgstr "Gekozen aantal volwassenen"
+
+#: ../utils/utils.php:891
+msgid "Chosen children number"
+msgstr "Gekozen aantal kinderen"
+
+#: ../utils/utils.php:892
+msgid "Search button"
+msgstr "Zoek knop"
+
+#: ../utils/utils.php:893
+msgid "Change search button"
+msgstr "Wijzig zoek knop"
+
+#: ../utils/utils.php:899
+msgid "One type of accommodation found"
+msgstr "Eén type accommodatie gevonden"
+
+#: ../utils/utils.php:900
+msgid "Several types of accommodation found"
+msgstr "Meerdere types accommodaties gevonden"
+
+#: ../utils/utils.php:901
+msgid "Accommodation selection title"
+msgstr "Titel accommodatie selectie"
+
+#: ../utils/utils.php:902
+msgid "The accommodation is available at the chosen dates"
+msgstr "De accommodatie is beschikbaar op de gekozen data"
+
+#: ../utils/utils.php:903
+msgid "Price for 1 night"
+msgstr "Prijs voor 1 nacht"
+
+#: ../utils/utils.php:904
+msgid "Price for several nights"
+msgstr "Prijs voor meerdere nachten"
+
+#: ../utils/utils.php:905
+msgid "View price breakdown link"
+msgstr "Toon link naar prijsberekening"
+
+#: ../utils/utils.php:906
+msgid "Hide price breakdown link"
+msgstr "Verberg link naar prijsberekening"
+
+#: ../utils/utils.php:907
+msgid "Nights (several - in price breakdown)"
+msgstr "Nachten (meerdere - in prijsberekening)"
+
+#: ../utils/utils.php:908
+msgid "Night (one - in price breakdown)"
+msgstr "Nacht (één - in prijsberekening)"
+
+#: ../utils/utils.php:909
+msgid "Multiple nights (in price breakdown)"
+msgstr "Meerdere nachten (in prijsberekening)"
+
+#: ../utils/utils.php:910
+msgid "Accommodation price (in price breakdown)"
+msgstr "Prijs accommodatie (in prijsberekening)"
+
+#: ../utils/utils.php:911
+msgid "Extra adults (several - in price breakdown)"
+msgstr "Extra volwassenen (meerdere - in prijsberekening)"
+
+#: ../utils/utils.php:912
+msgid "Extra adult (one - in price breakdown)"
+msgstr "Extra volwassene (één - in prijsberekening)"
+
+#: ../utils/utils.php:913
+msgid "Adults (several - in price breakdown)"
+msgstr "Volwassenen (meerdere - in prijsberekening)"
+
+#: ../utils/utils.php:914
+msgid "Adult (one - in price breakdown)"
+msgstr "Volwassene (één - in prijsberekening)"
+
+#: ../utils/utils.php:915
+msgid "Extra children (several - in price breakdown)"
+msgstr "Extra kinderen (meerdere - in prijsberekening)"
+
+#: ../utils/utils.php:916
+msgid "Extra child (one - in price breakdown)"
+msgstr "Extra kind (één - in prijsberekening)"
+
+#: ../utils/utils.php:917
+msgid "Children (several - in price breakdown)"
+msgstr "Kinderen (meerdere - in prijsberekening)"
+
+#: ../utils/utils.php:918
+msgid "Child (one - in price breakdown)"
+msgstr "Kind (één - in prijsberekening)"
+
+#: ../utils/utils.php:919
+msgid "Dates (in price breakdown)"
+msgstr "Data (in prijsberekening)"
+
+#: ../utils/utils.php:920
+msgid "Discount (in price breakdown)"
+msgstr "Korting (in prijsberekening)"
+
+#: ../utils/utils.php:921
+msgid "Price before discount (in price breakdown)"
+msgstr "Prijs voor de korting (in prijsberekening)"
+
+#: ../utils/utils.php:922
+msgid "Adults (several - in fee details)"
+msgstr "Volwassenen (meerdere - in details toeslag)"
+
+#: ../utils/utils.php:923
+msgid "Adult (one - in fee details)"
+msgstr "Volwassene (één - in details toeslag)"
+
+#: ../utils/utils.php:924
+msgid "Children (several - in fee details)"
+msgstr "Kinderen (meerdere - in details toeslag)"
+
+#: ../utils/utils.php:925
+msgid "Child (one - in fee details)"
+msgstr "Kind (één - in details toeslag)"
+
+#: ../utils/utils.php:926
+msgid "Select accommodation button"
+msgstr "Kies accommodatie knop"
+
+#: ../utils/utils.php:927
+msgid "Book now button"
+msgstr "Boek nu knop"
+
+#: ../utils/utils.php:928
+msgid "View accommodation button"
+msgstr "Toon accommodatie knop"
+
+#: ../utils/utils.php:929
+msgid "Selected accommodation"
+msgstr "Geselecteerde accommodatie"
+
+#: ../utils/utils.php:930
+msgid "Fees (in price breakdown)"
+msgstr "Toeslagen (in prijsberekening)"
+
+#: ../utils/utils.php:936
+msgid "Extra services selection title"
+msgstr "Titel bij selectie extra diensten "
+
+#: ../utils/utils.php:937
+msgid "Chosen extra services title"
+msgstr "Titel bij gekozen extra services"
+
+#: ../utils/utils.php:938
+msgid "Free extra"
+msgstr "Gratis extra"
+
+#: ../utils/utils.php:939
+msgid "Extra price"
+msgstr "Extra prijs"
+
+#: ../utils/utils.php:940
+msgid "Each (in extra price)"
+msgstr "Elk (in extra prijs)"
+
+#: ../utils/utils.php:941
+msgid "Total extra services price"
+msgstr "Totaalprijs extra diensten"
+
+#: ../utils/utils.php:948
+msgid "Number of nights"
+msgstr "Aantal nachten"
+
+#: ../utils/utils.php:949
+msgid "Change"
+msgstr "Wijzig"
+
+#: ../utils/utils.php:950
+msgid "Thanks message (1)"
+msgstr "Bedankingsbericht (1)"
+
+#: ../utils/utils.php:951
+msgid "Thanks message (2)"
+msgstr "Bedankingsbericht (2)"
+
+#: ../utils/utils.php:953
+msgid "Accommodation price"
+msgstr "Prijs accommodatie"
+
+#: ../utils/utils.php:954
+msgid "Options price"
+msgstr "Prijs opties"
+
+#: ../utils/utils.php:955
+msgid "Total price"
+msgstr "Totaalprijs"
+
+#: ../utils/utils.php:956
+msgid "Deposit"
+msgstr "Voorschot"
+
+#: ../utils/utils.php:962
+msgid "Payment section title"
+msgstr "Titel betaalsectie"
+
+#: ../utils/utils.php:963
+msgid "Select payment type"
+msgstr "Selecteer type betaling"
+
+#: ../utils/utils.php:964
+msgid "Payment type offline"
+msgstr "Betalingstype offline"
+
+#: ../utils/utils.php:965
+msgid "Payment type deposit"
+msgstr "Betalingstype voorschot"
+
+#: ../utils/utils.php:966
+msgid "Payment type full"
+msgstr "Betalingstype volledig"
+
+#: ../utils/utils.php:967
+msgid "Select payment method"
+msgstr "Selecteer betaalmethode"
+
+#: ../utils/utils.php:973 ../utils/utils.php:986
+msgid "Payment method label"
+msgstr "Label betaalmethode"
+
+#: ../utils/utils.php:974 ../utils/utils.php:987
+msgid "Text before form"
+msgstr "Tekst voor het formulier"
+
+#: ../utils/utils.php:975
+msgid "Card number"
+msgstr "Kaartnummer"
+
+#: ../utils/utils.php:976
+msgid "Expiration date"
+msgstr "Vervaldag"
+
+#: ../utils/utils.php:977
+msgid "CVC"
+msgstr "CVC"
+
+#: ../utils/utils.php:978
+msgid "Invalid card number"
+msgstr "Ongeldig kaartnummer"
+
+#: ../utils/utils.php:979
+msgid "Invalid expiration date"
+msgstr "Ongeldige vervaldag"
+
+#: ../utils/utils.php:980
+msgid "Invalid card"
+msgstr "Ongeldige kaart"
+
+#: ../utils/utils.php:988
+msgid "PayPal confirmation"
+msgstr "PayPal bevestiging"
+
+#: ../utils/utils.php:989
+msgid "PayPal confirmation (small font)"
+msgstr "PayPal bevestiging (klein lettertype)"
+
+#: ../utils/utils.php:1008
+msgid "Searching"
+msgstr "Aan het zoeken"
+
+#: ../utils/utils.php:1009
+msgid "No check-in date"
+msgstr "Geen check-in datum"
+
+#: ../utils/utils.php:1010
+msgid "No check-out date"
+msgstr "Geen check-out datum"
+
+#: ../utils/utils.php:1011
+msgid "No check-in date and no check-out date"
+msgstr "Geen check-in en geen check-out datum"
+
+#: ../utils/utils.php:1012
+msgid "No adults number"
+msgstr "Geen aantal volwassenen"
+
+#: ../utils/utils.php:1013
+msgid "No children number"
+msgstr "Geen aantal kinderen"
+
+#: ../utils/utils.php:1014
+msgid "No adults and children number"
+msgstr "Geen aantal volwassenen en kinderen"
+
+#: ../utils/utils.php:1015
+msgid "Invalid check-in date"
+msgstr "Ongeldige check-in datum"
+
+#: ../utils/utils.php:1016
+msgid "Invalid check-out date"
+msgstr "Ongeldige check-out datum"
+
+#: ../utils/utils.php:1017
+msgid "Invalid check-in date and invalid check-out date"
+msgstr "Ongeldige check-in datum en ongeldige check-out datum"
+
+#: ../utils/utils.php:1018
+msgid "Check-in date in the past"
+msgstr "Check-in datum in het verleden"
+
+#: ../utils/utils.php:1019
+msgid "Check-in date before specific date"
+msgstr "Check-in datum voor specifieke datum"
+
+#: ../utils/utils.php:1020
+msgid "Check-out date after specific date"
+msgstr "Check-in datum na specifieke datum"
+
+#: ../utils/utils.php:1021
+msgid "Check-out date before check-in date"
+msgstr "Check-out datum voor check-in datum"
+
+#: ../utils/utils.php:1022
+msgid "Check-in date on a not allowed day"
+msgstr "Check-in datum op een niet toegelaten dag"
+
+#: ../utils/utils.php:1023
+msgid "Check-in date on a not allowed day (seasonal)"
+msgstr "Check-in datum op een niet toegelaten dag (seizoensgebonden)"
+
+#: ../utils/utils.php:1024
+msgid "Check-out date on a not allowed day"
+msgstr "Check-out datum op een niet toegelaten dag"
+
+#: ../utils/utils.php:1025
+msgid "Check-out date on a not allowed day (seasonal)"
+msgstr "Check-out datum op een niet toegelaten dag (seizoensgebonden)"
+
+#: ../utils/utils.php:1026
+msgid "Minimum stay policy"
+msgstr "Beleid voor minimum verblijf"
+
+#: ../utils/utils.php:1027
+msgid "Minimum stay policy (seasonal)"
+msgstr "Beleid voor minimum verblijf (seizoensgebonden)"
+
+#: ../utils/utils.php:1028
+msgid "Maximum stay policy"
+msgstr "Beleid voor maxiimum verblijf"
+
+#: ../utils/utils.php:1029
+msgid "Maximum stay policy (seasonal)"
+msgstr "Beleid voor minimum verblijf (seizoensgebonden)"
+
+#: ../utils/utils.php:1030
+msgid ""
+"Check-out date on a not allowed day for specific check-in day (conditional "
+"rule)"
+msgstr ""
+"Check-out datum op een niet toegelaten dag voor een specifieke check-in dag "
+"(conditionele regel)"
+
+#: ../utils/utils.php:1031
+msgid ""
+"Check-out date on a not allowed day for specific check-in day (conditional "
+"rule - seasonal)"
+msgstr ""
+"Check-out datum op een niet toegelaten dag voor een specifieke check-in dag "
+"(conditionele regel - seizoensgebonden)"
+
+#: ../utils/utils.php:1032
+msgid "Minimum stay for specific check-in day (conditional rule)"
+msgstr "Minimum verblijf voor een specifieke check-in dag (conditionele regel)"
+
+#: ../utils/utils.php:1033
+msgid "Minimum stay for specific check-in day (conditional rule - seasonal)"
+msgstr ""
+"Minimum verblijf voor een specifieke check-in dag (conditionele regel - "
+"seizoensgebonden)"
+
+#: ../utils/utils.php:1034
+msgid "Maximum stay for specific check-in day (conditional rule)"
+msgstr "Maximum verblijf voor een specifieke check-in dag (conditionele regel)"
+
+#: ../utils/utils.php:1035
+msgid "Maximum stay for specific check-in day (conditional rule - seasonal)"
+msgstr ""
+"Maximum verblijf voor een specifieke check-in dag (conditionele regel - "
+"seizoensgebonden)"
+
+#: ../utils/utils.php:1036
+msgid "The accommodation can not suit the number of people"
+msgstr "De accommodatie is niet geschikt voor het aantal mensen"
+
+#: ../utils/utils.php:1037
+msgid "No accommodation can suit the number of people"
+msgstr "Geen enkele accommodatie is geschikt voor het aantal mensen"
+
+#: ../utils/utils.php:1038
+msgid "Link to all accommodation which suit the number of people"
+msgstr "Link naar alle accommodaties die geschikt zijn voor het aantal mensen"
+
+#: ../utils/utils.php:1039
+msgid "No accommodation available at the chosen dates"
+msgstr "Geen enkele accommodatie is beschikbaar op de gekozen data"
+
+#: ../utils/utils.php:1040
+msgid "The accommodation is not available at the chosen dates"
+msgstr "De accommodatie is niet beschikbaar op de gekozen data"
+
+#: ../utils/utils.php:1041
+msgid "Link to all accommodation available at the chosen dates"
+msgstr "Link naar alle accommodaties die beschikbaar zijn op de gekozen data"
+
+#: ../utils/utils.php:1047
+msgid "Terms and conditions title"
+msgstr "Titel algemene voorwaarden"
+
+#: ../utils/utils.php:1048
+msgid "Terms and conditions text"
+msgstr "Tekst van de algemene voorwaarden"
+
+#: ../utils/utils.php:1049
+msgid "Terms and conditions error"
+msgstr "Fout algemene voorwaarden"
+
+#: ../utils/utils.php:1050
+msgid "Text before \"Book now\" button"
+msgstr "Tekst voor \"Boek nu\" knop"
+
+#: ../utils/utils.php:1051
+msgid "\"Book now\" button"
+msgstr "\"Boek nu\" knop"
+
+#: ../utils/utils.php:1057
+msgid "Selected accommodation no longer available"
+msgstr "De geselecteerde accommodatie is niet langer beschikbaar"
+
+#: ../utils/utils.php:1064
+msgid "Required field"
+msgstr "Verplicht veld"
+
+#: ../utils/utils.php:1065
+msgid "Invalid email"
+msgstr "Ongeldig e-mailadres"
+
+#: ../utils/utils.php:1066
+msgid "Invalid number"
+msgstr "Ongeldig getal"
+
+#: ../utils/utils.php:1067
+msgid "Connection error"
+msgstr "Connectiefout"
+
+#: ../utils/utils.php:1068
+msgid "Timeout error"
+msgstr "Timeout fout"
+
+#: ../utils/utils.php:1074
+msgid "Occupied"
+msgstr "Bezet"
+
+#: ../utils/utils.php:1076
+msgid "Past"
+msgstr "Voorbij"
+
+#: ../utils/utils.php:1077
+msgid "Closed"
+msgstr "Gesloten"
+
+#: ../utils/utils.php:1078
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: ../utils/utils.php:1079
+msgid "Before check-in day"
+msgstr "Voor check-in dag"
+
+#: ../utils/utils.php:1080
+msgid "Not available for check-in"
+msgstr "Niet beschikbaar voor check-in"
+
+#: ../utils/utils.php:1081
+msgid "Not available for check-out"
+msgstr "Niet beschikbaar voor check-out"
+
+#: ../utils/utils.php:1082
+msgid "Available for check-in only"
+msgstr "Enkel beschikbaar voor check-in"
+
+#: ../utils/utils.php:1083
+msgid "Available for check-out only"
+msgstr "Enkel beschikbaar voor check-out"
+
+#: ../utils/utils.php:1084
+msgid "Not available for check-out (due to minimum-stay requirement)"
+msgstr "Niet beschikbaar voor check-out (door vereiste minimum verblijf)"
+
+#: ../utils/utils.php:1085
+msgid "Not available for check-out (due to maximum-stay requirement)"
+msgstr "Niet beschikbaar voor check-out (door vereiste maximum verblijf)"
+
+#: ../utils/utils.php:1086
+msgid "Chosen check-in day"
+msgstr "Gekozen check-in dag"
+
+#: ../utils/utils.php:1087
+msgid "Chosen check-out day"
+msgstr "Gekozen check-out dag"
+
+#: ../utils/utils.php:1088
+msgid "Select a check-in date"
+msgstr "Selecteer een check-in datum"
+
+#: ../utils/utils.php:1089
+msgid "Select a check-out date"
+msgstr "Selecteer een check-out datum"
+
+#: ../utils/utils.php:1095
+msgid "From"
+msgstr "Van"
+
+#: ../utils/utils.php:1096
+msgid "To"
+msgstr "Aan"
+
+#: ../utils/utils.php:1097
+msgid "Nights"
+msgstr "Nachten"
+
+#: ../utils/utils.php:1098 ../utils/utils.php:1368
+msgid "Price"
+msgstr "Prijs"
+
+#: ../utils/utils.php:1099
+msgid "Per night"
+msgstr "Per nacht"
+
+#: ../utils/utils.php:1100
+msgid "All nights"
+msgstr "Alle nachten"
+
+#: ../utils/utils.php:1101
+msgid "For x-night stay"
+msgstr "Voor een verblijf van x nachten"
+
+#: ../utils/utils.php:1107
+msgid "Price starting at"
+msgstr "Prijs start bij"
+
+#: ../utils/utils.php:1108
+msgid "Starting price duration unit"
+msgstr "Eenheid van duur van startprijs"
+
+#: ../utils/utils.php:1114
+msgid "Send button"
+msgstr "Verzendknop"
+
+#: ../utils/utils.php:1115
+msgid "Message when email has been sent"
+msgstr "Bericht als e-mail werd verstuurd"
+
+#: ../utils/utils.php:1116
+msgid "Message when email could not been sent"
+msgstr "Bericht als e-mail niet kon worden verstuurd"
+
+#: ../utils/utils.php:1117
+msgid "Message already sent"
+msgstr "Bericht reeds verstuurd"
+
+#: ../utils/utils.php:1362
+msgid "Check-in"
+msgstr "Check-in"
+
+#: ../utils/utils.php:1363
+msgid "Check-out"
+msgstr "Check-out"
+
+#: ../utils/utils.php:1365
+msgid "Accommodation number"
+msgstr "Accommodatie nummer"
+
+#: ../utils/utils.php:1366
+msgid "Adults"
+msgstr "Volwassenen"
+
+#: ../utils/utils.php:1367
+msgid "Children"
+msgstr "Kinderen"
+
+#: ../utils/utils.php:1369
+msgid "Amount paid"
+msgstr "Bedrag betaald"
+
+#: ../utils/utils.php:1370
+msgid "Currency"
+msgstr "Munteenheid"
+
+#: ../utils/utils.php:1379
+msgid "Id"
+msgstr "ID"
+
+#: ../utils/utils.php:1479
+msgid "Error: could not verify purchase code."
+msgstr "Fout: kon aankoopcode niet verifiëren"
+
+#: ../utils/utils.php:1534
+msgid "Ical sync"
+msgstr "iCal sync"
+
+#: ../utils/utils.php:1539
+msgid "Emails"
+msgstr "E-mails"
+
+#: ../utils/utils.php:1554
+msgid "Languages"
+msgstr "Talen"
+
+#~ msgid "Create"
+#~ msgstr "Maak"
+
+#~ msgid "\"To address\", \"From address\", \"Subject\" and Message\" fields:"
+#~ msgstr "\"Aan adres\", \"Van adres\", \"Onderwerp\" en \"Bericht\" velden:"
+
+#~ msgid "Rules"
+#~ msgstr "Regels"
+
+#~ msgid "At least one attribute must be selected."
+#~ msgstr "Ten minste één eigenschap moet geselecteerd zijn."
+
+#~ msgid "Select the attributes of the advanced rule:"
+#~ msgstr "Selecteer de eigenschappen van de geavanceerde regel: "
+
+#~ msgid "Check-out day"
+#~ msgstr "Check-out dag"
+
+#~ msgid "Create rule"
+#~ msgstr "Regel aanmaken"
+
+#~ msgid "Purchase code:"
+#~ msgstr "Aankoopcode:"
+
+#~ msgid "Rate is not defined for accommodation named %s"
+#~ msgstr "Tarief is niet gedefinieerd voor accommodatie genaamd %s"
+
+#~ msgid "Rate is not defined for %s in accommodation named %s"
+#~ msgstr "Tarief is niet gedefinieerd voor %s in accommodatie genaamd %s"
+
+#~ msgid "and season named %s"
+#~ msgstr "en seizoen genaamd %s"
+
+#~ msgid "and rule named %s"
+#~ msgstr "en regel genaamd %s"

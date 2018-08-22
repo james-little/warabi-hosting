@@ -1,0 +1,1306 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2017-12-11 18:48-0500\n"
+"PO-Revision-Date: 2016-12-23 22:14+0100\n"
+"Last-Translator: HotelWP <contact@hotelwp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-KeywordsList: esc_html_e;esc_html__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin/accom-type.php:17 ../admin/sections.php:6 ../inc/sidebars.php:18
+msgid "Accommodation"
+msgstr ""
+
+#: ../admin/accom-type.php:18 ../admin/accom-type.php:19
+msgid "Add New Accommodation"
+msgstr ""
+
+#: ../admin/accom-type.php:20
+msgid "Edit Accommodation"
+msgstr ""
+
+#: ../admin/accom-type.php:21
+msgid "New Accommodation"
+msgstr ""
+
+#: ../admin/accom-type.php:22
+msgid "View Accommodation post"
+msgstr ""
+
+#: ../admin/accom-type.php:23
+msgid "Search Accommodation"
+msgstr ""
+
+#: ../admin/accom-type.php:24
+msgid "No accommodation found."
+msgstr ""
+
+#: ../admin/accom-type.php:25
+msgid "No accommodation post found in trash."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:608
+msgid "Update Required"
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:725
+msgid "Set the parent_slug config variable instead."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:920
+#: ../admin/class-tgm-plugin-activation.php:2626
+#: ../admin/class-tgm-plugin-activation.php:3673
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:1027
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:1027
+#: ../admin/class-tgm-plugin-activation.php:1030
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:1030
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:2626
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:2777
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:3001
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:3027
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:3602
+#: ../admin/class-tgm-plugin-activation.php:3610
+msgid "Show Details"
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:3602
+#: ../admin/class-tgm-plugin-activation.php:3610
+msgid "Hide Details"
+msgstr ""
+
+#: ../admin/class-tgm-plugin-activation.php:3610
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: ../admin/contact-details.php:17
+msgid "Contact details"
+msgstr ""
+
+#: ../admin/contact-details.php:24
+msgid "All fields have been saved."
+msgstr ""
+
+#: ../admin/contact-details.php:30
+msgid ""
+"Please enter here all information you wish to provide in your website "
+"regarding contact details."
+msgstr ""
+
+#: ../admin/contact-details.php:32
+msgid ""
+"You can then display these information thanks to the \"Contact Details\" "
+"widget. You can add this widget in your header, your footer or sidebar."
+msgstr ""
+
+#: ../admin/contact-details.php:44
+msgid "Contact detail "
+msgstr ""
+
+#: ../admin/contact-details.php:56 ../admin/contact-form-settings.php:125
+#: ../admin/contact-form-settings.php:217
+#: ../admin/contact-form-settings.php:264 ../admin/strings.php:189
+#: ../admin/strings.php:230
+msgid "Save changes"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:79 ../admin/contact-form-settings.php:80
+msgid "Adomus contact form"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:90
+msgid "New field"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:91
+#, php-format
+msgid "Remove '%field_name'?"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:92
+msgid "Remove field?"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:93
+msgid "New choice"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:94
+#, php-format
+msgid "Remove '%choice_name'?"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:95
+msgid "In the following fields you can use these variables:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:96 ../admin/sliders.php:63
+#: ../admin/strings.php:73
+msgid "Changes could not be saved. Please try again."
+msgstr ""
+
+#: ../admin/contact-form-settings.php:97 ../admin/sliders.php:64
+#: ../admin/strings.php:74
+msgid "Changes you made may not be saved."
+msgstr ""
+
+#: ../admin/contact-form-settings.php:122
+msgid "Contact form settings"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:133
+msgid "Fields"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:137
+msgid "Customize the Contact form."
+msgstr ""
+
+#: ../admin/contact-form-settings.php:138
+msgid "Drag and drop fields to reorder them."
+msgstr ""
+
+#: ../admin/contact-form-settings.php:152
+#: ../admin/contact-form-settings.php:194
+msgid "OK"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:155
+msgid "Required?"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:157 ../admin/customize.php:102
+#: ../admin/customize.php:193 ../admin/hero-meta-fields.php:52
+#: ../admin/hero-meta-fields.php:64 ../admin/misc-meta-fields.php:9
+#: ../admin/misc-meta-fields.php:82 ../admin/misc-meta-fields.php:100
+#: ../admin/section-meta-fields.php:66 ../admin/section-meta-fields.php:75
+#: ../admin/section-meta-fields.php:199
+msgid "Yes"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:160 ../admin/customize.php:103
+#: ../admin/customize.php:194 ../admin/hero-meta-fields.php:53
+#: ../admin/hero-meta-fields.php:65 ../admin/misc-meta-fields.php:10
+#: ../admin/misc-meta-fields.php:83 ../admin/misc-meta-fields.php:101
+#: ../admin/section-meta-fields.php:67 ../admin/section-meta-fields.php:76
+#: ../admin/section-meta-fields.php:200
+msgid "No"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:164 ../admin/section-meta-fields.php:7
+#: ../admin/section-meta-fields.php:39 ../admin/section-meta-fields.php:134
+#: ../admin/section-meta-fields.php:215
+msgid "Text"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:165
+msgid "Email"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:166
+msgid "Number"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:167
+msgid "Text area"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:168 ../admin/sliders.php:60
+msgid "Select"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:169
+msgid "Radio buttons"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:170
+msgid "Check boxes"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:171
+msgid "Title"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:172
+msgid "Sub-title"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:173
+msgid "Explanation"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:174
+msgid "Separator"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:175
+msgid "Column break"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:179
+msgid "Field type:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:187
+msgid "Choices:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:200
+msgid "Column width:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:202
+msgid "Full"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:203
+msgid "One half"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:204
+msgid "One third"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:225
+msgid "Email settings"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:233
+msgid "Email address: (leave blank to use WordPress admin email)"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:237
+msgid "Message type:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:245
+msgid "Reply-to:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:249
+msgid "From:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:253
+msgid "Subject:"
+msgstr ""
+
+#: ../admin/contact-form-settings.php:257
+msgid "Message:"
+msgstr ""
+
+#: ../admin/customize.php:11
+#, php-format
+msgid "Contact detail %d"
+msgstr ""
+
+#: ../admin/customize.php:21 ../admin/customize.php:205
+msgid "Logo"
+msgstr ""
+
+#: ../admin/customize.php:29
+msgid "Default hero image"
+msgstr ""
+
+#: ../admin/customize.php:34
+msgid "Default title position"
+msgstr ""
+
+#: ../admin/customize.php:37 ../admin/hero-meta-fields.php:85
+msgid "Inside hero"
+msgstr ""
+
+#: ../admin/customize.php:38 ../admin/hero-meta-fields.php:86
+#: ../admin/misc-meta-fields.php:30
+msgid "Below hero"
+msgstr ""
+
+#: ../admin/customize.php:44
+msgid "Default hero ratio"
+msgstr ""
+
+#: ../admin/customize.php:50
+msgid "Default hero minimum height"
+msgstr ""
+
+#: ../admin/customize.php:55
+msgid "Default hero maximum height"
+msgstr ""
+
+#: ../admin/customize.php:63
+msgid "Overlay color (hero and video section)"
+msgstr ""
+
+#: ../admin/customize.php:69
+msgid "Overlay opacity (hero and video section) (percentage)"
+msgstr ""
+
+#: ../admin/customize.php:75
+msgid "Header background color"
+msgstr ""
+
+#: ../admin/customize.php:81
+msgid "Header background opacity (percentage)"
+msgstr ""
+
+#: ../admin/customize.php:87
+msgid "Booking form background color"
+msgstr ""
+
+#: ../admin/customize.php:93
+msgid "Booking form background opacity (percentage)"
+msgstr ""
+
+#: ../admin/customize.php:99
+msgid "Hero booking form white button"
+msgstr ""
+
+#: ../admin/customize.php:109
+msgid "Drop-down menu background color"
+msgstr ""
+
+#: ../admin/customize.php:115
+msgid "Drop-down menu background opacity (percentage)"
+msgstr ""
+
+#: ../admin/customize.php:121
+msgid "Link color"
+msgstr ""
+
+#: ../admin/customize.php:127
+msgid "Link hover color"
+msgstr ""
+
+#: ../admin/customize.php:133
+msgid "Accent color"
+msgstr ""
+
+#: ../admin/customize.php:139
+msgid "Footer background color"
+msgstr ""
+
+#: ../admin/customize.php:145
+msgid "Footer text color"
+msgstr ""
+
+#: ../admin/customize.php:148
+msgid "Dark"
+msgstr ""
+
+#: ../admin/customize.php:149
+msgid "Light"
+msgstr ""
+
+#: ../admin/customize.php:158
+msgid "Google map api key"
+msgstr ""
+
+#: ../admin/customize.php:166
+msgid "Default padding for images in galleries (in px)"
+msgstr ""
+
+#: ../admin/customize.php:176
+msgid "url"
+msgstr ""
+
+#: ../admin/customize.php:185
+msgid "Copyright text"
+msgstr ""
+
+#: ../admin/customize.php:190
+msgid "Display \"Website designed by HotelWP\""
+msgstr ""
+
+#: ../admin/customize.php:209 ../admin/meta-boxes.php:14
+msgid "Hero"
+msgstr ""
+
+#: ../admin/customize.php:213
+msgid "Colors"
+msgstr ""
+
+#: ../admin/customize.php:217
+msgid "Map"
+msgstr ""
+
+#: ../admin/customize.php:221
+msgid "Misc"
+msgstr ""
+
+#: ../admin/customize.php:225 ../admin/meta-boxes.php:30
+msgid "Footer"
+msgstr ""
+
+#: ../admin/customize.php:229 ../admin/customize.php:233
+msgid "Custom CSS"
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:23 ../admin/meta-boxes-helper-functions.php:157
+msgid "Add image"
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:24 ../admin/meta-boxes-helper-functions.php:161
+msgid "Add video"
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:25 ../admin/meta-boxes-helper-functions.php:165
+msgid "Add media"
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:26 ../admin/meta-boxes-helper-functions.php:246
+msgid "Select images"
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:27
+#, php-format
+msgid "Are you sure to remove all images from the %s?"
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:31
+msgid "Select a section type."
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:32
+msgid "Delete section?"
+msgstr ""
+
+#: ../admin/enqueue-scripts.php:33
+msgid "Delete point?"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:6
+msgid "Hero type"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:9 ../admin/section-meta-fields.php:43
+msgid "Image"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:10 ../admin/sections.php:9
+msgid "Video"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:11 ../admin/hero-meta-fields.php:33
+msgid "Slider"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:12
+msgid "Custom"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:17 ../admin/section-meta-fields.php:102
+msgid "YouTube video id"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:22 ../admin/section-meta-fields.php:107
+msgid "Video ratio"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:28
+msgid "Start video at (in seconds - leave blank to start at the beginning)"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:39
+msgid "Alternative image (leave blank to use the featured image)"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:44
+msgid "Shortcode"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:49
+msgid "Full screen hero"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:60
+msgid "Display title"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:71
+msgid "Tagline"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:76
+msgid "Alternative title"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:81
+msgid "Title position"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:84
+msgid "Default"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:91
+msgid "Ratio"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:96
+msgid "Minimum height"
+msgstr ""
+
+#: ../admin/hero-meta-fields.php:101
+msgid "Maximum height"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:82
+msgid "All"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:91
+#, php-format
+msgid ""
+"Hold down the Ctrl (windows) / Command (Mac) button to select multiple %s."
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:205
+msgid "Remove"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:250
+msgid "Remove all images"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:304
+msgid "Latitude"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:305
+msgid "Longitude"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:306 ../admin/sliders.php:147
+msgid "Caption"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:313
+#: ../admin/meta-boxes-helper-functions.php:341
+#, php-format
+msgid "Point number %s"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:331
+#: ../admin/meta-boxes-helper-functions.php:358
+msgid "Delete point"
+msgstr ""
+
+#: ../admin/meta-boxes-helper-functions.php:363
+msgid "Add point"
+msgstr ""
+
+#: ../admin/meta-boxes.php:18
+msgid "Booking form"
+msgstr ""
+
+#: ../admin/meta-boxes.php:22
+msgid "Scroll"
+msgstr ""
+
+#: ../admin/meta-boxes.php:26
+msgid "Page sections"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:6
+msgid "Display booking form"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:16
+msgid "ID of the main booking page..."
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:21
+msgid "...or insert a custom shortcode"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:26
+msgid "Booking form position"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:29
+msgid "Inside hero on wide devices / below hero on narrow devices"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:31
+msgid "Always inside hero"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:37
+msgid "Booking form style"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:40
+msgid "Horizontal"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:41
+msgid "Vertical"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:47
+msgid "Booking form vertical position in hero"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:50 ../admin/misc-meta-fields.php:68
+msgid "At the bottom of hero"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:51 ../admin/misc-meta-fields.php:69
+msgid "At the top of hero"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:56
+msgid "Booking form horizontal position in hero"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:59
+msgid "Left part of hero"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:60
+msgid "Right part of hero"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:65
+msgid "Booking form vertical position in hero (on narrow screen)"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:79
+msgid "Display scroll text and arrow"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:88
+msgid "Call to scroll text"
+msgstr ""
+
+#: ../admin/misc-meta-fields.php:97
+msgid "Display footer"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:11
+msgid "Static image"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:15
+msgid "Static mobile image"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:19
+msgid "Slider images"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:21
+msgid "slider"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:24
+msgid "Slider autoplay speed (in ms - leave blank for no autoplay)"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:31 ../admin/section-meta-fields.php:125
+#: ../admin/section-meta-fields.php:154 ../admin/section-meta-fields.php:186
+#: ../admin/section-meta-fields.php:230
+msgid "Layout"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:34
+msgid "Text on left"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:35
+msgid "Text on right"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:50
+msgid "Page ids (comma-separated)"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:54
+msgid "Displayed content"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:57
+msgid "Page content"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:58
+msgid "Excerpt"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:63
+msgid "Link title to page"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:72
+msgid "Display a \"Learn more\" button"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:81
+msgid "Thumbnail link type"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:84
+msgid "No link"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:85
+msgid "Full-size image"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:86
+msgid "Full-size image (gallery)"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:87 ../inc/sidebars.php:60
+msgid "Page"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:94
+msgid "Video introduction text"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:98
+msgid "Background image"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:117
+msgid "accommodation"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:128
+msgid "Text left"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:129
+msgid "Text center"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:130
+msgid "Text right"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:138
+msgid "Images"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:140
+msgid "gallery"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:143 ../admin/section-meta-fields.php:219
+msgid "Link text"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:147
+msgid "ID of the gallery page"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:157
+msgid "Big image on left"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:158
+msgid "Big image on right"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:159
+msgid "Centered content"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:163
+msgid "Navigation"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:166
+msgid "Thumbnails"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:167
+msgid "Bullets"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:168
+msgid "Thumbnails and bullets"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:174
+msgid "testimonials"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:182
+msgid "Number of posts to display"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:189
+msgid "Images on right"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:190
+msgid "Images on left"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:191
+msgid "Images on right / left"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:192
+msgid "Images on left / right"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:196
+msgid "Display meta information"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:207
+msgid "categories"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:223
+msgid "Link page id"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:233
+msgid "Contact form and map"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:234
+msgid "Contact information and map"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:235
+msgid "Contact information and contact form"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:236
+msgid "Contact form only"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:237
+msgid "Full-width map"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:242
+msgid "Map position"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:245 ../admin/section-meta-fields.php:254
+msgid "Right"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:246 ../admin/section-meta-fields.php:255
+msgid "Left"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:251
+msgid "Contact form position"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:260
+msgid "Contact form tagline"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:265
+msgid "Contact form title"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:270
+msgid "Contact info tagline"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:275
+msgid "Contact info title"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:280
+msgid "Contact information"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:285
+msgid "Map type"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:288
+msgid "Road"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:289
+msgid "Satellite"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:290
+msgid "Hybrid"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:291
+msgid "Terrain"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:296
+msgid "Map zoom"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:308
+msgid ""
+"This section will contain the content of the WordPress default editor "
+"(located at the top of this page)."
+msgstr ""
+
+#: ../admin/section-meta-fields.php:332
+msgid "Section tagline"
+msgstr ""
+
+#: ../admin/section-meta-fields.php:336
+msgid "Section title"
+msgstr ""
+
+#: ../admin/sections.php:5
+msgid "Pages"
+msgstr ""
+
+#: ../admin/sections.php:7
+msgid "Testimonials"
+msgstr ""
+
+#: ../admin/sections.php:8
+msgid "Posts"
+msgstr ""
+
+#: ../admin/sections.php:10
+msgid "Slider / Text / Owner image"
+msgstr ""
+
+#: ../admin/sections.php:11
+msgid "Text / Image"
+msgstr ""
+
+#: ../admin/sections.php:12
+msgid "Gallery"
+msgstr ""
+
+#: ../admin/sections.php:13
+msgid "Call to Action"
+msgstr ""
+
+#: ../admin/sections.php:14
+msgid "Map / Contact"
+msgstr ""
+
+#: ../admin/sections.php:15
+msgid "Custom Content"
+msgstr ""
+
+#: ../admin/sections.php:16
+msgid "Editor Content"
+msgstr ""
+
+#: ../admin/sections.php:23
+msgid "Add a section:"
+msgstr ""
+
+#: ../admin/sections.php:25
+msgid "Select section type"
+msgstr ""
+
+#: ../admin/sections.php:31
+msgid "Add section"
+msgstr ""
+
+#: ../admin/sections.php:88 ../admin/sections.php:102
+msgid "Delete section"
+msgstr ""
+
+#: ../admin/sections.php:90 ../admin/sections.php:104
+msgid "Close section"
+msgstr ""
+
+#: ../admin/sliders.php:6
+msgid "Sliders"
+msgstr ""
+
+#: ../admin/sliders.php:30
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: ../admin/sliders.php:59
+msgid "Select a media"
+msgstr ""
+
+#: ../admin/sliders.php:61
+msgid "Are you sure you want to delete this slider? Click OK to confirm."
+msgstr ""
+
+#: ../admin/sliders.php:62
+msgid "Are you sure you want to delete this slide? Click OK to confirm."
+msgstr ""
+
+#: ../admin/strings.php:59 ../admin/strings.php:60 ../admin/strings.php:84
+#, php-format
+msgid "%s theme strings"
+msgstr ""
+
+#: ../admin/strings.php:75
+msgid "Select a language."
+msgstr ""
+
+#: ../admin/strings.php:76
+msgid "Choose a file to import."
+msgstr ""
+
+#: ../admin/strings.php:85
+msgid "From this page you can modify any string displayed by the theme."
+msgstr ""
+
+#: ../admin/strings.php:88
+msgid "Import a language file"
+msgstr ""
+
+#: ../admin/strings.php:119
+#, php-format
+msgid "The import was successful (%d strings have been imported)."
+msgstr ""
+
+#: ../admin/strings.php:125
+msgid "The language file is not valid."
+msgstr ""
+
+#: ../admin/strings.php:134
+msgid "Language"
+msgstr ""
+
+#: ../admin/strings.php:165
+msgid "Export a language file"
+msgstr ""
+
+#: ../admin/strings.php:185
+msgid "Modify theme strings"
+msgstr ""
+
+#: ../admin/theme-strings.php:78
+msgid "Send button"
+msgstr ""
+
+#: ../admin/theme-strings.php:82
+msgid "Invalid email error"
+msgstr ""
+
+#: ../admin/theme-strings.php:86
+msgid "Required field error"
+msgstr ""
+
+#: ../admin/theme-strings.php:90
+msgid "Invalid number error"
+msgstr ""
+
+#: ../admin/theme-strings.php:94
+msgid "Connection error"
+msgstr ""
+
+#: ../admin/theme-strings.php:98
+msgid "Message sent"
+msgstr ""
+
+#: ../admin/theme-strings.php:102
+msgid "Message not sent"
+msgstr ""
+
+#: ../admin/theme-strings.php:106
+msgid "Message already sent"
+msgstr ""
+
+#: ../demo-install/demo-install.php:33 ../demo-install/demo-install.php:34
+#: ../demo-install/demo-install.php:58
+#, php-format
+msgid "%s demo install"
+msgstr ""
+
+#: ../demo-install/demo-install.php:60
+msgid ""
+"Installing a demo includes creating pages, posts, navigation menus as well "
+"as allocating widgets to sidebars and setting options."
+msgstr ""
+
+#: ../demo-install/demo-install.php:63
+msgid "Warning:"
+msgstr ""
+
+#: ../demo-install/demo-install.php:64
+msgid ""
+"It will delete previous posts, categories, pages, navigation menus as well "
+"as deleting sidebar widgets options and changing several options."
+msgstr ""
+
+#: ../demo-install/demo-install.php:66
+msgid ""
+"If you have HBook set up already, note that it will delete all HBook "
+"settings and content as well."
+msgstr ""
+
+#: ../demo-install/demo-install.php:70
+#, php-format
+msgid "Demo %d installation"
+msgstr ""
+
+#: ../demo-install/demo-install.php:72
+#, php-format
+msgid "View demo %d"
+msgstr ""
+
+#: ../demo-install/demo-install.php:75
+msgid ""
+"This process may take several minutes. Please do not refresh or exit this "
+"page before completion."
+msgstr ""
+
+#: ../demo-install/demo-install.php:89
+msgid "Done."
+msgstr ""
+
+#: ../demo-install/demo-install.php:90
+msgid "An error occured."
+msgstr ""
+
+#: ../demo-install/demo-install.php:97
+msgid "The demo content installation could not be fully completed."
+msgstr ""
+
+#: ../demo-install/demo-install.php:109
+msgid ""
+"Installing the demo content will reset your WordPress installation (previous "
+"posts, pages, categories, tags, menus, sidebars widgets will be erased). If "
+"you have HBook set up already, note that it will delete all HBook settings "
+"and content as well. Do you want to continue?"
+msgstr ""
+
+#: ../demo-install/demo-install.php:110
+msgid "The demo content is being installed. Please wait a little longer."
+msgstr ""
+
+#: ../demo-install/images.php:38
+msgid "Could not copy file:"
+msgstr ""
+
+#: ../header.php:142 ../header.php:144
+msgid "Your browser does not support the &lt;video&gt; tag"
+msgstr ""
+
+#: ../header.php:278
+msgid ""
+"Please insert the booking page id in the Booking form option or insert a "
+"custom shortcode."
+msgstr ""
+
+#: ../inc/lightbox-image.php:17
+msgid "The \"img_id\" argument is missing."
+msgstr ""
+
+#: ../inc/lightbox-image.php:26
+msgid "The value of the \"width\" argument is not valid."
+msgstr ""
+
+#: ../inc/menu-support-init.php:5
+msgid "Header Menu"
+msgstr ""
+
+#: ../inc/sidebars.php:8
+msgid "Blog"
+msgstr ""
+
+#: ../inc/sidebars.php:10
+msgid "Add widgets here to appear in the sidebar of your blog."
+msgstr ""
+
+#: ../inc/sidebars.php:20
+msgid "Add widgets here to appear in the accommodation pages."
+msgstr ""
+
+#: ../inc/sidebars.php:28
+msgid "Top header left"
+msgstr ""
+
+#: ../inc/sidebars.php:30
+msgid "Add widgets here to appear at the left of the top header."
+msgstr ""
+
+#: ../inc/sidebars.php:38
+msgid "Top header right"
+msgstr ""
+
+#: ../inc/sidebars.php:40
+msgid "Add widgets here to appear at the right of the top header."
+msgstr ""
+
+#: ../inc/sidebars.php:49
+#, php-format
+msgid "Footer Column %d"
+msgstr ""
+
+#: ../inc/sidebars.php:51
+msgid "Add widgets here to appear in your footer."
+msgstr ""
+
+#: ../inc/sidebars.php:62
+msgid "Add widgets here to appear in the sidebar of your pages."
+msgstr ""
+
+#: ../widgets/contact-details.php:90
+#, php-format
+msgid ""
+"You need to enter information in the %s Contact details page %s before using "
+"this widget."
+msgstr ""
+
+#: ../widgets/contact-details.php:98
+msgid "Title:"
+msgstr ""
+
+#: ../widgets/contact-details.php:129
+#, php-format
+msgid "Display contact detail %s ?"
+msgstr ""
+
+#: ../widgets/contact-details.php:161
+#, php-format
+msgid "Contact detail %s label:"
+msgstr ""
+
+#: ../widgets/contact-details.php:182
+#, php-format
+msgid "Contact detail %s link (url or page id):"
+msgstr ""

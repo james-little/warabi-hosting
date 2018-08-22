@@ -1,0 +1,59 @@
+.main-wrapper {
+    min-width: 320px;
+}
+
+.columns-wrapper {
+	overflow: hidden;
+	position: relative;
+}
+
+.columns-wrapper:after {
+	clear: both;
+	content: "";
+	display: table;
+}
+
+.content-with-padding {
+    margin: 0 auto;
+    max-width: 800px;
+	padding: 40px;
+	position: relative;
+}
+
+.full-width-content-with-padding {
+    padding: 40px;
+}
+
+.centered-content {
+    margin: 0 auto;
+    max-width: 720px;    
+}
+
+.column-three-fourths,
+.column-one-half,
+.column-one-third,
+.column-two-thirds,
+.column-one-fourth {
+	float: left;
+	position: relative;
+}
+
+.column-three-fourths {
+	width: 75%;
+}
+
+.column-two-thirds {
+	width: 66.6666667%;
+}
+
+.column-one-half {
+	width: 50%;
+}
+
+.column-one-third {
+	width: 33.3333333%;
+}
+
+.column-one-fourth {
+	width: 25%;
+}

@@ -1,0 +1,50 @@
+.hotelwp-theme-demo-preview {
+	box-shadow: 0 1px 1px -1px rgba(0,0,0,0.1);
+	float: left;
+    margin: 0 4% 4% 0;
+    position: relative;
+    width: 30.6%;
+}
+
+.hotelwp-theme-demo-preview-legend {
+	background: rgba(255,255,255,0.65);
+	box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+	font-size: 15px;
+	font-weight: 600;
+	height: 18px;
+	padding: 15px;
+	overflow: hidden;
+}
+
+.hotelwp-install-step,
+.hotelwp-install-step-done,
+.hotelwp-install-step-error {
+    display: none;
+    line-height: 30px;
+}
+
+.hotelwp-install-step-ok .hotelwp-install-step-done {
+    display: inline-block;
+}
+
+.hotelwp-install-step-ko .hotelwp-install-step-error {
+    display: inline-block;
+}
+
+.hotelwp-install-step-processing:after {
+    background: url(spinner.gif) no-repeat center right;
+    content: '';
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    width: 30px;
+    top: 5px;
+}
+
+.hotelwp-install-step-all_done {
+    font-weight: bold;
+}
+
+.hotelwp-install-step-all_done.hotelwp-install-step-processing:after {
+    display:none;
+}

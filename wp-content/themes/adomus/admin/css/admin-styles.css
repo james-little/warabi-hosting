@@ -1,0 +1,108 @@
+#adomus-sections-organizer li.adomus-section {
+    background: #fff;
+	border: 3px solid #ddd;
+    margin: 20px 0 0;
+	padding: 15px 0;
+}
+
+#adomus-sections-organizer li.adomus-sorting-state {
+    border: 3px dashed #ddd;
+    margin: 20px 0 0;
+	padding: 15px 0;
+}
+
+.adomus-accom-template-choice-label,
+label[for="adomus-add-section-type"] {
+    display: table;
+    margin-bottom: 3px;
+}
+
+.adomus-section-title {
+    cursor: move;
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.adomus-section-title .dashicons {
+    color: #a0a5aa;
+    display: none;
+    float: right;
+    margin-right: 10px;
+}
+
+.adomus-section-closed .dashicons-arrow-down,
+.adomus-section-opened .dashicons-arrow-up {
+    display: inline-block;
+}
+
+.adomus-section-closed .adomus-section-fields,
+.adomus-section-closed .adomus-section-actions {
+    display: none;
+}
+
+.adomus-section-fields {
+    border-top: 1px solid #e5e5e5;
+    margin-top: 1em;
+    padding: 0 20px;
+}
+
+.adomus-section-actions {
+    border-top: 1px solid #e5e5e5;
+    color: #bbb;
+    margin-top: 1em;
+    padding: 15px 20px 5px;
+}
+
+.adomus-section-delete:hover,
+.adomus-delete-map-point:hover {
+    color: #f00;
+    text-decoration: none;
+}
+
+.section-editor-state,
+#adomus-section-creator {
+    display: none;
+}
+
+#adomus-sections-organizer .adomus-multiple-imgs-select li.adomus-sorting-state {
+    border: 3px dashed #ddd;
+    height: 94px;
+    margin: 0 0 10px;
+    padding: 0;
+    width: 194px;
+}
+
+.adomus-remove-all-multiple-imgs {
+    display: none;
+}
+
+.adomus-multiple-select-checkbox-wrapper {
+    display: inline-block; 
+    margin-bottom: 3px;
+}
+
+.adomus-map-point {
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 5px 20px;
+}
+
+.adomus-map-new-point {
+    display: none;
+}
+
+.adomus-section .wp-editor-wrap {
+	margin-top: 20px;
+}
+
+.hotelwp-saving-settings {
+    background: url(../img/spinner.gif);
+    display: none;
+    height: 20px;
+    margin-left: 10px;
+    vertical-align: -25%;
+    width: 20px;
+}

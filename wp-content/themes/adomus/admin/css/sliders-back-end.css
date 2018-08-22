@@ -1,0 +1,90 @@
+#new-slideshow-form {
+	display: none;
+}
+
+.slideshows-saved {
+	display: none;
+	font-weight: bold;
+}
+
+.edit-slideshow-form {
+	display: none;
+	margin-top:25px;
+}
+
+.button-secondary.edit-slideshow {
+	margin-right:5px;
+}
+
+.button-secondary.close-edit-slideshow {
+	display: none;
+	margin-right:5px
+}
+
+.label {
+	display:block;
+	font-weight:bold;
+	margin-bottom: 5px;
+}
+
+.wp-picker-container .iris-picker {
+	z-index: 10;
+}
+
+.slide-image a {
+	background: url(../img/spinner.gif) no-repeat 96px 71px;
+	display: block;
+}
+
+.slide-image img {
+	border: 1px solid #ccc;
+	margin-bottom: 15px;
+	padding: 5px;
+	height: 150px;
+	width: 200px;
+}
+
+.slide-title {
+	display: block;
+    margin: -15px 0 15px;
+}
+
+.slideshow {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	margin-top: 10px;
+	padding: 10px;
+	width: 450px;
+}
+
+.slide-display {
+	background: #fff;
+	border-top: 1px solid #ccc;
+	border-left: 0;
+	border-right: 0;
+	cursor: move;
+	margin: 20px 0px;
+	padding-top: 20px;
+	position: relative;	
+	width: 430px;
+}
+
+.caption {
+	left: 230px;
+	position: absolute;
+	top: 0px;
+}
+
+.add-slide-button-wrapper {
+	padding-top: 20px;
+	border-top: 1px solid #ccc;
+}
+
+.slideshows-saving {
+    background: url(../img/spinner.gif);
+    display: none;
+    height: 20px;
+    margin-left: 10px;
+    vertical-align: -25%;
+    width: 20px;
+}
