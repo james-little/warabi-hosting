@@ -7,12 +7,12 @@
 }
 
 .hb-form-field {
-	background: #fff; 
+	background: #fff;
 	border: 2px dashed #ddd;
 	margin-bottom: 10px;
 	padding: 9px 15px 5px;
 	position: relative;
-	width: 330px; 
+	width: 330px;
 }
 
 .hb-form-field.hb-standard-field {
@@ -65,7 +65,7 @@
 }
 
 .hb-form-field-select {
-	display: inline-block; 
+	display: inline-block;
 	margin: -3px 0 -2px;
 	width: 130px;
 }
@@ -83,7 +83,7 @@
 }
 
 .hb-form-fields-choices-ul li {
-	background:#eee; 
+	background:#eee;
 	padding: 5px 5px 5px 8px;
 	position: relative;
 }

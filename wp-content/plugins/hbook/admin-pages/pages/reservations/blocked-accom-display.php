@@ -1,25 +1,25 @@
-<?php 
+<?php
 class HbAdminPageReservationsBlockedAccom {
-	
+
 	private $accom;
-	
+
 	public function __construct( $accom ) {
 		$this->accom = $accom;
 	}
-	
+
 	public function display() {
 	?>
-		
+
 		<div class="hb-resa-section">
-			
+
 			<h3 id="hb-block-accom-toggle" class="hb-resa-section-toggle">
 				<?php esc_html_e( 'Block accommodation', 'hbook-admin' ); ?>
 				<span class="dashicons dashicons-arrow-up"></span>
 				<span class="dashicons dashicons-arrow-down"></span>
 			</h3>
-						
+
 			<div id="hb-block-accom">
-				
+
 				<div class="stuffbox">
 					<form data-bind="submit: add_blocked_accom">
 						<p class="hb-add-blocked-accom-column">
@@ -30,7 +30,7 @@ class HbAdminPageReservationsBlockedAccom {
 								<option value="<?php echo( $accom_id ); ?>"><?php echo( $accom_name ); ?></option>
 								<?php } ?>
 							</select>
-						</p>				
+						</p>
 						<p class="hb-add-blocked-accom-column">
 							<label for="hb-select-blocked-accom-num"><?php esc_html_e( 'Accommodation number:', 'hbook-admin' ); ?></label><br/>
 							<select id="hb-select-blocked-accom-num"></select>
@@ -55,16 +55,16 @@ class HbAdminPageReservationsBlockedAccom {
 						</p>
 					</form>
 				</div>
-				
+
 				<!-- ko if: blocked_accom().length == 0 -->
 				<?php esc_html_e( 'There are no blocked accommodation at the moment', 'hbook-admin' ); ?>
 				<!-- /ko -->
-				
+
 				<!-- ko if: blocked_accom().length > 0 -->
 				<h4 class="hb-block-accom-title"><?php esc_html_e( 'Blocked accommodation', 'hbook-admin' ); ?></h4>
-				
+
 				<div class="hb-table hb-blocked-accom-table">
-				
+
 					<div class="hb-table-head hb-clearfix">
 						<div class="hb-table-head-data hb-table-head-data-accom"><?php esc_html_e( 'Accommodation', 'hbook-admin' ); ?></div>
 						<div class="hb-table-head-data"><?php esc_html_e( 'Start date', 'hbook-admin' ); ?></div>
@@ -72,7 +72,7 @@ class HbAdminPageReservationsBlockedAccom {
 						<div class="hb-table-head-data hb-table-head-data-comment"><?php esc_html_e( 'Comment', 'hbook-admin' ); ?></div>
 						<div class="hb-table-head-data hb-table-head-data-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></div>
 					</div>
-					
+
 					<!-- ko foreach: blocked_accom -->
 					<div class="hb-table-row hb-clearfix">
 						<div data-bind="attr: { class: anim_class }">
@@ -90,17 +90,17 @@ class HbAdminPageReservationsBlockedAccom {
 						</div>
 					</div>
 					<!-- /ko -->
-					
+
 				</div>
 				<!-- /ko -->
-				
+
 			</div>
-			
+
 		</div><!-- end .hb-resa-section -->
-		
+
 		<hr/>
-		
+
 	<?php
 	}
-	
+
 }

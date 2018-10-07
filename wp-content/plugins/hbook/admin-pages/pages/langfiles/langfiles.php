@@ -1,8 +1,8 @@
 <?php
 class HbAdminPageLangfiles extends HbAdminPage {
-	
+
 	private $langs;
-	
+
 	public function __construct( $page_id, $hbdb, $utils, $options_utils ) {
 		$this->langs = $utils->get_langs();
 		$this->data = array(
@@ -13,7 +13,7 @@ class HbAdminPageLangfiles extends HbAdminPage {
 		);
 		parent::__construct( $page_id, $hbdb, $utils, $options_utils );
 	}
-		
+
 	public function display() {
 	?>
 
@@ -21,24 +21,24 @@ class HbAdminPageLangfiles extends HbAdminPage {
 
 		<h2><?php esc_html_e( 'Languages (Import / Export language files)', 'hbook-admin' ); ?></h2>
 		<?php $this->display_right_menu(); ?>
-		
+
 		<?php
-		if ( 
-			isset( $_POST['hb-import-export-action'] ) && 
-			( $_POST['hb-import-export-action'] == 'import-lang' ) && 
-			wp_verify_nonce( $_POST['hb_import_export'], 'hb_import_export' ) && 
-			current_user_can( 'manage_options' ) 
+		if (
+			isset( $_POST['hb-import-export-action'] ) &&
+			( $_POST['hb-import-export-action'] == 'import-lang' ) &&
+			wp_verify_nonce( $_POST['hb_import_export'], 'hb_import_export' ) &&
+			current_user_can( 'manage_options' )
 		) {
 			$import_file = $_FILES['hb-import-lang-file']['tmp_name'];
 			$file_content = file_get_contents( $import_file );
-			$re_id = "/msgid\\s*\"(.*)\"/"; 
-			$re_str = "/msgstr\\s*\"(.*)\"/"; 
+			$re_id = "/msgid\\s*\"(.*)\"/";
+			$re_str = "/msgstr\\s*\"(.*)\"/";
 			preg_match_all( $re_id, $file_content, $matches_id );
 			preg_match_all( $re_str, $file_content, $matches_str );
 			$ids = $matches_id[1];
 			$strings = $matches_str[1];
-			if ( 
-				( count( $ids ) == 0 ) || 
+			if (
+				( count( $ids ) == 0 ) ||
 				( count( $ids ) != count( $strings ) ) ||
 				! ( in_array( 'default_form_title', $ids ) )
 			) {
@@ -71,9 +71,9 @@ class HbAdminPageLangfiles extends HbAdminPage {
 			}
 		}
 		?>
-		
+
 		<hr/>
-		
+
 		<h3><?php esc_html_e( 'Import a file', 'hbook-admin' ); ?></h3>
 		<form id="hb-import-file-form" method="post" enctype="multipart/form-data">
 			<p>
@@ -85,16 +85,16 @@ class HbAdminPageLangfiles extends HbAdminPage {
 				}
 				$select_lang = '<select id="hb-import-lang-code" name="hb-import-lang-code">' . $select_lang_options . '</select>';
 				$allowed_html = array(
-				    'select' => array(
-				        'id' => array(),
-				        'name' => array()
-				    ),
+					'select' => array(
+						'id' => array(),
+						'name' => array()
+					),
 					'option' => array(
 						'value' => array()
 					)
 				);
 				echo( wp_kses( $select_lang, $allowed_html ) );
-    			?>
+				?>
 			</p>
 			<p>
 				<input id="hb-import-lang-file" type="file" name="hb-import-lang-file" />
@@ -105,9 +105,9 @@ class HbAdminPageLangfiles extends HbAdminPage {
 			<input type="hidden" name="hb-import-export-action" value="import-lang" />
 			<?php wp_nonce_field( 'hb_import_export', 'hb_import_export' ); ?>
 		</form>
-		
+
 		<hr/>
-		
+
 		<h3><?php esc_html_e( 'Export a file', 'hbook-admin' ); ?></h3>
 		<p>
 			<?php
@@ -119,13 +119,13 @@ class HbAdminPageLangfiles extends HbAdminPage {
 			}
 			?>
 		</p>
-		
+
 		<form id="hb-export-lang-form" method="POST">
 			<input type="hidden" name="hb-import-export-action" value="export-lang" />
 			<input id="hb-locale-export" type="hidden" name="hb-locale-export" />
 			<?php wp_nonce_field( 'hb_import_export', 'hb_import_export' ); ?>
 		</form>
-		
+
 	</div><!-- end .wrap -->
 
 	<?php

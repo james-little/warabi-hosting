@@ -1,11 +1,11 @@
 <?php
 class HbAdminPageText extends HbAdminPage {
-	
+
 	private $sections;
 	private $strings;
 	private $langs;
 	private $variables;
-	
+
 	public function __construct( $page_id, $hbdb, $utils, $options_utils ) {
 		$this->data = array(
 			'hb_text' => array(
@@ -25,7 +25,7 @@ class HbAdminPageText extends HbAdminPage {
 				'title' => esc_html__( 'Accommodation selection', 'hbook-admin' ),
 				'strings' => array_merge( $utils->get_accom_selection_txt(), $hbdb->get_fee_names() )
 			),
-            'options-select' => array(
+			'options-select' => array(
 				'title' => esc_html__( 'Extra services selection', 'hbook-admin' ),
 				'strings' => array_merge( $utils->get_options_selection_txt(), $hbdb->get_option_names() )
 			),
@@ -45,7 +45,7 @@ class HbAdminPageText extends HbAdminPage {
 				'title' => esc_html__( 'Summary', 'hbook-admin' ),
 				'strings' => $utils->get_summary_txt()
 			),
-            'payment-choice' => array(
+			'payment-choice' => array(
 				'title' => esc_html__( 'Payment choice', 'hbook-admin' ),
 				'strings' => $utils->get_payment_type_choice()
 			),
@@ -62,9 +62,9 @@ class HbAdminPageText extends HbAdminPage {
 				'strings' => $utils->get_external_payment_desc_txt()
 			),
 			'book-now-area' => array(
-                'title' => esc_html__( 'Book now area', 'hbook-admin' ),
-                'strings' => $utils->get_book_now_area_txt()
-            ),
+				'title' => esc_html__( 'Book now area', 'hbook-admin' ),
+				'strings' => $utils->get_book_now_area_txt()
+			),
 			'error-msg' => array(
 				'title' => esc_html__( 'Error messages', 'hbook-admin' ),
 				'strings' => $utils->get_error_form_msg()
@@ -88,7 +88,7 @@ class HbAdminPageText extends HbAdminPage {
 		$this->variables = $utils->get_txt_variables();
 		parent::__construct( $page_id, $hbdb, $utils, $options_utils );
 	}
-	
+
 	public function display() {
 	?>
 
@@ -98,7 +98,7 @@ class HbAdminPageText extends HbAdminPage {
 
 			<input id="hb-nonce" type="hidden" name="nonce" value="" />
 			<input id="hb-action" type="hidden" name="action" value="" />
-			
+
 			<div class="hb-clearfix">
 				<h1><?php esc_html_e( 'HBook text', 'hbook-admin' ); ?></h1>
 				<?php $this->display_right_menu(); ?>
@@ -115,27 +115,27 @@ class HbAdminPageText extends HbAdminPage {
 			</div>
 
 			<hr/>
-			
+
 			<?php
 			foreach ( $this->sections as $section_id => $section ) {
 			?>
-			
+
 			<h3 id="hb-text-section-<?php echo( esc_html( $section_id ) ); ?>"><?php echo( esc_html( $section['title'] ) ); ?></h3>
-			
+
 			<?php if ( $section_id == 'details-form-txt' ) { ?>
 			<p><i><?php esc_html_e( 'Leave the following fields blank to use their default name.', 'hbook-admin' ); ?></i></p>
 			<?php } ?>
-			
+
 				<?php
 				foreach ( $section['strings'] as $string_id => $string_name ) {
 				?>
-				
+
 				<h4><?php echo( esc_html( $string_name ) ); ?></h4>
 				<?php
 				if ( isset( $this->variables[ $string_id ] ) ) {
 				?>
 					<small class="hb-variable-desc">
-					<?php 
+					<?php
 					if ( count( $this->variables[ $string_id ] ) > 1 ) {
 						esc_html_e( 'You can use these variables:', 'hbook-admin' );
 					} else {
@@ -163,20 +163,20 @@ class HbAdminPageText extends HbAdminPage {
 				?>
 					<input type="text" name="string-id-<?php echo( esc_html( $string_id ) ); ?>-in-<?php echo( esc_html( $locale ) ); ?>" value="<?php echo( esc_attr( $translation ) ); ?>" />
 				</p>
-				<?php 
+				<?php
 					}
 				}
 				?>
-				
+
 				<br class="hb-before-save-button" />
 				<?php $this->options_utils->display_save_options_section(); ?>
-				
+
 			<?php
-			}	
+			}
 			?>
-			
+
 		</form>
-		
+
 	</div><!-- end .wrap -->
 
 	<?php

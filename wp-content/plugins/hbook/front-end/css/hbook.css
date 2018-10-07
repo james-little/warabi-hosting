@@ -17,14 +17,14 @@ p.hb-search-button-wrapper {
 	bottom: 0;
 	display: none;
 	left: 0;
-	position: absolute; 
-	right: 0; 
+	position: absolute;
+	right: 0;
 	top: 0;
 }
 
 .hb-datepick-check-in-out-trigger {
 	display: block;
-	position: absolute; 
+	position: absolute;
 }
 
 .hb-check-dates-wrapper {
@@ -67,7 +67,7 @@ p.hb-search-button-wrapper {
 .hb-people-wrapper select,
 .hb-search-button-wrapper input {
 	box-sizing: border-box;
-	width: 100%; 
+	width: 100%;
 }
 
 .hb-search-button-wrapper input {
@@ -101,7 +101,7 @@ p.hb-search-button-wrapper {
 }
 
 .hb-vertical-search-form:not(.hb-narrow-search-form) .hb-search-button-wrapper input {
-	width: auto; 
+	width: auto;
 }
 
 .hb-vertical-search-form .hb-search-button-wrapper label {
@@ -176,7 +176,7 @@ p.hb-booking-searching {
 	display: block;
 	float: right;
 	margin: 0 0 15px 15px;
-    max-width: 100%;
+	max-width: 100%;
 }
 
 .hb-accom-price {
@@ -281,14 +281,14 @@ textarea.hb-detail-field {
 
 .hb-booking-details-form .hb-payment-type-multiple-choice label,
 .hb-booking-details-form .hb-payment-method label {
-    display: inline;
+	display: inline;
 }
 
 .hb-payment-type-explanation,
 input.hb-payment-type-hidden,
 input.hb-payment-method-hidden,
 .hb-payment-method-wrapper {
-    display: none;   
+	display: none;
 }
 
 .hb-column-half {
@@ -372,20 +372,20 @@ input.hb-coupon-code {
 }
 
 a.hb-thumbnail-link {
-    border: none;
+	border: none;
 	display: block;
 }
 
 .hb-accom-list-thumb {
-    display: block;
-    float: left;
-    max-width: 100%;
+	display: block;
+	float: left;
+	max-width: 100%;
 }
 
-.hb-accom-list-item h2, 
-.hb-accom-list-item h3, 
+.hb-accom-list-item h2,
+.hb-accom-list-item h3,
 .hb-accom-list-item h4 {
-    clear: none;
+	clear: none;
 }
 
 .hb-single-option {
@@ -393,14 +393,14 @@ a.hb-thumbnail-link {
 }
 
 .hb-quantity-option {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 .hb-options-form,
 .hb-quantity-option,
 .hb-single-option,
 .hb-multiple-option {
-    display: none;
+	display: none;
 }
 
 .hbook-wrapper .hb-options-form label {
@@ -408,7 +408,7 @@ a.hb-thumbnail-link {
 }
 
 .hb-options-total-price {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .hb-price-placeholder-minus {
@@ -440,13 +440,13 @@ input[type="text"].hb-stripe-cvc {
 }
 
 .hb-alignleft {
-    float: left;
+	float: left;
 }
 
 .hb-clearfix:after {
-    clear: both;
-    content: "";
-    display: table;
+	clear: both;
+	content: "";
+	display: table;
 }
 
 /* end misc */

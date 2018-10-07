@@ -1,19 +1,23 @@
 <?php
 class HbAdminPageReservationsDisplayHelper {
-	
+
 	private $accom_list_info;
 	private $email_templates;
-	
-	public function __construct( $accom_list_info, $email_templates ) {
+	private $is_site_multi_lang;
+	private $site_langs;
+
+	public function __construct( $accom_list_info, $email_templates, $is_site_multi_lang, $site_langs ) {
 		$this->accom_list_info = $accom_list_info;
 		$this->email_templates = $email_templates;
+		$this->is_site_multi_lang = $is_site_multi_lang;
+		$this->site_langs = $site_langs;
 	}
-	
+
 	public function display_resa_calendar() {
 	?>
-	
+
 	<div class="hb-resa-section">
-	
+
 		<h3><?php esc_html_e( 'Calendar', 'hbook-admin' ); ?></h3>
 		<div>
 			<select id="hb-resa-cal-accommodation">
@@ -26,68 +30,68 @@ class HbAdminPageReservationsDisplayHelper {
 				?>
 			</select>
 		</div><br/>
-		
+
 		<div id="hb-resa-cal-wrapper">
 			<div id="hb-resa-cal-scroller">
 				<table id="hb-resa-accom-table" class="hb-resa-cal-table"></table>
 				<table id="hb-resa-cal-table" class="hb-resa-cal-table"></table>
 			</div>
 		</div>
-	
+
 	</div><!-- end .hb-resa-section -->
-	
+
 	<hr/>
-	
+
 	<?php
 	}
-	
+
 	public function display_resa_details() {
 	?>
-	
+
 	<div class="hb-resa-section">
-	
+
 		<h3><?php esc_html_e( 'Reservation details', 'hbook-admin' ); ?></h3>
-		
+
 		<!-- ko if: selected_resa() == 0 -->
 		<p><?php esc_html_e( 'Click on a number in the calendar to view the reservation details', 'hbook-admin' ); ?></p>
 		<!-- /ko -->
-		
+
 		<!-- ko if: selected_resa() != 0 -->
 		<p>
 			<a href="#" data-bind="click: hide_selected_resa"><?php esc_html_e( 'Hide', 'hbook-admin' ); ?></a>
 		</p>
-		
+
 		<table class="wp-list-table widefat hb-resa-table">
-		
+
 			<?php $this->display_resa_thead(); ?>
-						
+
 			<tbody data-bind="foreach { data: resa_detailed }">
 			<?php $this->display_resa_tr(); ?>
 			</tbody>
-		
+
 		</table>
 		<!-- /ko -->
-		
+
 	</div>
-	
+
 	<hr/>
-	
+
 	<?php
 	}
-	
+
 	public function display_resa_list() {
 	?>
-	
+
 	<div class="hb-resa-section">
-	
+
 		<h3><?php esc_html_e( 'Reservation list', 'hbook-admin' ); ?></h3>
-		
+
 		<!-- ko if: resa().length == 0 -->
 		<?php esc_html_e( 'No reservations yet.', 'hbook-admin' ); ?>
 		<!-- /ko -->
-		
+
 		<!-- ko if: resa().length != 0 -->
-		
+
 		<p>
 			<select data-bind="value: resa_filter">
 				<option value="none"><?php esc_html_e( 'No filter', 'hbook-admin' ); ?></option>
@@ -129,13 +133,13 @@ class HbAdminPageReservationsDisplayHelper {
 			</select>
 			<select data-bind="
 				visible: resa_filter_accom_id() != 'all',
-				options: resa_filter_accom_num_name, 
-				optionsValue: 'num', 
-				optionsText: 'name', 
+				options: resa_filter_accom_num_name,
+				optionsValue: 'num',
+				optionsText: 'name',
 				value: resa_filter_accom_num">
 			</select>
 		</p>
-		<?php 
+		<?php
 		$resa_filter_dates_types = array( 'check_in', 'check_out', 'check_in_out', 'active_resa' );
 		foreach ( $resa_filter_dates_types as $filter_type ) :
 		?>
@@ -148,29 +152,29 @@ class HbAdminPageReservationsDisplayHelper {
 		<?php endforeach; ?>
 
 		<?php $this->display_resa_pagination(); ?>
-		
+
 		<table class="wp-list-table widefat hb-resa-table">
-		
+
 			<?php $this->display_resa_thead(); ?>
-		
+
 			<tbody data-bind="foreach { data: resa_paginated }">
 			<?php $this->display_resa_tr(); //, beforeRemove: hide_resa, afterAdd: show_resa?>
 			</tbody>
-			
+
 		</table>
 
 		<?php $this->display_resa_pagination(); ?>
-		
+
 		<!-- /ko -->
-		
+
 	</div>
-	
-	<?php	
+
+	<?php
 	}
-	
+
 	private function display_resa_thead() {
 	?>
-	
+
 		<thead>
 			<tr>
 				<td class="hb-resa-num-column"><?php esc_html_e( 'Num', 'hbook-admin' ); ?></td>
@@ -188,13 +192,13 @@ class HbAdminPageReservationsDisplayHelper {
 				<td class="hb-resa-actions-column"><?php if ( $this->user_can_edit() ) { esc_html_e( 'Actions', 'hbook-admin' ); } ?></td>
 			</tr>
 		</thead>
-		
+
 	<?php
 	}
-	
+
 	private function display_resa_tr() {
 	?>
-	
+
 		<tr data-bind="attr: { 'data-resa-num': id, class: anim_class }">
 			<td class="hb-resa-num-column" data-bind="text: id"></td>
 			<td data-bind="html: status_markup"></td>
@@ -262,6 +266,15 @@ class HbAdminPageReservationsDisplayHelper {
 					<?php esc_html_e( 'Children:', 'hbook-admin' ); ?>
 					<br/>
 					<input class="hb-input-edit-resa" data-bind="value: children_tmp" type="text" />
+					<?php if ( $this->is_site_multi_lang == 'yes' ) : ?>
+						<?php esc_html_e( 'Reservation language:', 'hbook-admin' ); ?>
+						<br/>
+						<select	class="hb-select-edit-resa" data-bind=" value: lang_tmp">
+						<?php foreach ( $this->site_langs as $lang_value => $lang_name ) : ?>
+							<option value="<?php echo( esc_attr( $lang_value ) ); ?>"><?php echo( esc_html( $lang_name ) ); ?></option>
+						<?php endforeach; ?>
+						</select>
+					<?php endif; ?>
 					<div data-bind="html: additional_info_editing_markup"></div>
 					<a data-bind="click: $root.save_resa_info, visible: ! saving_resa_info()" href="#" class="button-primary"><?php esc_html_e( 'Save', 'hbook-admin' ); ?></a>
 					<input type="button" disabled data-bind="visible: saving_resa_info()" href="#" class="button-primary" value="<?php esc_attr_e( 'Saving', 'hbook-admin' ); ?>" />
@@ -313,10 +326,10 @@ class HbAdminPageReservationsDisplayHelper {
 				<div data-bind="visible: creating_customer()"><?php esc_html_e( 'Creating customer...', 'hbook-admin' ); ?></div>
 				<div data-bind="visible: selecting_customer()">
 					<div class="hb-resa-filter-customer">
-						<select 
-							id="hb-select-customer-id-list" 
-							class="hb-customer-id-list" 
-							multiple size="6" 
+						<select
+							id="hb-select-customer-id-list"
+							class="hb-customer-id-list"
+							multiple size="6"
 							data-bind="value: select_customer_id, options: $root.resa_customers_list, optionsValue: 'id', optionsText: 'id_name'">
 						</select><br/>
 						<input type="text" data-bind="value: $root.resa_customers_list_filter, valueUpdate: 'afterkeydown'" placeholder="<?php esc_attr_e( 'Search a customer...', 'hbook-admin' ); ?>" /><br/>
@@ -328,20 +341,20 @@ class HbAdminPageReservationsDisplayHelper {
 				<!-- /ko -->
 			</td>
 			<td>
-				
 				<div data-bind="html: price_markup"></div>
-				<div data-bind="visible: hb_paid_security_bond == 'yes', html: price_with_security_bond_markup" class="hb-amount-with-security-bond"></div>
 
 				<!-- ko if: status() != 'processing' -->
-				
+
 				<div data-bind="html: price_status"></div>
-				
+
 				<!-- ko if: paid() != -1 -->
 				<?php if ( $this->user_can_edit() ) : ?>
-				<a data-bind="click: $root.mark_paid, visible: parseFloat( paid() ) < parseFloat( price_with_security_bond() ) && ! marking_paid()" href="#"><?php esc_html_e( 'Mark as paid', 'hbook-admin' ); ?></a>
+				<a data-bind="click: $root.mark_paid, visible: mark_paid_visible()" href="#">
+					<?php esc_html_e( 'Mark as paid', 'hbook-admin' ); ?>
+				</a>
 				<b data-bind="visible: marking_paid()"><?php esc_html_e( 'Marking as paid...', 'hbook-admin' ); ?></b>
 				<?php endif; ?>
-				
+
 				<div class="hb-to-be-paid-details">
 					<div data-bind="visible: ! editing_paid()">
 						<div data-bind="visible: paid() != 0, html: price_details"></div>
@@ -385,9 +398,9 @@ class HbAdminPageReservationsDisplayHelper {
 					</div>
 				</div>
 				<!-- /ko -->
-				
+
 				<!-- /ko -->
-				
+
 			</td>
 			<td data-bind="text: received_on"></td>
 			<td class="hb-resa-actions-column">
@@ -430,34 +443,34 @@ class HbAdminPageReservationsDisplayHelper {
 				<?php endif ?>
 			</td>
 		</tr>
-	
+
 	<?php
 	}
 
 	private function display_resa_pagination() {
 	?>
-	
+
 	<!-- ko if: resa_total_pages() > 1 -->
 	<p>
 		<a href="#" class="button" data-bind="click: resa_first_page">&laquo;</a>
 		<a href="#" class="button" data-bind="click: resa_previous_page">&lsaquo;</a>
 		&nbsp;&nbsp;
-		<?php 
+		<?php
 		printf(
 			esc_html__( 'Viewing page %s of %s', 'hbook-admin' ),
 			'<span data-bind="text: resa_current_page_number"></span>',
 			'<span data-bind="text: resa_total_pages"></span>'
-		); 
+		);
 		?>
 		&nbsp;&nbsp;
 		<a href="#" class="button" data-bind="click: resa_next_page">&rsaquo;</a>
 		<a href="#" class="button" data-bind="click: resa_last_page">&raquo;</a>
 	</p>
 	<!-- /ko -->
-	
+
 	<?php
 	}
-	
+
 	private function user_can_edit() {
 		if ( current_user_can( 'manage_resa' ) || current_user_can( 'manage_options' ) ) {
 			return true;
@@ -465,5 +478,5 @@ class HbAdminPageReservationsDisplayHelper {
 			return false;
 		}
 	}
-	
+
 }

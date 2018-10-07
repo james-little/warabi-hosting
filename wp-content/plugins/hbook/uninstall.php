@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) && ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 if ( get_option( 'hb_uninstall_delete_all' ) == 'yes' ) {
-	
+
 	require_once plugin_dir_path( __FILE__ ) . 'utils/options-utils.php';
 	$settings = new HbOptionsUtils();
 	$settings->delete_options();
@@ -21,5 +21,5 @@ if ( get_option( 'hb_uninstall_delete_all' ) == 'yes' ) {
 		wp_delete_post( $accom_id, true );
 	}
 	$hbdb->delete_plugin_tables();
-	
+
 }

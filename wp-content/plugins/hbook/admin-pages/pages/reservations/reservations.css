@@ -83,7 +83,7 @@
 }
 
 #hb-resa-check-submit,
-#hb-resa-customer-submit { 
+#hb-resa-customer-submit {
 	margin-right: 10px;
 }
 
@@ -101,45 +101,45 @@
 }
 
 .hb-resa-num-column {
-    white-space: nowrap;
-    width: 4%;
+	white-space: nowrap;
+	width: 4%;
 }
 
 .hb-resa-status-column {
-    width: 9%;
+	width: 9%;
 }
 
 .hb-resa-price-column {
-    width: 10%;
+	width: 10%;
 }
 
 .hb-resa-check-in-out-column {
-    width: 9%;
+	width: 9%;
 }
 
 .hb-resa-accom-column {
-    width: 10%;
+	width: 10%;
 }
 
 .hb-resa-info-column {
-    width: 13%;
+	width: 13%;
 }
 
 .hb-resa-comment-column {
-    width: 13%;
+	width: 13%;
 }
 
 .hb-resa-customer-column {
-    width: 13%;
+	width: 13%;
 }
 
 .hb-resa-received-column {
-    width: 8%;
+	width: 8%;
 }
 
 .hb-resa-actions-column {
 	position: relative;
-    width: 10%;
+	width: 10%;
 }
 
 .widefat thead td.hb-resa-actions-column,
@@ -175,15 +175,15 @@
 	cursor: default;
 	display: inline-block;
 	font-weight: bold;
-    max-width: 90%;
+	max-width: 90%;
 	overflow: hidden;
 	padding: 6px 9px 6px;
 	text-overflow: ellipsis;
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 .hb-payment-status {
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 .hb-resa-new,
@@ -217,10 +217,10 @@
 }
 
 .hb-resa-table .payment-action {
-    color: #FF943E;
-    font-size: 16px;
-    font-weight: bold;
-    vertical-align: sub;
+	color: #FF943E;
+	font-size: 16px;
+	font-weight: bold;
+	vertical-align: sub;
 }
 
 .hb-resa-added td {
@@ -244,45 +244,51 @@
 }
 
 .hb-select-options-title {
-    font-weight: bold;
-    margin-bottom: 4px;
+	font-weight: bold;
+	margin-bottom: 4px;
 }
 
 .hb-quantity-option label {
-    font-weight: normal;
+	font-weight: normal;
 }
 
 .hb-quantity-option input,
 .hb-multiple-option {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 .hb-input-edit-resa,
 .hb-textarea-edit-resa,
+.hb-select-edit-resa,
 .hb-to-be-paid-details .button-primary,
 .hb-charge-details .button-primary,
 .hb-refund-details .button-primary {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
+}
+
+.hb-select-edit-resa {
+	max-width: 400px;
+	width: 100%;
 }
 
 .widefat p {
-    color: #555;
+	color: #555;
 }
 
- .wp-core-ui .button-primary {
-    margin-bottom: 5px;
+.wp-core-ui .button-primary {
+	margin-bottom: 5px;
 }
 
 .hb-accom-editor {
-    margin: 0 0 10px;
+	margin: 0 0 10px;
 }
 
 .hb-accom-editor-radio {
-    margin: 5px 0;
+	margin: 5px 0;
 }
 
 #hb-export-resa {
-    display: none;
+	display: none;
 	padding: 2px 20px 10px;
 }
 
@@ -400,8 +406,8 @@ input.hb-export-resa-date {
 
 .hb-filter-clear-date {
 	font-size: 15px;
-    line-height: 30px;
-    margin-left: -23px;
+	line-height: 30px;
+	margin-left: -23px;
 }
 
 .hb-amount-with-security-bond {

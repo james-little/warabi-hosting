@@ -4,7 +4,7 @@ jQuery( document ).ready( function( $ ) {
 		if ( confirm( hb_text.confirm_delete_sync_errors ) ) {
 			hb_resa_ajax({
 				data: {
-					'action': 'hb_delete_sync_errors', 
+					'action': 'hb_delete_sync_errors',
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {},
@@ -13,41 +13,41 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 		}
-	});	
-	
+	});
+
 	$( '.hb-input-date' ).datepick( hb_datepicker_calendar_options );
-    
-    $( '.hb-input-date' ).datepick( 'option', {
-        dateFormat: 'yyyy-mm-dd',
-        onSelect: function() {
-            $( this ).change();
-        }
-    });
-	
-    $( '#hb-check-in' ).change( function () {
+
+	$( '.hb-input-date' ).datepick( 'option', {
+		dateFormat: 'yyyy-mm-dd',
+		onSelect: function() {
+			$( this ).change();
+		}
+	});
+
+	$( '#hb-check-in' ).change( function () {
 		var check_in_date = $( this ).datepick( 'getDate' )[0],
 			check_out_date = $( '#hb-check-out' ).datepick( 'getDate' )[0];
-        if ( check_in_date && check_out_date && ( check_in_date.getTime() >= check_out_date.getTime() ) ) {
+		if ( check_in_date && check_out_date && ( check_in_date.getTime() >= check_out_date.getTime() ) ) {
 			$( '#hb-check-out' ).datepick( 'setDate', null );
 		}
-        if ( check_in_date ) {
-            var min_check_out = new Date( check_in_date.getTime() );
-            min_check_out.setDate( min_check_out.getDate() + 1 );
-            $( '#hb-check-out' ).datepick( 'option', 'minDate', min_check_out );
-        }
+		if ( check_in_date ) {
+			var min_check_out = new Date( check_in_date.getTime() );
+			min_check_out.setDate( min_check_out.getDate() + 1 );
+			$( '#hb-check-out' ).datepick( 'option', 'minDate', min_check_out );
+		}
 	});
-	
+
 	$( '#hb-block-accom-from-date' ).change( function () {
 		var from_date = $( this ).datepick( 'getDate' )[0],
 			to_date = $( '#hb-block-accom-to-date' ).datepick( 'getDate' )[0];
-        if ( from_date && to_date && ( from_date.getTime() >= to_date.getTime() ) ) {
+		if ( from_date && to_date && ( from_date.getTime() >= to_date.getTime() ) ) {
 			$( '#hb-block-accom-to-date' ).datepick( 'setDate', null );
 		}
-        if ( from_date ) {
-            var min_to_date = new Date( from_date.getTime() );
-            min_to_date.setDate( min_to_date.getDate() + 1 );
-            $( '#hb-block-accom-to-date' ).datepick( 'option', 'minDate', min_to_date );
-        }
+		if ( from_date ) {
+			var min_to_date = new Date( from_date.getTime() );
+			min_to_date.setDate( min_to_date.getDate() + 1 );
+			$( '#hb-block-accom-to-date' ).datepick( 'option', 'minDate', min_to_date );
+		}
 	});
 
 	var customer_id_last_valid_selection = null;
@@ -62,7 +62,7 @@ jQuery( document ).ready( function( $ ) {
 	hb_section_toggle( 'block-accom' );
 	hb_section_toggle( 'add-resa' );
 	hb_section_toggle( 'export-resa' );
-	
+
 	$( '#hb-select-blocked-accom-type' ).change( function() {
 		var blocked_accom_num_options = '';
 		if ( accoms[ $( '#hb-select-blocked-accom-type' ).val() ] && accoms[ $( '#hb-select-blocked-accom-type' ).val() ].number > 1 ) {
@@ -78,7 +78,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		$( '#hb-select-blocked-accom-num' ).html( blocked_accom_num_options );
 	}).change();
-	
+
 	function hb_resa_ajax( ajax_param ) {
 		$.ajax({
 			url: ajaxurl,
@@ -92,14 +92,14 @@ jQuery( document ).ready( function( $ ) {
 			error: ajax_param['error']
 		});
 	}
-	
+
 	$( '#hb-resa-check-price' ).submit( function() {
 		$( this ).find( 'input[type="submit"]' ).blur();
 		$( '#hb-resa-customer, #hb-resa-price-error' ).slideUp();
 		$( '#hb-resa-check-submit-ajax .hb-ajaxing' ).css( 'display', 'inline' );
 		hb_resa_ajax({
 			data: {
-				'action': 'hb_resa_check_price', 
+				'action': 'hb_resa_check_price',
 				'check_in': $( '#hb-check-in' ).val(),
 				'check_out': $( '#hb-check-out' ).val(),
 				'adults': $( '#hb-adults' ).val(),
@@ -123,15 +123,15 @@ jQuery( document ).ready( function( $ ) {
 					$( '#hb-resa-price-breakdown' ).html( response['price_breakdown'] );
 					$( '#hb-resa-options' ).html( response['options_form'] );
 					$( '#hb-resa-options .hb-option' ).hide();
-                    if ( $( '#hb-resa-options .hb-option-accom-' + $( '#hb-accom' ).val() ).length ) {
-                        $( '#hb-resa-options' ).show();
-                        $( '#hb-resa-options .hb-option-accom-' + $( '#hb-accom' ).val() ).show();
-                    } else {
-                        $( '#hb-resa-options' ).hide();
-                    }
-                    $( '#hb-resa-fees' ).html( response['fees'] );
-                    calculate_options_price();
-                    calculate_total_price();
+					if ( $( '#hb-resa-options .hb-option-accom-' + $( '#hb-accom' ).val() ).length ) {
+						$( '#hb-resa-options' ).show();
+						$( '#hb-resa-options .hb-option-accom-' + $( '#hb-accom' ).val() ).show();
+					} else {
+						$( '#hb-resa-options' ).hide();
+					}
+					$( '#hb-resa-fees' ).html( response['fees'] );
+					calculate_options_price();
+					calculate_total_price();
 					if ( response['accom_num'].length == 0 ) {
 						$( '#hb-resa-price-other-wrapper, #hb-resa-customer-details-wrap' ).hide();
 						$( '#hb-resa-accom-num' ).html( '<label>' + hb_text.select_accom_none + '</label>' );
@@ -148,7 +148,7 @@ jQuery( document ).ready( function( $ ) {
 							accom_num_radios += '/>';
 							accom_num_radios += '<label for="' + id + '">' + selected_accom_name;
 							if ( accoms[ $( '#hb-accom' ).val() ].num_name[ val ] ) {
-								 accom_num_radios += ' (' + accoms[ $( '#hb-accom' ).val() ].num_name[ val ] + ')';
+								accom_num_radios += ' (' + accoms[ $( '#hb-accom' ).val() ].num_name[ val ] + ')';
 							}
 							accom_num_radios += '</label><br/>';
 						}
@@ -163,14 +163,14 @@ jQuery( document ).ready( function( $ ) {
 				$( '#hb-resa-check-submit-ajax .hb-ajaxing' ).css( 'display', 'none' );
 				alert( textStatus + ' (' + errorThrown + ')' );
 			}
-		});	
+		});
 		return false;
 	});
-	
 
-    function calculate_options_price() {
 
-        var accom_id = $( '#hb-accom' ).val(),
+	function calculate_options_price() {
+
+		var accom_id = $( '#hb-accom' ).val(),
 			accom_price = $( '#hb-resa-accom-price' ).val(),
 			options_price = 0;
 
@@ -187,63 +187,63 @@ jQuery( document ).ready( function( $ ) {
 		});
 
 		$( '.hb-options-price-raw' ).val( options_price );
-		
+
 		var total_price = options_price + parseFloat( accom_price );
 		$( '#hb-resa-total-price' ).val( total_price );
 		total_price = format_price( total_price );
 		options_price = format_price( options_price );
 		$( '.hb-options-total-price span' ).html( options_price );
-		$( '#hb-resa-price span' ).html( total_price );   
-
-    }
-
-
-    function calculate_total_price() {
-
-        var accom_id = $( '#hb-accom' ).val(),
-			accom_price = $( '#hb-resa-accom-price' ).val(),
-			options_price = $( '.hb-options-price-raw' ).val(),
-            before_fees_price = parseFloat( accom_price ) + parseFloat( options_price ),
-            fees_price = 0,
-            fee_price = 0;
-
-		$( '#hb-resa-fees .hb-fee' ).each( function() {
-            if ( $( this ).hasClass( 'hb-fee-percentage' ) ) {
-                fee_price = before_fees_price  * $( this ).data( 'price' ) / 100;
-            } else {
-                fee_price = $( this ).data( 'price' );
-            }
-            fees_price += parseFloat( fee_price );
-            fee_price = format_price( fee_price );
-            $( this ).find( 'span' ).html( fee_price );
-        });
-		
-        var total_price = parseFloat( accom_price ) + parseFloat( options_price ) + parseFloat( fees_price );
-        total_price = format_price( total_price );
-        $( '#hb-resa-total-price' ).val( total_price );
 		$( '#hb-resa-price span' ).html( total_price );
 
-    }
-    
-    $( '#hb-resa-options' ).on( 'click', '.hb-option', function() {
-		calculate_options_price(); 
+	}
+
+
+	function calculate_total_price() {
+
+		var accom_id = $( '#hb-accom' ).val(),
+			accom_price = $( '#hb-resa-accom-price' ).val(),
+			options_price = $( '.hb-options-price-raw' ).val(),
+			before_fees_price = parseFloat( accom_price ) + parseFloat( options_price ),
+			fees_price = 0,
+			fee_price = 0;
+
+		$( '#hb-resa-fees .hb-fee' ).each( function() {
+			if ( $( this ).hasClass( 'hb-fee-percentage' ) ) {
+				fee_price = before_fees_price  * $( this ).data( 'price' ) / 100;
+			} else {
+				fee_price = $( this ).data( 'price' );
+			}
+			fees_price += parseFloat( fee_price );
+			fee_price = format_price( fee_price );
+			$( this ).find( 'span' ).html( fee_price );
+		});
+
+		var total_price = parseFloat( accom_price ) + parseFloat( options_price ) + parseFloat( fees_price );
+		total_price = format_price( total_price );
+		$( '#hb-resa-total-price' ).val( total_price );
+		$( '#hb-resa-price span' ).html( total_price );
+
+	}
+
+	$( '#hb-resa-options' ).on( 'click', '.hb-option', function() {
+		calculate_options_price();
 		calculate_total_price();
 	});
 
 	$( '#hb-resa-options' ).on( 'keyup', '.hb-option input', function() {
-		calculate_options_price(); 
+		calculate_options_price();
 		calculate_total_price();
 	});
-    
-    function format_price( price ) {
-    	if ( hb_price_precision == 'no_decimals' ) {
+
+	function format_price( price ) {
+		if ( hb_price_precision == 'no_decimals' ) {
 			var formatted_price = Math.round( price );
 		} else {
 			var formatted_price = parseFloat( price ).toFixed( 2 );
 		}
 		return formatted_price;
-    }
-    
+	}
+
 	$( 'input[name="hb-customer-type"]' ).change( function() {
 		$( '#hb-resa-customer-submit' ).slideDown();
 		if ( $( 'input[name="hb-customer-type"]:checked' ).val() == 'id' ) {
@@ -251,54 +251,54 @@ jQuery( document ).ready( function( $ ) {
 			$( '#hb-resa-customer-id' ).slideDown();
 		} else {
 			$( '#hb-resa-customer-details' ).slideDown();
-			$( '#hb-resa-customer-id' ).slideUp();		
+			$( '#hb-resa-customer-id' ).slideUp();
 		}
 	});
-	
+
 	$( '.wrap' ).on( 'click', '.hb-resa-more-info-toggle', function() {
 		$( this ).parent().find( '.hb-resa-more-info-content' ).slideToggle( 100 );
 		$( this ).toggleClass( 'hb-less-info-toggle-link' );
 		return false;
 	});
-	
+
 	$( '.wrap' ).on( 'click', 'a', function( e ) {
 		$( this ).blur();
 		e.preventDefault();
 	});
-	
-    var displayed_accoms = accoms;
-	
-    $( '#hb-resa-cal-accommodation' ).change( function() {
+
+	var displayed_accoms = accoms;
+
+	$( '#hb-resa-cal-accommodation' ).change( function() {
 		var accom_selected = $( this ).val();
 		if ( accom_selected == 'all' ) {
 			displayed_accoms = accoms;
 		} else {
-            displayed_accoms = {};
-            displayed_accoms[ accom_selected ] = accoms[ accom_selected ];
+			displayed_accoms = {};
+			displayed_accoms[ accom_selected ] = accoms[ accom_selected ];
 		}
 		hb_create_resa_cal_tables( $( '#hb-resa-cal-table' ).data( 'first-day'), displayed_accoms );
-        resaViewModel.redraw_calendar();
+		resaViewModel.redraw_calendar();
 	});
-    
-    $( '#hb-resa-cal-wrapper' ).on( 'click', '.hb-go-to-previous-two-weeks, .hb-go-to-next-two-weeks', function() {
-        hb_create_resa_cal_tables( $( this ).data( 'day' ), displayed_accoms );
-        resaViewModel.redraw_calendar();
-        return false;
-    });
-    
-    $( 'body' ).on( 'click', '.hb-month.button', function() {
+
+	$( '#hb-resa-cal-wrapper' ).on( 'click', '.hb-go-to-previous-two-weeks, .hb-go-to-next-two-weeks', function() {
+		hb_create_resa_cal_tables( $( this ).data( 'day' ), displayed_accoms );
+		resaViewModel.redraw_calendar();
+		return false;
+	});
+
+	$( 'body' ).on( 'click', '.hb-month.button', function() {
 		$( this ).parents( '.hb-month-picker').slideUp();
 		hb_create_resa_cal_tables( $( this ).data( 'day' ), displayed_accoms );
 		resaViewModel.redraw_calendar();
 		return false;
 	});
-    
-    function Resa( id, status, price, paid, old_currency, check_in, check_out, adults, children, accom_id, accom_num, non_editable_info, admin_comment, customer_id, received_on, origin, additional_info, lang, max_refundable, view_model ) {
-        this.id = id;
+
+	function Resa( id, status, price, paid, old_currency, check_in, check_out, adults, children, accom_id, accom_num, non_editable_info, admin_comment, customer_id, received_on, origin, additional_info, lang, max_refundable, view_model ) {
+		this.id = id;
 		this.price = ko.observable( price );
-        this.price_tmp = ko.observable();
-        this.paid = ko.observable( paid );
-        this.paid_tmp = ko.observable();
+		this.price_tmp = ko.observable();
+		this.paid = ko.observable( paid );
+		this.paid_tmp = ko.observable();
 		this.charge_amount = ko.observable();
 		if ( hb_paid_security_bond == 'yes' ) {
 			if ( parseFloat( paid ) < parseFloat ( price ) + parseFloat( hb_security_bond ) ) {
@@ -311,37 +311,38 @@ jQuery( document ).ready( function( $ ) {
 		}
 		this.refund_amount = ko.observable( format_price( max_refundable ) );
 		this.max_refundable = ko.observable( max_refundable );
-        this.old_currency = old_currency;
-        this.check_in = ko.observable( check_in );
-        this.check_out = ko.observable( check_out );
+		this.old_currency = old_currency;
+		this.check_in = ko.observable( check_in );
+		this.check_out = ko.observable( check_out );
 		this.check_in_tmp = ko.observable();
-        this.check_out_tmp = ko.observable();
-        this.adults = ko.observable( adults );
-        this.children = ko.observable( children );
+		this.check_out_tmp = ko.observable();
+		this.adults = ko.observable( adults );
+		this.children = ko.observable( children );
 		this.adults_tmp = ko.observable();
 		this.children_tmp = ko.observable();
 		this.additional_info = ko.observable( additional_info );
 		this.origin = origin;
-        this.accom_id = ko.observable( accom_id );
-        this.accom_num = ko.observable( accom_num );
-        this.avai_accom_same_dates = ko.observableArray();
-        this.customer_id = ko.observable( customer_id );
-        this.select_customer_id = ko.observable();
-        this.received_on = received_on;
-        this.non_editable_info = non_editable_info;
-		this.lang = lang;
-        this.admin_comment = ko.observable( admin_comment );
-        this.admin_comment_tmp = ko.observable( '' );
-        this.status = ko.observable( status );
+		this.accom_id = ko.observable( accom_id );
+		this.accom_num = ko.observable( accom_num );
+		this.avai_accom_same_dates = ko.observableArray();
+		this.customer_id = ko.observable( customer_id );
+		this.select_customer_id = ko.observable();
+		this.received_on = received_on;
+		this.non_editable_info = non_editable_info;
+		this.lang = ko.observable( lang );
+		this.lang_tmp = ko.observable();
+		this.admin_comment = ko.observable( admin_comment );
+		this.admin_comment_tmp = ko.observable( '' );
+		this.status = ko.observable( status );
 		this.email_customer_template = ko.observable();
 		this.email_customer_subject = ko.observable();
 		this.email_customer_message = ko.observable();
-		
-        this.updating = ko.observable( false );
-        this.deleting = ko.observable( false );
-        this.emailing = ko.observable( false );
-        this.email_sent = ko.observable( false );
-        this.deleting_anim = ko.observable( false );
+
+		this.updating = ko.observable( false );
+		this.deleting = ko.observable( false );
+		this.emailing = ko.observable( false );
+		this.email_sent = ko.observable( false );
+		this.deleting_anim = ko.observable( false );
 		this.editing_resa_info = ko.observable( false );
 		this.editing_comment = ko.observable( false );
 		this.editing_accom = ko.observable( false );
@@ -349,48 +350,47 @@ jQuery( document ).ready( function( $ ) {
 		this.editing_accom_no_accom = ko.observable( false );
 		this.creating_customer = ko.observable( false );
 		this.selecting_customer = ko.observable( false );
-        this.editing_customer = ko.observable( false );
-        this.saving_accom = ko.observable( false );
-        this.saving_resa_info = ko.observable( false );
-        this.saving_comment = ko.observable( false );
-        this.saving_customer = ko.observable( false );
-        this.saving_selected_customer = ko.observable( false );
-        this.editing_paid = ko.observable( false );
-        this.saving_paid = ko.observable( false );
-        this.marking_paid = ko.observable( false );
+		this.editing_customer = ko.observable( false );
+		this.saving_accom = ko.observable( false );
+		this.saving_resa_info = ko.observable( false );
+		this.saving_comment = ko.observable( false );
+		this.saving_customer = ko.observable( false );
+		this.saving_selected_customer = ko.observable( false );
+		this.editing_paid = ko.observable( false );
+		this.saving_paid = ko.observable( false );
+		this.marking_paid = ko.observable( false );
 		this.editing_charge = ko.observable( false );
-        this.charging = ko.observable( false );
+		this.charging = ko.observable( false );
 		this.editing_refund = ko.observable( false );
-        this.refunding = ko.observable( false );
+		this.refunding = ko.observable( false );
 		this.editing_dates = ko.observable( false );
 		this.saving_dates = ko.observable( false );
 		this.preparing_email = ko.observable( false );
-        this.anim_class = ko.observable( '' );
-        
-        var self = this;
-        
-        this.action_processing = ko.computed( function() {
-            if ( self.deleting() || self.updating() || self.emailing() ) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-        
-        this.status_markup = ko.computed( function() {
-            return '<div class="hb-resa-status hb-resa-' + self.status() + '" title="' + hb_text[ self.status() ] + '">' + hb_text[ self.status() ] + '</div>';
-        });
-        
-        this.price_markup = ko.computed( function() {
-            var price = '';
-            if ( self.old_currency ) {
-                price = format_price( self.price() ) + ' ' + old_currency;
-            } else {
-                price = hb_format_price( self.price() );
-            }
-            return price;
-        });
-		
+		this.anim_class = ko.observable( '' );
+
+		var self = this;
+
+		this.action_processing = ko.computed( function() {
+			if ( self.deleting() || self.updating() || self.emailing() ) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+
+		this.status_markup = ko.computed( function() {
+			return '<div class="hb-resa-status hb-resa-' + self.status() + '" title="' + hb_text[ self.status() ] + '">' + hb_text[ self.status() ] + '</div>';
+		});
+
+		this.past = ko.computed( function() {
+			var today = hb_date_to_str( new Date() );
+			if ( self.check_out() < today ) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+
 		this.price_with_security_bond = ko.computed( function() {
 			if ( hb_paid_security_bond == 'yes' ) {
 				return parseFloat( self.price() ) + parseFloat( hb_security_bond );
@@ -399,74 +399,136 @@ jQuery( document ).ready( function( $ ) {
 			}
 		});
 
-		this.price_with_security_bond_markup = ko.computed( function() {
-			return '(' + hb_format_price( self.price_with_security_bond() ) + ')';
+		this.price_markup = ko.computed( function() {
+			var price = '';
+			if ( self.old_currency ) {
+				price = format_price( self.price() ) + ' ' + old_currency;
+			} else {
+				price = '<span title="' + hb_text.price + '">';
+				price += hb_format_price( self.price() );
+				price += '</span>';
+				if ( ( hb_paid_security_bond == 'yes' ) && ( ! self.past() ) ) {
+					price += '<br/>';
+					price += '<span title="' + hb_text.price_with_bond + '" ';
+					price += 'class="hb-amount-with-security-bond">(';
+					price += hb_format_price( self.price_with_security_bond() );
+					price += ')</span>';
+				}
+			}
+			return price;
 		});
 
-        this.price_status = ko.computed( function() {
-            var price_status = '';
-            if ( self.paid() != -1 ) {
-                if ( parseFloat( self.paid() ) >= parseFloat( self.price() ) ) {
-                    price_status = '<div class="hb-payment-status hb-resa-paid" title="' + hb_text['paid'] + '">' + hb_text['paid'] + '</div>';
-                } else if ( self.paid() == 0 ) {
-                    price_status = '<div class="hb-payment-status hb-resa-unpaid" title="' + hb_text['unpaid'] + '">' + hb_text['unpaid'] + '</div>';
-                } else {
-                    price_status = '<div class="hb-payment-status hb-resa-not-fully-paid" title="' + hb_text['not_fully_paid'] + '">' + hb_text['not_fully_paid'] + '</div>';    
-                }
-            }
-            return price_status;
-        });
-        
-        this.price_details = ko.computed( function() {
-			var price = '';
-			if ( 
-				( ( hb_paid_security_bond == 'yes' ) && ( self.paid() != self.price_with_security_bond() ) ) || 
-				( ( hb_paid_security_bond == 'no' ) && ( self.paid() != self.price() ) ) ||
-				( ( hb_paid_security_bond == 'no' ) && ( hb_security_bond > 0 ) )
-			) {
-				price += '<div>' + hb_text['paid_details'] + ' ' + hb_format_price( self.paid() ) + '</div>';
-			}
-			if ( 
-				( ( hb_paid_security_bond == 'yes' ) && ( parseFloat( self.paid() ) < parseFloat( self.price_with_security_bond() ) ) ) || 
-				( ( hb_paid_security_bond == 'no' ) && ( parseFloat( self.paid() ) < parseFloat( self.price() ) ) )
-			) {
-				price += '<div>';
-				if ( parseFloat( self.paid() ) < parseFloat( self.price() ) ) {
-					price += hb_text['to_be_paid_details'];
-					price += ' ' + hb_format_price( self.price() - self.paid() );
-				}
-				if ( hb_paid_security_bond == 'yes' ) {
-					var today = hb_date_to_str( new Date() );
-					if ( parseFloat( self.paid() ) >= parseFloat( self.price() ) ) {
-						price += hb_text['to_be_paid_bond_details'] + ' ';
-						if ( today < self.check_out() ) {
-							price += '<span class="hb-amount-due">';
-						}
-						price += hb_format_price( self.price_with_security_bond() - self.paid() );
-						if ( today < self.check_out() ) {
-							price += '</span>';
-						}
+		this.price_status = ko.computed( function() {
+			var price_status = '';
+			if ( self.paid() != -1 ) {
+				if ( self.paid() == 0 ) {
+					price_status = '<div class="hb-payment-status hb-resa-unpaid" title="' + hb_text['unpaid'] + '">' + hb_text['unpaid'] + '</div>';
+				} else if ( hb_paid_security_bond == 'yes' ) {
+					if ( parseFloat( self.paid() ) < parseFloat( self.price() ) ) {
+						price_status = '<div class="hb-payment-status hb-resa-not-fully-paid" title="' + hb_text['not_fully_paid'] + '">' + hb_text['not_fully_paid'] + '</div>';
+					} else if (
+						( parseFloat( self.paid() ) < parseFloat( self.price_with_security_bond() ) ) &&
+						( hb_paid_security_bond == 'yes' ) &&
+						( ! self.past() )
+					) {
+						price_status = '<div class="hb-payment-status hb-resa-not-fully-paid" title="' + hb_text['bond_not_paid'] + '">' + hb_text['bond_not_paid'] + '</div>';
 					} else {
-						price += ' <span class="hb-amount-with-security-bond">(' + hb_format_price( self.price_with_security_bond() - self.paid() ) + ')</span>';
+						price_status = '<div class="hb-payment-status hb-resa-paid" title="' + hb_text['paid'] + '">' + hb_text['paid'] + '</div>';
+					}
+				} else {
+					if ( parseFloat( self.paid() ) >= parseFloat( self.price() ) ) {
+						price_status = '<div class="hb-payment-status hb-resa-paid" title="' + hb_text['paid'] + '">' + hb_text['paid'] + '</div>';
+					} else {
+						price_status = '<div class="hb-payment-status hb-resa-not-fully-paid" title="' + hb_text['not_fully_paid'] + '">' + hb_text['not_fully_paid'] + '</div>';
 					}
 				}
-				price += '</div>';
 			}
-			if ( parseFloat( self.paid() ) > parseFloat( self.price() ) ) {
-				var today = hb_date_to_str( new Date() );
-				price += '<div>' + hb_text['to_refund'] + ' ';
-				if ( today >= self.check_out() ) {
+			return price_status;
+		});
+
+		this.price_paid_details = ko.computed( function() {
+			if ( self.paid() == 0 ) {
+				return '';
+			}
+			if ( ( hb_paid_security_bond == 'no' ) && ( self.paid() == self.price() ) ) {
+				return '';
+			}
+			if ( hb_paid_security_bond == 'yes' ) {
+				if ( self.past() && ( self.paid() == self.price() ) ) {
+					return '';
+				}
+				if ( ! self.past() && ( self.paid() == self.price_with_security_bond() ) ) {
+					return '';
+				}
+			}
+			var paid_details = '';
+			paid_details += '<div>';
+			paid_details += hb_text['paid_details'] + ' ' + hb_format_price( self.paid() );
+			paid_details += '</div>';
+			return paid_details;
+		});
+
+		this.price_details = ko.computed( function() {
+			var price = '';
+			price += self.price_paid_details();
+			if ( self.past() ) {
+				if ( parseFloat( self.paid() ) < parseFloat( self.price() ) ) {
+					price += '<div>';
+					price += hb_text['to_be_paid_details'];
 					price += '<span class="hb-amount-due">';
-				}
-				price += hb_format_price( self.paid() - self.price() );
-				if ( today >= self.check_out() ) {
+					price += ' ' + hb_format_price( self.price() - self.paid() );
 					price += '</span>';
+					price += '</div>';
 				}
-				price += '</div>';
+				if ( parseFloat( self.paid() ) > parseFloat( self.price() ) ) {
+					price += '<div>';
+					price += hb_text['to_refund'];
+					price += '<span class="hb-amount-due">';
+					price += hb_format_price( self.paid() - self.price() );
+					price += '</span>';
+					price += '</div>';
+				}
+			} else {
+				if (
+					(
+						( hb_paid_security_bond == 'no' ) &&
+						( parseFloat( self.paid() ) < parseFloat( self.price() ) )
+					) ||
+					(
+						( hb_paid_security_bond == 'yes' ) &&
+						( parseFloat( self.paid() ) < parseFloat( self.price_with_security_bond() ) )
+					)
+				) {
+					price += '<div>';
+					price += hb_text['to_be_paid_details'] + ' ';
+					if ( hb_paid_security_bond == 'no' ) {
+						price += hb_format_price( self.price() - self.paid() );
+					} else {
+						price += hb_format_price( self.price_with_security_bond() - self.paid() );
+					}
+					price += '</div>';
+				}
 			}
 			return price;
 		})
-		
+
+		this.mark_paid_visible = ko.computed( function() {
+			if ( self.marking_paid() ) {
+				return false;
+			}
+			if (
+				( hb_paid_security_bond == 'yes' ) &&
+				( ! self.past() ) &&
+				( parseFloat( self.paid() ) < parseFloat( self.price_with_security_bond() ) )
+			) {
+				return true;
+			}
+			if ( ( parseFloat( self.paid() ) < parseFloat( self.price() ) ) ) {
+				return true;
+			}
+			return false;
+		});
+
 		this.charge_action_visible = ko.computed( function() {
 			if ( hb_stripe_active != 'yes' ) {
 				return false;
@@ -475,7 +537,7 @@ jQuery( document ).ready( function( $ ) {
 				return false;
 			}
 			customer = ko.utils.arrayFirst( view_model.customers_list(), function( customer ) {
-			    return self.customer_id() == customer.id;
+				return self.customer_id() == customer.id;
 			});
 			if ( ! customer || ! customer.payment_id ) {
 				return false;
@@ -485,7 +547,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 			return parseFloat( self.price() ) + parseFloat( hb_security_bond ) > parseFloat( self.paid() );
 		});
-		
+
 		this.refund_action_visible = ko.computed( function() {
 			if ( hb_stripe_active != 'yes' ) {
 				return false;
@@ -495,76 +557,77 @@ jQuery( document ).ready( function( $ ) {
 			}
 			return self.max_refundable() > 0;
 		});
-		
-        this.nb_nights = ko.computed( function() {
-            return hb_nb_days( self.check_in(), self.check_out() );
-        });
-		
+
+		this.nb_nights = ko.computed( function() {
+			return hb_nb_days( self.check_in(), self.check_out() );
+		});
+
 		this.nb_nights_tmp = ko.computed( function() {
-			if ( ! self.editing_dates() || 
-				 ! self.check_in_tmp() || 
-				 ! self.check_out_tmp() || 
-				 ! hb_valid_date( self.check_in_tmp() ) || 
-				 ! hb_valid_date( self.check_out_tmp() ) 
-			 ) {
+			if ( ! self.editing_dates() ||
+				! self.check_in_tmp() ||
+				! self.check_out_tmp() ||
+				! hb_valid_date( self.check_in_tmp() ) ||
+				! hb_valid_date( self.check_out_tmp() )
+			) {
 				return '';
 			} else {
-            	return hb_nb_days( self.check_in_tmp(), self.check_out_tmp() );
+				return hb_nb_days( self.check_in_tmp(), self.check_out_tmp() );
 			}
-        });
-        
-        this.accom = ko.computed( function() {
-            if ( self.accom_id() in accoms ) {
-                var accom_txt = accoms[ self.accom_id() ].name;
-                if ( self.status() == 'pending' ) {
-                    accom_txt += ' <small>' + hb_text['not_allocated'] + '</small>';
-                } else if ( accoms[ self.accom_id() ].num_name[ self.accom_num() ] ) {
-                    accom_txt += ' <small>(' + accoms[ self.accom_id() ].num_name[ self.accom_num() ] + ')</small>';
-                }
-                return accom_txt;
-            } else {
-                return '';
-            }
-        });
-        
-        this.accom_editor = ko.computed( function() {
-            if ( ! self.editing_accom() ) {
-                return '';
-            }
-            var accom_editor_html = '',
-                avai_accom = self.avai_accom_same_dates();
-            for ( var i = 0; i < avai_accom.length; i++ ) {
-                for ( var j = 0; j < avai_accom[i].accom_num.length; j++ ) {
-                    var accom_id = avai_accom[i].accom_id,
-                        accom_num = avai_accom[i].accom_num[j],
-                        input_id = 'hb-accom-change-' + accom_id + '-' + accom_num;
-                    accom_editor_html += '<div class="hb-accom-editor-radio">';
-                    accom_editor_html += '<input type="radio" id="' + input_id + '" name="hb-accom-change"';
-                    accom_editor_html += ' data-accom-id="' + accom_id + '" data-accom-num="' + accom_num + '" />';
-                    accom_editor_html += '<label for="' + input_id + '">';
-                    accom_editor_html += accoms[ accom_id ].name + ' (' + accoms[ accom_id ].num_name[ accom_num ] + ')';
-                    accom_editor_html += '</label>';
-                    accom_editor_html += '</div>';
-                }
-            }
-            return accom_editor_html;
-        });
-        
+		});
+
+		this.accom = ko.computed( function() {
+			if ( self.accom_id() in accoms ) {
+				var accom_txt = accoms[ self.accom_id() ].name;
+				if ( self.status() == 'pending' ) {
+					accom_txt += ' <small>' + hb_text['not_allocated'] + '</small>';
+				} else if ( accoms[ self.accom_id() ].num_name[ self.accom_num() ] ) {
+					accom_txt += ' <small>(' + accoms[ self.accom_id() ].num_name[ self.accom_num() ] + ')</small>';
+				}
+				return accom_txt;
+			} else {
+				return '';
+			}
+		});
+
+		this.accom_editor = ko.computed( function() {
+			if ( ! self.editing_accom() ) {
+				return '';
+			}
+			var accom_editor_html = '',
+				avai_accom = self.avai_accom_same_dates();
+			for ( var i = 0; i < avai_accom.length; i++ ) {
+				for ( var j = 0; j < avai_accom[i].accom_num.length; j++ ) {
+					var accom_id = avai_accom[i].accom_id,
+						accom_num = avai_accom[i].accom_num[j],
+						input_id = 'hb-accom-change-' + accom_id + '-' + accom_num;
+					accom_editor_html += '<div class="hb-accom-editor-radio">';
+					accom_editor_html += '<input type="radio" id="' + input_id + '" name="hb-accom-change"';
+					accom_editor_html += ' data-accom-id="' + accom_id + '" data-accom-num="' + accom_num + '" />';
+					accom_editor_html += '<label for="' + input_id + '">';
+					accom_editor_html += accoms[ accom_id ].name + ' (' + accoms[ accom_id ].num_name[ accom_num ] + ')';
+					accom_editor_html += '</label>';
+					accom_editor_html += '</div>';
+				}
+			}
+			return accom_editor_html;
+		});
+
 		this.resa_info_html = ko.computed( function() {
 			var markup = '',
-				additional_info = '';
-			
+				additional_info = '',
+				lang_info = '';
+
 			markup += '<b>' + hb_text.info_adults + '</b> ' + self.adults() + '<br/>';
 			if ( self.children() ) {
 				markup += '<b>' + hb_text.info_children + '</b> ' + self.children() + '<br/>';
 			}
-			
+
 			try {
 				additional_info_data = JSON.parse( self.additional_info() );
 			} catch ( e ) {
 				additional_info_data = {};
 			}
-			
+
 			$.each( additional_info_data, function( info_id, info_value ) {
 				if ( info_value != '' ) {
 					if ( hb_additional_info_fields[ info_id ] ) {
@@ -576,30 +639,40 @@ jQuery( document ).ready( function( $ ) {
 					additional_info += info_value.replace( /(?:\r\n|\r|\n)/g, '<br/>' ) + '<br/>';
 				}
 			});
-			
-			if ( additional_info || self.non_editable_info ) {
+
+			if ( hb_multi_lang_site == 'yes' ) {
+				lang_info = '<b>' + hb_text.resa_lang + '</b><br/>';
+				if ( self.lang() in hb_langs ) {
+					lang_info += hb_langs[ self.lang() ];
+				} else {
+					lang_info += self.lang();
+				}
+				lang_info += '<br/>';
+			}
+
+			if ( additional_info || lang_info || self.non_editable_info ) {
 				markup += '<a href="#" class="hb-resa-more-info-toggle">';
 				markup += '<span class="hb-more-info-link">' + hb_text.more_info + '</span>';
 				markup += '<span class="hb-less-info-link">' + hb_text.less_info + '</span>';
 				markup += '</a>';
-				markup += '<div class="hb-resa-more-info-content">' + additional_info + self.non_editable_info + '</div>';
+				markup += '<div class="hb-resa-more-info-content">' + additional_info + lang_info + self.non_editable_info + '</div>';
 			}
 			return markup;
 		});
 
 		this.additional_info_editing_markup = ko.computed( function() {
 			var additional_info_edit_markup = '';
-			
+
 			try {
 				additional_info_data = JSON.parse( self.additional_info() );
 			} catch ( e ) {
 				additional_info_data = [];
 			}
-			
+
 			if ( ! additional_info_data ) {
 				additional_info_data = [];
 			}
-			
+
 			$.each( hb_additional_info_fields, function( field_id, field_info ) {
 				additional_info_edit_markup += field_info['name'] + '<br/>';
 				if ( field_info['type'] == 'textarea' ) {
@@ -623,34 +696,34 @@ jQuery( document ).ready( function( $ ) {
 					additional_info_edit_markup += '/>';
 				}
 			});
-			
+
 			return additional_info_edit_markup;
 		});
-				
+
 		this.admin_comment_html = ko.computed( function() {
 			return self.admin_comment().replace( /(?:\r\n|\r|\n)/g, '<br/>' );
 		});
-		
-        this.customer_info_markup = ko.computed( function() {
+
+		this.customer_info_markup = ko.computed( function() {
 			var customer_info_markup = '',
 				customer_more_info_markup = '',
 				customer,
 				customer_data_json,
 				customer_data,
 				nb_data = 0;
-			
+
 			if ( ! self.customer_id() || self.customer_id() == '0' ) {
 				return '';
 			}
-			
+
 			customer = ko.utils.arrayFirst( view_model.customers_list(), function( customer ) {
-			    return self.customer_id() == customer.id;
+				return self.customer_id() == customer.id;
 			});
-			
+
 			if ( ! customer ) {
 				return '';
 			}
-			
+
 			customer_data = customer.customer_data();
 			if ( ! customer_data ) {
 				return customer.info();
@@ -661,7 +734,11 @@ jQuery( document ).ready( function( $ ) {
 					nb_data++;
 					var info_markup = '';
 					if ( hb_customer_fields[ info_id ] ) {
-						info_markup = '<b>' + hb_customer_fields[ info_id ]['name'] + ':</b> ';
+						if ( ['first_name', 'last_name', 'email'].indexOf( info_id ) != -1 ) {
+							info_markup += '<b>' + hb_text[ info_id ] + ':</b> ';
+						} else {
+							info_markup += '<b>' + hb_customer_fields[ info_id ]['name'] + ':</b> ';
+						}
 						if ( hb_customer_fields[ info_id ]['type'] == 'textarea' ) {
 							info_markup += '<br/>';
 						}
@@ -674,31 +751,31 @@ jQuery( document ).ready( function( $ ) {
 					}
 				}
 			});
-			
-            customer_info_markup = '<b>' + hb_text.customer_id + '</b> ' + self.customer_id() + '<br/>' + customer_info_markup;
-            if ( customer_more_info_markup != '' ) {
-                customer_info_markup += '<a href="#" class="hb-resa-more-info-toggle">';
-                customer_info_markup += '<span class="hb-more-info-link">' + hb_text.more_info + '</span>';
-                customer_info_markup += '<span class="hb-less-info-link">' + hb_text.less_info + '</span>';
-                customer_info_markup += '</a>';
-                customer_info_markup += '<div class="hb-resa-more-info-content">' + customer_more_info_markup + '</div>';
-            }
-            return customer_info_markup;
-        });
-        
+
+			customer_info_markup = '<b>' + hb_text.customer_id + '</b> ' + self.customer_id() + '<br/>' + customer_info_markup;
+			if ( customer_more_info_markup != '' ) {
+				customer_info_markup += '<a href="#" class="hb-resa-more-info-toggle">';
+				customer_info_markup += '<span class="hb-more-info-link">' + hb_text.more_info + '</span>';
+				customer_info_markup += '<span class="hb-less-info-link">' + hb_text.less_info + '</span>';
+				customer_info_markup += '</a>';
+				customer_info_markup += '<div class="hb-resa-more-info-content">' + customer_more_info_markup + '</div>';
+			}
+			return customer_info_markup;
+		});
+
 		this.customer_info_editing_markup = ko.computed( function() {
 			var customer_edit_markup = '',
 				customer_data = [];
-			
+
 			if ( self.customer_id() != 0 ) {
 				customer = ko.utils.arrayFirst( view_model.customers_list(), function( customer ) {
-				    return self.customer_id() == customer.id;
+					return self.customer_id() == customer.id;
 				});
 				if ( customer ) {
 					customer_data = customer.customer_data();
 				}
 			}
-			
+
 			$.each( hb_customer_fields, function( field_id, field_info ) {
 				customer_edit_markup += field_info['name'] + '<br/>';
 				if ( field_info['type'] == 'textarea' ) {
@@ -722,26 +799,26 @@ jQuery( document ).ready( function( $ ) {
 					customer_edit_markup += '/>';
 				}
 			});
-			
+
 			return customer_edit_markup;
 		});
-		
-        this.status.subscribe( function() {
-            resaViewModel.redraw_calendar();
-        });
-        
-        this.accom_num.subscribe( function() {
-            resaViewModel.redraw_calendar();
-        });
-		
+
+		this.status.subscribe( function() {
+			resaViewModel.redraw_calendar();
+		});
+
+		this.accom_num.subscribe( function() {
+			resaViewModel.redraw_calendar();
+		});
+
 		this.check_in.subscribe( function() {
-            resaViewModel.redraw_calendar();
-        });
-		
+			resaViewModel.redraw_calendar();
+		});
+
 		this.check_out.subscribe( function() {
-            resaViewModel.redraw_calendar();
-        });
-		
+			resaViewModel.redraw_calendar();
+		});
+
 		this.email_templates_options = ko.computed( function() {
 			var email_tmpls_options = [];
 			email_tmpls_options.push({
@@ -749,7 +826,7 @@ jQuery( document ).ready( function( $ ) {
 				'name': hb_text.email_templates_caption
 			});
 			$.each( hb_email_templates, function( email_tmpl_id, email_tmpl_values ) {
-				if ( email_tmpl_values['lang'] == 'all' || email_tmpl_values['lang'] == self.lang ) {
+				if ( email_tmpl_values['lang'] == 'all' || email_tmpl_values['lang'] == self.lang() ) {
 					var email_tmpls_option = {
 						'id': email_tmpl_id,
 						'name': email_tmpl_values['name']
@@ -759,7 +836,7 @@ jQuery( document ).ready( function( $ ) {
 			});
 			return email_tmpls_options;
 		});
-		
+
 		this.email_customer_template.subscribe( function( email_template_id ) {
 			if ( ! email_template_id ) {
 				self.email_customer_subject( '' );
@@ -769,8 +846,8 @@ jQuery( document ).ready( function( $ ) {
 				self.email_customer_message( hb_email_templates[ email_template_id ][ 'message' ] );
 			}
 		});
-    }
-    
+	}
+
 	function BlockedAccom( from_date, to_date, accom_id, accom_num, accom_all_num, accom_all_ids, comment, linked_resa_id ) {
 		this.from_date = ko.observable( from_date );
 		this.to_date = ko.observable( to_date );
@@ -782,7 +859,7 @@ jQuery( document ).ready( function( $ ) {
 		this.linked_resa_id = linked_resa_id;
 		this.deleting = ko.observable( false );
 		this.anim_class = ko.observable( '' );
-		
+
 		if ( this.accom_all_ids ) {
 			this.accom_name_num = hb_text.all;
 		} else if ( this.accom_id in accoms ) {
@@ -793,7 +870,7 @@ jQuery( document ).ready( function( $ ) {
 		} else {
 			this.accom_name_num = '';
 		}
-		
+
 		this.from_date_display = from_date;
 		this.to_date_display = to_date;
 		if ( from_date == '2016-01-01' || from_date == '0000-00-00' ) {
@@ -802,23 +879,23 @@ jQuery( document ).ready( function( $ ) {
 		if ( to_date == '2029-12-31' || to_date == '0000-00-00' ) {
 			this.to_date_display = '';
 		}
-		
+
 		this.from_date.subscribe( function() {
-            resaViewModel.redraw_calendar();
-        });
-		
+			resaViewModel.redraw_calendar();
+		});
+
 		this.to_date.subscribe( function() {
-            resaViewModel.redraw_calendar();
-        });
+			resaViewModel.redraw_calendar();
+		});
 	}
-	
+
 	function Customer( id, info, payment_id ) {
 		this.id = id;
 		this.info = ko.observable( info );
 		this.payment_id = payment_id;
 
 		var self = this;
-		
+
 		this.customer_data = ko.computed( function() {
 			try {
 				customer_data = JSON.parse( self.info() );
@@ -827,7 +904,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 			return customer_data;
 		});
-		
+
 		this.first_name = ko.computed( function() {
 			if ( self.customer_data()['first_name'] ) {
 				return self.customer_data()['first_name'];
@@ -835,7 +912,7 @@ jQuery( document ).ready( function( $ ) {
 				return '';
 			}
 		});
-		
+
 		this.last_name = ko.computed( function() {
 			if ( self.customer_data()['last_name'] ) {
 				return self.customer_data()['last_name'];
@@ -843,7 +920,7 @@ jQuery( document ).ready( function( $ ) {
 				return '';
 			}
 		});
-		
+
 		this.email = ko.computed( function() {
 			if ( self.customer_data()['email'] ) {
 				return self.customer_data()['email'];
@@ -851,41 +928,41 @@ jQuery( document ).ready( function( $ ) {
 				return '';
 			}
 		});
-		
+
 		this.name_email = ko.computed( function() {
-			var name_email_raw = self.first_name() + self.last_name() + self.email(); 
+			var name_email_raw = self.first_name() + self.last_name() + self.email();
 			return name_email_raw.toLowerCase();
 		});
 	}
-	
+
 	function ResaViewModel() {
-		
+
 		var self = this;
-		
-        this.resa = ko.observableArray();
-        this.blocked_accom = ko.observableArray();
-        this.customers_list = ko.observableArray();
-		
-        this.redraw_calendar = function() {
+
+		this.resa = ko.observableArray();
+		this.blocked_accom = ko.observableArray();
+		this.customers_list = ko.observableArray();
+
+		this.redraw_calendar = function() {
 			hb_set_resa_cal( self.resa(), self.blocked_accom(), self.customers_list(), $( '#hb-resa-cal-table' ).data( 'first-day'), displayed_accoms );
-        }
-		
-        this.resa.subscribe( function() {
+		}
+
+		this.resa.subscribe( function() {
 			self.redraw_calendar();
-        });
-		
+		});
+
 		this.blocked_accom.subscribe( function() {
-            self.redraw_calendar();
-        });
-		
+			self.redraw_calendar();
+		});
+
 		this.customers_list.subscribe( function() {
-            self.redraw_calendar();
-        });
-        
+			self.redraw_calendar();
+		});
+
 		function change_resa_status( new_status, resa ) {
 			hb_resa_ajax({
 				data: {
-					'action': 'hb_change_resa_status', 
+					'action': 'hb_change_resa_status',
 					'resa_status': new_status,
 					'resa_id': resa.id,
 					'nonce': $( '#hb_nonce_update_db' ).val()
@@ -894,7 +971,7 @@ jQuery( document ).ready( function( $ ) {
 					resa.updating( false );
 					if ( ajax_return == 'resa updated' ) {
 						if ( new_status == 'cancelled' ) {
-							self.blocked_accom.remove( function( blocked_accom ) { 
+							self.blocked_accom.remove( function( blocked_accom ) {
 								return blocked_accom.linked_resa_id == resa.id;
 							});
 						}
@@ -904,38 +981,38 @@ jQuery( document ).ready( function( $ ) {
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
-                    resa.updating( false );
+					resa.updating( false );
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
 		}
-		
+
 		this.mark_read_resa = function( resa ) {
 			resa.updating( true );
-            change_resa_status( 'confirmed', resa );
+			change_resa_status( 'confirmed', resa );
 		}
-		
-        this.confirm_resa = function( resa ) {
-            resa.updating( true );
-            hb_resa_ajax({
+
+		this.confirm_resa = function( resa ) {
+			resa.updating( true );
+			hb_resa_ajax({
 				data: {
-					'action': 'hb_confirm_resa', 
+					'action': 'hb_confirm_resa',
 					'resa_id': resa.id,
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
 					resa.updating( false );
-                    try {
+					try {
 						var response = JSON.parse( ajax_return );
 					} catch ( e ) {
 						alert( hb_text['error'] + ' ' + ajax_return );
 						return false;
 					}
 					if ( response['status'] == 'confirmed' ) {
-                        resa.status( 'confirmed' );
-                        resa.accom_num( response['accom_num'] );
+						resa.status( 'confirmed' );
+						resa.accom_num( response['accom_num'] );
 						for ( var i = 0; i < response['blocked_linked_accom'].length; i++ ) {
-							var new_blocked_accom = new BlockedAccom( 
+							var new_blocked_accom = new BlockedAccom(
 								response['blocked_linked_accom'][i]['from_date'],
 								response['blocked_linked_accom'][i]['to_date'],
 								response['blocked_linked_accom'][i]['accom_id'],
@@ -952,12 +1029,12 @@ jQuery( document ).ready( function( $ ) {
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
-                    resa.updating( false );
+					resa.updating( false );
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
-        }
-        
+		}
+
 		this.cancel_resa = function( resa ) {
 			resa.updating( true );
 			change_resa_status( 'cancelled', resa );
@@ -967,12 +1044,13 @@ jQuery( document ).ready( function( $ ) {
 			resa.editing_resa_info( true );
 			resa.adults_tmp( resa.adults() );
 			resa.children_tmp( resa.children() );
+			resa.lang_tmp( resa.lang() );
 		}
-		
+
 		this.cancel_edit_resa_info = function( resa ) {
-            resa.editing_resa_info( false );
-        }
-		
+			resa.editing_resa_info( false );
+		}
+
 		this.save_resa_info = function( resa ) {
 			var additional_info = {};
 			resa.saving_resa_info( true );
@@ -981,13 +1059,14 @@ jQuery( document ).ready( function( $ ) {
 					additional_info[ $( this ).data( 'id' ) ] = $( this ).val();
 				}
 			});
-			additional_info = JSON.stringify( additional_info );			
+			additional_info = JSON.stringify( additional_info );
 			hb_resa_ajax({
 				data: {
 					action: 'hb_update_resa_info',
 					resa_id: resa.id,
 					adults: resa.adults_tmp(),
 					children: resa.children_tmp(),
+					lang: resa.lang_tmp(),
 					additional_info: additional_info,
 					nonce: $( '#hb_nonce_update_db' ).val()
 				},
@@ -997,26 +1076,27 @@ jQuery( document ).ready( function( $ ) {
 					if ( ajax_return == 'resa info updated' ) {
 						resa.adults( resa.adults_tmp() );
 						resa.children( resa.children_tmp() );
+						resa.lang( resa.lang_tmp() );
 						resa.additional_info( additional_info );
 					} else {
 						alert( ajax_return );
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
-                    resa.saving_resa_info( false );
+					resa.saving_resa_info( false );
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
 		}
-		
-        this.edit_customer = function( resa ) {
-            resa.editing_customer( true );
-        }
-        
-        this.cancel_edit_customer = function( resa ) {
-            resa.editing_customer( false );
-        }
-		
+
+		this.edit_customer = function( resa ) {
+			resa.editing_customer( true );
+		}
+
+		this.cancel_edit_customer = function( resa ) {
+			resa.editing_customer( false );
+		}
+
 		$( '.wrap' ).on( 'change', '.hb-input-edit-resa', function() {
 			var edit_resa_class = $( this ).attr( 'class' );
 			edit_resa_class = edit_resa_class.replace( 'hb-input-edit-resa ', '' );
@@ -1051,7 +1131,7 @@ jQuery( document ).ready( function( $ ) {
 					resa.editing_customer( false );
 					if ( ajax_return == 'customer updated' ) {
 						customer = ko.utils.arrayFirst( self.customers_list(), function( customer ) {
-						    return resa.customer_id() == customer.id;
+							return resa.customer_id() == customer.id;
 						});
 						customer.info( customer_details );
 						self.redraw_calendar();
@@ -1060,12 +1140,12 @@ jQuery( document ).ready( function( $ ) {
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
-                    resa.saving_customer( false );
+					resa.saving_customer( false );
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
 		}
-		
+
 		this.create_customer = function( resa ) {
 			resa.creating_customer( true );
 			hb_resa_ajax({
@@ -1075,23 +1155,23 @@ jQuery( document ).ready( function( $ ) {
 					nonce: $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
-                    resa.creating_customer( false );
-                    try {
+					resa.creating_customer( false );
+					try {
 						var response = JSON.parse( ajax_return );
 					} catch ( e ) {
 						alert( ajax_return );
-                        return;
+						return;
 					}
 					if ( response['customer_id'] ) {
 						self.customers_list.push( new Customer( response['customer_id'], '', '' ) );
-	                    resa.customer_id( response['customer_id'] );
+						resa.customer_id( response['customer_id'] );
 						resa.editing_customer( true );
 					} else {
 						alert( ajax_return );
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
-                    resa.creating_customer( false );
+					resa.creating_customer( false );
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
@@ -1133,18 +1213,18 @@ jQuery( document ).ready( function( $ ) {
 			resa.selecting_customer( false );
 		};
 
-        this.edit_accom = function( resa ) {
-            resa.fetching_accom( true );
-            hb_resa_ajax({
+		this.edit_accom = function( resa ) {
+			resa.fetching_accom( true );
+			hb_resa_ajax({
 				data: {
 					action: 'hb_edit_accom_get_avai',
-                    check_in: resa.check_in(),
-                    check_out: resa.check_out(),
+					check_in: resa.check_in(),
+					check_out: resa.check_out(),
 					nonce: $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
-                    resa.fetching_accom( false );
-                    try {
+					resa.fetching_accom( false );
+					try {
 						var avai_accom = JSON.parse( ajax_return );
 					} catch ( e ) {
 						alert( ajax_return );
@@ -1161,48 +1241,48 @@ jQuery( document ).ready( function( $ ) {
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
-                    resa.fetching_accom( false );
-                    resa.editing_accom( false );
+					resa.fetching_accom( false );
+					resa.editing_accom( false );
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
-        }
-        
-        this.save_accom = function( resa ) {
-            var $selected_input = $( 'input[name="hb-accom-change"]:checked' );
-            if ( ! $selected_input.length ) {
-                alert( hb_text.accom_not_selected );
-            } else {
-                var accom_id = $selected_input.data( 'accom-id' ),
-                    accom_num = $selected_input.data( 'accom-num' );
-                resa.editing_accom( false );
-                resa.saving_accom( true );
-                hb_resa_ajax({
-                    data: {
-                        action: 'hb_update_resa_accom',
-                        check_in: resa.check_in(),
-                        check_out: resa.check_out(),
-                        resa_id: resa.id,
-                        accom_id: accom_id,
-                        accom_num: accom_num,
-                        nonce: $( '#hb_nonce_update_db' ).val()
-                    },
-                    success: function( ajax_return ) {
-                        resa.saving_accom( false );
+		}
+
+		this.save_accom = function( resa ) {
+			var $selected_input = $( 'input[name="hb-accom-change"]:checked' );
+			if ( ! $selected_input.length ) {
+				alert( hb_text.accom_not_selected );
+			} else {
+				var accom_id = $selected_input.data( 'accom-id' ),
+					accom_num = $selected_input.data( 'accom-num' );
+				resa.editing_accom( false );
+				resa.saving_accom( true );
+				hb_resa_ajax({
+					data: {
+						action: 'hb_update_resa_accom',
+						check_in: resa.check_in(),
+						check_out: resa.check_out(),
+						resa_id: resa.id,
+						accom_id: accom_id,
+						accom_num: accom_num,
+						nonce: $( '#hb_nonce_update_db' ).val()
+					},
+					success: function( ajax_return ) {
+						resa.saving_accom( false );
 						try {
 							var response = JSON.parse( ajax_return );
 						} catch ( e ) {
 							alert( hb_text['error'] + ' ' + ajax_return );
 							return false;
 						}
-                        if ( response['success'] ) {
-                            resa.accom_id( accom_id );
-                            resa.accom_num( accom_num );
-							self.blocked_accom.remove( function( blocked_accom ) { 
+						if ( response['success'] ) {
+							resa.accom_id( accom_id );
+							resa.accom_num( accom_num );
+							self.blocked_accom.remove( function( blocked_accom ) {
 								return blocked_accom.linked_resa_id == resa.id;
 							});
 							for ( var i = 0; i < response['blocked_linked_accom'].length; i++ ) {
-								var new_blocked_accom = new BlockedAccom( 
+								var new_blocked_accom = new BlockedAccom(
 									response['blocked_linked_accom'][i]['from_date'],
 									response['blocked_linked_accom'][i]['to_date'],
 									response['blocked_linked_accom'][i]['accom_id'],
@@ -1214,52 +1294,52 @@ jQuery( document ).ready( function( $ ) {
 								);
 								self.blocked_accom.unshift( new_blocked_accom );
 							}
-                        } else {
-                            alert( response['error'] );
-                        }
-                    },
-                    error: function( jqXHR, textStatus, errorThrown ) {
-                        resa.saving_accom( false );
-                        alert( textStatus + ' (' + errorThrown + ')' );
-                    }
-                });
-            }
-        }
-        
-        this.cancel_edit_accom = function( resa ) {
-            resa.editing_accom( false );
-        }
-        
+						} else {
+							alert( response['error'] );
+						}
+					},
+					error: function( jqXHR, textStatus, errorThrown ) {
+						resa.saving_accom( false );
+						alert( textStatus + ' (' + errorThrown + ')' );
+					}
+				});
+			}
+		}
+
+		this.cancel_edit_accom = function( resa ) {
+			resa.editing_accom( false );
+		}
+
 		this.edit_dates = function( resa ) {
 			resa.check_in_tmp( resa.check_in() );
 			resa.check_out_tmp( resa.check_out() );
 			$( '.hb-input-edit-resa-dates' ).datepick( hb_datepicker_calendar_options );
 			$( '.hb-input-edit-resa-dates' ).datepick( 'option', {
 				dateFormat : 'yyyy-mm-dd',
-	            onSelect: function() {
-	                jQuery( this ).change();
-	            }
+				onSelect: function() {
+					jQuery( this ).change();
+				}
 			});
-	        $( '.hb-input-edit-resa-check-in' ).change( function () {
-	            var check_in_date = $( this ).datepick( 'getDate' )[0],
-	                $check_out_date_input = jQuery( this ).parent().find( '.hb-input-edit-resa-check-out' ),
-	                check_out_date = $check_out_date_input.datepick( 'getDate' )[0];
-	            if ( check_in_date && check_out_date && ( check_in_date.getTime() >= check_out_date.getTime() ) ) {
-	                $check_out_date_input.datepick( 'setDate', null );
-	            }
-	            if ( check_in_date ) {
+			$( '.hb-input-edit-resa-check-in' ).change( function () {
+				var check_in_date = $( this ).datepick( 'getDate' )[0],
+					$check_out_date_input = jQuery( this ).parent().find( '.hb-input-edit-resa-check-out' ),
+					check_out_date = $check_out_date_input.datepick( 'getDate' )[0];
+				if ( check_in_date && check_out_date && ( check_in_date.getTime() >= check_out_date.getTime() ) ) {
+					$check_out_date_input.datepick( 'setDate', null );
+				}
+				if ( check_in_date ) {
 					var min_check_out = new Date( check_in_date.getTime() );
-		            min_check_out.setDate( min_check_out.getDate() + 1 );
-	                $check_out_date_input.datepick( 'option', 'minDate', min_check_out );
-	            }
-	        }).change();
-            resa.editing_dates( true );
-        }
-        
-        this.cancel_edit_dates = function( resa ) {
-            resa.editing_dates( false );
-        }
-		
+					min_check_out.setDate( min_check_out.getDate() + 1 );
+					$check_out_date_input.datepick( 'option', 'minDate', min_check_out );
+				}
+			}).change();
+			resa.editing_dates( true );
+		}
+
+		this.cancel_edit_dates = function( resa ) {
+			resa.editing_dates( false );
+		}
+
 		this.save_dates = function( resa ) {
 			if ( ! resa.nb_nights_tmp() ) {
 				alert( hb_text.invalid_date );
@@ -1272,16 +1352,16 @@ jQuery( document ).ready( function( $ ) {
 				return;
 			}
 			resa.saving_dates( true );
-            hb_resa_ajax({
+			hb_resa_ajax({
 				data: {
-					'action': 'hb_update_resa_dates', 
+					'action': 'hb_update_resa_dates',
 					'resa_id': resa.id,
 					'new_check_in': resa.check_in_tmp(),
 					'new_check_out': resa.check_out_tmp(),
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
-                    resa.saving_dates( false );
+					resa.saving_dates( false );
 					if ( ajax_return == 'resa_dates_modified' ) {
 						resa.editing_dates( false );
 						resa.check_in( resa.check_in_tmp() );
@@ -1303,28 +1383,28 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 		}
-		
-        this.edit_comment = function( resa ) {
-            resa.editing_comment( true );
-            resa.admin_comment_tmp( resa.admin_comment() );
-        }
-        
-        this.cancel_edit_comment = function( resa ) {
-            resa.editing_comment( false );
-        }
-        
-        this.save_comment = function( resa ) {
-            resa.saving_comment( true );
-            hb_resa_ajax({
+
+		this.edit_comment = function( resa ) {
+			resa.editing_comment( true );
+			resa.admin_comment_tmp( resa.admin_comment() );
+		}
+
+		this.cancel_edit_comment = function( resa ) {
+			resa.editing_comment( false );
+		}
+
+		this.save_comment = function( resa ) {
+			resa.saving_comment( true );
+			hb_resa_ajax({
 				data: {
-					'action': 'hb_update_resa_comment', 
+					'action': 'hb_update_resa_comment',
 					'resa_comment': resa.admin_comment_tmp(),
 					'resa_id': resa.id,
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
-                    resa.editing_comment( false );
-                    resa.saving_comment( false );
+					resa.editing_comment( false );
+					resa.saving_comment( false );
 					if ( ajax_return == 'admin comment updated' ) {
 						resa.admin_comment( resa.admin_comment_tmp() );
 					} else {
@@ -1335,16 +1415,16 @@ jQuery( document ).ready( function( $ ) {
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
-        }
-        
+		}
+
 		this.edit_charge = function( resa ) {
-            resa.editing_charge( true );
-        }
-		
+			resa.editing_charge( true );
+		}
+
 		this.cancel_edit_charge = function( resa ) {
-            resa.editing_charge( false );
-        }
-		
+			resa.editing_charge( false );
+		}
+
 		this.charge = function( resa ) {
 			if ( resa.charge_amount() <= 0 ) {
 				alert( hb_text.charge_amount_negative );
@@ -1359,14 +1439,14 @@ jQuery( document ).ready( function( $ ) {
 			resa.charging( true );
 			hb_resa_ajax({
 				data: {
-					'action': 'hb_resa_charging', 
+					'action': 'hb_resa_charging',
 					'charge_amount': resa.charge_amount(),
 					'resa_id': resa.id,
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
-                    resa.editing_charge( false );
-                    resa.charging( false );
+					resa.editing_charge( false );
+					resa.charging( false );
 					if ( ajax_return == 'charge_done' ) {
 						resa.paid( format_price( parseFloat( resa.paid() ) + parseFloat( resa.charge_amount() ) ) );
 						resa.max_refundable( parseFloat( resa.max_refundable() ) + parseFloat( resa.charge_amount() ) );
@@ -1381,15 +1461,15 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 		};
-		
+
 		this.edit_refund = function( resa ) {
-            resa.editing_refund( true );
-        }
-		
+			resa.editing_refund( true );
+		}
+
 		this.cancel_edit_refund = function( resa ) {
-            resa.editing_refund( false );
-        }
-		
+			resa.editing_refund( false );
+		}
+
 		this.refund = function( resa ) {
 			if ( resa.refund_amount() <= 0 ) {
 				alert( hb_text.refund_amount_negative );
@@ -1402,14 +1482,14 @@ jQuery( document ).ready( function( $ ) {
 			resa.refunding( true );
 			hb_resa_ajax({
 				data: {
-					'action': 'hb_resa_refunding', 
+					'action': 'hb_resa_refunding',
 					'refund_amount': resa.refund_amount(),
 					'resa_id': resa.id,
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
-                    resa.editing_refund( false );
-                    resa.refunding( false );
+					resa.editing_refund( false );
+					resa.refunding( false );
 					if ( ajax_return == 'refund_done' ) {
 						resa.paid( format_price( parseFloat( resa.paid() ) - parseFloat( resa.refund_amount() ) ) );
 						resa.max_refundable( resa.max_refundable() - resa.refund_amount() );
@@ -1423,43 +1503,47 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 		};
-		
-        this.edit_paid = function( resa ) {
-            resa.editing_paid( true );
-            resa.price_tmp( resa.price() );
-            resa.paid_tmp( resa.paid() );
-        }
-        
-        this.cancel_edit_paid = function( resa ) {
-            resa.editing_paid( false );            
-        }
-  
-        this.save_paid = function( resa ) {
-            resa.saving_paid( true );
-            update_paid( resa, resa.price_tmp(), resa.paid_tmp() );
-        }
-        
-        this.mark_paid = function( resa ) {
+
+		this.edit_paid = function( resa ) {
+			resa.editing_paid( true );
+			resa.price_tmp( resa.price() );
+			resa.paid_tmp( resa.paid() );
+		}
+
+		this.cancel_edit_paid = function( resa ) {
+			resa.editing_paid( false );
+		}
+
+		this.save_paid = function( resa ) {
+			resa.saving_paid( true );
+			update_paid( resa, resa.price_tmp(), resa.paid_tmp() );
+		}
+
+		this.mark_paid = function( resa ) {
 			resa.marking_paid( true );
-			update_paid( resa, resa.price(), resa.price_with_security_bond() );
-        }
-        
-        function update_paid( resa, price, paid ) {
-            hb_resa_ajax({
+			if ( ( hb_paid_security_bond == 'yes' ) && ( ! resa.past() ) ) {
+				update_paid( resa, resa.price(), resa.price_with_security_bond() );
+			} else {
+				update_paid( resa, resa.price(), resa.price() );
+			}
+		}
+
+		function update_paid( resa, price, paid ) {
+			hb_resa_ajax({
 				data: {
-					'action': 'hb_update_resa_paid', 
+					'action': 'hb_update_resa_paid',
 					'resa_price': price,
 					'resa_paid': paid,
 					'resa_id': resa.id,
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				success: function( ajax_return ) {
-                    resa.editing_paid( false );
-                    resa.saving_paid( false );
-                    resa.marking_paid( false );
+					resa.editing_paid( false );
+					resa.saving_paid( false );
+					resa.marking_paid( false );
 					if ( ajax_return == 'paid updated' ) {
-						resa.price( price );
-						resa.paid( paid );
+						resa.price( format_price( price ) );
+						resa.paid( format_price( paid ) );
 						resa.charge_amount( format_price( resa.price_with_security_bond() - paid ) );
 					} else {
 						alert( ajax_return );
@@ -1469,12 +1553,12 @@ jQuery( document ).ready( function( $ ) {
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
-        }
-        
+		}
+
 		this.add_resa = function() {
-			
+
 			$( '#hb-resa-customer input[type="submit"]' ).blur();
-			
+
 			var price = $( '#hb-resa-total-price' ).val();
 			if ( $( '#hb-resa-price-other' ).val() != '' ) {
 				if ( $.isNumeric( $( '#hb-resa-price-other' ).val() ) ) {
@@ -1484,19 +1568,19 @@ jQuery( document ).ready( function( $ ) {
 					return false;
 				}
 			}
-			
-            if ( ! $( 'input[name="hb-accom-num"]:checked').val() ) {
-                alert( hb_text.accom_not_selected );
-                return false;
-            }
-			
-            if ( $( '#hb-customer-type-id:checked' ).length ) {
-                if ( ! $( '#hb-add-resa-customer-id-list' ).val() ) {
-                    alert( hb_text.customer_not_selected );
-                    return false;
-                }
-            }
-			
+
+			if ( ! $( 'input[name="hb-accom-num"]:checked').val() ) {
+				alert( hb_text.accom_not_selected );
+				return false;
+			}
+
+			if ( $( '#hb-customer-type-id:checked' ).length ) {
+				if ( ! $( '#hb-add-resa-customer-id-list' ).val() ) {
+					alert( hb_text.customer_not_selected );
+					return false;
+				}
+			}
+
 			var new_resa = {
 					'price': price,
 					'check_in': $( '#hb-check-in' ).val(),
@@ -1509,13 +1593,13 @@ jQuery( document ).ready( function( $ ) {
 				},
 				options = {},
 				ajax_settings = {
-					'action': 'hb_create_resa', 
+					'action': 'hb_create_resa',
 					'nonce': $( '#hb_nonce_update_db' ).val()
 				},
 				customer = {},
 				additional_info = {},
-				data; 
-			
+				data;
+
 			$( '.hb-option' ).each( function() {
 				if ( $( this ).hasClass( 'hb-quantity-option' ) ) {
 					options[ $( this ).find( 'input' ).attr( 'name' ) ] = $( this ).find( 'input' ).val();
@@ -1545,7 +1629,7 @@ jQuery( document ).ready( function( $ ) {
 			} else {
 				customer['customer_id'] = $( '#hb-add-resa-customer-id-list' ).val()[0];
 			}
-			
+
 			$( '#hb-resa-additional-info .hb-detail-field' ).each( function() {
 				additional_info[ $( this ).attr( 'name' ) ] = $( this ).val();
 			});
@@ -1559,12 +1643,12 @@ jQuery( document ).ready( function( $ ) {
 					additional_info[ $( this ).attr( 'name' ) ] = [ $( this ).val() ];
 				}
 			});
-			
-			data = $.extend( {}, new_resa, options, customer, additional_info, ajax_settings ); 
-			
+
+			data = $.extend( {}, new_resa, options, customer, additional_info, ajax_settings );
+
 			$( '#hb-resa-customer-submit-ajax .hb-ajaxing' ).css( 'display', 'inline' );
 			$( '#hb-create-resa-error' ).slideUp();
-			
+
 			hb_resa_ajax({
 				data: data,
 				success: function( response_text ) {
@@ -1577,7 +1661,7 @@ jQuery( document ).ready( function( $ ) {
 					}
 					if ( response['success'] ) {
 						for ( var i = 0; i < response['blocked_linked_accom'].length; i++ ) {
-							var new_blocked_accom = new BlockedAccom( 
+							var new_blocked_accom = new BlockedAccom(
 								response['blocked_linked_accom'][i]['from_date'],
 								response['blocked_linked_accom'][i]['to_date'],
 								response['blocked_linked_accom'][i]['accom_id'],
@@ -1600,44 +1684,44 @@ jQuery( document ).ready( function( $ ) {
 						self.resa_current_page_number( 1 );
 						setTimeout( function() {
 							customer = ko.utils.arrayFirst( self.customers_list(), function( customer ) {
-							    return response.customer.id == customer.id;
+								return response.customer.id == customer.id;
 							});
 							if ( ! customer ) {
 								self.customers_list.push(
-									new Customer( 
+									new Customer(
 										response.customer.id,
 										response.customer.info,
 										''
 									)
 								);
 							}
-                            the_resa = new Resa( 
-                                response.resa_id,
-                                hb_new_resa_status,
-                                response.price,
-                                0,
-                                '',
-                                new_resa.check_in,
-                                new_resa.check_out,
-                                new_resa.adults,
-                                new_resa.children,
-                                new_resa.accom_id,
-                                new_resa.accom_num,
-                                response.non_editable_info,
-                                new_resa.admin_comment,
-                                response.customer.id,
-                                response.received_on,
+							the_resa = new Resa(
+								response.resa_id,
+								hb_new_resa_status,
+								response.price,
+								0,
+								'',
+								new_resa.check_in,
+								new_resa.check_out,
+								new_resa.adults,
+								new_resa.children,
+								new_resa.accom_id,
+								new_resa.accom_num,
+								response.non_editable_info,
+								new_resa.admin_comment,
+								response.customer.id,
+								response.received_on,
 								'website',
 								response.additional_info,
 								hb_admin_lang,
 								0,
 								self
-                            );
-                            the_resa.anim_class( 'hb-resa-added' );
+							);
+							the_resa.anim_class( 'hb-resa-added' );
 							self.resa.unshift( the_resa );
 							setTimeout( function() {
-                                the_resa.anim_class( '' );
-                            }, 300 );
+								the_resa.anim_class( '' );
+							}, 300 );
 						}, 1000 );
 					} else {
 						$( '#hb-create-resa-error' ).html( response['error'] ).slideDown();
@@ -1648,21 +1732,21 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 		}
-		
+
 		this.email_resa = function( resa ) {
 			resa.preparing_email( true );
 		}
-		
+
 		this.cancel_email_resa = function( resa ) {
 			resa.preparing_email( false );
 		}
-		
+
 		this.send_email_customer = function( resa ) {
 			resa.preparing_email( false );
 			resa.emailing( true );
 			hb_resa_ajax({
 				data: {
-					'action': 'hb_send_email_customer', 
+					'action': 'hb_send_email_customer',
 					'resa_id': resa.id,
 					'email_template': resa.email_customer_template,
 					'email_subject': resa.email_customer_subject,
@@ -1686,25 +1770,25 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 		}
-		
+
 		this.delete_resa = function( resa ) {
 			if ( confirm( hb_text.confirm_delete_resa ) ) {
 				resa.deleting( true );
 				hb_resa_ajax({
 					data: {
-						'action': 'hb_delete_resa', 
+						'action': 'hb_delete_resa',
 						'resa_id': resa.id,
 						'nonce': $( '#hb_nonce_update_db' ).val()
 					},
 					success: function( ajax_return ) {
 						if ( ajax_return == 'resa deleted' ) {
-							self.blocked_accom.remove( function( blocked_accom ) { 
+							self.blocked_accom.remove( function( blocked_accom ) {
 								return blocked_accom.linked_resa_id == resa.id;
 							});
-                            resa.anim_class( 'hb-resa-deleting' );
-							setTimeout( function() { 
-                                self.resa.remove( resa );
-                            }, 300 );
+							resa.anim_class( 'hb-resa-deleting' );
+							setTimeout( function() {
+								self.resa.remove( resa );
+							}, 300 );
 						} else {
 							resa.deleting( false );
 							alert( ajax_return );
@@ -1717,9 +1801,9 @@ jQuery( document ).ready( function( $ ) {
 				});
 			}
 		}
-			
+
 		this.resa_customers_list_filter = ko.observable( '' );
-		
+
 		this.resa_customers_list = ko.computed( function() {
 			customers_id_name_list = [];
 			for ( var i = 0; i < self.customers_list().length; i++ ) {
@@ -1729,7 +1813,7 @@ jQuery( document ).ready( function( $ ) {
 				}
 				customers_id_name_list.push( customer );
 			}
-			customers_id_name_list.sort( function( a, b ) { 
+			customers_id_name_list.sort( function( a, b ) {
 				return a.id_name.localeCompare( b.id_name );
 			});
 			if ( ! self.resa_customers_list_filter() ) {
@@ -1747,9 +1831,9 @@ jQuery( document ).ready( function( $ ) {
 				}
 				return filtered_customers;
 			}
-			
+
 		});
-		
+
 		this.resa_filter = ko.observable( 'none' );
 		this.resa_filter_customer = ko.observable( '' );
 		this.resa_filter_status = ko.observable( 'confirmed' );
@@ -1776,11 +1860,11 @@ jQuery( document ).ready( function( $ ) {
 		this.resa_filter_check_in_out_to = ko.observable( hb_date_to_str( new Date() ) );
 		this.resa_filter_active_resa_from = ko.observable( hb_date_to_str( new Date() ) );
 		this.resa_filter_active_resa_to = ko.observable( hb_date_to_str( new Date() ) );
-		
+
 		$( '.hb-filter-clear-date' ).click( function() {
 			$( this ).prev().val( '' ).change();
 		});
-		
+
 		$( '.hb-filter-date-from' ).change( function () {
 			var from = $( this ).val(),
 				to = $( this ).parent().find( '.hb-filter-date-to' ).val();
@@ -1793,17 +1877,17 @@ jQuery( document ).ready( function( $ ) {
 				$( this ).parent().find( '.hb-filter-date-to' ).val( '' ).change();
 			}
 		});
-		
+
 		$( '.hb-filter-date-to' ).change( function () {
 			var from = $( this ).parent().find( '.hb-filter-date-from' ).val();
 			if ( from.length == 10 ) {
 				var to = $( this ).val();
-		        if ( to.length == 10 && ( from > to ) ) {
+				if ( to.length == 10 && ( from > to ) ) {
 					$( this ).parent().find( '.hb-filter-date-from' ).val( '' ).change();
 				}
 			}
 		});
-		
+
 		this.resa_filtered = ko.computed( function() {
 			if ( self.resa_filter() == 'none' ) {
 				return self.resa();
@@ -1814,7 +1898,7 @@ jQuery( document ).ready( function( $ ) {
 				} else {
 					return ko.utils.arrayFilter( self.resa(), function( resa ) {
 						var customer = ko.utils.arrayFirst( self.customers_list(), function( customer ) {
-						    return resa.customer_id() == customer.id;
+							return resa.customer_id() == customer.id;
 						});
 						if ( ! customer ) {
 							return false;
@@ -1853,7 +1937,7 @@ jQuery( document ).ready( function( $ ) {
 						return false;
 					}
 				});
-			} else if ( 
+			} else if (
 				self.resa_filter() == 'check_in_date' ||
 				self.resa_filter() == 'check_out_date' ||
 				self.resa_filter() == 'check_in_out_date' ||
@@ -1878,7 +1962,7 @@ jQuery( document ).ready( function( $ ) {
 					if ( to.trim() == '' ) {
 						to = '9999-99-99';
 					}
-					if ( 
+					if (
 						self.resa_filter() == 'check_in_date' && ( resa.check_in() >= from && resa.check_in() <= to ) ||
 						self.resa_filter() == 'check_out_date' && ( resa.check_out() >= from && resa.check_out() <= to ) ||
 						self.resa_filter() == 'check_in_out_date' && ( ( resa.check_in() >= from && resa.check_in() <= to ) || ( resa.check_out() >= from && resa.check_out() <= to ) ) ||
@@ -1891,9 +1975,9 @@ jQuery( document ).ready( function( $ ) {
 				});
 			}
 		});
-		
+
 		this.resa_sort = ko.observable( 'received_date' );
-		
+
 		this.resa_sort.subscribe( function( sorting ) {
 			if ( sorting == 'check_in_date_asc' && self.resa_filter() == 'none' ) {
 				self.resa_filter( 'check_in_date' );
@@ -1936,44 +2020,44 @@ jQuery( document ).ready( function( $ ) {
 				return self.resa_filtered();
 			}
 		});
-		
+
 		function blur_buttons() {
 			$( '.button' ).blur();
 		}
-		
+
 		this.resa_per_page = 25;
 		this.resa_current_page_number = ko.observable( 1 );
-		
+
 		this.resa_first_page = function() {
 			self.resa_current_page_number( 1 );
 			blur_buttons();
 		}
-		
+
 		this.resa_last_page = function() {
 			self.resa_current_page_number( self.resa_total_pages() );
 			blur_buttons();
 		}
-		
+
 		this.resa_next_page = function() {
 			if ( self.resa_current_page_number() != self.resa_total_pages() ) {
 				self.resa_current_page_number( self.resa_current_page_number() + 1 );
 			}
 			blur_buttons();
 		}
-		
+
 		this.resa_previous_page = function() {
 			if ( self.resa_current_page_number() != 1 ) {
 				self.resa_current_page_number( self.resa_current_page_number() - 1 );
 			}
 			blur_buttons();
 		}
-				
+
 		this.resa_total_pages = ko.computed(function() {
 			var total = Math.floor( self.resa_sorted().length / self.resa_per_page );
 			total += self.resa_sorted().length % self.resa_per_page > 0 ? 1 : 0;
 			return total;
 		});
-		
+
 		this.resa_paginated = ko.computed( function() {
 			if ( self.resa_current_page_number() > self.resa_total_pages() ) {
 				self.resa_current_page_number( 1 );
@@ -1981,19 +2065,19 @@ jQuery( document ).ready( function( $ ) {
 			var first = self.resa_per_page * ( self.resa_current_page_number() - 1 );
 			return self.resa_sorted().slice( first, first + self.resa_per_page );
 		});
-		
+
 		this.selected_resa = ko.observable( 0 );
-		
+
 		$( '#hb-resa-cal-scroller' ).on( 'click', '.hbdlcd', function() {
 			$( this ).blur();
 			self.selected_resa( $( this ).data( 'resa-id' ) );
 			return false;
 		});
-		
+
 		this.hide_selected_resa = function() {
 			self.selected_resa( 0 );
 		}
-		
+
 		this.resa_detailed = ko.computed( function() {
 			if ( self.selected_resa() == 0 ) {
 				return [];
@@ -2006,7 +2090,7 @@ jQuery( document ).ready( function( $ ) {
 			self.selected_resa( 0 );
 			return [];
 		});
-		
+
 		this.add_blocked_accom = function() {
 			$( '.hb-add-blocked-accom-submit input' ).blur();
 
@@ -2038,7 +2122,7 @@ jQuery( document ).ready( function( $ ) {
 				accom_num = 0;
 				accom_all_num = 1;
 			}
-			
+
 			if ( accom_all_ids && ( from_date == '2016-01-01' ) && ( to_date == '2029-12-31' ) ) {
 				if ( ! confirm( hb_text.block_all ) ) {
 					return;
@@ -2049,7 +2133,7 @@ jQuery( document ).ready( function( $ ) {
 
 			hb_resa_ajax({
 				data: {
-					'action': 'hb_add_blocked_accom', 
+					'action': 'hb_add_blocked_accom',
 					'accom_id': accom_id,
 					'accom_num': accom_num,
 					'accom_all_ids': accom_all_ids,
@@ -2062,7 +2146,7 @@ jQuery( document ).ready( function( $ ) {
 				success: function( ajax_return ) {
 					$( '.hb-add-blocked-accom-submit .hb-ajaxing' ).css( 'display', 'none' );
 					if ( ajax_return == 'blocked accom added' ) {
-						var new_blocked_accom = new BlockedAccom( 
+						var new_blocked_accom = new BlockedAccom(
 							from_date,
 							to_date,
 							accom_id,
@@ -2088,7 +2172,7 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 		}
-		
+
 		this.delete_blocked_accom = function( blocked_accom ) {
 			if ( confirm( hb_text.confirm_delete_blocked_accom ) ) {
 				blocked_accom.deleting( true );
@@ -2114,7 +2198,7 @@ jQuery( document ).ready( function( $ ) {
 					success: function( ajax_return ) {
 						if ( ajax_return == 'blocked accom deleted' ) {
 							blocked_accom.anim_class( 'hb-blocked-accom-deleting' );
-							setTimeout( function() { 
+							setTimeout( function() {
 								self.blocked_accom.remove( blocked_accom );
 							}, 300 );
 						} else {
@@ -2129,11 +2213,11 @@ jQuery( document ).ready( function( $ ) {
 				});
 			}
 		}
-		
-		
+
+
 		var observable_customers = [];
 		for ( var i = 0; i < hb_customers.length; i++ ) {
-			observable_customers.push( 
+			observable_customers.push(
 				new Customer(
 					hb_customers[i].id,
 					hb_customers[i].info,
@@ -2142,43 +2226,43 @@ jQuery( document ).ready( function( $ ) {
 			);
 		}
 		this.customers_list( observable_customers );
-		
-        var prepared_resa = [],
-            not_processing_status = [ 'new', 'pending', 'confirmed', 'cancelled' ];
+
+		var prepared_resa = [],
+			not_processing_status = [ 'new', 'pending', 'confirmed', 'cancelled' ];
 		for ( var i = 0; i < resa.length; i++ ) {
 			if ( not_processing_status.indexOf( resa[i].status ) < 0 ) {
 				resa[i].status = 'processing';
 			}
-            the_resa = new Resa( 
-                resa[i].id, 
-                resa[i].status,
-                resa[i].price,
-                resa[i].paid,
-                resa[i].old_currency,
-                resa[i].check_in, 
-                resa[i].check_out, 
-                resa[i].adults,
-                resa[i].children,
-                resa[i].accom_id, 
-                resa[i].accom_num, 
-                resa[i].non_editable_info,
-                resa[i].admin_comment,
-                resa[i].customer_id,
-                resa[i].received_on,
+			the_resa = new Resa(
+				resa[i].id,
+				resa[i].status,
+				resa[i].price,
+				resa[i].paid,
+				resa[i].old_currency,
+				resa[i].check_in,
+				resa[i].check_out,
+				resa[i].adults,
+				resa[i].children,
+				resa[i].accom_id,
+				resa[i].accom_num,
+				resa[i].non_editable_info,
+				resa[i].admin_comment,
+				resa[i].customer_id,
+				resa[i].received_on,
 				resa[i].origin,
 				resa[i].additional_info,
 				resa[i].lang,
 				resa[i].max_refundable,
 				this
-            );
+			);
 			prepared_resa.push( the_resa );
 		}
-        this.resa( prepared_resa );
-        
+		this.resa( prepared_resa );
+
 		var observable_blocked_accom = [];
 		for ( var i = 0; i < hb_blocked_accom.length; i++ ) {
-			observable_blocked_accom.push( 
-				new BlockedAccom( 
+			observable_blocked_accom.push(
+				new BlockedAccom(
 					hb_blocked_accom[i].from_date,
 					hb_blocked_accom[i].to_date,
 					hb_blocked_accom[i].accom_id,
@@ -2192,12 +2276,12 @@ jQuery( document ).ready( function( $ ) {
 		}
 		this.blocked_accom( observable_blocked_accom );
 	}
-	
+
 	var resaViewModel = new ResaViewModel();
-    ko.applyBindings( resaViewModel );
-    
-    var today = new Date();
+	ko.applyBindings( resaViewModel );
+
+	var today = new Date();
 	hb_create_resa_cal_tables( hb_date_to_str( today ), displayed_accoms );
 	resaViewModel.redraw_calendar();
-	
+
 });

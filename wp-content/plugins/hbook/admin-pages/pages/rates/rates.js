@@ -7,17 +7,17 @@ function Rate( brand_new, id, type, accom, all_accom, seasons, all_seasons, rule
 	this.rate_type = type;
 	this.amount = ko.observable( amount );
 	this.nights = ko.observable( nights );
-	
+
 	if ( rules ) {
 		this.rules = ko.observableArray( rules.split( ',' ) );
 	} else {
 		this.rules = ko.observableArray();
 	}
-	
+
 	this.all_rules = ko.observable( false );
-	
+
 	var self = this;
-	
+
 	this.rules_list = ko.computed( function() {
 		if ( self.rules().length == 0 ) {
 			return hb_text.no_rules_selected;
@@ -33,43 +33,43 @@ function Rate( brand_new, id, type, accom, all_accom, seasons, all_seasons, rule
 		} else {
 			return rules_name_list;
 		}
-    }, self );
-	
+	}, self );
+
 	var all_rules_ids = [];
 	for ( var key in rules_list ) {
 		all_rules_ids.push( key );
 	}
-	
+
 	this.select_all_rules = function( rate ) {
 		if ( rate ) {
 			self.rules.removeAll();
 			for ( var i = 0; i < all_rules_ids.length; i++ ) {
 				self.rules.push( all_rules_ids[i] );
 			}
-		} 
+		}
 	}
-	
+
 	this.unselect_all_rules = function( rate ) {
 		if ( rate ) {
 			self.rules.removeAll();
-		} 
+		}
 	}
-	
+
 	this.amount_text =  ko.computed( function() {
 		var amount;
 		if ( self.amount() ) {
-            amount = hb_format_price( self.amount() );
+			amount = hb_format_price( self.amount() );
 		} else {
 			return '';
 		}
-		if ( self.nights() > 1 ) { 
+		if ( self.nights() > 1 ) {
 			amount = amount + ' ' + hb_text.for_nights.replace( '%s', self.nights() );
 		} else {
 			amount = amount + ' ' + hb_text.per_night;
 		}
 		return amount;
 	});
-	
+
 	this.revert = function( rate ) {
 		if ( rate ) {
 			self.accom( rate.accom );
@@ -81,10 +81,10 @@ function Rate( brand_new, id, type, accom, all_accom, seasons, all_seasons, rule
 			self.nights( rate.nights );
 		}
 	}
-		
+
 	this.is_valid = function( rate ) {
 		if ( rate ) {
-            return hb_is_valid_price( rate.amount() );
+			return hb_is_valid_price( rate.amount() );
 		}
 	}
 }
@@ -93,7 +93,7 @@ function Discount( brand_new, id, accom, all_accom, seasons, all_seasons, rules,
 	HbSetting.call( this, brand_new, 'discount', id );
 	Accom.call( this, accom, all_accom );
 	HbSeasons.call( this, seasons, all_seasons );
-	
+
 	if ( amount != '' && amount % 1 == 0 ) {
 		amount = parseFloat( amount ).toFixed( 0 );
 	}
@@ -105,11 +105,11 @@ function Discount( brand_new, id, accom, all_accom, seasons, all_seasons, rules,
 	} else {
 		this.rules = ko.observableArray();
 	}
-	
+
 	this.all_rules = ko.observable( false );
-	
+
 	var self = this;
-	
+
 	this.rules_list = ko.computed( function() {
 		if ( self.rules().length == 0 ) {
 			return hb_text.no_discounts_selected;
@@ -125,28 +125,28 @@ function Discount( brand_new, id, accom, all_accom, seasons, all_seasons, rules,
 		} else {
 			return rules_name_list;
 		}
-    }, self );
-	
+	}, self );
+
 	var all_rules_ids = [];
 	for ( var key in discount_rules_list ) {
 		all_rules_ids.push( key );
 	}
-	
+
 	this.select_all_rules = function( rate ) {
 		if ( rate ) {
 			self.rules.removeAll();
 			for ( var i = 0; i < all_rules_ids.length; i++ ) {
 				self.rules.push( all_rules_ids[i] );
 			}
-		} 
+		}
 	}
-	
+
 	this.unselect_all_rules = function( rate ) {
 		if ( rate ) {
 			self.rules.removeAll();
-		} 
+		}
 	}
-	
+
 	this.amount_text =  ko.computed( function() {
 		if ( self.amount() ) {
 			if ( self.amount_type() == 'fixed' ) {
@@ -162,7 +162,7 @@ function Discount( brand_new, id, accom, all_accom, seasons, all_seasons, rules,
 			return '';
 		}
 	});
-	
+
 	this.revert = function( discount ) {
 		if ( discount ) {
 			self.accom( discount.accom );
@@ -174,10 +174,10 @@ function Discount( brand_new, id, accom, all_accom, seasons, all_seasons, rules,
 			self.amount_type( discount.amount_type );
 		}
 	}
-		
+
 	this.is_valid = function( discount ) {
 		if ( discount ) {
-            return hb_is_valid_price( discount.amount() );
+			return hb_is_valid_price( discount.amount() );
 		}
 	}
 }
@@ -186,7 +186,7 @@ function Coupon( brand_new, id, accom, all_accom, seasons, all_seasons, rule, am
 	HbSetting.call( this, brand_new, 'coupon', id );
 	Accom.call( this, accom, all_accom );
 	HbSeasons.call( this, seasons, all_seasons );
-	
+
 	this.code = ko.observable( code );
 
 	if ( rule ) {
@@ -200,17 +200,17 @@ function Coupon( brand_new, id, accom, all_accom, seasons, all_seasons, rule, am
 	}
 	this.amount = ko.observable( amount );
 	this.amount_type = ko.observable( amount_type );
-	
+
 	var self = this;
-	
+
 	this.rule_name = ko.computed( function() {
 		if ( self.rule() == '' ) {
 			return '';
 		} else {
 			return coupon_rules_list[ self.rule() ];
 		}
-    }, self );
-	
+	}, self );
+
 	this.amount_text =  ko.computed( function() {
 		if ( self.amount() ) {
 			if ( self.amount_type() == 'fixed' ) {
@@ -226,7 +226,7 @@ function Coupon( brand_new, id, accom, all_accom, seasons, all_seasons, rule, am
 			return '';
 		}
 	});
-	
+
 	this.revert = function( coupon ) {
 		if ( coupon ) {
 			self.code( coupon.code );
@@ -239,28 +239,28 @@ function Coupon( brand_new, id, accom, all_accom, seasons, all_seasons, rule, am
 			self.amount_type( coupon.amount_type );
 		}
 	}
-		
+
 	this.is_valid = function( coupon ) {
 		if ( coupon ) {
-            return hb_is_valid_price( coupon.amount() );
+			return hb_is_valid_price( coupon.amount() );
 		}
 	}
 }
 
 function RatesViewModel() {
-	
+
 	var self = this;
-	
+
 	observable_rates = [];
 	for ( var i = 0; i < rates.length; i++ ) {
 		observable_rates.push( new Rate( false, rates[i].id, rates[i].type, rates[i].accom, rates[i].all_accom, rates[i].seasons, rates[i].all_seasons, rates[i].rules, rates[i].amount, rates[i].nights ) );
 	}
-	
+
 	observable_discounts = [];
 	for ( var i = 0; i < discounts.length; i++ ) {
 		observable_discounts.push( new Discount( false, discounts[i].id, discounts[i].accom, discounts[i].all_accom, discounts[i].seasons, discounts[i].all_seasons, discounts[i].rules, discounts[i].amount, discounts[i].amount_type ) );
 	}
-	
+
 	observable_coupons = [];
 	for ( var i = 0; i < coupons.length; i++ ) {
 		observable_coupons.push( new Coupon( false, coupons[i].id, coupons[i].accom, coupons[i].all_accom, coupons[i].seasons, coupons[i].all_seasons, coupons[i].rules, coupons[i].amount, coupons[i].amount_type, coupons[i].code ) );
@@ -271,7 +271,7 @@ function RatesViewModel() {
 	this.coupons = ko.observableArray( observable_coupons );
 
 	ko.utils.extend( this, new HbSettings() );
-	
+
 	this.create_rate = function( rate_type ) {
 		var css_class = 'hb-add-' + rate_type + '-rate',
 			new_rate = new Rate( true, 0, rate_type, '', 0, '', 0, '', '', 1 );
@@ -293,7 +293,7 @@ function RatesViewModel() {
 			self.coupons.push( new_coupon );
 		}, 'hb-add-coupon' );
 	}
-	
+
 	this.nb_rates = function( rate_type ) {
 		var rates = self.rates(),
 			nb_rates = 0;
@@ -304,7 +304,7 @@ function RatesViewModel() {
 		}
 		return nb_rates;
 	}
-	
+
 	this.remove = function( setting ) {
 		callback_function = function() {
 			if ( setting.type == 'rate' ) {
@@ -317,7 +317,7 @@ function RatesViewModel() {
 		}
 		self.delete_setting( setting, callback_function );
 	}
-	
+
 }
 
 ko.applyBindings( new RatesViewModel() );

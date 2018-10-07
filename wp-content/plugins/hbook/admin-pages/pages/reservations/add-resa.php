@@ -1,14 +1,14 @@
-<?php 
+<?php
 class HbAdminPageReservationsAddResa {
-	
+
 	public function __construct( $hbdb, $utils ) {
 		$this->hbdb = $hbdb;
 		$this->utils = $utils;
 	}
-	
+
 	public function display() {
 	?>
-	
+
 		<div id="hb-add-resa-section" class="hb-resa-section">
 
 			<h3 id="hb-add-resa-toggle" class="hb-resa-section-toggle">
@@ -16,19 +16,19 @@ class HbAdminPageReservationsAddResa {
 				<span class="dashicons dashicons-arrow-down"></span>
 				<span class="dashicons dashicons-arrow-up"></span>
 			</h3>
-			
+
 			<div id="hb-add-resa" class="stuffbox">
-				
+
 				<form id="hb-resa-check-price">
 					<p class="hb-resa-date-wrapper">
 						<label for="hb-check-in"><?php esc_html_e( 'Check-in date:', 'hbook-admin' ); ?></label><br/>
 						<input id="hb-check-in" type="text" class="hb-input-date" value="" />
-					</p>		
+					</p>
 					<p class="hb-resa-date-wrapper">
 						<label for="hb-check-out"><?php esc_html_e( 'Check-out date:', 'hbook-admin' ); ?></label><br/>
 						<input id="hb-check-out" type="text" class="hb-input-date" value="" />
 					</p>
-					
+
 					<?php
 					$people_selects = array(
 						'adults' => '',
@@ -47,16 +47,16 @@ class HbAdminPageReservationsAddResa {
 							$markup_options .= '<option value="' . $i . '">' . $i . '</option>';
 						}
 						$people_selects[ $key ] = '<select id="hb-' . $key . '">' . $markup_options . '</select>';
-					}	
+					}
 					?>
 					<p class="hb-resa-people-wrapper">
 						<label for="hb-adults"><?php esc_html_e( 'Adults:', 'hbook-admin' ); ?></label><br/>
 						<?php echo( $people_selects['adults'] ); ?>
-					</p>		
+					</p>
 					<p class="hb-resa-people-wrapper">
 						<label for="hb-children"><?php esc_html_e( 'Children:', 'hbook-admin' ); ?></label><br/>
 						<?php echo( $people_selects['children'] ); ?>
-					</p>		
+					</p>
 					<?php
 					$options_markup = '';
 					$accom = $this->hbdb->get_all_accom();
@@ -80,7 +80,7 @@ class HbAdminPageReservationsAddResa {
 					</div>
 					<p id="hb-resa-price-error"></p>
 				</form>
-					
+
 				<form id="hb-resa-customer" data-bind="submit: add_resa">
 					<p id="hb-resa-price-error"></p>
 					<p id="hb-resa-accom-type"><b><?php esc_html_e( 'Accommodation type:', 'hbook-admin' ); ?></b><br/><span></span></p>
@@ -88,7 +88,7 @@ class HbAdminPageReservationsAddResa {
 					<div id="hb-resa-options"></div>
 					<p id="hb-resa-fees"></p>
 					<p id="hb-resa-price">
-						<?php esc_html_e( 'Total price:', 'hbook-admin' ); ?> 
+						<?php esc_html_e( 'Total price:', 'hbook-admin' ); ?>
 						<?php echo( $this->utils->price_placeholder() ); ?>
 						<input id="hb-resa-accom-price" type="hidden" />
 						<input id="hb-resa-total-price" type="hidden" />
@@ -112,7 +112,7 @@ class HbAdminPageReservationsAddResa {
 						</div>
 						<div id="hb-resa-customer-details">
 							<?php
-							require_once dirname( dirname( dirname( plugin_dir_path( __FILE__ ) ) ) ) . '/front-end/form-fields.php';
+							require_once $this->utils->plugin_directory . '/front-end/form-fields.php';
 							$form_fields = new HBFormFields( array() );
 							$fields = $this->hbdb->get_customer_form_fields();
 							foreach ( $fields as $field ) {
@@ -121,7 +121,7 @@ class HbAdminPageReservationsAddResa {
 							?>
 						</div>
 						<div id="hb-resa-additional-info">
-							<?php 
+							<?php
 							$fields = $this->hbdb->get_additional_booking_info_form_fields();
 							foreach ( $fields as $field ) {
 								echo( $form_fields->get_field_mark_up( $field, array(), false, false ) );
@@ -145,16 +145,16 @@ class HbAdminPageReservationsAddResa {
 						</div>
 					</div>
 				</form>
-				
+
 				<p id="hb-create-resa-error"></p>
-				
+
 			</div>
-			
+
 		</div>
-		
+
 		<hr/>
-		
+
 	<?php
 	}
-	
+
 }

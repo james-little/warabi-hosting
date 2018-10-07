@@ -1,13 +1,13 @@
-<?php	
+<?php
 class HbAdminPageRates extends HbAdminPage {
-	
+
 	private $seasons;
 	private $accom;
 	private $rules;
 	private $rate_types;
 	private $discounts;
 	private $discount_rules;
-	
+
 	public function __construct( $page_id, $hbdb, $utils, $options_utils ) {
 		$this->seasons = $hbdb->get_seasons_id_name();
 		$this->accom = $hbdb->get_all_accom();
@@ -16,24 +16,24 @@ class HbAdminPageRates extends HbAdminPage {
 		$this->discounts = $hbdb->get_all_discounts();
 		$this->coupon_rules = $hbdb->get_all_coupon_rules();
 		$this->coupons = $hbdb->get_all_coupons();
-		$this->rate_types = array( 
-			array( 
+		$this->rate_types = array(
+			array(
 				'id' => 'accom',
 				'name' => esc_html__( 'accommodation', 'hbook-admin' ),
 				'title' => esc_html__( 'Accommodation rates', 'hbook-admin' ),
 			),
-			array( 
+			array(
 				'id' => 'extra_adults',
 				'name' => esc_html__( 'extra adults', 'hbook-admin' ),
 				'title' => esc_html__( 'Price per adult above normal occupancy', 'hbook-admin' ),
 			),
-			array( 
+			array(
 				'id' => 'extra_children',
 				'name' => esc_html__( 'extra children', 'hbook-admin' ),
 				'title' => esc_html__( 'Price per child above normal occupancy', 'hbook-admin' ),
 			)
 		);
-		
+
 		$this->data = array(
 			'hb_text' => array(
 				'invalid_amount' => esc_html__( 'Invalid amount.', 'hbook-admin' ),
@@ -53,11 +53,11 @@ class HbAdminPageRates extends HbAdminPage {
 			'discounts' => $this->discounts,
 			'coupon_rules_list' => $this->coupon_rules,
 			'coupons' => $this->coupons,
-            'hb_price_precision' => get_option( 'hb_price_precision' ),
+			'hb_price_precision' => get_option( 'hb_price_precision' ),
 		);
 		parent::__construct( $page_id, $hbdb, $utils, $options_utils );
 	}
-	
+
 	public function display() {
 	?>
 
@@ -65,11 +65,11 @@ class HbAdminPageRates extends HbAdminPage {
 
 		<h2><?php esc_html_e( 'Rates', 'hbook-admin' ); ?></h2>
 		<?php $this->display_right_menu(); ?>
-		
+
 		<hr/>
 
-		<?php 
-		if ( $this->utils->nb_accom() == 0 ) { 
+		<?php
+		if ( $this->utils->nb_accom() == 0 ) {
 			$accom_all_status = false;
 			$accom_all_languages = true;
 			$all_accom_in_all_languages = $this->hbdb->get_all_accom_ids( $accom_all_status, $accom_all_languages );
@@ -79,8 +79,8 @@ class HbAdminPageRates extends HbAdminPage {
 					printf(
 						esc_html__( 'It seems Polylang is not set properly. Please read %s', 'hbook-admin' ),
 						'<a target="_blank" href="https://hotelwp.com/knowledgebase/?article=39">' .
-						esc_html__( 'HBook documentation about setting up Polylang and HBook', 'hbook-admin' ) . 
-						'</a>' 
+						esc_html__( 'HBook documentation about setting up Polylang and HBook', 'hbook-admin' ) .
+						'</a>'
 					);
 					echo( '</p>' );
 				} else if ( function_exists( 'icl_object_id' ) ) {
@@ -88,51 +88,51 @@ class HbAdminPageRates extends HbAdminPage {
 					printf(
 						esc_html__( 'It seems WPML is not set properly. Please read %s', 'hbook-admin' ),
 						'<a target="_blank" href="https://hotelwp.com/knowledgebase/?article=37">' .
-						esc_html__( 'HBook documentation about setting up WPML and HBook', 'hbook-admin' ) . 
-						'</a>' 
+						esc_html__( 'HBook documentation about setting up WPML and HBook', 'hbook-admin' ) .
+						'</a>'
 					);
 					echo( '</p>' );
 				} else {
 					echo( '<p>' . esc_html__( 'At least one accommodation which uses the default website language must be created in order to set rates.', 'hbook-admin' ) . '</p>' );
 				}
 			} else {
-				if ( count( $this->seasons ) == 0 ) { 
+				if ( count( $this->seasons ) == 0 ) {
 					echo( '<p>' . esc_html__( 'At least one accommodation and one season must be created in order to set rates.', 'hbook-admin' ) . '</p>' );
 				} else {
 					echo( '<p>' . esc_html__( 'At least one accommodation must be created in order to set rates.', 'hbook-admin' ) . '</p>' );
 				}
 			}
-		} else if ( count( $this->seasons ) == 0 ) { 
+		} else if ( count( $this->seasons ) == 0 ) {
 			echo( '<p>' . esc_html__( 'At least one one season must be created in order to set rates.', 'hbook-admin' ) . '</p>' );
 		} else {
 			foreach ( $this->rate_types as $rate_type ) {
 		?>
-		
+
 			<h3>
 				<?php echo( $rate_type['title'] ); ?>
 				<a data-bind="click: function() { create_rate( '<?php echo( $rate_type['id'] ); ?>' ) }" href="#" class="add-new-h2"><?php esc_html_e( 'Add rate', 'hbook-admin' ); ?></a>
 				<span class="hb-add-new spinner hb-add-<?php echo( $rate_type['id'] ); ?>-rate"></span>
 			</h3>
-			
+
 			<!-- ko if: nb_rates( '<?php echo( $rate_type['id'] ); ?>' ) == 0 -->
 			<p><?php printf( esc_html__( 'No %s rates have been defined yet.', 'hbook-admin' ), $rate_type['name'] ); ?></p>
 			<!-- /ko -->
-				
+
 			<!-- ko if: nb_rates( '<?php echo( $rate_type['id'] ); ?>' ) > 0 -->
 			<table class="wp-list-table widefat">
-			
+
 				<?php $this->table_rates_head(); ?>
-				
+
 				<tbody data-bind="template: { name: function( rate ) { return rate_template_to_use( rate, '<?php echo( $rate_type['id'] ); ?>' ); }, foreach: rates, beforeRemove: hide_setting }">
 				</tbody>
-				
+
 			</table>
 			<!-- /ko -->
-			
+
 			<br/><hr/>
-		
+
 		<?php } ?>
-		
+
 		<h3>
 			<?php esc_html_e( 'Discounts', 'hbook-admin' ); ?>
 			<?php if ( $this->discount_rules ) { ?>
@@ -140,12 +140,12 @@ class HbAdminPageRates extends HbAdminPage {
 			<span class="hb-add-new spinner hb-add-discount"></span>
 			<?php } ?>
 		</h3>
-		
+
 		<?php if ( ! $this->discount_rules ) { ?>
-		
+
 		<p>
-			<?php 
-			printf( 
+			<?php
+			printf(
 				esc_html__( 'No discount rules have been defined yet. You can define a discount rule on the %s.', 'hbook-admin' ),
 				'<a href="' . admin_url( 'admin.php?page=hb_rules' ) . '">' .
 				esc_html__( 'Booking rules page', 'hbook-admin' ) .
@@ -153,16 +153,16 @@ class HbAdminPageRates extends HbAdminPage {
 			);
 			?>
 		</p>
-		
+
 		<?php } else { ?>
-		
+
 		<!-- ko if: discounts().length == 0 -->
 		<p><?php esc_html_e( 'No discount rates have been defined yet.', 'hbook-admin' ); ?></p>
 		<!-- /ko -->
-		
+
 		<!-- ko if: discounts().length > 0 -->
 		<table class="wp-list-table widefat">
-		
+
 			<thead>
 				<tr>
 					<th width="20%"><?php esc_html_e( 'Discounts', 'hbook-admin' ); ?></th>
@@ -172,15 +172,15 @@ class HbAdminPageRates extends HbAdminPage {
 					<th width="20%" class="hb-table-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody data-bind="template: { name: discount_template_to_use, foreach: discounts, beforeRemove: hide_setting }">
 			</tbody>
-				
+
 		</table>
 		<!-- /ko -->
-		
+
 		<?php } ?>
-		
+
 		<br/>
 		<hr/>
 
@@ -196,7 +196,7 @@ class HbAdminPageRates extends HbAdminPage {
 
 		<!-- ko if: coupons().length > 0 -->
 		<table class="wp-list-table widefat">
-		
+
 			<thead>
 				<tr>
 					<th width="16.66%"><?php esc_html_e( 'Code', 'hbook-admin' ); ?></th>
@@ -207,10 +207,10 @@ class HbAdminPageRates extends HbAdminPage {
 					<th width="16.66%" class="hb-table-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody data-bind="template: { name: coupon_template_to_use, foreach: coupons, beforeRemove: hide_setting }">
 			</tbody>
-				
+
 		</table>
 		<!-- /ko -->
 
@@ -246,7 +246,7 @@ class HbAdminPageRates extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="edit_tmpl" type="text/html">
 			<tr>
 				<td><?php $this->display_checkbox_list( $this->accom, 'accom' ); ?></td>
@@ -276,14 +276,14 @@ class HbAdminPageRates extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="discount_edit_tmpl" type="text/html">
 			<tr>
 				<td>
 				<?php
 				$display_check_all_box = false;
 				$display_select_all_link = true;
-				$this->display_checkbox_list( $this->discount_rules, 'rules', $display_check_all_box, $display_select_all_link ); 
+				$this->display_checkbox_list( $this->discount_rules, 'rules', $display_check_all_box, $display_select_all_link );
 				?>
 				</td>
 				<td><?php $this->display_checkbox_list( $this->accom, 'accom' ); ?></td>
@@ -292,7 +292,7 @@ class HbAdminPageRates extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="coupon_edit_tmpl" type="text/html">
 			<tr>
 				<td><input data-bind="value: code" type="text" class="hb-coupon-code" /></td>
@@ -300,26 +300,26 @@ class HbAdminPageRates extends HbAdminPage {
 				<td><?php $this->display_seasons_checkbox_list(); ?></td>
 				<td>
 				<?php if ( $this->coupon_rules ) : ?>
-				<input 
-					type="radio" 
-					data-bind="checked: rule" 
-					id="coupon-rule-none" 
-					name="coupon-rule" 
-					value="" 
+				<input
+					type="radio"
+					data-bind="checked: rule"
+					id="coupon-rule-none"
+					name="coupon-rule"
+					value=""
 				/>
 				<label for="coupon-rule-none"><?php esc_html_e( 'None', 'hbook-admin' ); ?></label>
 				<br/>
 				<?php
 				endif;
-				foreach ( $this->coupon_rules as $rule_id => $rule_name ) : 
+				foreach ( $this->coupon_rules as $rule_id => $rule_name ) :
 					$radio_input_id = 'coupon-rule-' . $rule_id;
 					?>
-				<input 
-					type="radio" 
-					data-bind="checked: rule" 
-					id="<?php echo( esc_attr( $radio_input_id ) ); ?>" 
-					name="coupon-rule" 
-					value="<?php echo( esc_attr( $rule_id ) ); ?>" 
+				<input
+					type="radio"
+					data-bind="checked: rule"
+					id="<?php echo( esc_attr( $radio_input_id ) ); ?>"
+					name="coupon-rule"
+					value="<?php echo( esc_attr( $rule_id ) ); ?>"
 				/>
 				<label for="<?php echo( esc_attr( $radio_input_id ) ); ?>"><?php echo(esc_html( $rule_name ) ); ?></label>
 				<br/>
@@ -329,16 +329,16 @@ class HbAdminPageRates extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="empty_tmpl" type="text/html"></script>
-		
+
 		<?php } ?>
-		
+
 	</div><!-- end .wrap -->
-	
+
 <?php
 	}
-	
+
 	private function table_rates_head() {
 		if ( count( $this->rules ) > 0 ) {
 			$col_width = '20%';
@@ -359,7 +359,7 @@ class HbAdminPageRates extends HbAdminPage {
 			</thead>
 		<?php
 	}
-	
+
 	private function display_seasons_checkbox_list() {
 		?>
 		<input data-bind="checked: all_seasons" type="checkbox" id="hb-checkbox-seasons-all" />
@@ -375,7 +375,7 @@ class HbAdminPageRates extends HbAdminPage {
 		<a data-bind="click: unselect_all_seasons" href="#"><?php esc_html_e( 'Unselect all', 'hbook-admin' ); ?></a>
 		<?php
 	}
-	
+
 	private function display_rules_checkbox_list() {
 		foreach ( $this->rules as $id => $rule ) {
 		?>
@@ -384,9 +384,9 @@ class HbAdminPageRates extends HbAdminPage {
 		<?php
 		}
 		?>
-		<a data-bind="click: select_all_rules" href="#"><?php esc_html_e( 'Select all', 'hbook-admin' ); ?></a> - 
+		<a data-bind="click: select_all_rules" href="#"><?php esc_html_e( 'Select all', 'hbook-admin' ); ?></a> -
 		<a data-bind="click: unselect_all_rules" href="#"><?php esc_html_e( 'Unselect all', 'hbook-admin' ); ?></a>
 		<?php
 	}
-	
+
 }

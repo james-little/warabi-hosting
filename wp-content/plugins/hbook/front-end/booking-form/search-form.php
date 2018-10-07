@@ -1,16 +1,16 @@
 <?php
 class HbSearchForm {
-	
+
 	private $utils;
 	private $hbdb;
 	private $hb_strings;
-	
+
 	public function __construct( $hbdb, $utils, $hb_strings ) {
 		$this->utils = $utils;
 		$this->hbdb = $hbdb;
 		$this->hb_strings = $hb_strings;
 	}
-	
+
 	public function get_search_form_markup( $form_id, $form_action, $search_only_data, $search_form_placeholder, $check_in = '' , $check_out = '', $adults = '', $children = '', $accom_id = '', $options = '' ) {
 
 		$people_selects = array(
@@ -34,7 +34,7 @@ class HbSearchForm {
 			}
 			$people_selects[ $key ] = '<select id="' . $key . '" name="hb-' . $key . '" class="hb-' . $key . '">' . $markup_options . '</select>';
 		}
-		
+
 		if ( $accom_id ) {
 			$form_title = str_replace( '%accom_name', $this->utils->get_accom_title( $accom_id ), $this->hb_strings['accom_page_form_title'] );
 		} else {
@@ -43,14 +43,14 @@ class HbSearchForm {
 		if ( $form_title != '' ) {
 			$form_title = apply_filters( 'hb_search_form_title', '<h3 class="hb-title hb-title-search-form">' . $form_title . '</h3>' );
 		}
-		
+
 		$form_class = 'hb-booking-search-form';
 		if ( get_option( 'hb_display_adults_field' ) == 'no' ) {
 			$form_class .= ' hb-search-form-no-people';
 		} else if ( get_option( 'hb_display_children_field' ) == 'no' ) {
 			$form_class .= ' hb-search-form-no-children';
 		}
-		
+
 		$form_markup = '
 			<form [form_id] class="[form_class]" method="POST" data-search-only="[search_only_data]" action="[form_action]">
 				[form_title]
@@ -67,14 +67,14 @@ class HbSearchForm {
 					<div class="hb-search-fields hb-clearfix">
 						<p class="hb-check-dates-wrapper">
 							[check_in_label]
-							<input id="check-in-date" name="hb-check-in-date" class="hb-input-datepicker hb-check-in-date" type="text" placeholder="[check_in_placeholder]" />
+							<input id="check-in-date" name="hb-check-in-date" class="hb-input-datepicker hb-check-in-date" type="text" placeholder="[check_in_placeholder]" autocomplete="off" />
 							<input class="hb-check-in-hidden" name="hb-check-in-hidden" type="hidden" value="[check_in]" />
 							<span class="hb-datepick-check-in-out-mobile-trigger hb-datepick-check-in-mobile-trigger"></span>
 							<span class="hb-datepick-check-in-out-trigger hb-datepick-check-in-trigger"></span>
 						</p>
 						<p class="hb-check-dates-wrapper">
 							[check_out_label]
-							<input id="check-out-date" name="hb-check-out-date" class="hb-input-datepicker hb-check-out-date" type="text" placeholder="[check_out_placeholder]" />
+							<input id="check-out-date" name="hb-check-out-date" class="hb-input-datepicker hb-check-out-date" type="text" placeholder="[check_out_placeholder]" autocomplete="off" />
 							<input class="hb-check-out-hidden" name="hb-check-out-hidden" type="hidden" value="[check_out]" />
 							<span class="hb-datepick-check-in-out-mobile-trigger hb-datepick-check-out-mobile-trigger"></span>
 							<span class="hb-datepick-check-in-out-trigger hb-datepick-check-out-trigger"></span>
@@ -102,10 +102,10 @@ class HbSearchForm {
 				<input type="hidden" class="hb-chosen-options" name="hb-chosen-options" value=\'[options]\' />
 			</form><!-- end #hb-booking-search-form -->
 			<div class="hb-accom-list"></div>';
-		
+
 		$form_markup = apply_filters( 'hb_search_form_markup', $form_markup, $form_id );
 
-		
+
 		if ( $search_form_placeholder ) {
 			$form_markup = str_replace( '[check_in_placeholder]', $this->hb_strings['check_in'], $form_markup );
 			$form_markup = str_replace( '[check_out_placeholder]', $this->hb_strings['check_out'], $form_markup );
@@ -128,21 +128,20 @@ class HbSearchForm {
 
 		if ( $form_id ) {
 			$form_id = 'id="' . $form_id . '"';
-		}		
+		}
 		$form_vars = array( 'form_id', 'form_class', 'search_only_data' , 'form_action', 'form_title', 'check_in', 'check_out', 'adults', 'children', 'options' );
 		foreach ( $form_vars as $var ) {
 			$form_markup = str_replace( "[$var]", $$var, $form_markup );
 		}
-		
-		$form_strings = array( 
-			'chosen_check_in', 'chosen_check_out', 'chosen_adults', 'chosen_children', 'change_search_button', 'check_in', 
-			'check_out', 'adults', 'children', 'search_button', 'searching' 
+
+		$form_strings = array(
+			'chosen_check_in', 'chosen_check_out', 'chosen_adults', 'chosen_children', 'change_search_button', 'check_in',
+			'check_out', 'adults', 'children', 'search_button', 'searching'
 		);
 		foreach ( $form_strings as $string ) {
 			$form_markup = str_replace( "[string_$string]", $this->hb_strings[ $string ], $form_markup );
 		}
-		
+
 		return $form_markup;
-    }
+	}
 }
-?>

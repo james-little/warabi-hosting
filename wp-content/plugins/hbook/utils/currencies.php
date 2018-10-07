@@ -1,6 +1,6 @@
 <?php
 class HbCurrencies {
-	
+
 	public function currencies_list() {
 		return array(
 			'XXXX' => array(
@@ -31,6 +31,10 @@ class HbCurrencies {
 				'name' => 'BGN (Bulgarian Lev)',
 				'symbol' => '&#1083;&#1074;.'
 			),
+			'BWP' => array(
+				'name' => 'BWP (Botswana pula)',
+				'symbol'=> 'P'
+			),
 			'BYR' => array(
 				'name' => 'BYR (Belarusian Ruble)',
 				'symbol' => ''
@@ -55,7 +59,7 @@ class HbCurrencies {
 				'name' => 'COP (Colombian Peso)',
 				'symbol' => '$'
 			),
-            'CRC' => array(
+			'CRC' => array(
 				'name' => 'CRC (Costa Rican Colón)',
 				'symbol' => '&#8353;'
 			),
@@ -126,7 +130,7 @@ class HbCurrencies {
 			'ISK' => array(
 				'name' => 'ISK (Icelandic Krona)',
 				'symbol' => 'Kr.'
-			),			
+			),
 			'JPY' => array(
 				'name' => 'JPY (Japanese Yen)',
 				'symbol' => '&yen;'
@@ -138,6 +142,10 @@ class HbCurrencies {
 			'KRW' => array(
 				'name' => 'KRW (South Korean Won)',
 				'symbol' => '&#8361;'
+			),
+			'LKR' => array(
+				'name' => 'LKR (Sri Lankan Rupees)',
+				'symbol' => 'Rs.',
 			),
 			'MDL' => array(
 				'name' => 'MDL (Moldovan Let)',
@@ -166,6 +174,14 @@ class HbCurrencies {
 			'NZD' => array(
 				'name' => 'NZD (New Zealand Dollar)',
 				'symbol' => '$'
+			),
+			'PAB' => array(
+				'name' => ' PAB (Balboa)',
+				'symbol'=> 'B/.'
+			),
+			'PEN' => array(
+				'name' => ' PEN (Sol peruano)',
+				'symbol'=> 'S/'
 			),
 			'PHP' => array(
 				'name' => 'PHP (Philippine Pesos)',
@@ -227,9 +243,9 @@ class HbCurrencies {
 				'name' => 'XOF (Francs CFA)',
 				'symbol' => 'Francs CFA'
 			),
-			'XPF'=> array( 
+			'XPF'=> array(
 				'name' => 'XPF (Francs Pacifique)',
-				'symbol' => 'Francs Pacifique' 
+				'symbol' => 'Francs Pacifique'
 			),
 			'ZAR' => array(
 				'name' => 'ZAR (South African Rand)',
@@ -237,5 +253,5 @@ class HbCurrencies {
 			),
 		);
 	}
-	
+
 }

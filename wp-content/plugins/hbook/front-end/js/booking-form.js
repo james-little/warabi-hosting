@@ -1,20 +1,20 @@
 jQuery( document ).ready( function( $ ) {
-	
+
 	/* padding top */
-	
-    var page_padding_top = hb_booking_form_data.page_padding_top;
-    
+
+	var page_padding_top = hb_booking_form_data.page_padding_top;
+
 	if ( $( '#wpadminbar' ).length ) {
 		var adminbar_height = $( '#wpadminbar' ).height();
 		page_padding_top = parseInt( page_padding_top ) + adminbar_height;
 	}
-	
+
 	/* end padding top */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* id and for attributes */
-	
+
 	var form_nb = 1;
 	$( '.hbook-wrapper' ).each( function() {
 		$( this ).find( 'label' ).each( function() {
@@ -32,11 +32,11 @@ jQuery( document ).ready( function( $ ) {
 	});
 
 	/* end id and for attributes */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* booking search */
-		
+
 	$( '.hb-booking-search-form' ).submit( function() {
 		var $form = $( this ),
 			$booking_wrapper = $form.parents( '.hbook-wrapper' );
@@ -48,17 +48,17 @@ jQuery( document ).ready( function( $ ) {
 				check_out = $form.find( '.hb-check-out-date' ).val(),
 				adults = $form.find( 'select.hb-adults' ).val(),
 				children = $form.find( 'select.hb-children' ).val(),
-                people_and_date_validation;
-            if ( ! children || $form.hasClass( 'hb-search-form-no-children' ) ) {
-                $form.find( 'select.hb-children' ).val( 0 );
-                children = 0;
-            }
+				people_and_date_validation;
+			if ( ! children || $form.hasClass( 'hb-search-form-no-children' ) ) {
+				$form.find( 'select.hb-children' ).val( 0 );
+				children = 0;
+			}
 			if ( $form.hasClass( 'hb-search-form-no-people' ) ) {
 				$form.find( 'select.hb-adults' ).val( 1 );
-                adults = 1;
+				adults = 1;
 			}
 			var booking_rules = $booking_wrapper.data( 'booking-rules' );
-            people_and_date_validation = validate_people_and_check_dates( check_in, check_out, adults, children, booking_rules );
+			people_and_date_validation = validate_people_and_check_dates( check_in, check_out, adults, children, booking_rules );
 			if ( ! people_and_date_validation.success ) {
 				search_show_error( $form, people_and_date_validation.error_msg );
 			} else {
@@ -75,7 +75,7 @@ jQuery( document ).ready( function( $ ) {
 					type: 'POST',
 					timeout: hb_booking_form_data.ajax_timeout,
 					data: {
-						'action': 'hb_get_available_accom', 
+						'action': 'hb_get_available_accom',
 						'check_in': $form.find( '.hb-check-in-hidden' ).val(),
 						'check_out': $form.find( '.hb-check-out-hidden' ).val(),
 						'adults': $form.find( 'select.hb-adults' ).val(),
@@ -95,15 +95,15 @@ jQuery( document ).ready( function( $ ) {
 						$form.find( '.hb-booking-searching' ).hide();
 						enable_form_submission( $form );
 						search_show_error( $form, hb_text.connection_error );
-					}	
+					}
 				});
 			}
 		}
 		return false;
 	});
-	
+
 	function validate_people_and_check_dates( check_in, check_out, adults, children, booking_rules ) {
-		
+
 		if ( ( check_in == '' ) && ( check_out == '' ) ) {
 			return { success: false, error_msg: hb_text.no_check_in_out_date };
 		} else if ( check_in == '' ) {
@@ -128,7 +128,7 @@ jQuery( document ).ready( function( $ ) {
 			check_out_date = $.datepick.parseDate( hb_date_format, check_out );
 		} catch( e ) {
 			check_out_date = false;
-		}		
+		}
 		if ( ! check_in_date && ! check_out_date ) {
 			return { success: false, error_msg: hb_text.invalid_check_in_out_date };
 		} else if ( ! check_in_date ) {
@@ -136,7 +136,7 @@ jQuery( document ).ready( function( $ ) {
 		} else if ( ! check_out_date ) {
 			return { success: false, error_msg: hb_text.invalid_check_out_date };
 		}
-		
+
 		if ( hb_min_date != '0' ) {
 			var min_date = hb_date_str_2_obj( hb_min_date ),
 				txt_min_date = $.datepick.formatDate( hb_date_format, min_date );
@@ -152,22 +152,22 @@ jQuery( document ).ready( function( $ ) {
 				return { success: false, error_msg: hb_text.check_out_date_after_date.replace( '%date', txt_max_date ) };
 			}
 		}
-		
+
 		var yesterday = new Date();
 		yesterday.setDate( yesterday.getDate() - 1 );
-		yesterday.setHours( 23, 59, 59 ); 
+		yesterday.setHours( 23, 59, 59 );
 		if ( check_in_date < yesterday ) {
 			return { success: false, error_msg: hb_text.check_in_date_past };
 		} else if ( check_out_date <= check_in_date ) {
 			return { success: false, error_msg: hb_text.check_out_before_check_in };
 		}
-		
+
 		var check_in_day = day_of_week( check_in_date ),
 			check_out_day = day_of_week( check_out_date ),
 			nb_nights = date_diff( check_out_date, check_in_date ),
 			check_in_date_season = hb_get_season_id( check_in_date ),
 			check_out_date_season = hb_get_season_id( check_out_date );
-			
+
 		if ( booking_rules.allowed_check_in_days != 'all' ) {
 			var allowed_check_in_days = booking_rules.allowed_check_in_days.split( ',' );
 			if ( allowed_check_in_days.indexOf( check_in_day ) < 0 ) {
@@ -182,14 +182,14 @@ jQuery( document ).ready( function( $ ) {
 				return { success: false, error_msg: hb_text.check_out_day_not_allowed.replace( '%check_out_days', allowed_days ) };
 			}
 		}
-		if ( 
-			booking_rules.seasonal_allowed_check_in_days[ check_in_date_season ] && 
+		if (
+			booking_rules.seasonal_allowed_check_in_days[ check_in_date_season ] &&
 			booking_rules.seasonal_allowed_check_in_days[ check_in_date_season ].split( ',' ).indexOf( check_in_day ) < 0
 		) {
 			return { success: false, error_msg: hb_text.check_in_day_not_allowed_seasonal };
 		}
-		if ( 
-			booking_rules.seasonal_allowed_check_out_days[ check_out_date_season ] && 
+		if (
+			booking_rules.seasonal_allowed_check_out_days[ check_out_date_season ] &&
 			booking_rules.seasonal_allowed_check_out_days[ check_out_date_season ].split( ',' ).indexOf( check_out_day ) < 0
 		) {
 			return { success: false, error_msg: hb_text.check_out_day_not_allowed_seasonal };
@@ -215,10 +215,10 @@ jQuery( document ).ready( function( $ ) {
 					if ( rule.check_out_days.indexOf( check_out_day ) < 0 ) {
 						if ( rule['all_seasons'] == 1 ) {
 							return {
-								success: false, 
+								success: false,
 								error_msg: hb_text.check_out_day_not_allowed_for_check_in_day
 									.replace( '%check_in_day', day_name( check_in_day ) )
-									.replace( '%check_out_days', day_name_list( rule.check_out_days.split( ',' ) ) ) 
+									.replace( '%check_out_days', day_name_list( rule.check_out_days.split( ',' ) ) )
 							};
 						} else if ( rule['seasons'].split( ',' ).indexOf( check_in_date_season ) > -1 ) {
 							return { success: false, error_msg: hb_text.check_out_day_not_allowed_for_check_in_day_seasonal };
@@ -227,10 +227,10 @@ jQuery( document ).ready( function( $ ) {
 					if ( nb_nights < rule.minimum_stay ) {
 						if ( rule['all_seasons'] == 1 ) {
 							return {
-								success: false, 
+								success: false,
 								error_msg: hb_text.minimum_stay_for_check_in_day
 									.replace( '%nb_nights', rule.minimum_stay )
-									.replace( '%check_in_day', day_name( check_in_day ) ) 
+									.replace( '%check_in_day', day_name( check_in_day ) )
 							};
 						} else if ( rule['seasons'].split( ',' ).indexOf( check_in_date_season ) > -1 ) {
 							return { success: false, error_msg: hb_text.minimum_stay_for_check_in_day_seasonal };
@@ -238,11 +238,11 @@ jQuery( document ).ready( function( $ ) {
 					}
 					if ( nb_nights > rule.maximum_stay ) {
 						if ( rule['all_seasons'] == 1 ) {
-							return { 
-								success: false, 
+							return {
+								success: false,
 								error_msg: hb_text.maximum_stay_for_check_in_day
 									.replace( '%nb_nights', rule.maximum_stay )
-									.replace( '%check_in_day', day_name( check_in_day ) ) 
+									.replace( '%check_in_day', day_name( check_in_day ) )
 							};
 						} else if ( rule['seasons'].split( ',' ).indexOf( check_in_date_season ) > -1 ) {
 							return { success: false, error_msg: hb_text.maximum_stay_for_check_in_day_seasonal };
@@ -253,7 +253,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		return { success: true, check_in: check_in_date, check_out: check_out_date };
 	}
-	
+
 	function day_of_week( date ) {
 		var day = date.getDay();
 		if ( day == 0 ) {
@@ -263,7 +263,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		return day + '';
 	}
-	
+
 	function day_name( day ) {
 		if ( day == 6 ) {
 			day = 0;
@@ -272,7 +272,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		return hb_day_names[ day ];
 	}
-	
+
 	function day_name_list( days ) {
 		var days_name = [];
 		for ( var i = 0; i < days.length; i++ ) {
@@ -280,11 +280,11 @@ jQuery( document ).ready( function( $ ) {
 		}
 		return days_name.join( ', ' );
 	}
-	
+
 	function date_diff( check_out_date, check_in_date ) {
 		return Math.round( ( check_out_date - check_in_date ) / 1000 / 60 / 60 / 24 );
 	}
-	
+
 	function date_to_string( date ) {
 		var y = date.getFullYear();
 		var m = date.getMonth() + 1;
@@ -309,8 +309,8 @@ jQuery( document ).ready( function( $ ) {
 			$form.find( '.hb-search-error' ).html( msg ).slideDown();
 		}
 	}
-	
-	function search_show_response( response_text, $form, $booking_wrapper ) { 
+
+	function search_show_response( response_text, $form, $booking_wrapper ) {
 		$form.find( '.hb-booking-searching' ).hide();
 		enable_form_submission( $form );
 		try {
@@ -329,7 +329,7 @@ jQuery( document ).ready( function( $ ) {
 			$form.find( '.hb-chosen-check-in-date span' ).html( $form.find( '.hb-check-in-date' ).val() );
 			$form.find( '.hb-chosen-check-out-date span' ).html( $form.find( '.hb-check-out-date' ).val() );
 			$form.find( '.hb-chosen-adults span' ).html( $form.find( 'select.hb-adults' ).val() );
-			$form.find( '.hb-chosen-children span' ).html( $form.find( 'select.hb-children' ).val() );			
+			$form.find( '.hb-chosen-children span' ).html( $form.find( 'select.hb-children' ).val() );
 			$form.find( '.hb-search-fields-and-submit' ).slideUp( function() {});
 			$form.find( '.hb-searched-summary' ).slideDown();
 			$booking_wrapper.find( '.hb-accom-list' ).html( response.mark_up );
@@ -343,11 +343,11 @@ jQuery( document ).ready( function( $ ) {
 				}
 			}
 			$booking_wrapper.find( '.hb-accom-list' ).slideDown();
-			if ( typeof window['hbook_show_accom_list'] == 'function' ) { 
+			if ( typeof window['hbook_show_accom_list'] == 'function' ) {
 				window['hbook_show_accom_list']();
 			}
 			hb_format_date();
-			resize_price_caption();				
+			resize_price_caption();
 		}
 	}
 
@@ -359,11 +359,11 @@ jQuery( document ).ready( function( $ ) {
 		$booking_wrapper.find( '.hb-coupon-code' ).val( '' );
 		$booking_wrapper.find( '.hb-coupon-amount' ).html( '0' );
 		$booking_wrapper.find( '.hb-coupon-msg, .hb-coupon-error' ).slideUp();
-		$booking_wrapper.find( '.hb-searched-summary' ).slideUp( function() { 
+		$booking_wrapper.find( '.hb-searched-summary' ).slideUp( function() {
 			$booking_wrapper.find( '.hb-search-fields-and-submit' ).slideDown();
 		});
 	}
-	
+
 	$( '.hb-change-search-wrapper input' ).click( function( e ) {
 		e.preventDefault();
 		var $booking_wrapper = $( this ).parents( '.hbook-wrapper' );
@@ -376,13 +376,13 @@ jQuery( document ).ready( function( $ ) {
 		$form.submit();
 		return false;
 	});
-	
+
 	/* end booking search */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* accom selection */
-	
+
 	$( '.hb-accom-list' ).on( 'click', '.hb-view-price-breakdown', function() {
 		var $self = $( this );
 		$self.blur();
@@ -397,13 +397,13 @@ jQuery( document ).ready( function( $ ) {
 		});
 		return false;
 	});
-	
+
 	$( '.hb-accom-list' ).on( 'click', '.hb-view-accom input', function( e ) {
 		e.preventDefault();
-        $( this ).blur();
-        window.open( $( this ).data( 'accom-url' ), '_blank' );
+		$( this ).blur();
+		window.open( $( this ).data( 'accom-url' ), '_blank' );
 	});
-	
+
 	$( '.hb-accom-list' ).on( 'click', '.hb-select-accom input', function( e ) {
 		e.preventDefault();
 		$( this ).blur();
@@ -418,14 +418,14 @@ jQuery( document ).ready( function( $ ) {
 			$form.submit();
 		}
 	});
-	
+
 	function set_selected_accom( $booking_wrapper, accom_id ) {
 		$booking_wrapper.find( '.hb-accom' ).removeClass( 'hb-accom-selected' );
 		$booking_wrapper.find( '.hb-accom-id-' + accom_id ).addClass( 'hb-accom-selected' );
 		$booking_wrapper.find( '.hb-coupon-code' ).val( '' );
 		$booking_wrapper.find( '.hb-coupon-amount' ).html( '0' );
 		calculate_options_price( $booking_wrapper );
-        calculate_total_price( $booking_wrapper );
+		calculate_total_price( $booking_wrapper );
 		set_summary_info( $booking_wrapper );
 		set_details_form_info( $booking_wrapper, accom_id );
 		$booking_wrapper.find( '.hb-confirm-error' ).hide();
@@ -439,7 +439,7 @@ jQuery( document ).ready( function( $ ) {
 			} else {
 				$booking_wrapper.find( '.hb-options-form' ).slideUp();
 			}
-			setTimeout( function() { 
+			setTimeout( function() {
 				var top = $booking_wrapper.find( '.hb-payment-info-wrapper' ).offset().top - page_padding_top;
 				$( 'html, body' ).animate({ scrollTop: top });
 			}, 800 );
@@ -447,40 +447,40 @@ jQuery( document ).ready( function( $ ) {
 			if ( $booking_wrapper.find( '.hb-option-accom-' + accom_id ).length ) {
 				$booking_wrapper.find( '.hb-options-form' ).slideDown();
 				$booking_wrapper.find( '.hb-option-accom-' + accom_id ).slideDown();
-				setTimeout( function() { 
+				setTimeout( function() {
 					var top = $booking_wrapper.find( '.hb-options-form' ).offset().top - page_padding_top;
-					$( 'html, body' ).animate({ scrollTop: top }); 
+					$( 'html, body' ).animate({ scrollTop: top });
 				}, 800 );
 			} else {
 				$booking_wrapper.find( '.hb-options-form' ).slideUp();
-				setTimeout( function() { 
+				setTimeout( function() {
 					var top = $booking_wrapper.find( '.hb-booking-details-form' ).offset().top - page_padding_top;
-					$( 'html, body' ).animate({ scrollTop: top }); 
+					$( 'html, body' ).animate({ scrollTop: top });
 				}, 800 );
 			}
 		}
 	}
-	
+
 	/* end accom selection */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* options selection */
 
 	$( '.hb-accom-list' ).on( 'click', '.hb-option', function() {
 		var $booking_wrapper = $( this ).parents( '.hbook-wrapper' );
 		verify_option_max( $booking_wrapper );
-		calculate_options_price( $booking_wrapper ); 
-        calculate_total_price( $booking_wrapper );
+		calculate_options_price( $booking_wrapper );
+		calculate_total_price( $booking_wrapper );
 	});
 
 	$( '.hb-accom-list' ).on( 'keyup', '.hb-option input', function() {
 		var $booking_wrapper = $( this ).parents( '.hbook-wrapper' );
 		verify_option_max( $booking_wrapper );
-		calculate_options_price( $booking_wrapper ); 
-        calculate_total_price( $booking_wrapper );
+		calculate_options_price( $booking_wrapper );
+		calculate_total_price( $booking_wrapper );
 	});
-	
+
 	function verify_option_max( $booking_wrapper ) {
 		$booking_wrapper.find( '.hb-option' ).each( function() {
 			if ( $( this ).hasClass( 'hb-quantity-option' ) && $( this ).find( 'input' ).attr( 'max' ) ) {
@@ -490,9 +490,9 @@ jQuery( document ).ready( function( $ ) {
 			}
 		});
 	}
-	
+
 	function calculate_options_price( $booking_wrapper ) {
-        
+
 		var accom_id = $booking_wrapper.find( '.hb-accom-selected' ).data( 'accom-id' ),
 			accom_price = $booking_wrapper.find( '.hb-accom-selected' ).find( '.hb-accom-price-raw' ).val(),
 			options_price = 0;
@@ -513,26 +513,26 @@ jQuery( document ).ready( function( $ ) {
 		});
 
 		$booking_wrapper.find( '.hb-options-price-raw' ).val( options_price );
-        if ( options_price != 0 ) {
-            options_price = format_price( options_price );
+		if ( options_price != 0 ) {
+			options_price = format_price( options_price );
 			if ( options_price < 0 ) {
 				options_price *= -1;
 				$booking_wrapper.find( '.hb-summary-options-price .hb-price-placeholder-minus, .hb-options-total-price .hb-price-placeholder-minus' ).css( 'display', 'inline' );
 			} else {
 				$booking_wrapper.find( '.hb-summary-options-price .hb-price-placeholder-minus, .hb-options-total-price .hb-price-placeholder-minus' ).css( 'display', 'none' );
 			}
-            $booking_wrapper.find( '.hb-summary-options-price .hb-price-placeholder, .hb-options-total-price .hb-price-placeholder' ).html( options_price );
-            $booking_wrapper.find( '.hb-summary-options-price, .hb-options-total-price' ).show();
-        } else {
-            $booking_wrapper.find( '.hb-summary-options-price, .hb-options-total-price' ).hide();
-        }
-        
+			$booking_wrapper.find( '.hb-summary-options-price .hb-price-placeholder, .hb-options-total-price .hb-price-placeholder' ).html( options_price );
+			$booking_wrapper.find( '.hb-summary-options-price, .hb-options-total-price' ).show();
+		} else {
+			$booking_wrapper.find( '.hb-summary-options-price, .hb-options-total-price' ).hide();
+		}
+
 	}
 
 	/* end options selection */
 
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* coupons */
 
 	$( '.hb-apply-coupon' ).click( function() {
@@ -548,7 +548,7 @@ jQuery( document ).ready( function( $ ) {
 		$form.find( '.hb-processing-coupon' ).show();
 		$.ajax({
 			data: {
-				'action': 'hb_verify_coupon', 
+				'action': 'hb_verify_coupon',
 				'check_in': $form.find( '.hb-details-check-in' ).val(),
 				'check_out': $form.find( '.hb-details-check-out' ).val(),
 				'accom_id': $form.find( '.hb-details-accom-id' ).val(),
@@ -592,11 +592,11 @@ jQuery( document ).ready( function( $ ) {
 	/* end coupons */
 
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* total price */
-    
-    function calculate_total_price( $booking_wrapper ) {
-        var accom_id = $booking_wrapper.find( '.hb-accom-selected' ).data( 'accom-id' ),
+
+	function calculate_total_price( $booking_wrapper ) {
+		var accom_id = $booking_wrapper.find( '.hb-accom-selected' ).data( 'accom-id' ),
 			accom_price = $booking_wrapper.find( '.hb-accom-selected' ).find( '.hb-accom-price-raw' ).val(),
 			options_price = $booking_wrapper.find( '.hb-options-price-raw' ).val(),
 			coupon_amount = $booking_wrapper.find( '.hb-coupon-amount' ).html(),
@@ -605,7 +605,7 @@ jQuery( document ).ready( function( $ ) {
 			price_before_fees,
 			fees_price,
 			fee_price;
-		
+
 		price_before_coupon = parseFloat( accom_price ) + parseFloat( options_price );
 		if ( coupon_amount && coupon_type == 'percent' ) {
 			coupon_amount = price_before_coupon  * coupon_amount / 100;
@@ -626,19 +626,19 @@ jQuery( document ).ready( function( $ ) {
 		before_fees_price = price_before_coupon - coupon_amount,
 
 		fees_price = 0;
-        $booking_wrapper.find( '.hb-fee' ).each( function() {
-            if ( $( this ).hasClass( 'hb-fee-percentage' ) ) {
-                fee_price = before_fees_price  * $( this ).data( 'price' ) / 100;
-            } else {
-                fee_price = $( this ).data( 'price' );
-            }
-            fees_price += parseFloat( fee_price );
-            fee_price = format_price( fee_price );
-            $( this ).find( 'span' ).html( fee_price );
-        });
-        
-        var total_price = before_fees_price + fees_price;
-		
+		$booking_wrapper.find( '.hb-fee' ).each( function() {
+			if ( $( this ).hasClass( 'hb-fee-percentage' ) ) {
+				fee_price = before_fees_price  * $( this ).data( 'price' ) / 100;
+			} else {
+				fee_price = $( this ).data( 'price' );
+			}
+			fees_price += parseFloat( fee_price );
+			fee_price = format_price( fee_price );
+			$( this ).find( 'span' ).html( fee_price );
+		});
+
+		var total_price = before_fees_price + fees_price;
+
 		if ( total_price < 0 ) {
 			total_price = 0;
 		}
@@ -654,7 +654,7 @@ jQuery( document ).ready( function( $ ) {
 				deposit_amount = total_price;
 			}
 		}
-		
+
 		var charged_deposit_amount = parseFloat( deposit_amount );
 		if ( hb_booking_form_data.security_bond_deposit == 'yes' ) {
 			charged_deposit_amount += parseFloat( hb_booking_form_data.security_bond );
@@ -675,16 +675,16 @@ jQuery( document ).ready( function( $ ) {
 		$booking_wrapper.find( '.hb-payment-type-explanation-full_amount span' ).html( charged_total_price );
 		$booking_wrapper.find( '.hb-payment-type-explanation-deposit_amount span' ).html( charged_deposit_amount );
 		$booking_wrapper.find( '.hb-payment-type-explanation-full_minus_deposit_amount span' ).html( charged_total_minus_deposit );
-    }
-    
-    /* end total price */
-    
-    /* ------------------------------------------------------------------------------------------- */
-	
+	}
+
+	/* end total price */
+
+	/* ------------------------------------------------------------------------------------------- */
+
 	/* summary info */
 
 	function set_summary_info( $booking_wrapper ) {
-        
+
 		if ( $booking_wrapper.find( '.hb-accom-list .hb-accom' ).length > 1 ) {
 			$booking_wrapper.find( '.hb-summary-change-accom' ).show();
 		} else {
@@ -701,12 +701,12 @@ jQuery( document ).ready( function( $ ) {
 		} else {
 			accom_title = $booking_wrapper.find( '.hb-accom-selected .hb-accom-title' ).html();
 		}
-        var accom_price = $booking_wrapper.find( '.hb-accom-selected' ).find( '.hb-accom-price-raw' ).val();
-        accom_price = format_price( accom_price );
+		var accom_price = $booking_wrapper.find( '.hb-accom-selected' ).find( '.hb-accom-price-raw' ).val();
+		accom_price = format_price( accom_price );
 		$booking_wrapper.find( '.hb-summary-accom' ).html( accom_title );
-        $booking_wrapper.find( '.hb-summary-accom-price span' ).html( accom_price );
+		$booking_wrapper.find( '.hb-summary-accom-price span' ).html( accom_price );
 	}
-	
+
 	$( '.hb-summary-change-search a' ).click( function() {
 		var $booking_wrapper = $( this ).parents( '.hbook-wrapper' );
 		$( 'html, body' ).animate({ scrollTop: $booking_wrapper.find( '.hb-booking-search-form' ).offset().top - page_padding_top }, function() {
@@ -714,7 +714,7 @@ jQuery( document ).ready( function( $ ) {
 		});
 		return false;
 	});
-	
+
 	$( '.hb-summary-change-accom a' ).click( function() {
 		var $booking_wrapper = $( this ).parents( '.hbook-wrapper' );
 		$booking_wrapper.find( '.hb-search-result-title-section' ).slideDown();
@@ -722,13 +722,13 @@ jQuery( document ).ready( function( $ ) {
 		$( 'html, body' ).animate({ scrollTop: $booking_wrapper.find( '.hb-accom-list' ).offset().top - page_padding_top });
 		return false;
 	});
-	
+
 	/* end summary info */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* details form info */
-	
+
 	function set_details_form_info( $booking_wrapper, accom_id ) {
 		$booking_wrapper.find( '.hb-details-check-in' ).val( $booking_wrapper.find( '.hb-check-in-hidden' ).val() );
 		$booking_wrapper.find( '.hb-details-check-out' ).val( $booking_wrapper.find( '.hb-check-out-hidden' ).val() );
@@ -736,13 +736,13 @@ jQuery( document ).ready( function( $ ) {
 		$booking_wrapper.find( '.hb-details-children' ).val( $booking_wrapper.find( 'select.hb-children' ).val() );
 		$booking_wrapper.find( '.hb-details-accom-id' ).val( accom_id );
 	}
-		
+
 	/* end details form info */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* details form validation */
-	
+
 	var langErrorDialogs = {
 		badEmail: hb_text.invalid_email,
 		requiredFields: hb_text.required_field,
@@ -766,17 +766,17 @@ jQuery( document ).ready( function( $ ) {
 			return false;
 		}
 	});
-	
-	
+
+
 	/* end details form validation */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* save reservation details */
-    
+
 	function submit_booking_details( $form ) {
 		$form.find( '.hb-confirm-button input' ).blur();
-		
+
 		if ( $form.hasClass( 'submitted' ) ) {
 			return false;
 		}
@@ -799,7 +799,7 @@ jQuery( document ).ready( function( $ ) {
 
 		var payment_type = $form.find( 'input[name="hb-payment-type"]:checked' ).val(),
 			payment_processing = false;
-			
+
 		if ( payment_type == 'store_credit_card' || payment_type == 'deposit' || payment_type == 'full' ) {
 			$form.find( '.hb-payment-flag' ).val( 'yes' );
 			var gateway_id = $form.find( 'input[name="hb-payment-gateway"]:checked' ).val(),
@@ -808,7 +808,7 @@ jQuery( document ).ready( function( $ ) {
 				alert( 'Error: all payment gateways are inactive.' );
 				return;
 			}
-			if ( typeof window[ payment_process_function ] == 'function' ) { 
+			if ( typeof window[ payment_process_function ] == 'function' ) {
 				payment_processing = window[ payment_process_function ]( $form, save_resa_details );
 				if ( ! payment_processing ) {
 					return;
@@ -823,7 +823,7 @@ jQuery( document ).ready( function( $ ) {
 			save_resa_details( $form );
 		}
 	}
-	
+
 	function save_resa_details( $form ) {
 		var $options_form = $form.parents( '.hbook-wrapper' ).find( '.hb-options-form' ),
 			$forms = $form.add( $options_form );
@@ -836,13 +836,13 @@ jQuery( document ).ready( function( $ ) {
 			timeout: hb_booking_form_data.ajax_timeout,
 			url: hb_booking_form_data.ajax_url,
 			error: function( jqXHR, textStatus, errorThrown ) {
-				$form.find( '.hb-saving-resa, .hb-confirm-error' ).slideUp();	
+				$form.find( '.hb-saving-resa, .hb-confirm-error' ).slideUp();
 				$form.find( '.hb-confirm-error' ).html( hb_text.connection_error ).slideDown();
 				enable_form_submission( $form );
 			}
 		});
 	}
-	
+
 	function after_form_details_submit( response_text, $form ) {
 		try {
 			var response = JSON.parse( response_text );
@@ -853,9 +853,9 @@ jQuery( document ).ready( function( $ ) {
 			return false;
 		}
 		if ( response['success'] ) {
-            var payment_type = $form.find( 'input[name="hb-payment-type"]:checked' ).val(),
+			var payment_type = $form.find( 'input[name="hb-payment-type"]:checked' ).val(),
 				payment_has_redirection = $form.find( 'input[name="hb-payment-gateway"]:checked' ).data( 'has-redirection' );
-            if ( ( payment_type == 'deposit' || payment_type == 'full' ) && ( payment_has_redirection == 'yes' ) ) {
+			if ( ( payment_type == 'deposit' || payment_type == 'full' ) && ( payment_has_redirection == 'yes' ) ) {
 				var gateway_id = $form.find( 'input[name="hb-payment-gateway"]:checked' ).val(),
 					payment_process_redirection = 'hb_' + gateway_id + '_payment_redirection';
 				window[ payment_process_redirection ]( $form, response );
@@ -873,7 +873,7 @@ jQuery( document ).ready( function( $ ) {
 						$form.find( '.hb-resa-summary' ).slideDown();
 					});
 				});
-				if ( typeof window['hbook_reservation_done'] == 'function' ) { 
+				if ( typeof window['hbook_reservation_done'] == 'function' ) {
 					window['hbook_reservation_done']();
 				}
 			}
@@ -881,29 +881,29 @@ jQuery( document ).ready( function( $ ) {
 			enable_form_submission( $form );
 			$form.find( '.hb-saving-resa' ).slideUp();
 			$form.find( '.hb-confirm-error' ).html( response['error_msg'] ).slideDown();
-		}	
+		}
 	}
-	
+
 	/* end save reservation details */
 
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* external payment confirmation */
-	
+
 	if ( $( '#hb-resa-confirm-done' ).length ) {
 		hb_format_date();
-		if ( typeof window['hbook_reservation_done'] == 'function' ) { 
+		if ( typeof window['hbook_reservation_done'] == 'function' ) {
 			window['hbook_reservation_done']();
 		}
 		$( 'html, body' ).animate({ scrollTop: $( '#hb-resa-confirm-done' ).offset().top - page_padding_top });
 	}
-	
+
 	/* end external payment confirmation */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
 
 	/* payment type and method init */
-	
+
 	$( '.hb-booking-details-form' ).each( function() {
 		$( this ).find( 'input[name="hb-payment-type"]' ).first().prop( 'checked', true );
 		$( this ).find( 'input[name="hb-payment-gateway"]' ).first().prop( 'checked', true );
@@ -911,18 +911,18 @@ jQuery( document ).ready( function( $ ) {
 		hide_show_payment_gateway_choice( $( this ) );
 		hide_show_payment_gateway_form( $( this ) );
 	});
-	
+
 	/* end payment type and method init */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
 
 	/* payment gateway choice */
-	
+
 	$( 'input[name="hb-payment-type"]' ).change( function() {
 		hide_show_payment_explanation( $( this ).parents( 'form' ) );
 		hide_show_payment_gateway_choice( $( this ).parents( 'form' ) );
 	});
-	
+
 	$( 'input[name="hb-payment-gateway"]' ).change( function() {
 		hide_show_payment_gateway_form( $( this ).parents( 'form' ) );
 	});
@@ -932,7 +932,7 @@ jQuery( document ).ready( function( $ ) {
 		$form.find( '.hb-payment-type-explanation' ).hide();
 		$form.find( '.hb-payment-type-explanation-' + payment_type ).slideDown();
 	}
-	
+
 	function hide_show_payment_gateway_choice( $form ) {
 		var payment_type = $form.find( 'input[name="hb-payment-type"]:checked' ).val();
 		if ( payment_type == 'store_credit_card' || payment_type == 'deposit' || payment_type == 'full' ) {
@@ -957,13 +957,13 @@ jQuery( document ).ready( function( $ ) {
 		var gateway_id = $form.find( 'input[name="hb-payment-gateway"]:checked' ).val();
 		$form.find( '.hb-payment-form-' + gateway_id ).slideDown();
 	}
-		
+
 	/* end payment gateway choice */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* misc */
-	
+
 	function format_price( price ) {
 		if ( hb_booking_form_data.price_precision == 'no_decimals' ) {
 			var formatted_price = Math.round( price );
@@ -974,9 +974,9 @@ jQuery( document ).ready( function( $ ) {
 		if ( hb_booking_form_data.thousands_sep ) {
 			price_parts[0] = price_parts[0].replace( /\B(?=(\d{3})+(?!\d))/g, hb_booking_form_data.thousands_sep );
 		}
-	    return price_parts.join( hb_booking_form_data.decimal_point );
+		return price_parts.join( hb_booking_form_data.decimal_point );
 	}
-	
+
 	function disable_form_submission( $form ) {
 		$form.addClass( 'submitted' );
 		$form.find( 'input[type="submit"]' ).prop( 'disabled', true );
@@ -986,7 +986,7 @@ jQuery( document ).ready( function( $ ) {
 		$form.removeClass( 'submitted' );
 		$form.find( 'input[type="submit"]' ).prop( 'disabled', false );
 	}
-	
+
 	function debouncer( func ) {
 		var timeoutID,
 			timeout = 50;
@@ -1002,18 +1002,18 @@ jQuery( document ).ready( function( $ ) {
 
 	function resize_forms() {
 		$( '.hb-booking-search-form' ).each( function() {
-            var body_class = '';
-            if ( $( this ).attr( 'id' ) != '' ) {
-                body_class = 'hb-' + $( this ).attr('id') + '-is-vertical';
-            }
+			var body_class = '';
+			if ( $( this ).attr( 'id' ) != '' ) {
+				body_class = 'hb-' + $( this ).attr('id') + '-is-vertical';
+			}
 			if ( $( this ).width() < hb_booking_form_data.horizontal_form_min_width ) {
-                $( this ).addClass( 'hb-vertical-search-form' );
+				$( this ).addClass( 'hb-vertical-search-form' );
 				$( this ).removeClass( 'hb-horizontal-search-form' );
-                $( 'body' ).addClass( body_class );
+				$( 'body' ).addClass( body_class );
 			} else {
 				$( this ).removeClass( 'hb-vertical-search-form' );
 				$( this ).addClass( 'hb-horizontal-search-form' );
-                $( 'body' ).removeClass( body_class );
+				$( 'body' ).removeClass( body_class );
 			}
 			if ( $( this ).width() < 400 ) {
 				$( this ).addClass( 'hb-narrow-search-form' );
@@ -1029,7 +1029,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 		});
 	}
-	
+
 	function resize_price_caption() {
 		$( '.hb-accom-list' ).each( function() {
 			if ( $( this ).width() < 600 ) {
@@ -1038,23 +1038,23 @@ jQuery( document ).ready( function( $ ) {
 				$( this ).find( '.hb-accom-price-caption' ).addClass( 'hb-accom-price-caption-small' );
 			} else {
 				$( this ).find( '.hb-accom-price-caption br' ).hide();
-				$( this ).find( '.hb-accom-price-caption-dash' ).show();		
+				$( this ).find( '.hb-accom-price-caption-dash' ).show();
 				$( this ).find( '.hb-accom-price-caption' ).removeClass( 'hb-accom-price-caption-small' );
 			}
 		});
 	}
-	
+
 	$( window ).resize( debouncer ( function () {
 		resize_forms();
 		resize_price_caption();
 	})).resize();
-	
+
 	/* end misc */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 	/* status processing */
-	
+
 	$( '.hbook-wrapper-booking-form' ).each( function() {
 		var $booking_wrapper = $( this ),
 			$search_form = $booking_wrapper.find( '.hb-booking-search-form' );
@@ -1074,23 +1074,23 @@ jQuery( document ).ready( function( $ ) {
 				$search_form.find( 'select.hb-children' ).dropkick( 'select', $search_form.find( 'select.hb-children' ).val() );
 			}
 		}
-		
+
 		if ( $booking_wrapper.data( 'status' ) == 'search-accom' ) {
 			$( 'html, body' ).animate({ scrollTop: $search_form.offset().top - page_padding_top }, function() {
 				$search_form.submit();
 			});
 			return false;
 		}
-		
+
 		if ( $booking_wrapper.data( 'status' ) == 'external-payment-cancel' ) {
 			$search_form.submit();
 			return false;
 		}
-		
-		if ( 
+
+		if (
 			$booking_wrapper.data( 'status' ) == '' ||
 			$booking_wrapper.data( 'status' ) == 'external-payment-timeout' ||
-			$booking_wrapper.data( 'status' ) == 'external-payment-confirm-error' 
+			$booking_wrapper.data( 'status' ) == 'external-payment-confirm-error'
 		) {
 			setTimeout( function() {
 				$( 'html, body' ).each( function() {
@@ -1098,16 +1098,16 @@ jQuery( document ).ready( function( $ ) {
 				});
 				if ( $booking_wrapper.data( 'status' ) == 'external-payment-timeout' ) {
 					alert( hb_text.timeout_error );
-				}			
+				}
 				if ( $booking_wrapper.data( 'status' ) == 'external-payment-confirm-error' ) {
 					alert( hb_payment_confirmation_error );
 				}
 			}, 100 );
 		}
 	});
-	
+
 	/* end status processing */
-	
+
 	/* ------------------------------------------------------------------------------------------- */
-	
+
 });

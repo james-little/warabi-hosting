@@ -19,7 +19,7 @@ function HbSetting( brand_new, type, id, name ) {
 		}
 	});
 }
-	
+
 function Accom( accom, all_accom ) {
 	if ( accom ) {
 		this.accom = ko.observableArray( accom.split( ',' ) );
@@ -27,23 +27,23 @@ function Accom( accom, all_accom ) {
 		this.accom = ko.observableArray();
 	}
 	this.all_accom = ko.observable();
-	
+
 	var self = this;
 
 	var all_accom_ids = [];
 	for ( var key in accom_list ) {
 		all_accom_ids.push( key );
 	}
-	
+
 	this.all_accom.subscribe( function( value ) {
 		if ( value ) {
 			self.accom.removeAll();
 			for ( var i = 0; i < all_accom_ids.length; i++ ) {
 				self.accom.push( all_accom_ids[i] );
 			}
-		} 
+		}
 	});
-	
+
 	if ( typeof all_accom == 'string' ) { // wp-localize-script turns all values to string
 		all_accom = parseInt( all_accom );
 	}
@@ -52,7 +52,7 @@ function Accom( accom, all_accom ) {
 	} else {
 		this.all_accom( false );
 	}
-	
+
 	this.accom_list = ko.computed( function() {
 		if ( self.all_accom() ) {
 			return hb_text.all;
@@ -65,9 +65,9 @@ function Accom( accom, all_accom ) {
 		for ( var i = 0; i < reordered_accom.length; i++ ) {
 			accom_name_list[i] = accom_list[reordered_accom[i]];
 		}
-        return accom_name_list.join( ', ' );
-    }, self );
-	
+		return accom_name_list.join( ', ' );
+	}, self );
+
 	this.select_all_accom = function( setting ) {
 		if ( setting ) {
 			self.accom.removeAll();
@@ -76,25 +76,25 @@ function Accom( accom, all_accom ) {
 			}
 		}
 	}
-	
+
 	this.unselect_all_accom = function( setting ) {
 		if ( setting ) {
 			self.all_accom( false );
 			self.accom.removeAll();
 		}
 	}
-	
+
 }
 
 function HbSeasons( seasons, all_seasons ) {
 	var self = this;
-	
+
 	if ( seasons ) {
 		this.seasons = ko.observableArray( seasons.split( ',' ) );
 	} else {
 		this.seasons = ko.observableArray();
 	}
-	
+
 	if ( typeof all_seasons == 'string' ) { // wp-localize-script turns all values to string
 		all_seasons = parseInt( all_seasons );
 	}
@@ -103,7 +103,7 @@ function HbSeasons( seasons, all_seasons ) {
 	} else {
 		this.all_seasons = ko.observable( false );
 	}
-	
+
 	this.seasons_list = ko.computed( function() {
 		if ( self.all_seasons() ) {
 			return hb_text.all;
@@ -116,8 +116,8 @@ function HbSeasons( seasons, all_seasons ) {
 		for ( var i = 0; i < reordered_seasons.length; i++ ) {
 			seasons_name_list[i] = seasons_list[reordered_seasons[i]];
 		}
-        return seasons_name_list.join( ', ' );
-    }, self );
+		return seasons_name_list.join( ', ' );
+	}, self );
 
 	this.unselect_all_seasons = function( value ) {
 		if ( value ) {
@@ -130,34 +130,34 @@ function HbSeasons( seasons, all_seasons ) {
 	for ( var key in seasons_list ) {
 		all_seasons_ids.push( key );
 	}
-	
+
 	this.all_seasons.subscribe( function( value ) {
 		if ( value ) {
 			self.seasons.removeAll();
 			for ( var i = 0; i < all_seasons_ids.length; i++ ) {
 				self.seasons.push( all_seasons_ids[i] );
 			}
-		} 
+		}
 	});
-	
+
 	this.unselect_all_seasons = function( value ) {
 		if ( value ) {
 			self.all_seasons( false );
 			self.seasons.removeAll();
 		}
-	}	
+	}
 }
 
 function HbSettings() {
-	
+
 	var self = this;
 	var saved_js = null;
 	var saved_setting = null;
-	
+
 	this.selected_setting = ko.observable( false );
-	
+
 	this.settings = [];
-	
+
 	this.edit_setting = function( setting ) {
 		if ( saved_setting ) {
 			saved_setting.brand_new = false;
@@ -174,7 +174,7 @@ function HbSettings() {
 		saved_setting = null;
 		saved_js = null;
 	};
-	
+
 	this.template_to_use = function( setting ) {
 		return self.selected_setting() === setting ? 'edit_tmpl' : 'text_tmpl';
 	};
@@ -182,7 +182,7 @@ function HbSettings() {
 	this.child_template_to_use = function( setting ) {
 		return self.selected_setting() === setting ? 'child_edit_tmpl' : 'child_text_tmpl';
 	};
-	
+
 	this.rule_template_to_use = function( setting, rule_type ) {
 		if ( setting.rule_type == rule_type ) {
 			return self.selected_setting() === setting ? setting.rule_type + '_rule_edit_tmpl' : setting.rule_type + '_rule_text_tmpl';
@@ -190,7 +190,7 @@ function HbSettings() {
 			return 'empty_tmpl';
 		}
 	}
-	
+
 	this.rate_template_to_use = function( setting, rate_type ) {
 		if ( setting.rate_type == rate_type ) {
 			return self.selected_setting() === setting ? 'edit_tmpl' : 'text_tmpl';
@@ -198,7 +198,7 @@ function HbSettings() {
 			return 'empty_tmpl';
 		}
 	}
-		
+
 	this.discount_template_to_use = function( setting ) {
 		return self.selected_setting() === setting ? 'discount_edit_tmpl' : 'discount_text_tmpl';
 	}
@@ -206,7 +206,7 @@ function HbSettings() {
 	this.coupon_template_to_use = function( setting ) {
 		return self.selected_setting() === setting ? 'coupon_edit_tmpl' : 'coupon_text_tmpl';
 	}
-	
+
 	this.create_setting = function( setting, add_to_observable, spinner_class ) {
 		if ( spinner_class ) {
 			spinner_class = '.' + spinner_class;
@@ -224,8 +224,8 @@ function HbSettings() {
 			jQuery( '.hb-add-new.spinner' ).css( 'visibility', 'hidden' );
 			alert( ajax_return );
 		});
-	}	
-	
+	}
+
 	this.create_child_setting = function( parent_setting, child_setting, add_to_observable ) {
 		parent_setting.adding_child( true );
 		ajax_update_db( 'create', child_setting, function( id ) {
@@ -238,7 +238,7 @@ function HbSettings() {
 			alert( ajax_return );
 		});
 	}
-	
+
 	this.save_setting = function( setting ) {
 		if ( typeof setting.is_valid == 'function' ) {
 			if ( ! setting.is_valid( setting ) ) {
@@ -257,7 +257,7 @@ function HbSettings() {
 			alert( ajax_return );
 		});
 	}
-	
+
 	this.delete_setting = function( setting, remove_from_observable ) {
 		var delete_setting_text = hb_text.confirm_delete_default;
 		if ( setting.name() != '' ) {
@@ -276,14 +276,14 @@ function HbSettings() {
 			});
 		}
 	}
-	
+
 	function ajax_update_db( action, object, callback_function_ok, callback_function_error ) {
 		jQuery.ajax({
 			url: ajaxurl,
 			type: 'POST',
 			timeout: hb_ajax_settings.timeout,
 			data: {
-				'action': 'hb_update_db', 
+				'action': 'hb_update_db',
 				'db_action': action,
 				'nonce': jQuery( '#hb_nonce_update_db' ).val(),
 				'object': object,
@@ -301,18 +301,18 @@ function HbSettings() {
 		});
 	}
 
-	this.hide_setting = function( elem ) { 
+	this.hide_setting = function( elem ) {
 		if ( elem.nodeType === 1 ) {
-			jQuery(elem).addClass( 'hb-setting-deleted' ).fadeOut( 'slow', function() { 
-				jQuery(elem).remove(); 
+			jQuery(elem).addClass( 'hb-setting-deleted' ).fadeOut( 'slow', function() {
+				jQuery(elem).remove();
 			});
 		}
 	}
-	
+
 	window.onbeforeunload = function() {
 		if ( saved_setting ) {
 			return hb_text.unsaved_warning;
 		}
-     }
-	
+	}
+
 }

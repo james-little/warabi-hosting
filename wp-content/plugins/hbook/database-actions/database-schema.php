@@ -1,12 +1,12 @@
-<?php 
+<?php
 class HbDataBaseSchema {
-	
+
 	private $charset_collate;
-       
+
 	public function __construct( $hbdb ) {
 		global $wpdb;
 		$this->hbdb = $hbdb;
-        $this->charset_collate = '';
+		$this->charset_collate = '';
 		if ( ! empty( $wpdb->charset ) ) {
 			$this->charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
 		}
@@ -14,7 +14,7 @@ class HbDataBaseSchema {
 			$this->charset_collate .= " COLLATE {$wpdb->collate}";
 		}
 	}
-	
+
 	public function get_schema() {
 		return
 "
@@ -23,7 +23,7 @@ id bigint(20) NOT NULL AUTO_INCREMENT,
 check_in date NOT NULL,
 check_out date NOT NULL,
 accom_id bigint(20) NOT NULL,
-accom_num bigint(20) NOT NULL,	
+accom_num bigint(20) NOT NULL,
 adults smallint(10) NOT NULL,
 children smallint(10) NOT NULL,
 price decimal(14,2) NOT NULL,
@@ -304,7 +304,7 @@ discount_id bigint(20) NOT NULL,
 season_id bigint(20) NOT NULL
 ) $this->charset_collate;
 ";
-	
+
 	}
-	
+
 }

@@ -115,10 +115,10 @@ VERSION:2.0
 			}
 			$description = $this->utils->replace_resa_vars_with_value( $reservation['id'], false, get_option( 'hb_ical_description' ) );
 			$description = $this->utils->replace_customer_vars_with_value( $reservation['customer_id'], $description );
-			$description = $this->format_property( $description );
+			$description = $this->format_property( $description ) . "\r\n";
 			$summary = $this->utils->replace_resa_vars_with_value( $reservation['id'], false, get_option( 'hb_ical_summary' ) );
 			$summary = $this->utils->replace_customer_vars_with_value( $reservation['customer_id'], $summary );
-			$summary = $this->format_property( $summary );
+			$summary = $this->format_property( $summary ) . "\r\n";
 			if ( $reservation['status'] == 'cancelled' ) {
 				$status = 'CANCELLED' . "\r\n";
 			} else {
@@ -149,11 +149,11 @@ VERSION:2.0
 				$this->create_event( $check_out, $check_in, $dtstamp, $uid, $description, $summary, $status, $created, $last_modified );
 			}
 		}
- 		?>
+		?>
 END:VCALENDAR
 <?php
 	}
-	
+
 	private function create_event( $check_out, $check_in, $dtstamp, $uid, $description, $summary, $status, $created, $last_modified ) {
 		?>
 BEGIN:VEVENT
@@ -163,7 +163,7 @@ DTSTAMP:<?php echo( $dtstamp );?>
 UID:<?php echo( $uid );?>
 DESCRIPTION:<?php echo( $description );?>
 SUMMARY:<?php echo( $summary ); ?>
-STATUS:<?php echo( $status ); 
+STATUS:<?php echo( $status );
 if ( $created ) {?>
 CREATED:<?php echo( $created );
 }
@@ -184,7 +184,7 @@ END:VEVENT
 			}
 			$property_value[ $i ] = $line;
 		}
-		$property_value = implode( '\n', $property_value ) . "\r\n";
+		$property_value = implode( '\n', $property_value );
 		return $property_value;
 	}
 
@@ -216,11 +216,11 @@ END:VEVENT
 						$resa_modified = '';
 						$calendar_name = $calendar['calendar_name'];
 						$synchro_id = $calendar['synchro_id'];
-						// function run twice to be able to deal with cancelled reservations and modified dates 
-						// (if with overlapping dates, the first run will free the dates (reservation cancelled while the second run will modify the reservation dates) 
+						// function run twice to be able to deal with cancelled reservations and modified dates
+						// (if with overlapping dates, the first run will free the dates (reservation cancelled while the second run will modify the reservation dates)
 						$this->process_ical_file( $response['body'], $calendar_name, $calendar['accom_id'], $calendar['accom_num'], $db_calendar_id, $synchro_id );
 						$results = $this->process_ical_file( $response['body'], $calendar_name, $calendar['accom_id'], $calendar['accom_num'], $db_calendar_id, $synchro_id );
-						
+
 						if ( $results[ $db_calendar_id ] ) {
 							if ( array_key_exists( 'events_not_imported', $results[ $db_calendar_id ] ) ) {
 								$events_not_imported = $results[ $db_calendar_id ]['events_not_imported'];
@@ -248,7 +248,7 @@ END:VEVENT
 		}
 		update_option( 'hb_last_synced', current_time( 'mysql', 1 ) );
 	}
-	
+
 	public function ical_parse( $file, $accom_num, $accom_id, $calendar_name ) {
 		$results = $this->process_ical_file( $file, $calendar_name, $accom_id, $accom_num, '', '' );
 		$results_keys = array_keys( $results );
@@ -262,7 +262,7 @@ END:VEVENT
 		}
 		$parse['calendar_id'] = $calendar_id;
 		$parse['synchro_id'] = $synchro_id;
-		
+
 		if ( ( $nb_resa_added == 0 ) && ( $nb_events_not_imported == 0 ) && ( count( $results[ $calendar_id ]['past_events'] ) == 0 ) ) {
 			$parse['success'] = false;
 			?>
@@ -299,7 +299,7 @@ END:VEVENT
 	}
 
 	private function process_ical_file( $ical_data, $calendar_name, $accom_id, $accom_num, $db_calendar_id, $synchro_id ) {
-		
+
 		$calendar_arrays = $this->ics_to_array( $ical_data );
 		$count = 0;
 		$past_events = 0;
@@ -333,19 +333,31 @@ END:VEVENT
 					$synchro_id = uniqid( '', true );
 					$results[ $calendar_id ]['synchro_id'] = $synchro_id;
 				}
-			} else if ( $calendar_array['BEGIN'] == 'VEVENT') {		
+			} else if ( $calendar_array['BEGIN'] == 'VEVENT') {
 				if ( false === strpos( $calendar_array['SUMMARY'],'PENDING' ) && isset( $calendar_array['DTEND'] ) && isset( $calendar_array['DTSTART'] ) ) {
 					$dtend = substr( $calendar_array['DTEND'], 0, 8 );
-					if ( strtotime( $dtend ) > time() ) {	
+					if ( strtotime( $dtend ) > time() ) {
 						$dtstart = substr( $calendar_array['DTSTART'], 0, 8 );
 						$check_out = date( 'Y-m-d', strtotime( $dtend ) );
 						$check_in = date( 'Y-m-d', strtotime( $dtstart ) );
-						if ( 
+
+						$advanced_notice = '+ ' . get_option( 'hb_ical_advanced_notice' ) . ' day';
+						if ( strtotime( $dtstart ) <= strtotime( $advanced_notice ) ) {
+							continue;
+						}
+						if (
 							( get_option( 'hb_ical_exclude_one_day_reservations' ) == 'yes' ) &&
 							( strtotime( $dtend ) <= strtotime( $dtstart . ' + 1 day' ) )
 						) {
 							continue;
 						}
+						if ( get_option( 'hb_ical_import_booking_window' ) ) {
+							$booking_window = '+ ' . get_option( 'hb_ical_import_booking_window' ) . ' months';
+							if ( strtotime( $dtstart ) > strtotime( $booking_window ) ) {
+								continue;
+							}
+						}
+
 						if ( strtotime( $dtend ) > strtotime( $dtstart ) ) {
 							$existing_resa = '';
 							$uid = '';
@@ -359,7 +371,7 @@ END:VEVENT
 								$airbnb_summary = $calendar_array['SUMMARY'];
 								$existing_resa = $this->hbdb->get_resa_by_uid_by_accom_num( $airbnb_summary, $accom_id, $accom_num );
 							}
-							
+
 							if ( $existing_resa ) {
 								$uid = $airbnb_summary;
 							} else {
@@ -367,7 +379,7 @@ END:VEVENT
 							}
 
 							$uid_list[] = $uid;
-							
+
 							if ( $existing_resa ) {
 
 								if ( 'cancelled' == $existing_resa['status'] ) {
@@ -376,11 +388,11 @@ END:VEVENT
 									} else {
 										$id = $this->hbdb->get_resa_id_by_uid( $uid );
 										$this->hbdb->update_resa_status( $id, $status );
-									}									
+									}
 								}
-							
+
 								if ( $check_in != $existing_resa['check_in'] || $check_out != $existing_resa['check_out'] ) {
-									
+
 									$need_updating = true;
 									if ( isset( $calendar_array['LAST_MODIFIED'] ) ) {
 										$last_modified_unix = strtotime( $calendar_array['LAST-MODIFIED'] );
@@ -400,7 +412,7 @@ END:VEVENT
 										$results[ $calendar_id ]['resa_modified'][] = $uid;
 									}
 								}
-								
+
 							} else {
 								$is_available = $this->hbdb->is_available_accom_num( $accom_id, $accom_num, $check_in, $check_out );
 								if ( ! $is_available ) {
@@ -413,6 +425,11 @@ END:VEVENT
 									);
 								} else {
 									$customer_id = 0;
+									if ( isset( $calendar_array['SUMMARY'] ) ) {
+										if ( $calendar_array['SUMMARY'] != 'Not available' && $calendar_array['SUMMARY'] != 'unavailable'	) {
+											$admin_comment = $admin_comment . esc_html__( 'Summary: ', 'hbook-admin' ) . $calendar_array['SUMMARY'] . "\n";
+										}
+									}
 									if ( isset( $calendar_array['DESCRIPTION'] ) ) {
 										if ( isset( $calendar_array['DESCRIPTION']['PHONE'] ) ) {
 											$admin_comment = $admin_comment . esc_html__( 'Phone: ', 'hbook-admin' ) . $calendar_array['DESCRIPTION']['PHONE'] . "\n";
@@ -426,19 +443,13 @@ END:VEVENT
 											$admin_comment = $admin_comment . esc_html__( 'Email: ', 'hbook-admin' ) . $customer_email . "\n";
 										}
 									}
-									
-									if ( isset( $calendar_array['SUMMARY'] ) ) {
-										if ( $calendar_array['SUMMARY'] != 'Not available' && $calendar_array['SUMMARY'] != 'unavailable'	) {
-											$admin_comment = $admin_comment . esc_html__( 'Summary: ', 'hbook-admin' ) . $calendar_array['SUMMARY'] . "\n";
-										}
-									}
-				
+
 									if ( isset( $calendar_array['LAST-MODIFIED'] ) ) {
 										$last_modified = date( 'Y-m-d H:i:s', strtotime( $calendar_array['LAST-MODIFIED'] ) );
 									} else {
 										$last_modified = current_time( 'mysql', 1 );
 									}
-									
+
 									$resa_info = array(
 										'uid' => $uid,
 										'check_in' => $check_in,
@@ -452,7 +463,7 @@ END:VEVENT
 										'origin' => $calendar_name,
 										'synchro_id' => $synchro_id,
 									);
-									
+
 									$resa_id = $this->hbdb->create_resa( $resa_info );
 									if ( $resa_id ) {
 										$this->hbdb->block_linked_accom( $resa_info['accom_id'], $resa_info['check_in'], $resa_info['check_out'], $resa_id );
@@ -460,12 +471,12 @@ END:VEVENT
 									}
 								}
 							}
-						} 
+						}
 					} else {
-						$past_events++;		
-					}		
+						$past_events++;
+					}
 				}
-			}				
+			}
 		}
 		if ( $synchro_id && ( get_option( 'hb_ical_update_status_resa' ) == 'yes' ) ) {
 			$db_uid_list = $this->hbdb->get_uids_by_synchro_id( $synchro_id );
@@ -483,5 +494,5 @@ END:VEVENT
 		$results[ $calendar_id ]['past_events'] = $past_events;
 		return $results;
 	}
-	
+
 }

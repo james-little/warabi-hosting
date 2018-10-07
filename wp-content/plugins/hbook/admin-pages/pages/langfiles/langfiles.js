@@ -11,12 +11,12 @@ jQuery( document ).ready( function( $ ) {
 			return false;
 		}
 	});
-	
+
 	$( '.hb-export-lang-file' ).click( function() {
 		$( this ).blur();
 		$( '#hb-locale-export' ).val( $( this ).data( 'locale' ) );
 		$( '#hb-export-lang-form' ).submit();
 		return false;
 	});
-	
+
 } );

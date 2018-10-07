@@ -12,6 +12,6 @@ jQuery( document ).ready( function( $ ) {
 		days_name = days_name.join( ', ' );
 		$( this ).html( days_name );
 	});
-    
-    hb_format_date();
+
+	hb_format_date();
 });

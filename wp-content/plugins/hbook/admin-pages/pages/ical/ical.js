@@ -1,21 +1,21 @@
 jQuery( document ).ready( function( $ ) {
-	
+
 	$( '.ical-export-url' ).click( function() {
 		$( this ).parents( 'tr' ).find( '.ical-export-url-value' ).slideToggle();
 		return false;
 	});
-	
+
 	$( '.ical-upload' ).click( function() {
 		$( this ).parents( 'td' ).find( 'form' ).slideDown();
 		$( this ).slideUp();
 		return false;
 	});
-	
+
 	$( '.ical-upload-cancel' ).click( function() {
 		$( this ).parents( 'tr' ).find( 'td .import-ical-form' ).slideUp();
 		$( this ).parents( 'tr' ).find( '.ical-upload' ).slideDown();
 	});
-	
+
 	$( '.ical-synchro' ).click( function() {
 		$( this ).parents( 'td' ).find( '.save-changes' ).hide();
 		$( this ).parents( 'td' ).find( '.add-calendar' ).show();
@@ -26,7 +26,7 @@ jQuery( document ).ready( function( $ ) {
 		$( this ).parents( 'td' ).find( '.ical-url-form-action' ).val( 'new-calendar' );
 		return false;
 	});
-	
+
 	$( '.ical-url-cancel' ).click( function() {
 		$( this ).parents( 'tr' ).find( 'td .import-url-form' ).slideUp();
 		$( this ).parents( 'tr' ).find( '.ical-synchro' ).slideDown();
@@ -54,5 +54,5 @@ jQuery( document ).ready( function( $ ) {
 		$( this ).parents( 'tr' ).find( 'td .edit-calendar-id' ).val( calendarId );
 		return false;
 	});
-	
+
 });

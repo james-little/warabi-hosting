@@ -1,28 +1,29 @@
 <?php
 class HbAvailableAccom {
-	
-    private $hbdb;
+
+	private $hbdb;
 	private $utils;
-    private $price_calc;
-    private $options_form;
-    
-    public function __construct( $hbdb, $utils, $price_calc, $options_form ) {
-        $this->hbdb = $hbdb;
-        $this->utils = $utils;
-        $this->price_calc = $price_calc;
-        $this->options_form = $options_form;
-    }
-    
+	private $strings;
+	private $price_calc;
+	private $options_form;
+
+	public function __construct( $hbdb, $utils, $strings, $price_calc, $options_form ) {
+		$this->hbdb = $hbdb;
+		$this->utils = $utils;
+		$this->strings = $strings;
+		$this->price_calc = $price_calc;
+		$this->options_form = $options_form;
+	}
+
 	public function get_available_accom( $search_request ) {
-		
-		$hb_strings = $this->hbdb->get_strings();
+		$hb_strings = $this->strings;
 		$str_check_in = $search_request['check_in'];
 		$str_check_out = $search_request['check_out'];
 		$adults = $search_request['adults'];
 		$children = $search_request['children'];
 		$page_accom_id = $search_request['page_accom_id'];
 		$current_page_id = $search_request['current_page_id'];
-		
+
 		if ( $search_request['exists_main_booking_form'] == 'yes' ) {
 			$exists_main_booking_form = true;
 		} else {
@@ -40,14 +41,14 @@ class HbAvailableAccom {
 		} else {
 			$force_display_desc = false;
 		}
-		
+
 		$accom_name = '';
 		$is_accom_page = false;
 		if ( $page_accom_id ) {
 			$accom_name = $this->utils->get_accom_title( $page_accom_id );
 			$is_accom_page = true;
 		}
-		
+
 		$validation = $this->utils->validate_date_and_people( $str_check_in, $str_check_out, $adults, $children );
 		if ( ! $validation['success'] ) {
 			return array(
@@ -58,14 +59,14 @@ class HbAvailableAccom {
 
 		$nb_people = $adults + $children;
 		$nb_nights = $this->utils->get_number_of_nights( $str_check_in, $str_check_out );
-		
+
 		if ( $this->utils->nb_accom() == 0 ) {
 			return array(
 				'success' => false,
 				'msg' => 'Unexpected error (no accommodation defined).'
 			);
 		}
-		
+
 		$suit_people_accom = $this->hbdb->get_accom_per_occupancy( $nb_people );
 		if ( count( $suit_people_accom ) == 0 ) {
 			if ( $is_accom_page ) {
@@ -94,8 +95,8 @@ class HbAvailableAccom {
 					'msg' => $msg
 				);
 			}
-		} else if ( 
-			$is_accom_page && 
+		} else if (
+			$is_accom_page &&
 			(
 				( $nb_people > get_post_meta( $page_accom_id, 'accom_max_occupancy', true ) ) ||
 				( $nb_people < get_post_meta( $page_accom_id, 'accom_min_occupancy', true ) )
@@ -109,7 +110,7 @@ class HbAvailableAccom {
 				$msg_part1 = str_replace( '%persons_nb', $nb_people, $msg_part1 );
 			}
 			$msg_part1 = str_replace( '%accom_name', $accom_name, $msg_part1 );
-			
+
 			// View all available accommodation for %s persons.
 			if ( $nb_people == 1 ) {
 				$msg_part2 = $hb_strings['view_accom_for_one_person'];
@@ -117,7 +118,7 @@ class HbAvailableAccom {
 				$msg_part2 = $hb_strings['view_accom_for_persons'];
 				$msg_part2 = str_replace( '%persons_nb', $nb_people, $msg_part2 );
 			}
-			
+
 			$msg = $msg_part1;
 			if ( $msg_part2 != '' && $exists_main_booking_form ) {
 				$msg .= '<br/><a href="#" class="hb-other-search">' . $msg_part2 . '</a>';
@@ -127,7 +128,7 @@ class HbAvailableAccom {
 				'msg' => $msg
 			);
 		}
-		
+
 		$available_accom = $this->hbdb->get_available_accom( $nb_people, $str_check_in, $str_check_out );
 
 		if ( ! $is_accom_page ) {
@@ -137,7 +138,7 @@ class HbAvailableAccom {
 				}
 			}
 		}
-		
+
 		if ( ( count( $available_accom ) == 0 ) && ! $is_accom_page ) {
 			// Unfortunately we could not find any accommodation for the dates you entered.
 			// Unfortunately we could not find any accommodation for the dates you entered. You might consider checking the availability page to enter search criteria that will match the rooms availability.
@@ -147,7 +148,7 @@ class HbAvailableAccom {
 				'msg' => $msg
 			);
 		}
-		
+
 		if ( $is_accom_page && ! in_array( $page_accom_id, $available_accom ) ) {
 			if ( count( $available_accom ) == 0 || ! $exists_main_booking_form ) {
 				// The %accom_name is not available at the chosen dates.
@@ -161,10 +162,10 @@ class HbAvailableAccom {
 				// The %accom_name is not available at the chosen dates.
 				$msg_part1 = $hb_strings['accom_not_available_at_chosen_dates'];
 				$msg_part1 = str_replace( '%accom_name', $accom_name, $msg_part1 );
-				
+
 				// View all available accommodation at the chosen dates.
 				$msg_part2 = $hb_strings['view_accom_at_chosen_date'];
-				
+
 				$msg = $msg_part1;
 				if ( $msg_part2 != '' ) {
 					$msg .= '<br/><a href="#" class="hb-other-search">' . $msg_part2 . '</a>';
@@ -177,11 +178,11 @@ class HbAvailableAccom {
 		}
 
 		$output = '';
-		
+
 		$output .= '
-				<div class="hb-booking-nb-nights">' . $this->utils->get_number_of_nights( $str_check_in, $str_check_out ) . '</div>';	
-				
-		if ( $is_accom_page ) {			
+				<div class="hb-booking-nb-nights">' . $this->utils->get_number_of_nights( $str_check_in, $str_check_out ) . '</div>';
+
+		if ( $is_accom_page ) {
 			$available_accom = array( $page_accom_id );
 			$output .= '
 				<div class="hb-accom-choice hb-accom-single-choice">';
@@ -190,10 +191,10 @@ class HbAvailableAccom {
 				// We have found %s of accommodation that suit your needs.
 				$msg1 = $hb_strings['several_types_of_accommodation_found'];
 				$msg1 = str_replace( '%nb_types', count( $available_accom ), $msg1 );
-				
+
 				// Select your accommodation
 				$msg2 = $hb_strings['select_accom_title'];
-				
+
 				$output .= '
 				<div class="hb-search-result-title-section">
 					<p>' . $msg1 . '</p>';
@@ -214,7 +215,7 @@ class HbAvailableAccom {
 				<div class="hb-accom-choice hb-accom-single-choice">';
 			}
 		}
-		
+
 		foreach ( $available_accom as $accom_id ) {
 			$price_breakdown = '';
 			$price_array = $this->price_calc->get_price( $accom_id, $str_check_in, $str_check_out, $adults, $children, $price_breakdown );
@@ -226,10 +227,10 @@ class HbAvailableAccom {
 			} else {
 				$price = $price_array['value'];
 			}
-			
+
 			$thumb_mark_up = '';
-			if ( 
-				( $force_display_thumb ) || 
+			if (
+				( $force_display_thumb ) ||
 				( ! $is_accom_page && ( get_option( 'hb_thumb_display' ) != 'no' ) )
 			) {
 				$thumb_width = intval( get_option( 'hb_search_accom_thumb_width', 100 ) );
@@ -241,19 +242,19 @@ class HbAvailableAccom {
 					$thumb_height = 100;
 				}
 				$thumb_mark_up = $this->utils->get_thumb_mark_up( $accom_id, $thumb_width, $thumb_height, 'hb-accom-img' );
-				if ( 
-					$thumb_mark_up && 
-					( get_option( 'hb_thumb_accom_link' ) == 'yes' ) && 
+				if (
+					$thumb_mark_up &&
+					( get_option( 'hb_thumb_accom_link' ) == 'yes' ) &&
 					( $current_page_id != $page_accom_id )
 				) {
 					$thumb_mark_up = '<a target="_blank" href="' . $this->utils->get_accom_link( $accom_id ) . '">' . $thumb_mark_up . '</a>';
 				}
 			}
-			
+
 			$output .= '
 				<div class="hb-accom hb-accom-id-' . $accom_id . '" data-accom-id="' . $accom_id . '">' .
 					$thumb_mark_up;
-			
+
 			if ( ! $is_accom_page ) {
 				$title = $this->utils->get_accom_title( $accom_id );
 				if ( get_option( 'hb_title_accom_link' ) == 'yes' ) {
@@ -280,7 +281,7 @@ class HbAvailableAccom {
 				$output .= '
 					<div class="hb-accom-desc">' . $this->utils->get_accom_search_desc( $accom_id ) . '</div>';
 			}
-			
+
 			// price for 1 night
 			// price for %x nights
 			if ( $nb_nights > 1 ) {
@@ -289,7 +290,7 @@ class HbAvailableAccom {
 			} else {
 				$msg = $hb_strings['price_for_1_night'];
 			}
- 			
+
 			if ( get_option( 'hb_display_price' ) != 'no' ) {
 				$output .= '
 					<div class="hb-accom-price-total hb-clearfix">
@@ -352,21 +353,21 @@ class HbAvailableAccom {
 			$output .= '
 				</div><!-- end .hb-accom -->';
 		}
-		
+
 		$output .= '
 			</div><!-- end .hb-accom-choice -->';
-		
-        $output .= $this->options_form->get_options_form_markup_frontend( $adults, $children, $nb_nights );
+
+		$output .= $this->options_form->get_options_form_markup_frontend( $adults, $children, $nb_nights );
 
 		$output = apply_filters( 'hb_available_accommodation_markup', $output );
-		
+
 		return array(
 			'success' => true,
 			'mark_up' => $output
 		);
-		
+
 	}
-	
+
 	private function accom_observes_rules( $accom_id, $str_check_in, $str_check_out, $nb_nights ) {
 		$rules = $this->hbdb->get_accom_booking_rules( $accom_id );
 		if ( $rules ) {
@@ -378,26 +379,26 @@ class HbAvailableAccom {
 				$allowed_check_in_days = explode( ',', $rule['check_in_days'] );
 				$allowed_check_out_days = explode( ',', $rule['check_out_days'] );
 				$rule_seasons = explode( ',', $rule['seasons'] );
-				if ( 
-					$rule['type'] == 'check_in_days' && 
-					! in_array( $check_in_day, $allowed_check_in_days ) && 
+				if (
+					$rule['type'] == 'check_in_days' &&
+					! in_array( $check_in_day, $allowed_check_in_days ) &&
 					( $rule['all_seasons'] || in_array( $check_in_season, $rule_seasons ) )
 				) {
 					return false;
-				} else if ( 
-					$rule['type'] == 'check_out_days' && 
-					! in_array( $check_out_day, $allowed_check_out_days ) && 
+				} else if (
+					$rule['type'] == 'check_out_days' &&
+					! in_array( $check_out_day, $allowed_check_out_days ) &&
 					( $rule['all_seasons'] || in_array( $check_out_season, $rule_seasons ) )
 				) {
 					return false;
-				} else if ( 
-					$rule['conditional_type'] != 'discount' && 
+				} else if (
+					$rule['conditional_type'] != 'discount' &&
 					$rule['conditional_type'] != 'special_rate' &&
 					$rule['conditional_type'] != 'coupon' &&
-					in_array( $check_in_day, $allowed_check_in_days ) && 
+					in_array( $check_in_day, $allowed_check_in_days ) &&
 					( $rule['all_seasons'] || in_array( $check_in_season, $rule_seasons ) )
 				) {
-					if ( 
+					if (
 						! in_array( $check_out_day, $allowed_check_out_days ) &&
 						( $rule['type'] == 'conditional' && ( $rule['conditional_type'] == 'compulsory' || $rule['conditional_type'] == 'comp_and_rate' ) )
 					) {

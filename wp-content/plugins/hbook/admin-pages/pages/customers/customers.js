@@ -1,36 +1,36 @@
 jQuery( document ).ready( function( $ ) {
 	hb_section_toggle( 'export-customers' );
-	
+
 	$( '#hb-export-customers-select-all' ).click( function() {
-        $( this ).blur();
-        $( '#hb-export-customers-form input[type="checkbox"]' ).prop( 'checked', true );
-        return false;
-    });
-    
-    $( '#hb-export-customers-unselect-all' ).click( function() {
-        $( this ).blur();
-        $( '#hb-export-customers-form input[type="checkbox"]' ).prop( 'checked', false );
-        return false;
-    });
-	
+		$( this ).blur();
+		$( '#hb-export-customers-form input[type="checkbox"]' ).prop( 'checked', true );
+		return false;
+	});
+
+	$( '#hb-export-customers-unselect-all' ).click( function() {
+		$( this ).blur();
+		$( '#hb-export-customers-form input[type="checkbox"]' ).prop( 'checked', false );
+		return false;
+	});
+
 	$( '#hb-export-customers-download' ).click( function() {
 		$( this ).blur();
-        if ( ! $( 'input[name="hb-customers-data-export[]"]:checked').length ) {
-            alert( hb_text.no_export_data_selected );
-            return false;
-        }
+		if ( ! $( 'input[name="hb-customers-data-export[]"]:checked').length ) {
+			alert( hb_text.no_export_data_selected );
+			return false;
+		}
 		$( '#hb-export-customers-form' ).submit();
 		return false;
 	});
-	
+
 	$( '#hb-export-customers-cancel' ).click( function() {
-        $( '#hb-export-customers' ).slideUp( function() {
-            $( '#hb-export-customers-toggle .dashicons-arrow-down' ).css( 'display', 'inline-block' );
-            $( '#hb-export-customers-toggle .dashicons-arrow-up' ).hide();
-        });
-        return false;
-    });
-	
+		$( '#hb-export-customers' ).slideUp( function() {
+			$( '#hb-export-customers-toggle .dashicons-arrow-down' ).css( 'display', 'inline-block' );
+			$( '#hb-export-customers-toggle .dashicons-arrow-up' ).hide();
+		});
+		return false;
+	});
+
 	function Customer( id, info ) {
 		this.id = id;
 		this.info = ko.observable( info );
@@ -38,9 +38,9 @@ jQuery( document ).ready( function( $ ) {
 		this.saving = ko.observable( false );
 		this.deleting = ko.observable( false );
 		this.anim_class = ko.observable( '' );
-		
+
 		var self = this;
-		
+
 		this.customer_data = ko.computed( function() {
 			try {
 				customer_data = JSON.parse( self.info() );
@@ -49,7 +49,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 			return customer_data;
 		});
-		
+
 		this.first_name = ko.computed( function() {
 			if ( self.customer_data()['first_name'] ) {
 				return self.customer_data()['first_name'];
@@ -57,7 +57,7 @@ jQuery( document ).ready( function( $ ) {
 				return '';
 			}
 		});
-		
+
 		this.last_name = ko.computed( function() {
 			if ( self.customer_data()['last_name'] ) {
 				return self.customer_data()['last_name'];
@@ -65,7 +65,7 @@ jQuery( document ).ready( function( $ ) {
 				return '';
 			}
 		});
-		
+
 		this.email = ko.computed( function() {
 			if ( self.customer_data()['email'] ) {
 				return self.customer_data()['email'];
@@ -73,7 +73,7 @@ jQuery( document ).ready( function( $ ) {
 				return '';
 			}
 		});
-		
+
 		this.other_info = ko.computed( function() {
 			var non_displayed_info = ['first_name','last_name','email'],
 				customer_data = self.customer_data(),
@@ -91,12 +91,12 @@ jQuery( document ).ready( function( $ ) {
 			});
 			return info_markup;
 		});
-		
+
 		this.name_email = ko.computed( function() {
-			var name_email_raw = self.first_name() + self.last_name() + self.email(); 
+			var name_email_raw = self.first_name() + self.last_name() + self.email();
 			return name_email_raw.toLowerCase();
 		});
-		
+
 		this.customer_info_editing_markup = ko.computed( function() {
 			var customer_edit_markup = '';
 			$.each( hb_customer_fields, function( field_id, field_info ) {
@@ -125,26 +125,26 @@ jQuery( document ).ready( function( $ ) {
 			return customer_edit_markup;
 		});
 	}
-	
+
 	function CustomerViewModel() {
-		
+
 		var self = this;
-		
-        this.customers_list = ko.observableArray();
-		
+
+		this.customers_list = ko.observableArray();
+
 		this.filter_customer_search = ko.observable( '' );
-		
+
 		this.customers_filtered = ko.computed( function() {
 			var filter = self.filter_customer_search().toLowerCase().replace( /\s/g, '' );
 			if ( ! filter ) {
-				return self.customers_list().sort( function( a, b ) { 
+				return self.customers_list().sort( function( a, b ) {
 					return a.last_name().localeCompare( b.last_name() );
 				});
 			} else {
-				return ko.utils.arrayFilter( 
-					self.customers_list().sort( function( a, b ) { 
+				return ko.utils.arrayFilter(
+					self.customers_list().sort( function( a, b ) {
 						return a.last_name().localeCompare( b.last_name() );
-					}), 
+					}),
 					function( customer ) {
 						if ( customer.name_email().indexOf( filter ) >= 0 ) {
 							return true;
@@ -155,44 +155,44 @@ jQuery( document ).ready( function( $ ) {
 				);
 			}
 		});
-		
+
 		function blur_buttons() {
 			$( '.button' ).blur();
 		}
-		
+
 		this.customers_per_page = 25;
 		this.customers_current_page_number = ko.observable( 1 );
-		
+
 		this.customers_first_page = function() {
 			self.customers_current_page_number( 1 );
 			blur_buttons();
 		}
-		
+
 		this.customers_last_page = function() {
 			self.customers_current_page_number( self.customers_total_pages() );
 			blur_buttons();
 		}
-		
+
 		this.customers_next_page = function() {
 			if ( self.customers_current_page_number() != self.customers_total_pages() ) {
 				self.customers_current_page_number( self.customers_current_page_number() + 1 );
 			}
 			blur_buttons();
 		}
-		
+
 		this.customers_previous_page = function() {
 			if ( self.customers_current_page_number() != 1 ) {
 				self.customers_current_page_number( self.customers_current_page_number() - 1 );
 			}
 			blur_buttons();
 		}
-				
+
 		this.customers_total_pages = ko.computed(function() {
 			var total = Math.floor( self.customers_filtered().length / self.customers_per_page );
 			total += self.customers_filtered().length % self.customers_per_page > 0 ? 1 : 0;
 			return total;
 		});
-		
+
 		this.customers_paginated = ko.computed( function() {
 			if ( self.customers_current_page_number() > self.customers_total_pages() ) {
 				self.customers_current_page_number( 1 );
@@ -200,10 +200,10 @@ jQuery( document ).ready( function( $ ) {
 			var first = self.customers_per_page * ( self.customers_current_page_number() - 1 );
 			return self.customers_filtered().slice( first, first + self.customers_per_page );
 		});
-		
+
 		var observable_customers = [];
 		for ( var i = 0; i < hb_customers.length; i++ ) {
-			observable_customers.push( 
+			observable_customers.push(
 				new Customer(
 					hb_customers[i].id,
 					hb_customers[i].info
@@ -211,14 +211,14 @@ jQuery( document ).ready( function( $ ) {
 			);
 		}
 		this.customers_list( observable_customers );
-		
+
 		this.edit_customer = function( customer ) {
-            customer.editing( true );
-        }
-        
-        this.cancel_edit_customer = function( customer ) {
-            customer.editing( false );
-        }
+			customer.editing( true );
+		}
+
+		this.cancel_edit_customer = function( customer ) {
+			customer.editing( false );
+		}
 
 		this.save_customer = function( customer ) {
 			customer.saving( true );
@@ -254,12 +254,12 @@ jQuery( document ).ready( function( $ ) {
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
-                    customer.saving( false );
+					customer.saving( false );
 					alert( textStatus + ' (' + errorThrown + ')' );
 				}
 			});
 		}
-				
+
 		this.delete_customer = function( customer ) {
 			if ( confirm( hb_text.confirm_delete_customer ) ) {
 				customer.deleting( true );
@@ -267,7 +267,7 @@ jQuery( document ).ready( function( $ ) {
 					url: ajaxurl,
 					type: 'POST',
 					data: {
-						'action': 'hb_delete_customer', 
+						'action': 'hb_delete_customer',
 						'customer_id': customer.id,
 						'nonce': $( '#hb_nonce_update_db' ).val()
 					},
@@ -275,7 +275,7 @@ jQuery( document ).ready( function( $ ) {
 					success: function( ajax_return ) {
 						if ( ajax_return.trim() == 'customer_deleted' ) {
 							customer.anim_class( 'hb-customer-deleting' );
-							setTimeout( function() { 
+							setTimeout( function() {
 								self.customers_list.remove( customer );
 							}, 300 );
 						} else {
@@ -291,8 +291,8 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}
 	}
-	
+
 	var customerViewModel = new CustomerViewModel();
-    ko.applyBindings( customerViewModel );
-	
+	ko.applyBindings( customerViewModel );
+
 });

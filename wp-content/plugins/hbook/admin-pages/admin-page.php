@@ -8,7 +8,7 @@ class HbAdminPage {
 	protected $utils;
 	protected $options_utils;
 	protected $form_name;
-	
+
 	public function __construct( $page_id, $hbdb, $utils, $options_utils ) {
 		$this->page_id = $page_id;
 		$this->hbdb = $hbdb;
@@ -25,17 +25,17 @@ class HbAdminPage {
 		);
 		$this->data['hb_text'] = array_merge( $this->common_text, $this->data['hb_text'] );
 		$this->data['all_accom_ids'] = $this->hbdb->get_all_accom_ids();
-        $ajax_timeout = intval( get_option( 'hb_ajax_timeout' ) );
-        if ( ! $ajax_timeout ) {
-            $ajax_timeout = 20000;
-        }
-        $this->data['hb_ajax_settings'] = array( 'timeout' => $ajax_timeout );
-		foreach ( $this->data as $key => $value ) { 
+		$ajax_timeout = intval( get_option( 'hb_admin_ajax_timeout' ) );
+		if ( ! $ajax_timeout ) {
+			$ajax_timeout = 20000;
+		}
+		$this->data['hb_ajax_settings'] = array( 'timeout' => $ajax_timeout );
+		foreach ( $this->data as $key => $value ) {
 			wp_localize_script( 'hb-' . $this->page_id . '-script', $key, $value );
 		}
 		wp_nonce_field( 'hb_nonce_update_db', 'hb_nonce_update_db' );
 	}
-	
+
 	protected function display_admin_action( $setting_type = '' ) {
 	?>
 		<?php if ( $setting_type == 'season' ) { ?>
@@ -80,18 +80,18 @@ class HbAdminPage {
 
 	protected function display_select_days( $id ) {
 		$days = $this->utils->days_full_name();
-		foreach( $days as $i => $day ) { 
+		foreach( $days as $i => $day ) {
 		?>
 			<input id="hb-<?php echo( $id . '-' . $day ); ?>"  data-bind="checked: <?php echo( $id ); ?>" type="checkbox" value="<?php echo( $i ); ?>" />
 			<label for="hb-<?php echo( $id . '-' . $day ); ?>"><?php echo( $day ); ?></label><br/>
-		<?php 
+		<?php
 		}
 		?>
 		<a data-bind="click: select_all_<?php echo( $id ); ?>" href="#"><?php esc_html_e( 'Select all', 'hbook-admin' ); ?></a> -
 		<a data-bind="click: unselect_all_<?php echo( $id ); ?>" href="#"><?php esc_html_e( 'Unselect all', 'hbook-admin' ); ?></a>
 		<?php
 	}
-	
+
 	protected function display_checkbox_list( $data, $data_type, $display_check_all_box = true, $display_select_all_link = false ) {
 		if ( $display_check_all_box ) {
 		?>
@@ -107,14 +107,14 @@ class HbAdminPage {
 		}
 		if ( $display_select_all_link ) {
 		?>
-		<a data-bind="click: select_all_<?php echo( $data_type ); ?>" href="#"><?php esc_html_e( 'Select all', 'hbook-admin' ); ?></a> - 
+		<a data-bind="click: select_all_<?php echo( $data_type ); ?>" href="#"><?php esc_html_e( 'Select all', 'hbook-admin' ); ?></a> -
 		<?php
 		}
 		?>
 		<a data-bind="click: unselect_all_<?php echo( $data_type ); ?>" href="#"><?php esc_html_e( 'Unselect all', 'hbook-admin' ); ?></a>
 		<?php
 	}
-	
+
 	protected function display_edit_amount_fixed_percent() {
 		?>
 		<input data-bind="value: amount" type="text" class="hb-rate-amount" /><br/>
@@ -131,7 +131,12 @@ class HbAdminPage {
 			<div class="hb-form-field" data-bind="css: { 'hb-standard-field': standard == 'yes' }, attr: { id: id }, visible: form_name == '<?php echo( $this->form_name ); ?>'">
 				<a class="hb-form-field-delete dashicons dashicons-no" href="#" data-bind="click: function( data, event ) { $root.remove_field( data, event ) }" title="<?php esc_attr_e( 'Remove field', 'hbook-admin' ); ?>"></a>
 				<p data-bind="visible: type() != 'separator' && type() != 'column_break'" class="hb-form-field-name">
-					<span data-bind="visible: ! editing_name(), text: name"></span>
+					<span
+						data-bind="visible: ! editing_name() &&
+						['details_form_title', 'first_name', 'last_name', 'email'].indexOf( id() ) == -1, text: name"
+					></span>
+					<span data-bind="visible: ['details_form_title', 'first_name', 'last_name', 'email'].indexOf( id() ) != -1,
+					text: hb_text[ id() ]"></span>
 					<input data-bind="visible: editing_name, value: name" type="text" class="hb-input-field-name" />
 					<a data-bind="visible: ! editing_name(), click: $root.edit_field_name" class="dashicons dashicons-edit hb-form-field-edit-name" title="<?php esc_attr_e( 'Edit field name', 'hbook-admin' ); ?>" href="#"></a>
 					<a data-bind="visible: editing_name, click: $root.stop_edit_field_name" class="button" href="#"><?php esc_html_e( 'OK', 'hbook-admin' ); ?></a>
@@ -194,7 +199,10 @@ class HbAdminPage {
 							</ul>
 						</div>
 					</div>
-					<p data-bind="visible: type() != 'title' && type() != 'sub_title' && type() != 'explanation' && type() != 'separator' && type() != 'column_break' && form_name == 'booking'">
+					<p data-bind="visible: type() != 'title' && type() != 'sub_title' &&
+						type() != 'explanation' && type() != 'separator' && type() != 'column_break' &&
+						form_name == 'booking' && ['first_name', 'last_name', 'email'].indexOf( id() ) == -1"
+					>
 						<span class="hb-form-field-attribute"><?php esc_html_e( 'Data about?', 'hbook-admin' ); ?></span>
 						<input data-bind="checked: data_about, attr: { id: data_about_customer_input_id }" type="radio" value="customer" />
 						<label data-bind="attr: { 'for': data_about_customer_input_id }"><?php esc_html_e( 'Customer', 'hbook-admin' ); ?></label>
@@ -212,40 +220,40 @@ class HbAdminPage {
 					</p>
 				</div>
 			</div>
-			
+
 		</div>
 	<?php
 	}
-	
-    protected function display_right_menu() {
-        $hbook_pages = $this->utils->get_hbook_pages();
-        ?>
-        
-        <a id="hb-admin-settings-link" href="<?php echo( admin_url( 'admin.php?page=hb_menu' ) ); ?>"><?php esc_html_e( 'HBook settings', 'hbook-admin' ); ?> <span class="dashicons dashicons-arrow-down-alt2"></span></a>
-        <ul id="hb-admin-right-menu">
-        
-        <?php foreach ( $hbook_pages as $page ) : ?>
-        
-        <li>
-            <a <?php if ( $_GET['page'] == $page['id'] ) : ?>class="hb-admin-right-menu-current-item"<?php endif; ?> href="<?php echo( admin_url( 'admin.php?page=' . $page['id'] ) ); ?>">
-                <?php echo( $page['name'] ); ?>
-            </a>
-        </li>
-        
-        <?php endforeach; ?>
-        
-        </ul>
-        
-        <?php
-    }
-    
+
+	protected function display_right_menu() {
+		$hbook_pages = $this->utils->get_hbook_pages();
+		?>
+
+		<a id="hb-admin-settings-link" href="<?php echo( admin_url( 'admin.php?page=hb_menu' ) ); ?>"><?php esc_html_e( 'HBook settings', 'hbook-admin' ); ?> <span class="dashicons dashicons-arrow-down-alt2"></span></a>
+		<ul id="hb-admin-right-menu">
+
+		<?php foreach ( $hbook_pages as $page ) : ?>
+
+		<li>
+			<a <?php if ( $_GET['page'] == $page['id'] ) : ?>class="hb-admin-right-menu-current-item"<?php endif; ?> href="<?php echo( admin_url( 'admin.php?page=' . $page['id'] ) ); ?>">
+				<?php echo( $page['name'] ); ?>
+			</a>
+		</li>
+
+		<?php endforeach; ?>
+
+		</ul>
+
+		<?php
+	}
+
 	protected function get_apply_to_types( $type = 'fee' ) {
 		$types = array(
 			array(
 				'option_value' => 'per-person',
 				'option_text' => esc_html__( 'Per person', 'hbook-admin' )
 			),
-            array(
+			array(
 				'option_value' => 'per-person-per-day',
 				'option_text' => esc_html__( 'Per person / per day', 'hbook-admin' )
 			),
@@ -257,12 +265,12 @@ class HbAdminPage {
 				'option_value' => 'per-accom-per-day',
 				'option_text' => esc_html__( 'Per accommodation / per day', 'hbook-admin' )
 			)
-		);	
-        if ( $type == 'option' ) {
-            $types[] = array( 'option_value' => 'quantity', 'option_text' => esc_html__( 'Quantity', 'hbook-admin' ) );
-            $types[] = array( 'option_value' => 'quantity-per-day', 'option_text' => esc_html__( 'Quantity per day', 'hbook-admin' ) );
-        }
-        return $types;
+		);
+		if ( $type == 'option' ) {
+			$types[] = array( 'option_value' => 'quantity', 'option_text' => esc_html__( 'Quantity', 'hbook-admin' ) );
+			$types[] = array( 'option_value' => 'quantity-per-day', 'option_text' => esc_html__( 'Quantity per day', 'hbook-admin' ) );
+		}
+		return $types;
 	}
-	
-}	
+
+}

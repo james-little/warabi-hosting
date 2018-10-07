@@ -1,17 +1,17 @@
 <?php
 class HbAdminPageRules extends HbAdminPage {
-	
+
 	private $accom;
 	private $conditional_type;
 	private $seasons;
-	
+
 	public function __construct( $page_id, $hbdb, $utils, $options_utils ) {
 		$this->accom = $hbdb->get_all_accom();
 		$this->seasons = $hbdb->get_seasons_id_name();
 		$this->conditional_types = array(
 			'compulsory' => esc_html__( 'Compulsory', 'hbook-admin' ),
 			'special_rate' => esc_html__( 'Special rate', 'hbook-admin' ),
-			'comp_and_rate' => esc_html__( 'Compulsory and special rate', 'hbook-admin' ), 
+			'comp_and_rate' => esc_html__( 'Compulsory and special rate', 'hbook-admin' ),
 			'discount' => esc_html__( 'Discount', 'hbook-admin' ),
 			'coupon' => esc_html__( 'Coupon', 'hbook-admin' ),
 		);
@@ -33,7 +33,7 @@ class HbAdminPageRules extends HbAdminPage {
 		parent::__construct( $page_id, $hbdb, $utils, $options_utils );
 	}
 
-	
+
 	public function display() {
 	?>
 
@@ -41,24 +41,24 @@ class HbAdminPageRules extends HbAdminPage {
 
 		<h2><?php esc_html_e( 'Booking rules', 'hbook-admin' ); ?></h2>
 		<?php $this->display_right_menu(); ?>
-		
+
 		<hr/>
-		
+
 		<!-- -------------------------------------------------------------------------- -->
-		
+
 		<!-- allowed check-in days end -->
-		
-		
+
+
 		<h3>
 			<?php esc_html_e( 'Check-in days', 'hbook-admin' ); ?>
 			<a data-bind="click: function() { create_rule( 'check_in_days' ) }" href="#" class="add-new-h2"><?php esc_html_e( 'Add rule', 'hbook-admin' ); ?></a>
 			<span class="hb-add-new spinner hb-add-check-in-days"></span>
 		</h3>
-		
+
 		<!-- ko if: nb_rules( 'check_in_days' ) == 0 -->
 		<p><?php esc_html_e( 'Customers can check-in any day.', 'hbook-admin' ); ?></p>
 		<!-- /ko -->
-		
+
 		<!-- ko if: nb_rules( 'check_in_days' ) > 0 -->
 		<table class="wp-list-table widefat hb-rule-table">
 
@@ -70,13 +70,13 @@ class HbAdminPageRules extends HbAdminPage {
 					<th class="hb-table-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody data-bind="template: { name: function( rule ) { return rule_template_to_use( rule, 'check_in_days' ); }, foreach: rules, beforeRemove: hide_setting }">
 			</tbody>
-			
+
 		</table>
 		<!-- /ko -->
-		
+
 		<script id="check_in_days_rule_text_tmpl" type="text/html">
 			<tr>
 				<td data-bind="text: check_in_days_list"></td>
@@ -85,7 +85,7 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="check_in_days_rule_edit_tmpl" type="text/html">
 			<tr>
 				<td><?php $this->display_select_days( 'check_in_days' ); ?></td>
@@ -94,27 +94,27 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<br/><hr/>
-		
-		
+
+
 		<!-- allowed check-in days end -->
-		
+
 		<!-- -------------------------------------------------------------------------- -->
-		
+
 		<!-- allowed check-out days begin -->
-		
-		
+
+
 		<h3>
 			<?php esc_html_e( 'Check-out days', 'hbook-admin' ); ?>
 			<a data-bind="click: function() { create_rule( 'check_out_days' ) }" href="#" class="add-new-h2"><?php esc_html_e( 'Add rule', 'hbook-admin' ); ?></a>
 			<span class="hb-add-new spinner hb-add-check-out-days"></span>
 		</h3>
-		
+
 		<!-- ko if: nb_rules( 'check_out_days' ) == 0 -->
 		<p><?php esc_html_e( 'Customers can check-out any day.', 'hbook-admin' ); ?></p>
 		<!-- /ko -->
-		
+
 		<!-- ko if: nb_rules( 'check_out_days' ) > 0 -->
 		<table class="wp-list-table widefat hb-rule-table">
 
@@ -126,13 +126,13 @@ class HbAdminPageRules extends HbAdminPage {
 					<th class="hb-table-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody data-bind="template: { name: function( rule ) { return rule_template_to_use( rule, 'check_out_days' ); }, foreach: rules, beforeRemove: hide_setting }">
 			</tbody>
-			
+
 		</table>
 		<!-- /ko -->
-		
+
 		<script id="check_out_days_rule_text_tmpl" type="text/html">
 			<tr>
 				<td data-bind="text: check_out_days_list"></td>
@@ -141,7 +141,7 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="check_out_days_rule_edit_tmpl" type="text/html">
 			<tr>
 				<td><?php $this->display_select_days( 'check_out_days' ); ?></td>
@@ -150,27 +150,27 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<br/><hr/>
-		
-		
+
+
 		<!-- allowed check-out days end -->
-		
+
 		<!-- -------------------------------------------------------------------------- -->
-		
+
 		<!-- minimum stay begin -->
-		
-		
+
+
 		<h3>
 			<?php esc_html_e( 'Minimum stay length', 'hbook-admin' ); ?>
 			<a data-bind="click: function() { create_rule( 'minimum_stay' ) }" href="#" class="add-new-h2"><?php esc_html_e( 'Add rule', 'hbook-admin' ); ?></a>
 			<span class="hb-add-new spinner hb-add-minimum-stay"></span>
 		</h3>
-		
+
 		<!-- ko if: nb_rules( 'minimum_stay' ) == 0 -->
 		<p><?php esc_html_e( 'There is no minimum stay rules.', 'hbook-admin' ); ?></p>
 		<!-- /ko -->
-		
+
 		<!-- ko if: nb_rules( 'minimum_stay' ) > 0 -->
 		<table class="wp-list-table widefat hb-rule-table">
 
@@ -182,13 +182,13 @@ class HbAdminPageRules extends HbAdminPage {
 					<th class="hb-table-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody data-bind="template: { name: function( rule ) { return rule_template_to_use( rule, 'minimum_stay' ); }, foreach: rules, beforeRemove: hide_setting }">
 			</tbody>
-			
+
 		</table>
 		<!-- /ko -->
-		
+
 		<script id="minimum_stay_rule_text_tmpl" type="text/html">
 			<tr>
 				<td><span data-bind="text: minimum_stay"></span> <?php esc_html_e( 'nights', 'hbook-admin' ); ?></td>
@@ -197,7 +197,7 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="minimum_stay_rule_edit_tmpl" type="text/html">
 			<tr>
 				<td><input data-bind="value: minimum_stay" class="hb-stay-length" type="text" /> <span><?php esc_html_e( 'nights', 'hbook-admin' ); ?></span></td>
@@ -206,27 +206,27 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<br/><hr/>
-		
-		
+
+
 		<!-- minimum stay end -->
-		
+
 		<!-- -------------------------------------------------------------------------- -->
-		
+
 		<!-- maximum stay begin -->
-		
-		
+
+
 		<h3>
 			<?php esc_html_e( 'Maximum stay length', 'hbook-admin' ); ?>
 			<a data-bind="click: function() { create_rule( 'maximum_stay' ) }" href="#" class="add-new-h2"><?php esc_html_e( 'Add rule', 'hbook-admin' ); ?></a>
 			<span class="hb-add-new spinner hb-add-maximum-stay"></span>
 		</h3>
-		
+
 		<!-- ko if: nb_rules( 'maximum_stay' ) == 0 -->
 		<p><?php esc_html_e( 'There is no maximum stay rules.', 'hbook-admin' ); ?></p>
 		<!-- /ko -->
-		
+
 		<!-- ko if: nb_rules( 'maximum_stay' ) > 0 -->
 		<table class="wp-list-table widefat hb-rule-table">
 
@@ -238,13 +238,13 @@ class HbAdminPageRules extends HbAdminPage {
 					<th class="hb-table-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody data-bind="template: { name: function( rule ) { return rule_template_to_use( rule, 'maximum_stay' ); }, foreach: rules, beforeRemove: hide_setting }">
 			</tbody>
-			
+
 		</table>
 		<!-- /ko -->
-		
+
 		<script id="maximum_stay_rule_text_tmpl" type="text/html">
 			<tr>
 				<td><span data-bind="text: maximum_stay"></span> <?php esc_html_e( 'nights', 'hbook-admin' ); ?></td>
@@ -253,7 +253,7 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="maximum_stay_rule_edit_tmpl" type="text/html">
 			<tr>
 				<td><input data-bind="value: maximum_stay" class="hb-stay-length" type="text" /> <span><?php esc_html_e( 'nights', 'hbook-admin' ); ?></span></td>
@@ -262,32 +262,32 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<br/><hr/>
-		
-		
+
+
 		<!-- maximum stay end -->
-		
+
 		<!-- -------------------------------------------------------------------------- -->
-		
+
 		<!-- conditional begin -->
-		
-		
+
+
 		<h3 id="hb-additional-rules-title">
 			<?php esc_html_e( 'Advanced rules', 'hbook-admin' ); ?>
 			<a data-bind="click: function() { create_rule( 'conditional' ) }" href="#" class="add-new-h2"><?php esc_html_e( 'Add rule', 'hbook-admin' ); ?></a>
-			<span class="hb-add-new spinner hb-add-conditional"></span>	
+			<span class="hb-add-new spinner hb-add-conditional"></span>
 		</h3>
-		
+
 		<p><?php esc_html_e( 'You may define advanced rules to create compulsory settings for stays, or to create special rates or discounts, or to add a rule for a coupon.', 'hbook-admin' ); ?></p>
-		
+
 		<!-- ko if: nb_rules( 'conditional' ) == 0 -->
 		</p><?php esc_html_e( 'There is no advanced rules.', 'hbook-admin' ); ?></p>
 		<!-- /ko -->
-		
+
 		<!-- ko if: nb_rules( 'conditional' ) > 0 -->
 		<table class="wp-list-table widefat hb-conditional-rule-table">
-		
+
 			<thead>
 				<tr>
 					<th class="hb-conditional-rule-name hb-rule-box-with-border"><?php esc_html_e( 'Name', 'hbook-admin' ); ?></th>
@@ -301,12 +301,12 @@ class HbAdminPageRules extends HbAdminPage {
 					<th class="hb-table-action"><?php esc_html_e( 'Actions', 'hbook-admin' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody data-bind="template: { name: function( rule ) { return rule_template_to_use( rule, 'conditional' ); }, foreach: rules, beforeRemove: hide_setting }">
 			</tbody>
-			
+
 		</table>
-		
+
 		<script id="conditional_rule_text_tmpl" type="text/html">
 			<tr>
 				<td class="hb-rule-box-with-border" data-bind="text: name"></td>
@@ -348,12 +348,12 @@ class HbAdminPageRules extends HbAdminPage {
 				<td class="hb-table-action"><?php $this->display_admin_action(); ?></td>
 			</tr>
 		</script>
-		
+
 		<script id="conditional_rule_edit_tmpl" type="text/html">
 			<tr>
 				<td rowspan="2" class="hb-rule-box-with-border"><input data-bind="value: name" type="text" /></td>
 				<td rowspan="2" class="hb-rule-box-with-border">
-					<?php 
+					<?php
 					foreach ( $this->conditional_types as $cond_type => $cond_type_label ) {
 						$cond_type_id = 'hb_' . $cond_type;
 						?>
@@ -409,7 +409,7 @@ class HbAdminPageRules extends HbAdminPage {
 				<?php esc_html_e( 'Select accommodation and seasons in the Rates page.', 'hbook-admin' ); ?>
 				</td>
 				<!-- /ko -->
-				
+
 				<td rowspan="2" class="hb-table-action"><?php $this->display_admin_on_edit_action(); ?></td>
 			</tr>
 			<tr>
@@ -439,13 +439,13 @@ class HbAdminPageRules extends HbAdminPage {
 				</td>
 			</tr>
 		</script>
-		
+
 		<!-- /ko -->
 
 		<div id="hb-rules-page-bottom"></div>
-		
+
 		<script id="empty_tmpl"></script>
-		
+
 	</div>
 
 	<?php

@@ -1,23 +1,26 @@
 <?php
 class HbUtils {
-	
+
 	private $hbdb;
 	private $currencies;
-	private $plugin_version;
-	
+	public $plugin_version;
+	public $plugin_directory;
+
 	public function __construct( $hbdb, $plugin_version ) {
 		$this->hbdb = $hbdb;
-		require_once plugin_dir_path( __FILE__ ) . '/currencies.php';
+		$this->plugin_directory = dirname( plugin_dir_path( __FILE__ ) );
+		$this->plugin_url = dirname( plugin_dir_url( __FILE__ ) );
+		require_once $this->plugin_directory . '/utils/currencies.php';
 		$currencies = new HbCurrencies();
 		$this->currencies = $currencies->currencies_list();
 		$this->plugin_version = $plugin_version;
 	}
-		
+
 	public function get_number_of_nights( $str_check_in, $str_check_out ) {
 		$second_interval = strtotime( $str_check_out ) - strtotime( $str_check_in );
 		return $second_interval / ( 3600 * 24 );
 	}
-	
+
 	public function get_day_num( $str_date ) {
 		$day = date( 'w', strtotime( $str_date ) );
 		if ( $day == 0 ) {
@@ -26,12 +29,12 @@ class HbUtils {
 			return $day - 1;
 		}
 	}
-	
+
 	public function nb_accom() {
 		$accom = $this->hbdb->get_all_accom_ids();
 		return count( $accom );
 	}
-		
+
 	public function get_currency_symbol( $currency = '' ) {
 		if ( $currency == '' ) {
 			$currency = get_option( 'hb_currency', 'USD' );
@@ -56,9 +59,9 @@ class HbUtils {
 				$currencies_code_name[ $currency_code ] = $currency['name'];
 			}
 		}
-		return $currencies_code_name;		
+		return $currencies_code_name;
 	}
-	
+
 	public function days_full_name() {
 		$days = esc_html__( 'Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday', 'hbook-admin' );
 		$days = explode( ',', $days );
@@ -72,8 +75,8 @@ class HbUtils {
 	}
 
 	public function price_with_symbol( $price ) {
-        if ( ! is_numeric( $price ) ) {
-            return esc_html__( 'Error: price should be a numerical value.', 'hbook-admin' );
+		if ( ! is_numeric( $price ) ) {
+			return esc_html__( 'Error: price should be a numerical value.', 'hbook-admin' );
 		}
 		$negative_price_symbol = '';
 		if ( $price < 0 ) {
@@ -90,11 +93,11 @@ class HbUtils {
 		if ( get_option( 'hb_price_precision' ) != 'no_decimals' ) {
 			$price = number_format_i18n( $price, 2 );
 		} else {
-            if ( $price == round( $price ) ) {
-                $price = number_format_i18n( round( $price ), 0 );
-            } else {
-                $price = number_format_i18n( $price, 2 );
-            }
+			if ( $price == round( $price ) ) {
+				$price = number_format_i18n( round( $price ), 0 );
+			} else {
+				$price = number_format_i18n( $price, 2 );
+			}
 		}
 		if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 			$wp_locale->number_format['thousands_sep'] = $saved_thousands_sep;
@@ -106,24 +109,24 @@ class HbUtils {
 		}
 	}
 
-    public function price_placeholder() {
-        if ( get_option( 'hb_currency_position' ) == 'after' ) {
+	public function price_placeholder() {
+		if ( get_option( 'hb_currency_position' ) == 'after' ) {
 			return '<span class="hb-price-placeholder"></span> ' . $this->get_currency_symbol();
 		} else {
 			return $this->get_currency_symbol() . '<span class="hb-price-placeholder"></span>';
 		}
-    }
+	}
 
 	public function price_with_currency_letters( $price ) {
-        if ( get_option( 'hb_price_precision' ) != 'no_decimals' ) {
+		if ( get_option( 'hb_price_precision' ) != 'no_decimals' ) {
 			$price = number_format_i18n( $price, 2 );
 		} else {
-            if ( $price == round( $price ) ) {
-                $price = round( $price );
-            } else {
-                $price = number_format_i18n( $price, 2 );
-            }
-        }
+			if ( $price == round( $price ) ) {
+				$price = round( $price );
+			} else {
+				$price = number_format_i18n( $price, 2 );
+			}
+		}
 		if ( get_option( 'hb_currency_position' ) == 'after' ) {
 			return $price . ' ' . get_option( 'hb_currency', 'USD' );
 		} else {
@@ -157,62 +160,97 @@ class HbUtils {
 		);
 	}
 
+	public function load_jquery() {
+		wp_enqueue_script( 'jquery' );
+	}
+
+	public function load_front_end_script( $script ) {
+		switch ( $script ) {
+			case 'utils' :
+				$this->hb_enqueue_script( 'hb-front-end-utils-script', '/front-end/js/utils.js' );
+				break;
+			case 'availability' :
+				$this->hb_enqueue_script( 'hb-availability-script', '/front-end/js/availability.js' );
+				break;
+			case 'rates' :
+				$this->hb_enqueue_script( 'hb-rates-script', '/front-end/js/rates.js' );
+				break;
+			case 'validate-form' :
+				$this->hb_enqueue_script( 'hb-validate-form', '/front-end/js/jquery.form-validator.min.js' );
+				break;
+			case 'booking-form' :
+				$this->hb_enqueue_script( 'hb-front-end-booking-form-script', '/front-end/js/booking-form.js' );
+				break;
+		}
+
+	}
+
 	public function load_datepicker() {
-		static $script_loaded;
-		if ( ! $script_loaded ) {
-            wp_enqueue_script( 'hb-datepicker-required-lib', plugin_dir_url( dirname( __FILE__ ) ) . 'utils/jq-datepick/js/jquery.plugin.min.js', array( 'jquery' ), $this->plugin_version, true );
-            wp_enqueue_script( 'hb-datepicker-script', plugin_dir_url( dirname( __FILE__ ) ) . 'utils/jq-datepick/js/jquery.datepick.min.js', array( 'jquery' ), $this->plugin_version, true );
-            wp_enqueue_script( 'hb-datepicker-launch', plugin_dir_url( dirname( __FILE__ ) ) . 'utils/jq-datepick/js/hb-datepick.js', array( 'jquery' ), $this->plugin_version, true );
-            wp_enqueue_style( 'hb-datepicker-style', plugin_dir_url( dirname( __FILE__ ) ) . 'utils/jq-datepick/css/hb-datepick.css', array(), $this->plugin_version );
+		static $datepicker_loaded;
+		if ( ! $datepicker_loaded ) {
+			wp_enqueue_script( 'hb-datepicker-required-lib', $this->plugin_url . '/utils/jq-datepick/js/jquery.plugin.min.js', array(), $this->plugin_version, true );
+			wp_enqueue_script( 'hb-datepicker-script', $this->plugin_url . '/utils/jq-datepick/js/jquery.datepick.min.js', array(), $this->plugin_version, true );
+			wp_enqueue_script( 'hb-datepicker-launch', $this->plugin_url . '/utils/jq-datepick/js/hb-datepick.js', array(), $this->plugin_version, true );
+
+			wp_enqueue_style( 'hb-datepicker-style', $this->plugin_url . '/utils/jq-datepick/css/hb-datepick.css', array(), $this->plugin_version );
 
 			wp_localize_script( 'hb-datepicker-script', 'hb_max_date', $this->get_max_date() );
 			wp_localize_script( 'hb-datepicker-script', 'hb_min_date', $this->get_min_date() );
 
 			$locale = $this->get_hb_known_locale();
-            require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/date-localization.php';
-            $date_locale_info = new HbDateLocalization();
+			require_once $this->plugin_directory . '/utils/date-localization.php';
+			$date_locale_info = new HbDateLocalization();
 
-            wp_localize_script( 'hb-datepicker-script', 'hb_months_name', $date_locale_info->locale[ $locale ]['month_names'] );
-            wp_localize_script( 'hb-datepicker-script', 'hb_day_names', $date_locale_info->locale[ $locale ]['day_names'] );
-            wp_localize_script( 'hb-datepicker-script', 'hb_day_names_min', $date_locale_info->locale[ $locale ]['day_names_min'] );
+			wp_localize_script( 'hb-datepicker-script', 'hb_months_name', $date_locale_info->locale[ $locale ]['month_names'] );
+			wp_localize_script( 'hb-datepicker-script', 'hb_day_names', $date_locale_info->locale[ $locale ]['day_names'] );
+			wp_localize_script( 'hb-datepicker-script', 'hb_day_names_min', $date_locale_info->locale[ $locale ]['day_names_min'] );
 
-            if ( is_admin() ) {
-				wp_enqueue_style( 'hb-datepicker-admin-style', plugin_dir_url( dirname( __FILE__ ) ) . 'utils/jq-datepick/css/hb-datepick-admin.css', array(), $this->plugin_version );
-                $date_format = 'yyyy-mm-dd';
-                $first_day = '1';
-            } else {
-                $date_settings = json_decode( get_option( 'hb_front_end_date_settings' ), true );
-                if ( isset( $date_settings[ get_locale() ] ) ) {
-                    $date_format = $date_settings[ get_locale() ]['date_format'];
-                    $first_day = $date_settings[ get_locale() ]['first_day'];
-                } else {
-                    $date_format = $date_locale_info->locale[ $locale ]['date_format'];
-                    $first_day = $date_locale_info->locale[ $locale ]['first_day'];
-                }
-            }
-            wp_localize_script( 'hb-datepicker-script', 'hb_date_format', $date_format );
-            wp_localize_script( 'hb-datepicker-script', 'hb_first_day', $first_day );
-            wp_localize_script( 'hb-datepicker-script', 'hb_is_rtl', $date_locale_info->locale[ $locale ]['is_rtl'] );
+			if ( is_admin() ) {
+				wp_enqueue_style( 'hb-datepicker-admin-style', $this->plugin_url . '/utils/jq-datepick/css/hb-datepick-admin.css', array(), $this->plugin_version );
+				$date_format = 'yyyy-mm-dd';
+				$first_day = '1';
+			} else {
+				$date_settings = json_decode( get_option( 'hb_front_end_date_settings' ), true );
+				if ( isset( $date_settings[ get_locale() ] ) ) {
+					$date_format = $date_settings[ get_locale() ]['date_format'];
+					$first_day = $date_settings[ get_locale() ]['first_day'];
+				} else {
+					$date_format = $date_locale_info->locale[ $locale ]['date_format'];
+					$first_day = $date_locale_info->locale[ $locale ]['first_day'];
+				}
+			}
+			wp_localize_script( 'hb-datepicker-script', 'hb_date_format', $date_format );
+			wp_localize_script( 'hb-datepicker-script', 'hb_first_day', $first_day );
+			wp_localize_script( 'hb-datepicker-script', 'hb_is_rtl', $date_locale_info->locale[ $locale ]['is_rtl'] );
 
-			$script_loaded = true;
+			$datepicker_loaded = true;
 		}
 	}
 
-    public function get_hb_known_locale( $locale = '' ) {
-        $known_locale = array(
-            'af', 'am', 'ar_DZ', 'ar_EG', 'ar', 'az', 'bg', 'bs', 'ca', 'cs', 'da', 'de_CH', 'de', 'el', 'en_AU', 'en_GB', 'en_NZ', 'eo', 'es_AR', 'es_PE', 'es', 'et', 'eu', 'fa', 'fi', 'fo', 'fr_CH', 'fr', 'gl', 'gu', 'he', 'hi_IN', 'hi', 'hr', 'hu', 'hy', 'id', 'is', 'it', 'ja', 'ka', 'km', 'ko', 'lt', 'lv', 'me_ME', 'me', 'mk', 'ml', 'ms', 'mt', 'nl_BE', 'nl', 'no', 'pl', 'pt_BR', 'pt', 'rm', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr_SR', 'sr', 'sv', 'ta', 'th', 'tr', 'tt', 'uk', 'ur', 'vi', 'zh_CN', 'zh_HK', 'zh_TW'
-        );
-        if ( ! $locale ) {
-            $locale = get_locale();
-        }
-        if ( ! in_array( $locale, $known_locale ) ) {
-            $locale = substr( $locale, 0, 2 );
-            if ( ! in_array( $locale, $known_locale ) ) {
-                $locale = 'en_US';
-            }
-        }
-        return $locale;
-    }
+	public function hb_enqueue_script( $handle, $src ) {
+		if ( get_option( 'hbook_status' ) == 'dev' ) {
+			$version = filemtime( $this->plugin_directory . $src );
+		} else {
+			$version = $this->plugin_version;
+		}
+		wp_enqueue_script( $handle, $this->plugin_url . $src, array(), $version, true );
+	}
+
+	public function get_hb_known_locale( $locale = '' ) {
+		$known_locale = array(
+			'af', 'am', 'ar_DZ', 'ar_EG', 'ar', 'az', 'bg', 'bs', 'ca', 'cs', 'da', 'de_CH', 'de', 'el', 'en_AU', 'en_GB', 'en_NZ', 'eo', 'es_AR', 'es_PE', 'es', 'et', 'eu', 'fa', 'fi', 'fo', 'fr_CH', 'fr', 'gl', 'gu', 'he', 'hi_IN', 'hi', 'hr', 'hu', 'hy', 'id', 'is', 'it', 'ja', 'ka', 'km', 'ko', 'lt', 'lv', 'me_ME', 'me', 'mk', 'ml', 'ms', 'mt', 'nl_BE', 'nl', 'no', 'pl', 'pt_BR', 'pt', 'rm', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr_SR', 'sr', 'sv', 'ta', 'th', 'tr', 'tt', 'uk', 'ur', 'vi', 'zh_CN', 'zh_HK', 'zh_TW'
+		);
+		if ( ! $locale ) {
+			$locale = get_locale();
+		}
+		if ( ! in_array( $locale, $known_locale ) ) {
+			$locale = substr( $locale, 0, 2 );
+			if ( ! in_array( $locale, $known_locale ) ) {
+				$locale = 'en_US';
+			}
+		}
+		return $locale;
+	}
 
 	public function get_status_days( $accom_id, $minimum_stay = false ) {
 		$future_resa = $this->hbdb->get_future_resa_dates( $accom_id );
@@ -231,7 +269,7 @@ class HbUtils {
 				$current_date = date( 'Y-m-d', strtotime( $current_date . ' + 1 day' ) );
 			}
 		}
-		
+
 		$future_blocked_dates = $this->hbdb->get_future_blocked_dates( $accom_id );
 		foreach ( $future_blocked_dates as $blocked_dates ) {
 			if ( strtotime( $blocked_dates['from_date'] ) < strtotime( '-1 day' ) ) {
@@ -247,7 +285,7 @@ class HbUtils {
 				$current_date = date( 'Y-m-d', strtotime( $current_date . ' + 1 day' ) );
 			}
 		}
-		
+
 		$taken_days = array();
 		$all_accom_ids = $this->hbdb->get_all_accom_ids();
 		for ( $i = 0; $i < count( $taken_days_candidates ); $i++ ) {
@@ -263,10 +301,10 @@ class HbUtils {
 					$taken_days[] = $taken_days_candidates[ $i ];
 				}
 			} else {
-				if ( 
-					! $this->hbdb->is_available_accom( 
-						$accom_id, 
-						$taken_days_candidates[ $i ], 
+				if (
+					! $this->hbdb->is_available_accom(
+						$accom_id,
+						$taken_days_candidates[ $i ],
 						date( 'Y-m-d', strtotime( $taken_days_candidates[ $i ] . ' + 1 day' ) )
 					) &&
 					! in_array( $taken_days_candidates[ $i ], $taken_days )
@@ -275,7 +313,7 @@ class HbUtils {
 				}
 			}
 		}
-		
+
 		if ( $accom_id == 'all' && $minimum_stay !== 0 ) {
 			$minimum_stay = 1;
 			$booking_rules = $this->hbdb->get_all_accom_booking_rules();
@@ -286,7 +324,7 @@ class HbUtils {
 			}
 		} else if ( ! $minimum_stay ) {
 			$minimum_stay = 1;
-		}		
+		}
 		$status_days = array();
 		for ( $i = 0; $i < count( $taken_days ); $i++ ) {
 			if ( in_array( date( 'Y-m-d', strtotime( $taken_days[ $i ] . ' - 1 day' ) ), $taken_days ) ) {
@@ -311,7 +349,7 @@ class HbUtils {
 				}
 			}
 		}
-		
+
 		$max_date = $this->get_max_date();
 		if ( $max_date ) {
 			for ( $i = 0; $i < $minimum_stay; $i++ ) {
@@ -325,81 +363,81 @@ class HbUtils {
 		}
 		return $status_days;
 	}
-	
-    public function format_date( $unformatted_date ) {
-        $date_settings = json_decode( get_option( 'hb_front_end_date_settings' ), true );
-        $locale = get_locale();
-        if ( isset( $date_settings[ $locale ]['date_format'] ) ) {
-            $date_format = $date_settings[ $locale ]['date_format'];
-        } else {
-            require_once plugin_dir_path( __FILE__ ) . '/date-localization.php';
-            $date_locale_info = new HbDateLocalization();
-            $date_format = $date_locale_info->locale[ $this->get_hb_known_locale( $locale ) ]['date_format'];
-        }
-        $php_date_format = 'Y-m-d';
-        $delimiters = array( '/', '.', '-' );
-        foreach ( $delimiters as $delimiter ) {
-            if ( strpos( $date_format, $delimiter ) ) {
-                $date_format_elements = explode( $delimiter, $date_format );
-                $php_date_format_elements = array();
-                foreach ( $date_format_elements as $element ) {
-                    switch ( $element ) {
-                        case 'yyyy': $php_date_format_elements[] = 'Y'; break;
-                        case 'mm': $php_date_format_elements[] = 'm'; break;
-                        case 'dd': $php_date_format_elements[] = 'd'; break;
-                    }
-                    $php_date_format = implode( $delimiter, $php_date_format_elements );
-                }
-                break;
-            }
-        }
-        return date( $php_date_format, strtotime( $unformatted_date ) );
-    }
 
-    private $email_locale;
+	public function format_date( $unformatted_date ) {
+		$date_settings = json_decode( get_option( 'hb_front_end_date_settings' ), true );
+		$locale = get_locale();
+		if ( isset( $date_settings[ $locale ]['date_format'] ) ) {
+			$date_format = $date_settings[ $locale ]['date_format'];
+		} else {
+			require_once $this->plugin_directory . '/utils/date-localization.php';
+			$date_locale_info = new HbDateLocalization();
+			$date_format = $date_locale_info->locale[ $this->get_hb_known_locale( $locale ) ]['date_format'];
+		}
+		$php_date_format = 'Y-m-d';
+		$delimiters = array( '/', '.', '-' );
+		foreach ( $delimiters as $delimiter ) {
+			if ( strpos( $date_format, $delimiter ) ) {
+				$date_format_elements = explode( $delimiter, $date_format );
+				$php_date_format_elements = array();
+				foreach ( $date_format_elements as $element ) {
+					switch ( $element ) {
+						case 'yyyy': $php_date_format_elements[] = 'Y'; break;
+						case 'mm': $php_date_format_elements[] = 'm'; break;
+						case 'dd': $php_date_format_elements[] = 'd'; break;
+					}
+					$php_date_format = implode( $delimiter, $php_date_format_elements );
+				}
+				break;
+			}
+		}
+		return date( $php_date_format, strtotime( $unformatted_date ) );
+	}
 
-    public function email_filter_locale() {
-        return $this->email_locale;
-    }
+	private $email_locale;
 
-    public function send_email( $action, $resa_id ) {
-        $resa = $this->hbdb->get_single( 'resa', $resa_id );
+	public function email_filter_locale() {
+		return $this->email_locale;
+	}
 
-        $this->email_locale = $resa['lang'];
-        remove_all_filters( 'locale' );
-        add_filter( 'locale', array( $this, 'email_filter_locale' ) );
+	public function send_email( $action, $resa_id ) {
+		$resa = $this->hbdb->get_single( 'resa', $resa_id );
 
-        if ( $this->is_site_multi_lang() ) {
-            $email_templates_resa_lang = $this->hbdb->get_email_templates( $action, $resa['lang'] );
-            $email_templates_all_lang = $this->hbdb->get_email_templates( $action, 'all' );
-            $email_tmpls = array_merge( $email_templates_resa_lang, $email_templates_all_lang );
-        } else {
-            $email_tmpls = $this->hbdb->get_email_templates( $action, 'any' );
-        }
+		$this->email_locale = $resa['lang'];
+		remove_all_filters( 'locale' );
+		add_filter( 'locale', array( $this, 'email_filter_locale' ) );
 
-        $emails_vars = array( 'to_address', 'reply_to_address', 'from_address', 'subject', 'message' );
+		if ( $this->is_site_multi_lang() ) {
+			$email_templates_resa_lang = $this->hbdb->get_email_templates( $action, $resa['lang'] );
+			$email_templates_all_lang = $this->hbdb->get_email_templates( $action, 'all' );
+			$email_tmpls = array_merge( $email_templates_resa_lang, $email_templates_all_lang );
+		} else {
+			$email_tmpls = $this->hbdb->get_email_templates( $action, 'any' );
+		}
 
-        foreach ( $email_tmpls as $email_tmpl ) {
-            if ( $email_tmpl['format'] == 'HTML' ) {
-                $is_html_email = true;
-            } else {
-                $is_html_email = false;
-            }
+		$emails_vars = array( 'to_address', 'reply_to_address', 'from_address', 'subject', 'message' );
 
-            foreach ( $emails_vars as $email_var ) {
-                $$email_var = $this->replace_resa_vars_with_value( $resa_id, $is_html_email, $email_tmpl[ $email_var ] );
-                $$email_var = $this->replace_customer_vars_with_value( $resa['customer_id'], $$email_var );
-            }
+		foreach ( $email_tmpls as $email_tmpl ) {
+			if ( $email_tmpl['format'] == 'HTML' ) {
+				$is_html_email = true;
+			} else {
+				$is_html_email = false;
+			}
 
-            if ( $to_address == '' ) {
-                $to_address = get_option( 'admin_email' );
-            }
+			foreach ( $emails_vars as $email_var ) {
+				$$email_var = $this->replace_resa_vars_with_value( $resa_id, $is_html_email, $email_tmpl[ $email_var ] );
+				$$email_var = $this->replace_customer_vars_with_value( $resa['customer_id'], $$email_var );
+			}
 
-            $header = array();
-            if ( $is_html_email ) {
-                $header[] = 'Content-type: text/html';
-            }
-			
+			if ( $to_address == '' ) {
+				$to_address = get_option( 'admin_email' );
+			}
+
+			$header = array();
+			if ( $is_html_email ) {
+				$header[] = 'Content-type: text/html';
+			}
+
 			if ( ! $from_address ) {
 				$sitename = strtolower( $_SERVER['SERVER_NAME'] );
 				if ( substr( $sitename, 0, 4 ) == 'www.' ) {
@@ -408,20 +446,20 @@ class HbUtils {
 				$from_address = get_option( 'blogname' ) . ' <no-reply@' . $sitename . '>';
 			}
 			$header[] = 'From: ' . $from_address;
-			
+
 			if ( $reply_to_address ) {
 				$header[] = 'Reply-To: ' . $reply_to_address;
 			}
-			
+
 			try {
 				wp_mail( $to_address, $subject, $message, $header );
 			} catch( phpmailerException $e ) {
 			}
-            
-        }
-        remove_filter( 'locale', array( $this, 'email_filter_locale' ) );
-    }
-	
+
+		}
+		remove_filter( 'locale', array( $this, 'email_filter_locale' ) );
+	}
+
 	public function send_not_automatic_email() {
 		$resa_id = intval( $_POST['resa_id'] );
 		$resa = $this->hbdb->get_single( 'resa', $resa_id );
@@ -442,28 +480,29 @@ class HbUtils {
 			}
 			$to_address = $this->replace_resa_vars_with_value( $resa_id, $is_html_email, $email_tmpl['to_address'] );
 			$to_address = $this->replace_customer_vars_with_value( $resa['customer_id'], $to_address );
-			if ( ! $to_address ) {
-				$to_address = $customer['email'];
-			}
 			$from_address = $this->replace_resa_vars_with_value( $resa_id, $is_html_email, $email_tmpl['from_address'] );
 			$from_address = $this->replace_customer_vars_with_value( $resa['customer_id'], $from_address );
 			$reply_to_address = $this->replace_resa_vars_with_value( $resa_id, $is_html_email, $email_tmpl['reply_to_address'] );
 			$reply_to_address = $this->replace_customer_vars_with_value( $resa['customer_id'], $reply_to_address );
 		}
-		
+
 		$subject = $this->replace_resa_vars_with_value( $resa_id, $is_html_email, stripslashes( $_POST['email_subject'] ) );
 		$subject = $this->replace_customer_vars_with_value( $resa['customer_id'], $subject );
-		
+
 		$message = $this->replace_resa_vars_with_value( $resa_id, $is_html_email, stripslashes( $_POST['email_message'] ) );
 		$message = $this->replace_customer_vars_with_value( $resa['customer_id'], $message );
-		
+
 		remove_filter( 'locale', array( $this, 'email_filter_locale' ) );
-		
+
+		if ( ! $to_address ) {
+			$to_address = $customer['email'];
+		}
+
 		$header = array();
 		if ( $is_html_email ) {
 			$header[] = 'Content-type: text/html';
 		}
-		
+
 		if ( ! $from_address ) {
 			$sitename = strtolower( $_SERVER['SERVER_NAME'] );
 			if ( substr( $sitename, 0, 4 ) == 'www.' ) {
@@ -472,11 +511,11 @@ class HbUtils {
 			$from_address = get_option( 'blogname' ) . ' <no-reply@' . $sitename . '>';
 		}
 		$header[] = 'From: ' . $from_address;
-		
+
 		if ( $reply_to_address ) {
 			$header[] = 'Reply-To: ' . $reply_to_address;
 		}
-		
+
 		return wp_mail( $to_address, $subject, $message, $header );
 	}
 
@@ -547,7 +586,7 @@ class HbUtils {
 				$text = str_replace( '[resa_' . $field['id'] . ']', $resa_additional_info_for_field, $text );
 			}
 		}
-		
+
 		return $text;
 	}
 
@@ -570,7 +609,7 @@ class HbUtils {
 		}
 		return $text;
 	}
-	
+
 	public function replace_fields_var_with_value( $vars, $values, $text ) {
 		foreach ( $vars as $var ) {
 			$value = '';
@@ -588,10 +627,10 @@ class HbUtils {
 
 	public function get_ical_email_available_vars() {
 		$vars = array(
-			'[resa_id]', '[resa_check_in]', '[resa_check_out]', '[resa_number_of_nights]', '[resa_accommodation]', 
+			'[resa_id]', '[resa_check_in]', '[resa_check_out]', '[resa_number_of_nights]', '[resa_accommodation]',
 			'[resa_accommodation_num]', '[resa_adults]', '[resa_children]', '[resa_admin_comment]', '[resa_extras]',
 			'[resa_price]', '[resa_deposit]', '[resa_price_minus_deposit]', '[resa_paid]', '[resa_remaining_balance]', '[resa_bond]',
-			'[resa_price_including_bond]', '[resa_deposit_including_bond]', '[resa_remaining_balance_including_bond]', 
+			'[resa_price_including_bond]', '[resa_deposit_including_bond]', '[resa_remaining_balance_including_bond]',
 			'[resa_received_on]'
 		);
 
@@ -599,67 +638,55 @@ class HbUtils {
 		foreach ( $resa_additional_fields as $field ) {
 			$vars[] = '[resa_' . $field['id'] . ']';
 		}
-		
+
 		$vars[] = '[customer_id]';
 		$customer_fields = $this->hbdb->get_customer_form_fields();
 		foreach ( $customer_fields as $field ) {
 			$vars[] = '[customer_' . $field['id'] . ']';
 		}
-		
+
 		$vars = implode( ' &nbsp;-&nbsp; ', $vars );
 		return $vars;
 	}
 
-    public function calculate_options_price( $adults, $children, $nb_nights, $options ) {
+	public function calculate_options_price( $adults, $children, $nb_nights, $options ) {
 
-        $tmp_options = array();
-        foreach ( $options as $option ) {
-            if ( $option['choice_type'] == 'single' ) {
-                $tmp_options[ 'option_' . $option['id'] ] = $option;
-            } else{
-                foreach( $option['choices'] as $option_choice ) {
-                    $tmp_options[ 'option_choice_' . $option_choice['id'] ] = array_merge( $option, $option_choice );
-                }
-            }
-        }
-        $options = $tmp_options;
+		$tmp_options = array();
+		foreach ( $options as $option ) {
+			if ( $option['choice_type'] == 'single' ) {
+				$tmp_options[ 'option_' . $option['id'] ] = $option;
+			} else{
+				foreach( $option['choices'] as $option_choice ) {
+					$tmp_options[ 'option_choice_' . $option_choice['id'] ] = array_merge( $option, $option_choice );
+				}
+			}
+		}
+		$options = $tmp_options;
 
-        $price_options = array();
-        foreach ( $options as $option_id => $option ) {
-            if ( $option['apply_to_type'] == 'quantity' || $option['apply_to_type'] == 'per-accom' ) {
-                $price_options[ $option_id ] = $option['amount'];
-            } else if ( $option['apply_to_type'] == 'quantity-per-day' ) {
-                $price_options[ $option_id ] = $option['amount'] * $nb_nights;
-            } else if ( $option['apply_to_type'] == 'per-person' ) {
-                $price_options[ $option_id ] = $option['amount'] * $adults + $option['amount_children'] * $children;
-            } else if ( $option['apply_to_type'] == 'per-accom-per-day' ) {
-                $price_options[ $option_id ] = $option['amount'] * $nb_nights;
-            } else if ( $option['apply_to_type'] == 'per-person-per-day' ) {
-                $price_options[ $option_id ] = ( $option['amount'] * $adults + $option['amount_children'] * $children ) * $nb_nights;
-            }
-        }
+		$price_options = array();
+		foreach ( $options as $option_id => $option ) {
+			if ( $option['apply_to_type'] == 'quantity' || $option['apply_to_type'] == 'per-accom' ) {
+				$price_options[ $option_id ] = $option['amount'];
+			} else if ( $option['apply_to_type'] == 'quantity-per-day' ) {
+				$price_options[ $option_id ] = $option['amount'] * $nb_nights;
+			} else if ( $option['apply_to_type'] == 'per-person' ) {
+				$price_options[ $option_id ] = $option['amount'] * $adults + $option['amount_children'] * $children;
+			} else if ( $option['apply_to_type'] == 'per-accom-per-day' ) {
+				$price_options[ $option_id ] = $option['amount'] * $nb_nights;
+			} else if ( $option['apply_to_type'] == 'per-person-per-day' ) {
+				$price_options[ $option_id ] = ( $option['amount'] * $adults + $option['amount_children'] * $children ) * $nb_nights;
+			}
+		}
 
-        return $price_options;
-    }
+		return $price_options;
+	}
 
-    public function resa_non_editable_info_markup( $resa ) {
-        $options_text = $this->resa_options_markup_admin( $resa );
-        if ( $options_text ) {
-            $options_text = '<b><u>' . esc_html__( 'Extra services:', 'hbook-admin' ) . '</u></b><br/>' . $options_text;
-        }
+	public function resa_non_editable_info_markup( $resa ) {
+		$options_text = $this->resa_options_markup_admin( $resa );
+		if ( $options_text ) {
+			$options_text = '<b><u>' . esc_html__( 'Extra services:', 'hbook-admin' ) . '</u></b><br/>' . $options_text;
+		}
 
-        $lang_text = '';
-        if ( $this->is_site_multi_lang() ) {
-            $lang_text = '<b><u>' . esc_html__( 'Reservation language:', 'hbook-admin' ) . '</u></b><br/>';
-            $langs = $this->get_langs();
-            if ( isset( $langs[ $resa['lang'] ] ) ) {
-                $lang_text .= $langs[ $resa['lang'] ];
-            } else {
-                $lang_text .= $resa['lang'];
-            }
-			$lang_text .= '<br/>';
-        }
-		
 		$payment_gateway = '';
 		if ( $resa['payment_gateway'] ) {
 			$payment_gateway = '<b><u>' . esc_html__( 'Payment method:', 'hbook-admin' ) . '</u></b><br/>';
@@ -677,88 +704,88 @@ class HbUtils {
 			$origin = '<b><u>' . esc_html__( 'Reservation origin:', 'hbook-admin' ) . '</u></b><br/>';
 			$origin .= $resa['origin'] . '<br/>';
 		}
-		
-        $resa_info = $options_text . $lang_text . $payment_gateway . $coupon . $origin;
-		
-        return $resa_info;
-    }
 
-    private function resa_options_markup_admin( $resa ) {
-        return $this->resa_options_generic( $resa, true, true );
-    }
+		$resa_info = $options_text . $payment_gateway . $coupon . $origin;
 
-    private function resa_options_markup( $resa ) {
-        return $this->resa_options_generic( $resa, true, false );
-    }
+		return $resa_info;
+	}
 
-    private function resa_options_text( $resa ) {
-        return $this->resa_options_generic( $resa, false, false );
-    }
+	private function resa_options_markup_admin( $resa ) {
+		return $this->resa_options_generic( $resa, true, true );
+	}
 
-    private function resa_options_generic( $resa, $is_markup, $is_admin ) {
-        $chosen_options = array();
-        if ( $resa['options'] ) {
-            $chosen_options = json_decode( $resa['options'], true );
-        }
-        if ( count( $chosen_options ) == 0 ) {
-            return '';
-        }
-        $options_text = '';
-        $tmp_options = array();
-        $options = $this->hbdb->get_all_options_with_choices();
-        foreach ( $options as $option ) {
-            $tmp_options[ $option['id'] ] = $option;
-        }
-        $options = $tmp_options;
-        $options_choices = $this->hbdb->get_all( 'options_choices' );
-        $choice_name = array();
-        foreach ( $options_choices as $choice ) {
-            $choice_name[ $choice['id'] ] = $choice['name'];
-        }
-        $bold_begin = '';
-        $bold_end = '';
-        $line_break = "\n";
-        if ( $is_markup ) {
-            if ( $is_admin ) {
-                $bold_begin = '<b>';
-                $bold_end = '</b>';
-            }
-            $line_break = '<br/>';
-        }
-        foreach ( $chosen_options as $option_id => $option_value ) {
-            if ( isset( $options[ $option_id ] ) ) {
-                $option_name = $this->hbdb->get_string( 'option_' . $option_id );
-                if ( $is_admin || ! $option_name ) {
-                    $option_name = $options[ $option_id ]['name'];
-                }
-                $new_option_text = '';
-                if ( $options[ $option_id ]['apply_to_type'] == 'quantity' || $options[ $option_id ]['apply_to_type'] == 'quantity-per-day' ) {
-                    $option_choice_name = '';
-                    if ( $option_value != 0 ) {
-                        $new_option_text = '- ' . $bold_begin . $option_name . ': ' . $bold_end . $option_value . $line_break;
-                    }
-                } else if ( $options[ $option_id ]['choice_type'] == 'single' ) {
-                    $option_choice_name = '';
-                    $new_option_text = '- ' . $bold_begin . $option_name . $bold_end . $line_break;
-                } else if ( $options[ $option_id ]['choice_type'] == 'multiple' ) {
-                    $option_choice_name = $this->hbdb->get_string( 'option_choice_' . $option_value );
-                    if ( $is_admin || ! $option_choice_name ) {
-                        if ( isset( $choice_name[ $option_value ] ) ) {
-                            $option_choice_name = $choice_name[ $option_value ];
-                        } else {
-                            $option_choice_name = '';
-                        }
-                    }
-                    $new_option_text = '- ' . $bold_begin . $option_name . ': ' . $bold_end . $option_choice_name . $line_break;
-                }
-                if ( ! $is_admin ) {
-                    $new_option_text = apply_filters( 'hb_resa_extra_formatting', $new_option_text, $option_name, $option_value, $option_choice_name );
-                }
-                $options_text .= $new_option_text;
-            }
-        }
-        return $options_text;
-    }
+	private function resa_options_markup( $resa ) {
+		return $this->resa_options_generic( $resa, true, false );
+	}
+
+	private function resa_options_text( $resa ) {
+		return $this->resa_options_generic( $resa, false, false );
+	}
+
+	private function resa_options_generic( $resa, $is_markup, $is_admin ) {
+		$chosen_options = array();
+		if ( $resa['options'] ) {
+			$chosen_options = json_decode( $resa['options'], true );
+		}
+		if ( count( $chosen_options ) == 0 ) {
+			return '';
+		}
+		$options_text = '';
+		$tmp_options = array();
+		$options = $this->hbdb->get_all_options_with_choices();
+		foreach ( $options as $option ) {
+			$tmp_options[ $option['id'] ] = $option;
+		}
+		$options = $tmp_options;
+		$options_choices = $this->hbdb->get_all( 'options_choices' );
+		$choice_name = array();
+		foreach ( $options_choices as $choice ) {
+			$choice_name[ $choice['id'] ] = $choice['name'];
+		}
+		$bold_begin = '';
+		$bold_end = '';
+		$line_break = "\n";
+		if ( $is_markup ) {
+			if ( $is_admin ) {
+				$bold_begin = '<b>';
+				$bold_end = '</b>';
+			}
+			$line_break = '<br/>';
+		}
+		foreach ( $chosen_options as $option_id => $option_value ) {
+			if ( isset( $options[ $option_id ] ) ) {
+				$option_name = $this->hbdb->get_string( 'option_' . $option_id );
+				if ( $is_admin || ! $option_name ) {
+					$option_name = $options[ $option_id ]['name'];
+				}
+				$new_option_text = '';
+				if ( $options[ $option_id ]['apply_to_type'] == 'quantity' || $options[ $option_id ]['apply_to_type'] == 'quantity-per-day' ) {
+					$option_choice_name = '';
+					if ( $option_value != 0 ) {
+						$new_option_text = '- ' . $bold_begin . $option_name . ': ' . $bold_end . $option_value . $line_break;
+					}
+				} else if ( $options[ $option_id ]['choice_type'] == 'single' ) {
+					$option_choice_name = '';
+					$new_option_text = '- ' . $bold_begin . $option_name . $bold_end . $line_break;
+				} else if ( $options[ $option_id ]['choice_type'] == 'multiple' ) {
+					$option_choice_name = $this->hbdb->get_string( 'option_choice_' . $option_value );
+					if ( $is_admin || ! $option_choice_name ) {
+						if ( isset( $choice_name[ $option_value ] ) ) {
+							$option_choice_name = $choice_name[ $option_value ];
+						} else {
+							$option_choice_name = '';
+						}
+					}
+					$new_option_text = '- ' . $bold_begin . $option_name . ': ' . $bold_end . $option_choice_name . $line_break;
+				}
+				if ( ! $is_admin ) {
+					$new_option_text = apply_filters( 'hb_resa_extra_formatting', $new_option_text, $option_name, $option_value, $option_choice_name );
+				}
+				$options_text .= $new_option_text;
+			}
+		}
+		return $options_text;
+	}
 
 	public function resa_max_refundable( $payment_info ) {
 		$payment_info = json_decode( $payment_info, true );
@@ -772,8 +799,8 @@ class HbUtils {
 		}
 		return $max_refundable;
 	}
-	
-    public function get_min_date() {
+
+	public function get_min_date() {
 		$min_date = get_option( 'hb_min_date_fixed' );
 		if ( ! $min_date ) {
 			$nb_days = intval( get_option( 'hb_min_date_days' ) );
@@ -803,17 +830,17 @@ class HbUtils {
 		return $max_date;
 	}
 
-    public function get_default_lang_post_id( $accom_id ) {
-        if ( function_exists( 'pll_get_post' ) ) {
-            $accom_id = pll_get_post( $accom_id, pll_default_language() );
+	public function get_default_lang_post_id( $accom_id ) {
+		if ( function_exists( 'pll_get_post' ) ) {
+			$accom_id = pll_get_post( $accom_id, pll_default_language() );
 		} else if ( function_exists( 'icl_object_id' ) ) {
 			global $sitepress;
 			$default_lang = $sitepress->get_locale( $sitepress->get_default_language() );
-            $default_lang = substr( $default_lang, 0, 2 );
-            $accom_id = icl_object_id( $accom_id, 'hb_accommodation', true, $default_lang );
+			$default_lang = substr( $default_lang, 0, 2 );
+			$accom_id = icl_object_id( $accom_id, 'hb_accommodation', true, $default_lang );
 		}
-        return $accom_id;
-    }
+		return $accom_id;
+	}
 
 	private function get_translated_post_id( $accom_id ) {
 		if ( function_exists( 'icl_object_id' ) && ! function_exists( 'pll_get_post' ) ) {
@@ -859,17 +886,17 @@ class HbUtils {
 		}
 		return $accom_id;
 	}
-	
+
 	public function get_accom_title( $accom_id ) {
 		return get_the_title( $this->get_translated_post_id( $accom_id  ) );
 	}
 
 	public function get_accom_link( $accom_id ) {
-        $accom_default_page = get_post_meta( $accom_id, 'accom_default_page', true );
-        if ( $accom_default_page == 'no' ) {
-            $accom_id = get_post_meta( $accom_id, 'accom_linked_page', true );
-        }
-        return get_permalink( $this->get_translated_post_id( $accom_id  ) );    
+		$accom_default_page = get_post_meta( $accom_id, 'accom_default_page', true );
+		if ( $accom_default_page == 'no' ) {
+			$accom_id = get_post_meta( $accom_id, 'accom_linked_page', true );
+		}
+		return get_permalink( $this->get_translated_post_id( $accom_id  ) );
 	}
 
 	public function get_accom_search_desc( $accom_id ) {
@@ -894,7 +921,7 @@ class HbUtils {
 	}
 
 	public function get_langs() {
-        $langs = array();
+		$langs = array();
 		if ( function_exists( 'icl_get_languages' ) && ! function_exists( 'pll_languages_list' ) ) {
 			$wpml_langs = icl_get_languages( 'skip_missing=0&orderby=code' );
 			foreach ( $wpml_langs as $lang_id => $wpml_lang ) {
@@ -907,25 +934,25 @@ class HbUtils {
 				$langs[ $locale ] = $names[ $i ];
 			}
 		} else if ( function_exists( 'qtranxf_getLanguage' ) ) {
-            global $q_config;
-            foreach ( $q_config['enabled_languages'] as $q_lang ) {
-                $langs[ $q_config['locale'][ $q_lang ] ] = $q_config['language_name'][ $q_lang ];
-            }
-        } else {
-            if ( get_locale() != 'en_US' ) {
-                require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
-                $translations = wp_get_available_translations();
-                $langs[ get_locale() ] = $translations[ get_locale() ]['native_name'];
-            }
+			global $q_config;
+			foreach ( $q_config['enabled_languages'] as $q_lang ) {
+				$langs[ $q_config['locale'][ $q_lang ] ] = $q_config['language_name'][ $q_lang ];
+			}
+		} else {
+			if ( get_locale() != 'en_US' ) {
+				require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
+				$translations = wp_get_available_translations();
+				$langs[ get_locale() ] = $translations[ get_locale() ]['native_name'];
+			}
 		}
 		if ( ! array_key_exists( 'en_US', $langs ) ) {
 			$langs = array_merge( array( 'en_US' => 'English' ), $langs );
 		}
-        $langs = apply_filters( 'hb_language_list', $langs );
+		$langs = apply_filters( 'hb_language_list', $langs );
 		return $langs;
 	}
 
-    public function is_site_multi_lang() {
+	public function is_site_multi_lang() {
 		$langs = array();
 		$langs = apply_filters( 'hb_language_list', $langs );
 		if ( $langs ||
@@ -943,7 +970,7 @@ class HbUtils {
 		$gateways = array();
 		return apply_filters( 'hbook_payment_gateways', $gateways );
 	}
-	
+
 	public function get_active_payment_gateways() {
 		$gateways = $this->get_payment_gateways();
 		$active_gateways = array();
@@ -954,7 +981,7 @@ class HbUtils {
 		}
 		return $active_gateways;
 	}
-	
+
 	public function get_payment_gateway( $gateway_id ) {
 		$gateways = $this->get_payment_gateways();
 		foreach ( $gateways as $gateway ) {
@@ -964,28 +991,28 @@ class HbUtils {
 		}
 		return false;
 	}
-	
-    public function admin_custom_css() {
+
+	public function admin_custom_css() {
 		if ( get_option( 'hb_custom_css_backend' ) ) {
-        	echo( '<style type="text/css">' . wp_strip_all_tags( get_option( 'hb_custom_css_backend' ) ) . '</style>' );
+			echo( '<style type="text/css">' . wp_strip_all_tags( get_option( 'hb_custom_css_backend' ) ) . '</style>' );
 		}
-    }
-	
+	}
+
 	public function frontend_basic_css() {
 		if ( $this->load_css() ) {
-			wp_enqueue_style( 'hb-front-end-style', plugin_dir_url( dirname( __FILE__ ) ) . 'front-end/css/hbook.css', array(), $this->get_file_version( 'hbook-css' ) );
+			wp_enqueue_style( 'hb-front-end-style', $this->plugin_url . '/front-end/css/hbook.css', array(), $this->get_file_version( 'hbook-css' ) );
 			if ( is_rtl() ) {
-				wp_enqueue_style( 'hb-front-end-style-rtl', plugin_dir_url( dirname( __FILE__ ) ) . 'front-end/css/hbook-rtl.css', array(), $this->plugin_version );
+				wp_enqueue_style( 'hb-front-end-style-rtl', $this->plugin_url . '/front-end/css/hbook-rtl.css', array(), $this->plugin_version );
 			}
 			if ( get_option( 'hb_buttons_style' ) == 'custom' ) {
-				wp_enqueue_style( 'hb-front-end-buttons', plugin_dir_url( dirname( __FILE__ ) ) . 'front-end/css/hbook-buttons.css', array(), $this->plugin_version );
+				wp_enqueue_style( 'hb-front-end-buttons', $this->plugin_url . '/front-end/css/hbook-buttons.css', array(), $this->plugin_version );
 			}
 			if ( get_option( 'hb_inputs_selects_style' ) == 'custom' ) {
-				wp_enqueue_style( 'hb-front-end-inputs-selects', plugin_dir_url( dirname( __FILE__ ) ) . 'front-end/css/hbook-inputs-selects.css', array(), $this->plugin_version );
+				wp_enqueue_style( 'hb-front-end-inputs-selects', $this->plugin_url . '/front-end/css/hbook-inputs-selects.css', array(), $this->plugin_version );
 			}
 			if ( get_option( 'hb_tables_style' ) == 'plugin' ) {
 				?>
-				
+
 				<style type="text/css">
 				.hb-rates-table {
 					border-collapse: collapse;
@@ -1000,12 +1027,12 @@ class HbUtils {
 					text-align: center;
 				}
 				</style>
-				
+
 				<?php
 			}
 			if ( get_option( 'hb_price_breakdown_default_state' ) == 'opened' ) {
 				?>
-				
+
 				<style type="text/css">
 				.hb-accom .hb-price-breakdown {
 					display: block;
@@ -1013,11 +1040,11 @@ class HbUtils {
 				.hb-accom .hb-price-bd-show-text {
 					display: none;
 				}
-				.hb-accom .hb-price-bd-hide-text { 
+				.hb-accom .hb-price-bd-hide-text {
 					display: inline;
-				} 
+				}
 				</style>
-				
+
 				<?php
 			}
 			$search_form_max_width = intval( get_option( 'hb_search_form_max_width' ) );
@@ -1046,7 +1073,7 @@ class HbUtils {
 			}
 		}
 	}
-	
+
 	public function frontend_calendar_css() {
 		if ( $this->load_css() ) {
 			$calendar_color_css_rules = $this->calendar_color_css_rules();
@@ -1067,7 +1094,7 @@ class HbUtils {
 			echo( '<style type="text/css">' . $css_rules . '</style>' );
 		}
 	}
-	
+
 	public function frontend_buttons_css() {
 		if ( get_option( 'hb_buttons_style' ) == 'custom' && $this->load_css() ) {
 			$buttons_css_rules = $this->buttons_css_rules();
@@ -1098,8 +1125,8 @@ class HbUtils {
 			$css_rules .= '.hbook-wrapper input[type="submit"]:hover { background: ' . $rule_value . ' !important; }';
 			echo( '<style type="text/css">' . $css_rules . '</style>' );
 		}
-	}	
-	
+	}
+
 	public function frontend_inputs_selects_css() {
 		if ( get_option( 'hb_inputs_selects_style' ) == 'custom' && $this->load_css() ) {
 			$inputs_selects_css_rules = $this->inputs_selects_css_rules();
@@ -1135,17 +1162,17 @@ class HbUtils {
 			echo( '<style type="text/css">' . $css_rules . '</style>' );
 		}
 	}
-	
+
 	public function frontend_custom_css() {
 		if ( get_option( 'hb_custom_css_frontend' ) && $this->load_css() ) {
-        	echo( '<style type="text/css">' . wp_strip_all_tags( get_option( 'hb_custom_css_frontend' ) ) . '</style>' );
+			echo( '<style type="text/css">' . wp_strip_all_tags( get_option( 'hb_custom_css_frontend' ) ) . '</style>' );
 		}
-    }
-	
+	}
+
 	public function load_css() {
 		return apply_filters( 'hbook_load_css', true );
 	}
-	
+
 	public function buttons_css_rules() {
 		return array(
 			'bg' => array(
@@ -1191,7 +1218,7 @@ class HbUtils {
 			),
 		);
 	}
-	
+
 	public function inputs_selects_css_rules() {
 		return array(
 			'border_color' => array(
@@ -1238,7 +1265,7 @@ class HbUtils {
 			),
 		);
 	}
-	
+
 	public function calendar_color_css_rules() {
 		return array(
 			'cal-bg' => array(
@@ -1290,7 +1317,7 @@ class HbUtils {
 				'selector' => '.hb-dp-cmd-wrapper a:hover, .hb-dp-cmd-close:hover',
 				'property' => 'background',
 				'default' => '#6f6f6f'
-			),	
+			),
 			'cmd-buttons-disabled-bg' => array(
 				'name' => esc_html__( 'Disabled buttons background:', 'hbook-admin' ),
 				'selector' => '.hb-dp-cmd-wrapper a.hb-dp-disabled',
@@ -1311,9 +1338,9 @@ class HbUtils {
 			),
 		);
 	}
-	
+
 	public function can_update_resa_dates( $resa_id, $new_check_in, $new_check_out ) {
-		$resa = $this->hbdb->get_resa_by_id( $resa_id );		
+		$resa = $this->hbdb->get_resa_by_id( $resa_id );
 		$new_check_in_time = strtotime( $new_check_in );
 		$new_check_out_time = strtotime( $new_check_out );
 		$check_in_time = strtotime( $resa['check_in'] );
@@ -1322,7 +1349,7 @@ class HbUtils {
 		$check_availability_check_in = '';
 		$check_availability_check_out = '';
 		$double_check_availability = false;
-		
+
 		if ( $new_check_out_time <= $check_in_time || $new_check_in_time >= $check_out_time ) {
 			$check_availability_check_in = $new_check_in;
 			$check_availability_check_out = $new_check_out;
@@ -1342,7 +1369,7 @@ class HbUtils {
 				}
 			}
 		}
-		
+
 		if ( $check_availability_check_in ) {
 			if ( $resa['accom_num'] ) {
 				if ( $this->hbdb->is_available_accom_num( $resa['accom_id'], $resa['accom_num'], $check_availability_check_in, $check_availability_check_out ) ) {
@@ -1354,7 +1381,7 @@ class HbUtils {
 				}
 			}
 		}
-		
+
 		if ( $double_check_availability ) {
 			$check_availability_check_in = $resa['check_out'];
 			$check_availability_check_out = $new_check_out;
@@ -1415,7 +1442,7 @@ class HbUtils {
 			'price_breakdown_discount' => esc_html__( 'Discount (in price breakdown)', 'hbook-admin' ),
 			'price_breakdown_before_discount' => esc_html__( 'Price before discount (in price breakdown)', 'hbook-admin' ),
 			'price_breakdown_after_discount' => esc_html__( 'Price after discount (in price breakdown)', 'hbook-admin' ),
-            'fee_details_adults_several' => esc_html__( 'Adults (several - in fee details)', 'hbook-admin' ),
+			'fee_details_adults_several' => esc_html__( 'Adults (several - in fee details)', 'hbook-admin' ),
 			'fee_details_adult_one' => esc_html__( 'Adult (one - in fee details)', 'hbook-admin' ),
 			'fee_details_children_several' => esc_html__( 'Children (several - in fee details)', 'hbook-admin' ),
 			'fee_details_child_one' => esc_html__( 'Child (one - in fee details)', 'hbook-admin' ),
@@ -1427,17 +1454,17 @@ class HbUtils {
 		);
 	}
 
-    public function get_options_selection_txt() {
-        return array(
-            'select_options_title' => esc_html__( 'Extra services selection title', 'hbook-admin' ),
-            'chosen_options' => esc_html__( 'Chosen extra services title', 'hbook-admin' ),
+	public function get_options_selection_txt() {
+		return array(
+			'select_options_title' => esc_html__( 'Extra services selection title', 'hbook-admin' ),
+			'chosen_options' => esc_html__( 'Chosen extra services title', 'hbook-admin' ),
 			'price_option' => esc_html__( 'Extra price and maximum', 'hbook-admin' ),
 			'free_option' => esc_html__( 'Free extra', 'hbook-admin' ),
 			'each_option' => esc_html__( 'Each (in extra price and maximum)', 'hbook-admin' ),
 			'max_option' => esc_html__( 'Maximum (in extra price and maximum)', 'hbook-admin' ),
 			'total_options_price' => esc_html__( 'Total extra services price', 'hbook-admin' ),
-        );
-    }
+		);
+	}
 
 	public function get_coupons_txt() {
 		return array(
@@ -1470,43 +1497,43 @@ class HbUtils {
 		);
 	}
 
-    public function get_payment_type_choice() {
-        return array(
-            'payment_section_title' => esc_html__( 'Payment section title', 'hbook-admin' ),
-            'payment_type' => esc_html__( 'Select payment type', 'hbook-admin' ),
-            'payment_type_offline' => esc_html__( 'Payment type offline', 'hbook-admin' ),
-            'payment_type_store_credit_card' => esc_html__( 'Payment type store credit card', 'hbook-admin' ),
-            'payment_type_deposit' => esc_html__( 'Payment type deposit', 'hbook-admin' ),
-            'payment_type_full' => esc_html__( 'Payment type full', 'hbook-admin' ),
+	public function get_payment_type_choice() {
+		return array(
+			'payment_section_title' => esc_html__( 'Payment section title', 'hbook-admin' ),
+			'payment_type' => esc_html__( 'Select payment type', 'hbook-admin' ),
+			'payment_type_offline' => esc_html__( 'Payment type offline', 'hbook-admin' ),
+			'payment_type_store_credit_card' => esc_html__( 'Payment type store credit card', 'hbook-admin' ),
+			'payment_type_deposit' => esc_html__( 'Payment type deposit', 'hbook-admin' ),
+			'payment_type_full' => esc_html__( 'Payment type full', 'hbook-admin' ),
 			'payment_type_explanation_offline' => esc_html__( 'Explanation text for offline payment', 'hbook-admin' ),
 			'payment_type_explanation_store_credit_card' => esc_html__( 'Explanation text for stored credit card', 'hbook-admin' ),
 			'payment_type_explanation_deposit' => esc_html__( 'Explanation text for deposit payment', 'hbook-admin' ),
 			'payment_type_explanation_full' => esc_html__( 'Explanation text for full payment', 'hbook-admin' ),
-            'payment_method' => esc_html__( 'Select payment method', 'hbook-admin' ),
-        );
-    }
+			'payment_method' => esc_html__( 'Select payment method', 'hbook-admin' ),
+		);
+	}
 
 	public function get_stripe_txt() {
 		return array(
 			'stripe_payment_method_label' => esc_html__( 'Payment method label', 'hbook-admin' ),
 			'stripe_text_before_form' => esc_html__( 'Text before form', 'hbook-admin' ),
 			'stripe_card_number' => esc_html__( 'Card number', 'hbook-admin' ),
-            'stripe_expiration' => esc_html__( 'Expiration date', 'hbook-admin' ),
-            'stripe_cvc' => esc_html__( 'CVC', 'hbook-admin' ),
-            'stripe_invalid_card_number' => esc_html__( 'Invalid card number', 'hbook-admin' ),
-            'stripe_invalid_expiration' => esc_html__( 'Invalid expiration date', 'hbook-admin' ),
+			'stripe_expiration' => esc_html__( 'Expiration date', 'hbook-admin' ),
+			'stripe_cvc' => esc_html__( 'CVC', 'hbook-admin' ),
+			'stripe_invalid_card_number' => esc_html__( 'Invalid card number', 'hbook-admin' ),
+			'stripe_invalid_expiration' => esc_html__( 'Invalid expiration date', 'hbook-admin' ),
 			'stripe_invalid_card' => esc_html__( 'Invalid card', 'hbook-admin' ),
 			'stripe_processing_error' => esc_html__( 'Processing error', 'hbook-admin' ),
 		);
 	}
-	
+
 	public function get_paypal_txt() {
 		return array(
 			'paypal_payment_method_label' => esc_html__( 'Payment method label', 'hbook-admin' ),
 			'paypal_text_before_form' => esc_html__( 'Text before form', 'hbook-admin' ),
 		);
 	}
-	
+
 	public function get_external_payment_desc_txt() {
 		return array(
 			'external_payment_txt_desc' => 'Description',
@@ -1519,7 +1546,7 @@ class HbUtils {
 			'external_payment_txt_several_children' => '%children_txt (several)',
 		);
 	}
-	
+
 	public function get_search_form_msg() {
 		return array(
 			'searching' => esc_html__( 'Searching', 'hbook-admin' ),
@@ -1596,7 +1623,7 @@ class HbUtils {
 	public function get_cal_legend_txt() {
 		return array(
 			'legend_occupied' => esc_html__( 'Occupied', 'hbook-admin' ),
-			
+
 			'legend_past' => esc_html__( 'Past', 'hbook-admin' ),
 			'legend_closed' => esc_html__( 'Closed', 'hbook-admin' ),
 			'legend_available' => esc_html__( 'Available', 'hbook-admin' ),
@@ -1610,7 +1637,7 @@ class HbUtils {
 			'legend_check_in' => esc_html__( 'Chosen check-in day', 'hbook-admin' ),
 			'legend_check_out' => esc_html__( 'Chosen check-out day', 'hbook-admin' ),
 			'legend_select_check_in' => esc_html__( 'Select a check-in date', 'hbook-admin'),
-            'legend_select_check_out' => esc_html__( 'Select a check-out date', 'hbook-admin'),
+			'legend_select_check_out' => esc_html__( 'Select a check-out date', 'hbook-admin'),
 		);
 	}
 
@@ -1654,7 +1681,7 @@ class HbUtils {
 			'price_breakdown_dates' => array( '%from_date', '%to_date' ),
 			'price_breakdown_extra_adults_several' => array( '%nb_adults' ),
 			'price_breakdown_extra_children_several' => array( '%nb_children' ),
-            'price_breakdown_multiple_nights' => array( '%nb_nights' ),
+			'price_breakdown_multiple_nights' => array( '%nb_nights' ),
 			'price_for_several_nights' => array( '%nb_nights' ),
 			'selected_accom' => array( '%accom_name' ),
 			'several_types_of_accommodation_found' => array( '%nb_types' ),
@@ -1668,9 +1695,9 @@ class HbUtils {
 			'minimum_stay_for_check_in_day' => array( '%nb_nights', '%check_in_day' ),
 			'maximum_stay_for_check_in_day' => array( '%nb_nights', '%check_in_day' ),
 			'table_rates_for_night_stay' => array( '%nb_nights' ),
-            'price_option' => array( '%price', '%each', '%max' ),
-            'free_option' => array( '%max' ),
-            'max_option' => array( '%max_value' ),
+			'price_option' => array( '%price', '%each', '%max' ),
+			'free_option' => array( '%max' ),
+			'max_option' => array( '%max_value' ),
 			'legend_no_check_in_min_stay' => array( '%nb_nights' ),
 			'legend_no_check_out_min_stay' => array( '%nb_nights' ),
 			'legend_no_check_out_max_stay' => array( '%nb_nights' ),
@@ -1698,7 +1725,7 @@ class HbUtils {
 			$this->get_details_form_msg(),
 			$this->get_coupons_txt(),
 			$this->get_summary_txt(),
-            $this->get_payment_type_choice(),
+			$this->get_payment_type_choice(),
 			$this->get_paypal_txt(),
 			$this->get_external_payment_desc_txt(),
 			$this->get_stripe_txt(),
@@ -1733,65 +1760,69 @@ class HbUtils {
 		}
 	}
 
-    public function export_resa() {
+	public function export_resa() {
 
-        if (
-            isset( $_POST['hb-import-export-action'] ) &&
-            ( $_POST['hb-import-export-action'] == 'export-resa' ) &&
-            wp_verify_nonce( $_POST['hb_import_export'], 'hb_import_export' ) &&
-            ( current_user_can( 'manage_options' ) || current_user_can( 'manage_resa' ) )
-        ) {
-            header( 'Content-Description: File Transfer' );
+		if (
+			isset( $_POST['hb-import-export-action'] ) &&
+			( $_POST['hb-import-export-action'] == 'export-resa' ) &&
+			wp_verify_nonce( $_POST['hb_import_export'], 'hb_import_export' ) &&
+			( current_user_can( 'manage_options' ) || current_user_can( 'manage_resa' ) )
+		) {
+			header( 'Content-Description: File Transfer' );
 			header( 'Content-Disposition: attachment; filename=hbook-reservations.csv' );
 			header( 'Content-Type: text; charset=' . get_option( 'blog_charset' ) );
-            echo( chr(0xEF) . chr(0xBB) . chr(0xBF) );
+			echo( chr(0xEF) . chr(0xBB) . chr(0xBF) );
 
-            $data_to_export = array_merge( $this->get_exportable_resa_fields(), $this->get_exportable_additional_info_fields(), $this->get_exportable_extra_services_fields(), $this->get_exportable_customer_fields() );
-            $data_to_export_ids = $_POST['hb-resa-data-export'];
-            $data_to_export_name = array();
+			$data_to_export = array_merge( $this->get_exportable_resa_fields(), $this->get_exportable_additional_info_fields(), $this->get_exportable_extra_services_fields(), $this->get_exportable_customer_fields() );
+			$data_to_export_ids = $_POST['hb-resa-data-export'];
+			$data_to_export_name = array();
 
-            foreach ( $data_to_export_ids as $data_id ) {
-                $data_to_export_name[] = $data_to_export[ $data_id ];
-            }
-            $header = implode( '","', $data_to_export_name );
-            $header = '"' . $header . '"';
-            echo( $header . "\n" );
+			foreach ( $data_to_export_ids as $data_id ) {
+				$data_to_export_name[] = $data_to_export[ $data_id ];
+			}
+			$header = implode( '","', $data_to_export_name );
+			$header = '"' . $header . '"';
+			echo( $header . "\n" );
 
-            $accom = $this->hbdb->get_all_accom();
-            $accom_tmp = array();
-            foreach( $accom as $accom_id => $accom_name ) {
-                $accom_num_name = $this->hbdb->get_accom_num_name( $accom_id );
-                $accom_tmp[ $accom_id ] = array(
-                    'name' => $accom_name,
-                    'num_name' => $accom_num_name
-                );
-            }
-            $accom = $accom_tmp;
+			$accom = $this->hbdb->get_all_accom();
+			$accom_tmp = array();
+			foreach( $accom as $accom_id => $accom_name ) {
+				$accom_num_name = $this->hbdb->get_accom_num_name( $accom_id );
+				$accom_tmp[ $accom_id ] = array(
+					'name' => $accom_name,
+					'num_name' => $accom_num_name
+				);
+			}
+			$accom = $accom_tmp;
 
-            $extras = $this->hbdb->get_all( 'options' );
-            $tmp_extras = array();
-            foreach ( $extras as $ex ) {
-                $tmp_extras[ $ex['id'] ] = $ex;
-            }
-            $extras = $tmp_extras;
+			$extras = $this->hbdb->get_all( 'options' );
+			$tmp_extras = array();
+			foreach ( $extras as $ex ) {
+				$tmp_extras[ $ex['id'] ] = $ex;
+			}
+			$extras = $tmp_extras;
 
-            $extra_choices = $this->hbdb->get_all( 'options_choices' );
-            $extra_name = array();
-            foreach ( $extra_choices as $choice ) {
-                $extra_name[ $choice['id'] ] = $choice['name'];
-            }
+			$extra_choices = $this->hbdb->get_all( 'options_choices' );
+			$extra_name = array();
+			foreach ( $extra_choices as $choice ) {
+				$extra_name[ $choice['id'] ] = $choice['name'];
+			}
 
 			if ( $_POST['hb-export-resa-selection'] == 'all' ) {
-            	$resa = $this->hbdb->get_all_resa_by_date();
+				$resa = $this->hbdb->get_all_resa_by_date();
 			} else {
 				if ( $_POST['hb-export-resa-selection'] == 'received-date' ) {
 					$from_date = $_POST['hb-export-resa-selection-received-date-from'];
 					$to_date = $_POST['hb-export-resa-selection-received-date-to'];
 					$date_type = 'received_on';
-				} else {
+				} else if ( $_POST['hb-export-resa-selection'] == 'check-in-date' ) {
 					$from_date = $_POST['hb-export-resa-selection-check-in-date-from'];
 					$to_date = $_POST['hb-export-resa-selection-check-in-date-to'];
 					$date_type = 'check_in';
+				} else if ( $_POST['hb-export-resa-selection'] == 'check-out-date' ) {
+					$from_date = $_POST['hb-export-resa-selection-check-out-date-from'];
+					$to_date = $_POST['hb-export-resa-selection-check-out-date-to'];
+					$date_type = 'check_out';
 				}
 				if ( ! $from_date ) {
 					$from_date = '2000-01-01';
@@ -1803,181 +1834,181 @@ class HbUtils {
 				}
 				$resa = $this->hbdb->get_resa_between_dates( $date_type, $from_date, $to_date );
 			}
-			
-            foreach ( $resa as $resa_key => $resa_data ) {
-                $resa[ $resa_key ]['resa_id'] = $resa_data['id'];
 
-                if ( isset( $accom[ $resa_data['accom_id'] ] ) ) {
-                    $resa[ $resa_key ]['accom_type'] = $accom[ $resa_data['accom_id'] ]['name'];
+			foreach ( $resa as $resa_key => $resa_data ) {
+				$resa[ $resa_key ]['resa_id'] = $resa_data['id'];
+
+				if ( isset( $accom[ $resa_data['accom_id'] ] ) ) {
+					$resa[ $resa_key ]['accom_type'] = $accom[ $resa_data['accom_id'] ]['name'];
 					if ( isset( $accom[ $resa_data['accom_id'] ]['num_name'][ $resa_data['accom_num'] ] ) ) {
-                    	$resa[ $resa_key ]['accom_num'] = $accom[ $resa_data['accom_id'] ]['num_name'][ $resa_data['accom_num'] ];
+						$resa[ $resa_key ]['accom_num'] = $accom[ $resa_data['accom_id'] ]['num_name'][ $resa_data['accom_num'] ];
 					} else {
 						$resa[ $resa_key ]['accom_num'] = '';
 					}
-                } else {
-                    $resa[ $resa_key ]['accom_type'] = '';
-                }
+				} else {
+					$resa[ $resa_key ]['accom_type'] = '';
+				}
 
 				$customer_info = array();
-                $customer = $this->hbdb->get_single( 'customers', $resa[ $resa_key ]['customer_id'] );
+				$customer = $this->hbdb->get_single( 'customers', $resa[ $resa_key ]['customer_id'] );
 				if ( $customer ) {
-	                $customer_info = array(
+					$customer_info = array(
 						'customer_id' => $customer['id']
 					);
 					$customer_info_json = json_decode( $customer['info'], true );
-	                if ( is_array( $customer_info_json ) ) {
-	                    foreach ( $customer_info_json as $info_id => $info_value ) {
-	                        $customer_info[ $info_id ] = $info_value;
-	                    }
-	                }
+					if ( is_array( $customer_info_json ) ) {
+						foreach ( $customer_info_json as $info_id => $info_value ) {
+							$customer_info[ $info_id ] = $info_value;
+						}
+					}
 				}
-				
+
 				$optional_info = array();
 				if ( isset( $resa_data['optional_info'] ) ) {
-	                $optional_info_json = json_decode( $resa_data['optional_info'], true );
-	                if ( is_array( $optional_info_json ) ) {
-	                    foreach ( $optional_info_json as $op ) {
-	                        $optional_info[ $op['info_id'] ] = $op['info_value'];
-	                    }
-	                }
+					$optional_info_json = json_decode( $resa_data['optional_info'], true );
+					if ( is_array( $optional_info_json ) ) {
+						foreach ( $optional_info_json as $op ) {
+							$optional_info[ $op['info_id'] ] = $op['info_value'];
+						}
+					}
 				}
 
-                $resa_extra_services = array();
-                if ( $resa_data['options'] ) {
-                    $resa_extra_services = json_decode( $resa_data['options'], true );
-                }
-                $extra_services = array();
-                if ( is_array( $resa_extra_services ) ) {
-                    foreach ( $resa_extra_services as $resa_extra_id => $resa_extra ) {
-                        if ( isset( $extras[ $resa_extra_id ] ) ) {
-                            if (
-                                $extras[ $resa_extra_id ]['apply_to_type'] == 'quantity' ||
-                                $extras[ $resa_extra_id ]['apply_to_type'] == 'quantity-per-day'
-                            ) {
-                                $extra_services[ 'extra_' . $resa_extra_id ] = $resa_extra;
-                            } else if ( $extras[ $resa_extra_id ]['choice_type'] == 'single' ) {
-                                $extra_services[ 'extra_' . $resa_extra_id ] = 'X';
-                            } else if (
-                                $extras[ $resa_extra_id ]['choice_type'] == 'multiple'  &&
-                                isset( $extra_name[ $resa_extra ] )
-                            ) {
-                                $extra_services[ 'extra_' . $resa_extra_id ] = $extra_name[ $resa_extra ];
-                            }
-                        }
-                    }
-                }
+				$resa_extra_services = array();
+				if ( $resa_data['options'] ) {
+					$resa_extra_services = json_decode( $resa_data['options'], true );
+				}
+				$extra_services = array();
+				if ( is_array( $resa_extra_services ) ) {
+					foreach ( $resa_extra_services as $resa_extra_id => $resa_extra ) {
+						if ( isset( $extras[ $resa_extra_id ] ) ) {
+							if (
+								$extras[ $resa_extra_id ]['apply_to_type'] == 'quantity' ||
+								$extras[ $resa_extra_id ]['apply_to_type'] == 'quantity-per-day'
+							) {
+								$extra_services[ 'extra_' . $resa_extra_id ] = $resa_extra;
+							} else if ( $extras[ $resa_extra_id ]['choice_type'] == 'single' ) {
+								$extra_services[ 'extra_' . $resa_extra_id ] = 'X';
+							} else if (
+								$extras[ $resa_extra_id ]['choice_type'] == 'multiple'  &&
+								isset( $extra_name[ $resa_extra ] )
+							) {
+								$extra_services[ 'extra_' . $resa_extra_id ] = $extra_name[ $resa_extra ];
+							}
+						}
+					}
+				}
 
 				$resa_additional_info = array();
-                if ( $resa_data['additional_info'] ) {
-                    $resa_additional_info = json_decode( $resa_data['additional_info'], true );
-                }
-                $additional_info = array();
-                if ( is_array( $resa_additional_info ) ) {
-                    $additional_info = $resa_additional_info;
+				if ( $resa_data['additional_info'] ) {
+					$resa_additional_info = json_decode( $resa_data['additional_info'], true );
 				}
-						
-                $resa[ $resa_key ] = array_merge( $resa[ $resa_key ], $extra_services, $optional_info, $customer_info, $additional_info );
-            }
+				$additional_info = array();
+				if ( is_array( $resa_additional_info ) ) {
+					$additional_info = $resa_additional_info;
+				}
 
-            foreach ( $resa as $resa_data ) {
-                $row = array();
-                foreach ( $data_to_export_ids as $data_id ) {
-                    if ( isset( $resa_data[ $data_id ] ) ) {
-                        $row[] = $resa_data[ $data_id ];
-                    } else {
-                        $row[] = '';
-                    }
-                }
-                $row = implode( '","', $row );
-                $row = '"' . $row . '"' . "\n";
-                echo( $row );
-            }
+				$resa[ $resa_key ] = array_merge( $resa[ $resa_key ], $extra_services, $optional_info, $customer_info, $additional_info );
+			}
 
-            die;
+			foreach ( $resa as $resa_data ) {
+				$row = array();
+				foreach ( $data_to_export_ids as $data_id ) {
+					if ( isset( $resa_data[ $data_id ] ) ) {
+						$row[] = $resa_data[ $data_id ];
+					} else {
+						$row[] = '';
+					}
+				}
+				$row = implode( '","', $row );
+				$row = '"' . $row . '"' . "\n";
+				echo( $row );
+			}
+
+			die;
 		}
 	}
-	
-    public function export_customers() {
-        if (
-            isset( $_POST['hb-import-export-action'] ) &&
-            ( $_POST['hb-import-export-action'] == 'export-customers' ) &&
-            wp_verify_nonce( $_POST['hb_import_export'], 'hb_import_export' ) &&
-            current_user_can( 'manage_options' )
-        ) {
-            header( 'Content-Description: File Transfer' );
+
+	public function export_customers() {
+		if (
+			isset( $_POST['hb-import-export-action'] ) &&
+			( $_POST['hb-import-export-action'] == 'export-customers' ) &&
+			wp_verify_nonce( $_POST['hb_import_export'], 'hb_import_export' ) &&
+			current_user_can( 'manage_options' )
+		) {
+			header( 'Content-Description: File Transfer' );
 			header( 'Content-Disposition: attachment; filename=hbook-customers.csv' );
 			header( 'Content-Type: text; charset=' . get_option( 'blog_charset' ) );
-            echo( chr(0xEF) . chr(0xBB) . chr(0xBF) );
+			echo( chr(0xEF) . chr(0xBB) . chr(0xBF) );
 
-            $data_to_export = $this->get_exportable_customer_fields( 'customers' );
-            $data_to_export_ids = $_POST['hb-customers-data-export'];
-            $data_to_export_name = array();
+			$data_to_export = $this->get_exportable_customer_fields( 'customers' );
+			$data_to_export_ids = $_POST['hb-customers-data-export'];
+			$data_to_export_name = array();
 
-            foreach ( $data_to_export_ids as $data_id ) {
-                $data_to_export_name[] = $data_to_export[ $data_id ];
-            }
-            $header = implode( '","', $data_to_export_name );
-            $header = '"' . $header . '"';
-            echo( $header . "\n" );
+			foreach ( $data_to_export_ids as $data_id ) {
+				$data_to_export_name[] = $data_to_export[ $data_id ];
+			}
+			$header = implode( '","', $data_to_export_name );
+			$header = '"' . $header . '"';
+			echo( $header . "\n" );
 
-        	$customers = $this->hbdb->get_all( 'customers' );
-            foreach ( $customers as $customer ) {
-                $customer_info = array(
+			$customers = $this->hbdb->get_all( 'customers' );
+			foreach ( $customers as $customer ) {
+				$customer_info = array(
 					'id' => $customer['id']
 				);
 				$customer_info_json = json_decode( $customer['info'], true );
-                if ( is_array( $customer_info_json ) ) {
-                    foreach ( $customer_info_json as $info_id => $info_value ) {
-                        $customer_info[ $info_id ] = $info_value;
-                    }
-                }
-				
-                $row = array();
-                foreach ( $data_to_export_ids as $data_id ) {
-                    if ( isset( $customer_info[ $data_id ] ) ) {
-                        $row[] = $customer_info[ $data_id ];
-                    } else {
-                        $row[] = '';
-                    }
-                }
-                $row = implode( '","', $row );
-                $row = '"' . $row . '"' . "\n";
-                echo( $row );
-            }
-            die;
+				if ( is_array( $customer_info_json ) ) {
+					foreach ( $customer_info_json as $info_id => $info_value ) {
+						$customer_info[ $info_id ] = $info_value;
+					}
+				}
+
+				$row = array();
+				foreach ( $data_to_export_ids as $data_id ) {
+					if ( isset( $customer_info[ $data_id ] ) ) {
+						$row[] = $customer_info[ $data_id ];
+					} else {
+						$row[] = '';
+					}
+				}
+				$row = implode( '","', $row );
+				$row = '"' . $row . '"' . "\n";
+				echo( $row );
+			}
+			die;
 		}
 	}
 
-    public function get_exportable_resa_fields() {
-        return array(
-            'resa_id' => esc_html__( 'Num', 'hbook-admin' ),
-            'check_in' => esc_html__( 'Check-in', 'hbook-admin' ),
-            'check_out' => esc_html__( 'Check-out', 'hbook-admin' ),
-            'accom_type' => esc_html__( 'Accommodation type', 'hbook-admin' ),
-            'accom_num' => esc_html__( 'Accommodation number', 'hbook-admin' ),
-            'adults' => esc_html__( 'Adults', 'hbook-admin' ),
-            'children' => esc_html__( 'Children', 'hbook-admin' ),
-            'price' => esc_html__( 'Price', 'hbook-admin' ),
-            'paid' => esc_html__( 'Amount paid', 'hbook-admin'),
-            'currency' => esc_html__( 'Currency', 'hbook-admin'),
-            'status' => esc_html__( 'Status', 'hbook-admin'),
-            'admin_comment' => esc_html__( 'Comment', 'hbook-admin'),
-            'received_on' => esc_html__( 'Received on', 'hbook-admin'),
-        );
-    }
+	public function get_exportable_resa_fields() {
+		return array(
+			'resa_id' => esc_html__( 'Num', 'hbook-admin' ),
+			'check_in' => esc_html__( 'Check-in', 'hbook-admin' ),
+			'check_out' => esc_html__( 'Check-out', 'hbook-admin' ),
+			'accom_type' => esc_html__( 'Accommodation type', 'hbook-admin' ),
+			'accom_num' => esc_html__( 'Accommodation number', 'hbook-admin' ),
+			'adults' => esc_html__( 'Adults', 'hbook-admin' ),
+			'children' => esc_html__( 'Children', 'hbook-admin' ),
+			'price' => esc_html__( 'Price', 'hbook-admin' ),
+			'paid' => esc_html__( 'Amount paid', 'hbook-admin'),
+			'currency' => esc_html__( 'Currency', 'hbook-admin'),
+			'status' => esc_html__( 'Status', 'hbook-admin'),
+			'admin_comment' => esc_html__( 'Comment', 'hbook-admin'),
+			'received_on' => esc_html__( 'Received on', 'hbook-admin'),
+		);
+	}
 
 	public function get_exportable_additional_info_fields() {
 		$exportable_fields = array();
 		$fields = $this->hbdb->get_additional_booking_info_form_fields();
-        foreach ( $fields as $field ) {
-            $exportable_fields[ $field['id'] ] = $field['name'];
-        }
-        return $exportable_fields;
+		foreach ( $fields as $field ) {
+			$exportable_fields[ $field['id'] ] = $field['name'];
+		}
+		return $exportable_fields;
 	}
-	
-    public function get_exportable_customer_fields( $for = 'resa' ) {
+
+	public function get_exportable_customer_fields( $for = 'resa' ) {
 		if ( $for == 'resa' ) {
-	        $exportable_fields = array(
+			$exportable_fields = array(
 				'customer_id' => esc_html__( 'Id', 'hbook-admin' )
 			);
 		} else {
@@ -1986,20 +2017,20 @@ class HbUtils {
 			);
 		}
 		$fields = $this->hbdb->get_customer_form_fields();
-        foreach ( $fields as $field ) {
-            $exportable_fields[ $field['id'] ] = $field['name'];
-        }
-        return $exportable_fields;
-    }
+		foreach ( $fields as $field ) {
+			$exportable_fields[ $field['id'] ] = $field['name'];
+		}
+		return $exportable_fields;
+	}
 
-    public function get_exportable_extra_services_fields() {
-        $extras = $this->hbdb->get_all( 'options' );
-        $exportable_extra = array();
-        foreach ( $extras as $extra ) {
-            $exportable_extra[ 'extra_' . $extra['id'] ] = $extra['name'];
-        }
-        return $exportable_extra;
-    }
+	public function get_exportable_extra_services_fields() {
+		$extras = $this->hbdb->get_all( 'options' );
+		$exportable_extra = array();
+		foreach ( $extras as $extra ) {
+			$exportable_extra[ 'extra_' . $extra['id'] ] = $extra['name'];
+		}
+		return $exportable_extra;
+	}
 
 	public function get_posted_customer_info() {
 		$customer_info = array();
@@ -2020,8 +2051,8 @@ class HbUtils {
 			}
 		}
 		return $customer_info;
-	}	
-	
+	}
+
 	public function get_posted_additional_booking_info() {
 		$additional_info = array();
 		$additional_fields = $this->hbdb->get_additional_booking_info_form_fields();
@@ -2042,7 +2073,7 @@ class HbUtils {
 		}
 		return $additional_info;
 	}
-	
+
 	public function check_plugin() {
 		$body_args = array(
 			'purchase_code' => get_option( 'hb_purchase_code' ),
@@ -2051,12 +2082,27 @@ class HbUtils {
 		if ( ! is_wp_error( $response ) && $response['body'] == 'invalid' ) {
 			update_option( 'hb_valid_purchase_code', 'no' );
 		}
+
+		$gateway_list = $this->get_payment_gateways();
+		foreach ( $gateway_list as $gateway => $data ) {
+			if ( ( 'paypal' != $data->id ) && ( 'stripe' != $data->id ) ) {
+				$purchase_code_option = 'hb_' . $data->id . '_purchase_code';
+				$valid_purchase_code_option = 'hb_' . $data->id . 'valid_purchase_code';
+				$body_args = array(
+					'purchase_code' => get_option( $purchase_code_option ),
+				);
+				$response = wp_remote_post( 'https://hotelwp.com/scripts/verify-website-addons-purchase.php', array( 'body' => $body_args ) );
+				if ( ! is_wp_error( $response ) && $response['body'] == 'invalid' ) {
+					update_option( $valid_purchase_code_option, 'no' );
+				}
+			}
+		}
 	}
-	
+
 	public function set_http_api_curl_ssl_version( &$handle ) {
 		curl_setopt( $handle, CURLOPT_SSLVERSION, 6 );
 	}
-	
+
 	public function get_blog_datetime( $datetime ) {
 		$tzstring = get_option( 'timezone_string' );
 		$offset = get_option( 'gmt_offset' );
@@ -2067,10 +2113,61 @@ class HbUtils {
 		if ( empty( $tzstring ) ) {
 			$tzstring = 'UTC';
 		}
-		
+
 		$dt = new DateTime( $datetime, new DateTimeZone( 'UTC' ) );
 		$dt->setTimezone( new DateTimeZone( $tzstring ) );
 		return $dt->format('Y-m-d H:i:s');
+	}
+
+	public function verify_addon_purchase_code ( $new_purchase_code, $product ) {
+		$old_purchase_code_option = 'hb_' . $product . '_purchase_code';
+		$valid_purchase_code_option = 'hb_' . $product . '_valid_purchase_code';
+		$error_option = 'hb_' . $product . '_purchase_code_error';
+		$error_text_option = 'hb_' . $product . '_purchase_code_error_text';
+
+		$old_purchase_code = get_option( $old_purchase_code_option );
+		update_option( $old_purchase_code_option, $new_purchase_code );
+		if ( isset( $_POST['hb-forced-licence-validation'] ) && $_POST['hb-forced-licence-validation'] == 'hb-forced' ) {
+			update_option( $valid_purchase_code_option, 'yes' );
+			return;
+		}
+		if ( isset( $_POST['hb-licence-validation-code'] ) ) {
+			if ( $_POST['hb-licence-validation-code'] == md5( $new_purchase_code . '-' . site_url() ) ) {
+				update_option( $valid_purchase_code_option, 'yes' );
+			} else {
+				update_option( $error_option, 'wrong-validation-code' );
+				update_option( $valid_purchase_code_option, 'error' );
+			}
+			return;
+		}
+
+		$body_args = array(
+			'hb_addon_purchase_code' => $new_purchase_code,
+			'hb_addon_old_purchase_code' => $old_purchase_code,
+			'site_url' => site_url(),
+		);
+		$response = wp_remote_post( 'https://hotelwp.com/scripts/verify-website-addons-purchase.php', array( 'body' => $body_args ) );
+		$error = '';
+		if ( is_wp_error( $response ) ) {
+			$error = $response->get_error_message();
+		} else {
+			$valid_response = array( 'yes', 'no', 'already', 'removed' );
+			if ( in_array( $response['body'], $valid_response ) ) {
+				update_option( $valid_purchase_code_option, $response['body'] );
+			} else if ( $response['body'] == 'invalid' ) {
+				update_option( $valid_purchase_code_option, 'no' );
+			} else {
+				$error = strip_tags( $response['body'] );
+				if ( ! $error ) {
+					$error = 'HBook Addon - Unknown error.';
+				}
+			}
+		}
+		if ( $error ) {
+			update_option( $error_option, 'no-online-validation' );
+			update_option( $error_text_option, $error );
+			update_option( $valid_purchase_code_option, 'error' );
+		}
 	}
 
 	public function verify_purchase_code( $new_purchase_code ) {
@@ -2089,7 +2186,7 @@ class HbUtils {
 			}
 			return;
 		}
-		
+
 		$body_args = array(
 			'purchase_code' => $new_purchase_code,
 			'old_purchase_code' => $old_purchase_code,
@@ -2118,116 +2215,116 @@ class HbUtils {
 			update_option( 'hb_valid_purchase_code', 'error' );
 		}
 	}
-	
-    public function get_hbook_pages() {
+
+	public function get_hbook_pages() {
 		if ( get_option( 'hb_valid_purchase_code' ) == 'yes' || strpos( site_url(), '127.0.0.1' ) || strpos( site_url(), 'localhost' ) ) {
-	        return array(
+			return array(
 				array(
-	                'id' => 'hb_reservations',
-	                'name' => esc_html__( 'Reservations', 'hbook-admin' ),
-	                'icon' => 'dashicons-calendar-alt',
-	            ),
+					'id' => 'hb_reservations',
+					'name' => esc_html__( 'Reservations', 'hbook-admin' ),
+					'icon' => 'dashicons-calendar-alt',
+				),
 				array(
-	                'id' => 'hb_accommodation',
-	                'name' => esc_html__( 'Accommodation', 'hbook-admin' ),
-	                'icon' => 'dashicons-admin-home',
-	            ),
-	            array(
-	                'id' => 'hb_seasons',
-	                'name' => esc_html__( 'Seasons', 'hbook-admin' ),
-	                'icon' => 'dashicons-calendar',
-	            ),
+					'id' => 'hb_accommodation',
+					'name' => esc_html__( 'Accommodation', 'hbook-admin' ),
+					'icon' => 'dashicons-admin-home',
+				),
 				array(
-	                'id' => 'hb_rules',
-	                'name' => esc_html__( 'Booking rules', 'hbook-admin' ),
-	                'icon' => 'dashicons-admin-network',
-	            ),
+					'id' => 'hb_seasons',
+					'name' => esc_html__( 'Seasons', 'hbook-admin' ),
+					'icon' => 'dashicons-calendar',
+				),
 				array(
-	                'id' => 'hb_rates',
-	                'name' => esc_html__( 'Rates', 'hbook-admin' ),
-	                'icon' => 'dashicons-tag',
-	            ),
-	            array(
-	                'id' => 'hb_options',
-	                'name' => esc_html__( 'Extra services', 'hbook-admin' ),
-	                'icon' => 'dashicons-forms',
-	            ),
-	            array(
-	                'id' => 'hb_fees',
-	                'name' => esc_html__( 'Fees', 'hbook-admin' ),
-	                'icon' => 'dashicons-money',
-	            ),
-	            array(
-	                'id' => 'hb_forms',
-	                'name' => esc_html__( 'Forms', 'hbook-admin' ),
-	                'icon' => 'dashicons-admin-page',
-	            ),
-	            array(
-	                'id' => 'hb_payment',
-	                'name' => esc_html__( 'Payment', 'hbook-admin' ),
-	                'icon' => 'dashicons-vault',
-	            ),
+					'id' => 'hb_rules',
+					'name' => esc_html__( 'Booking rules', 'hbook-admin' ),
+					'icon' => 'dashicons-admin-network',
+				),
 				array(
-	                'id' => 'hb_ical',
-	                'name' => esc_html__( 'Ical sync', 'hbook-admin' ),
-	                'icon' => 'dashicons-update',
-	            ),
-	            array(
-	                'id' => 'hb_emails',
-	                'name' => esc_html__( 'Emails', 'hbook-admin' ),
-	                'icon' => 'dashicons-email-alt',
-	            ),
+					'id' => 'hb_rates',
+					'name' => esc_html__( 'Rates', 'hbook-admin' ),
+					'icon' => 'dashicons-tag',
+				),
 				array(
-	                'id' => 'hb_customers',
-	                'name' => esc_html__( 'Customers', 'hbook-admin' ),
-	                'icon' => 'dashicons-groups',
-	            ),
-	            array(
-	                'id' => 'hb_appearance',
-	                'name' => esc_html__( 'Appearance', 'hbook-admin' ),
-	                'icon' => 'dashicons-admin-appearance',
-	            ),
-	            array(
-	                'id' => 'hb_text',
-	                'name' => esc_html__( 'Text', 'hbook-admin' ),
-	                'icon' => 'dashicons-editor-paste-text',
-	            ),
-	            array(
-	                'id' => 'hb_langfiles',
-	                'name' => esc_html__( 'Languages', 'hbook-admin' ),
-	                'icon' => 'dashicons-translation',
-	            ),
-	            array(
-	                'id' => 'hb_misc',
-	                'name' => esc_html__( 'Misc', 'hbook-admin' ),
-	                'icon' => 'dashicons-admin-generic',
-	            ),
+					'id' => 'hb_options',
+					'name' => esc_html__( 'Extra services', 'hbook-admin' ),
+					'icon' => 'dashicons-forms',
+				),
 				array(
-	                'id' => 'hb_licence',
-	                'name' => esc_html__( 'Licence', 'hbook-admin' ),
-	                'icon' => 'dashicons-welcome-write-blog',
-	            ),
+					'id' => 'hb_fees',
+					'name' => esc_html__( 'Fees', 'hbook-admin' ),
+					'icon' => 'dashicons-money',
+				),
 				array(
-	                'id' => 'hb_help',
-	                'name' => esc_html__( 'Help', 'hbook-admin' ),
-	                'icon' => 'dashicons-sos',
-	            ),
-	        );
+					'id' => 'hb_forms',
+					'name' => esc_html__( 'Forms', 'hbook-admin' ),
+					'icon' => 'dashicons-admin-page',
+				),
+				array(
+					'id' => 'hb_payment',
+					'name' => esc_html__( 'Payment', 'hbook-admin' ),
+					'icon' => 'dashicons-vault',
+				),
+				array(
+					'id' => 'hb_ical',
+					'name' => esc_html__( 'Ical sync', 'hbook-admin' ),
+					'icon' => 'dashicons-update',
+				),
+				array(
+					'id' => 'hb_emails',
+					'name' => esc_html__( 'Emails', 'hbook-admin' ),
+					'icon' => 'dashicons-email-alt',
+				),
+				array(
+					'id' => 'hb_customers',
+					'name' => esc_html__( 'Customers', 'hbook-admin' ),
+					'icon' => 'dashicons-groups',
+				),
+				array(
+					'id' => 'hb_appearance',
+					'name' => esc_html__( 'Appearance', 'hbook-admin' ),
+					'icon' => 'dashicons-admin-appearance',
+				),
+				array(
+					'id' => 'hb_text',
+					'name' => esc_html__( 'Text', 'hbook-admin' ),
+					'icon' => 'dashicons-editor-paste-text',
+				),
+				array(
+					'id' => 'hb_langfiles',
+					'name' => esc_html__( 'Languages', 'hbook-admin' ),
+					'icon' => 'dashicons-translation',
+				),
+				array(
+					'id' => 'hb_misc',
+					'name' => esc_html__( 'Misc', 'hbook-admin' ),
+					'icon' => 'dashicons-admin-generic',
+				),
+				array(
+					'id' => 'hb_licence',
+					'name' => esc_html__( 'Licence', 'hbook-admin' ),
+					'icon' => 'dashicons-welcome-write-blog',
+				),
+				array(
+					'id' => 'hb_help',
+					'name' => esc_html__( 'Help', 'hbook-admin' ),
+					'icon' => 'dashicons-sos',
+				),
+			);
 		} else {
 			return array(
 				array(
-	                'id' => 'hb_licence',
-	                'name' => esc_html__( 'Licence', 'hbook-admin' ),
-	                'icon' => 'dashicons-welcome-write-blog',
-	            ),
+					'id' => 'hb_licence',
+					'name' => esc_html__( 'Licence', 'hbook-admin' ),
+					'icon' => 'dashicons-welcome-write-blog',
+				),
 				array(
-	                'id' => 'hb_help',
-	                'name' => esc_html__( 'Help', 'hbook-admin' ),
-	                'icon' => 'dashicons-sos',
-	            ),
+					'id' => 'hb_help',
+					'name' => esc_html__( 'Help', 'hbook-admin' ),
+					'icon' => 'dashicons-sos',
+				),
 			);
 		}
-    }
+	}
 
 	public function get_file_version( $file_name ) {
 		$files_in_dev = get_option( 'hb_files_in_dev' );
@@ -2239,25 +2336,25 @@ class HbUtils {
 	}
 
 	/**
-	 * Title         : Aqua Resizer
-	 * Description   : Resizes WordPress images on the fly
-	 * Version       : 1.1.7
-	 * Author        : Syamil MJ
-	 * Author URI    : http://aquagraphite.com
-	 * License       : WTFPL - http://sam.zoy.org/wtfpl/
-	 * Documentation : https://github.com/sy4mil/Aqua-Resizer/
-	 *
-	 * @param string  $url    - (required) must be uploaded using wp media uploader
-	 * @param int     $width  - (required)
-	 * @param int     $height - (optional)
-	 * @param bool    $crop   - (optional) default to soft crop
-	 * @param bool    $single - (optional) returns an array if false
-	 * @uses  wp_upload_dir()
-	 * @uses  image_resize_dimensions() | image_resize()
-	 * @uses  wp_get_image_editor()
-	 *
-	 * @return str|array
-	 */
+	* Title         : Aqua Resizer
+	* Description   : Resizes WordPress images on the fly
+	* Version       : 1.1.7
+	* Author        : Syamil MJ
+	* Author URI    : http://aquagraphite.com
+	* License       : WTFPL - http://sam.zoy.org/wtfpl/
+	* Documentation : https://github.com/sy4mil/Aqua-Resizer/
+	*
+	* @param string  $url    - (required) must be uploaded using wp media uploader
+	* @param int     $width  - (required)
+	* @param int     $height - (optional)
+	* @param bool    $crop   - (optional) default to soft crop
+	* @param bool    $single - (optional) returns an array if false
+	* @uses  wp_upload_dir()
+	* @uses  image_resize_dimensions() | image_resize()
+	* @uses  wp_get_image_editor()
+	*
+	* @return str|array
+	*/
 
 	public function aq_resize( $url, $width = null, $height = null, $crop = null, $single = true, $upscale = true ) {
 
@@ -2277,7 +2374,7 @@ class HbUtils {
 		$relative_prefix = "//"; // The protocol-relative URL
 
 		/* if the $url scheme differs from $upload_url scheme, make them match
-		   if the schemes differe, images don't show up. */
+		if the schemes differe, images don't show up. */
 		if(!strncmp($url,$https_prefix,strlen($https_prefix))){ //if url begins with https:// make $upload_url begin with https:// as well
 			$upload_url = str_replace($http_prefix,$https_prefix,$upload_url);
 		}
@@ -2411,4 +2508,3 @@ class HbUtils {
 	}
 
 }
-?>

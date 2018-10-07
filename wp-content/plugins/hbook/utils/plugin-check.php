@@ -1,37 +1,37 @@
 <?php
 class HbPluginCheck {
 
-    private $current_version;
-    private $latest_version;
-    private $plugin_slug;
+	private $current_version;
+	private $latest_version;
+	private $plugin_slug;
 	private $download_url;
-	
+
 	function __construct( $current_version ) {
 		$this->current_version = $current_version;
 		$this->plugin_slug = 'hbook';
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ) );
 		add_filter( 'plugins_api', array( $this, 'check_info' ), 10, 3 );
 	}
-	
+
 	private function get_latest_version_info() {
-		$request = wp_remote_post( 
-			'http://hotelwp.com/updates/hbook-data/version.php', 
-			array( 
-				'body' => array( 
-					'site_url' => get_site_url(), 
-					'key' => get_option( 'hb_purchase_code' ), 
-				) 
-			) 
+		$request = wp_remote_post(
+			'http://hotelwp.com/updates/hbook-data/version.php',
+			array(
+				'body' => array(
+					'site_url' => get_site_url(),
+					'key' => get_option( 'hb_purchase_code' ),
+				)
+			)
 		);
 		if ( ! is_wp_error( $request ) ) {
 			$latest_version_info = json_decode( $request['body'], true );
 			if ( isset( $latest_version_info['latest_version'] ) && isset( $latest_version_info['tested'] ) ) {
 				return $latest_version_info;
 			}
-		} 
+		}
 		return false;
 	}
-	
+
 	public function check_update( $transient ) {
 		$latest_version_info = $this->get_latest_version_info();
 		if ( version_compare( $latest_version_info['latest_version'], $this->current_version ) > 0 ) {
@@ -45,7 +45,7 @@ class HbPluginCheck {
 		}
 		return $transient;
 	}
-	
+
 	public function check_info( $original, $action, $args ) {
 		if ( isset( $args->slug ) && ( $args->slug == $this->plugin_slug ) ) {
 			$info = $this->get_remote_info();
@@ -71,15 +71,15 @@ class HbPluginCheck {
 			return $obj;
 		} else {
 			return $original;
-		}	
+		}
 	}
-	
+
 	private function get_remote_info() {
 		$request = wp_remote_post( 'http://hotelwp.com/updates/hbook-data/info.php' );
 		if ( ! is_wp_error( $request ) ) {
 			return json_decode( $request['body'], true );
 		} else {
-			return false;	
+			return false;
 		}
 	}
 

@@ -12,15 +12,15 @@ class HbResaCoupon {
 	}
 
 	public function is_valid( $accom_id, $check_in, $check_out ) {
-		return 
-			$this->is_valid_accom( $accom_id ) && 
+		return
+			$this->is_valid_accom( $accom_id ) &&
 			$this->is_valid_season( $check_in, $check_out ) &&
 			$this->is_valid_rule( $check_in, $check_out );
 	}
 
 	private function is_valid_accom( $accom_id ) {
-		return 
-			$this->coupon['all_accom'] || 
+		return
+			$this->coupon['all_accom'] ||
 			( $this->coupon['accom'] && in_array( $accom_id, explode( ',', $this->coupon['accom'] ) ) );
 	}
 

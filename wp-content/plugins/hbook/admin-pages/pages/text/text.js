@@ -1,7 +1,7 @@
 jQuery( document ).ready( function( $ ) {
 
 	$( '.hb-saved' ).html( hb_text.form_saved );
-	
+
 	$( '.hb-options-save' ).click( function() {
 		$( this ).blur();
 		var $save_section = $( this ).parent().parent();
@@ -32,17 +32,17 @@ jQuery( document ).ready( function( $ ) {
 		});
 		return false;
 	});
-	
+
 	var form_saved = true;
 
 	$( '#hb-admin-form input').change( function() {
 		form_saved = true;
 	});
-	
+
 	window.onbeforeunload = function() {
 		if ( ! form_saved ) {
 			return hb_text.unsaved_warning;
 		}
-     }
-	 
+	}
+
 } );

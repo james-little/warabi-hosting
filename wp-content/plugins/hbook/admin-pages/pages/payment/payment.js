@@ -1,16 +1,16 @@
 jQuery( document ).ready( function( $ ) {
-    
-    payment_choice_display();
-    
-    function payment_choice_display() {
-        if ( $( 'input[name="hb_resa_payment_multiple_choice"]:checked' ).val() == 'yes' ) {
-            $( '.hb-resa-payment-choice-multiple' ).slideUp();
-            $( '.hb-resa-payment-choice-single' ).slideDown();
-        } else {
-            $( '.hb-resa-payment-choice-multiple' ).slideDown();
-            $( '.hb-resa-payment-choice-single' ).slideUp();
+
+	payment_choice_display();
+
+	function payment_choice_display() {
+		if ( $( 'input[name="hb_resa_payment_multiple_choice"]:checked' ).val() == 'yes' ) {
+			$( '.hb-resa-payment-choice-multiple' ).slideUp();
+			$( '.hb-resa-payment-choice-single' ).slideDown();
+		} else {
+			$( '.hb-resa-payment-choice-multiple' ).slideDown();
+			$( '.hb-resa-payment-choice-single' ).slideUp();
 		}
-    }
+	}
 
 	$( 'input[name="hb_resa_payment_multiple_choice"]' ).change( function() {
 		payment_choice_display();
@@ -19,9 +19,9 @@ jQuery( document ).ready( function( $ ) {
 	$( '.hb-payment-gateway-active input' ).change( function() {
 		hide_show_payment_gateway_options();
 	});
-	
+
 	hide_show_payment_gateway_options();
-	
+
 	function hide_show_payment_gateway_options() {
 		for ( var i = 0; i < hb_payment_gateways.length; i++ ) {
 			if ( $( 'input[name=hb_' + hb_payment_gateways[i] + '_active]:checked' ).val() == 'yes' ) {
@@ -31,14 +31,14 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}
 	}
-	
+
 	$( '.hb-deposit-choice input' ).change( function() {
 		hide_show_deposit_options();
 		hide_show_deposit_bond_option();
 	});
-	
+
 	hide_show_deposit_options();
-	
+
 	function hide_show_deposit_options() {
 		if ( $( 'input[name="hb_deposit_type"]:checked' ).val() == 'none' ) {
 			$( '.hb-deposit-options' ).slideUp();
@@ -51,13 +51,13 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}
 	}
-	
+
 	$( '.hb-security-bond-choice input' ).change( function() {
 		hide_show_security_bond_options();
 	});
-	
+
 	hide_show_security_bond_options();
-	
+
 	function hide_show_security_bond_options() {
 		if ( $( 'input[name="hb_security_bond"]:checked' ).val() == 'no' ) {
 			$( '.hb-security-bond-options' ).slideUp();
@@ -67,15 +67,15 @@ jQuery( document ).ready( function( $ ) {
 			$( '.hb-security-bond-options' ).slideDown();
 		}
 	}
-	
+
 	$( '.hb-security-bond-payment input' ).change( function() {
 		hide_show_deposit_bond_option();
 	});
-	
+
 	hide_show_deposit_bond_option();
-	
+
 	function hide_show_deposit_bond_option() {
-		if ( 
+		if (
 			( $( 'input[name="hb_security_bond_online_payment"]:checked' ).val() == 'no' ) ||
 			( $( 'input[name="hb_deposit_type"]:checked' ).val() == 'none' )
 		) {
@@ -85,5 +85,5 @@ jQuery( document ).ready( function( $ ) {
 			$( '.hb-deposit-bond' ).slideDown();
 		}
 	}
-	
+
 });

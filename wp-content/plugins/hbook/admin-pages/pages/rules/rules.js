@@ -19,9 +19,9 @@ function Rule( brand_new, id, name, type, check_in_days, check_out_days, minimum
 	this.minimum_stay = ko.observable( minimum_stay );
 	this.maximum_stay = ko.observable( maximum_stay );
 	this.conditional_type = ko.observable( conditional_type );
-	
+
 	var self = this;
-	
+
 	this.revert = function( rule ) {
 		if ( rule ) {
 			self.name( rule.name );
@@ -34,14 +34,14 @@ function Rule( brand_new, id, name, type, check_in_days, check_out_days, minimum
 			self.conditional_type( rule.conditional_type );
 		}
 	}
-	
+
 	this.check_in_days_list = ko.computed( function() {
 		return days_list( self.check_in_days() );
-    }, self );	
-	
+	}, self );
+
 	this.check_out_days_list = ko.computed( function() {
 		return days_list( self.check_out_days() );
-    }, self );
+	}, self );
 
 	function days_list( days ) {
 		if ( days.length == 0 ) {
@@ -57,43 +57,43 @@ function Rule( brand_new, id, name, type, check_in_days, check_out_days, minimum
 			return days_list.join( ', ' );
 		}
 	}
-	
+
 	this.select_all_check_in_days = function( rule ) {
 		if ( rule ) {
 			select_all_days( rule.check_in_days );
 		}
 	}
-	
+
 	this.unselect_all_check_in_days = function( rule ) {
 		if ( rule ) {
 			unselect_all_days( rule.check_in_days );
 		}
-	}	
-	
+	}
+
 	this.select_all_check_out_days = function( rule ) {
 		if ( rule ) {
 			select_all_days( rule.check_out_days );
 		}
 	}
-	
+
 	this.unselect_all_check_out_days = function( rule ) {
 		if ( rule ) {
 			unselect_all_days( rule.check_out_days );
 		}
 	}
-	
+
 	function select_all_days( check_in_out ) {
 		check_in_out( ['0', '1', '2', '3', '4', '5', '6'] );
-	}	
-	
+	}
+
 	function unselect_all_days( check_in_out ) {
 		check_in_out( [] );
 	}
-	
+
 	this.conditional_type_display = ko.computed( function() {
 		return conditional_types[ self.conditional_type() ];
 	}, self );
-	
+
 	this.conditional_type.subscribe( function( conditional_type ) {
 		if ( conditional_type != 'compulsory' && conditional_type != 'comp_and_rate' ) {
 			self.all_accom( true );
@@ -103,17 +103,17 @@ function Rule( brand_new, id, name, type, check_in_days, check_out_days, minimum
 }
 
 function RulesViewModel() {
-	
+
 	var self = this;
 	observable_rules = [];
 	for ( var i = 0; i < rules.length; i++ ) {
 		observable_rules.push( new Rule( false, rules[i].id, rules[i].name, rules[i].type, rules[i].check_in_days, rules[i].check_out_days, rules[i].minimum_stay, rules[i].maximum_stay, rules[i].accom, rules[i].all_accom, rules[i].seasons, rules[i].all_seasons, rules[i].conditional_type ) );
 	}
-	
+
 	this.rules = ko.observableArray( observable_rules );
-	
+
 	ko.utils.extend( this, new HbSettings() );
-	
+
 	this.create_rule = function( rule_type ) {
 		var name = '',
 			check_in_days = '0,1,2,3,4,5,6',
@@ -125,7 +125,7 @@ function RulesViewModel() {
 			conditional_type = 'compulsory',
 			seasons = '',
 			all_seasons = 0;
-		
+
 		if ( rule_type == 'check_in_days' ) {
 			check_in_days = '';
 		} else if ( rule_type == 'check_out_days' ) {
@@ -139,7 +139,7 @@ function RulesViewModel() {
 			self.rules.push( new_rule );
 		}, css_class );
 	}
-	
+
 	this.nb_rules = function( rule_type ) {
 		var rules = self.rules(),
 			nb_rules = 0;
@@ -150,7 +150,7 @@ function RulesViewModel() {
 		}
 		return nb_rules;
 	}
-	
+
 	this.remove = function( rule ) {
 		callback_function = function() {
 			self.rules.remove( rule );

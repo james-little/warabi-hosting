@@ -9,15 +9,15 @@ function date_to_str( date ) {
 function Season( brand_new, id, name, dates ) {
 	HbSetting.call( this, brand_new, 'season', id, name );
 	this.dates = ko.observableArray( dates );
-	
+
 	var self = this;
-	
+
 	this.revert = function( season ) {
 		if ( season ) {
 			self.name( season.name );
 		}
 	}
-	
+
 }
 
 function SeasonDates( brand_new, id, season_id, start_date, end_date, days ) {
@@ -30,17 +30,17 @@ function SeasonDates( brand_new, id, season_id, start_date, end_date, days ) {
 	} else {
 		this.days = ko.observableArray();
 	}
-	
+
 	var self = this;
-	
+
 	this.start_date_text = ko.computed( function() {
 		return date_to_str( self.start_date() );
 	});
-	
+
 	this.end_date_text = ko.computed( function() {
 		return date_to_str( self.end_date() );
 	});
-	
+
 	this.days_list = ko.computed( function() {
 		var days = self.days();
 		if ( days.length == 0 ) {
@@ -55,8 +55,8 @@ function SeasonDates( brand_new, id, season_id, start_date, end_date, days ) {
 			}
 			return days_list.join( ', ' );
 		}
-    }, self );
-	
+	}, self );
+
 	this.revert = function( season_date ) {
 		if ( season_date ) {
 			self.start_date( season_date.start_date );
@@ -64,19 +64,19 @@ function SeasonDates( brand_new, id, season_id, start_date, end_date, days ) {
 			self.days( season_date.days );
 		}
 	}
-	
+
 	this.select_all_days = function( season_date ) {
 		if ( season_date ) {
 			season_date.days( ['0', '1', '2', '3', '4', '5', '6'] );
 		}
 	}
-	
+
 	this.unselect_all_days = function( season_date ) {
 		if ( season_date ) {
 			season_date.days( [] );
 		}
 	}
-	
+
 }
 
 function SeasonsViewModel() {
@@ -92,25 +92,25 @@ function SeasonsViewModel() {
 		}
 		observable_seasons.push( new Season( false, seasons[i].id, seasons[i].name, observable_dates ) );
 	}
-	
+
 	this.seasons = ko.observableArray( observable_seasons );
-	
+
 	ko.utils.extend( this, new HbSettings() );
-	
+
 	this.create_season = function() {
 		var new_season = new Season( true, 0, hb_text.new_season, [] );
 		self.create_setting( new_season, function( new_season ) {
 			self.seasons.push( new_season );
 		});
 	}
-	
+
 	this.create_season_dates = function( season ) {
 		var new_season_dates = new SeasonDates( true, 0, season.id, jQuery.datepick.formatDate( 'yyyy-mm-dd', new Date() ), '', '0,1,2,3,4,5,6' );
 		self.create_child_setting( season, new_season_dates, function( new_season_dates ) {
 			season.dates.push( new_season_dates );
 		});
 	}
-	
+
 	this.remove = function( setting, event, season ) {
 		if ( setting.type == 'season' ) {
 			callback_function = function() {
@@ -122,29 +122,29 @@ function SeasonsViewModel() {
 			}
 		}
 		self.delete_setting( setting, callback_function );
-	}	
+	}
 
 	this.season_render = function() {
-        jQuery( '.hb-season-date' ).datepick( hb_datepicker_calendar_options );
+		jQuery( '.hb-season-date' ).datepick( hb_datepicker_calendar_options );
 		jQuery( '.hb-season-date' ).datepick( 'option', {
 			dateFormat : 'yyyy-mm-dd',
-            onSelect: function() {
-                jQuery( this ).change();
-            }
+			onSelect: function() {
+				jQuery( this ).change();
+			}
 		});
-        jQuery( '.hb-season-date-start' ).change( function () {
-            var start_date = jQuery( this ).datepick( 'getDate' )[0],
-                $end_date_input = jQuery( this ).parents( '.hb-season-dates-row' ).find( '.hb-season-date-end' ),
-                end_date = $end_date_input.datepick( 'getDate' )[0];
-            if ( start_date && end_date && ( start_date.getTime() >= end_date.getTime() ) ) {
-                $end_date_input.datepick( 'setDate', null );
-            }
-            if ( start_date ) {
-                $end_date_input.datepick( 'option', 'minDate', start_date );
-            }
-        });
+		jQuery( '.hb-season-date-start' ).change( function () {
+			var start_date = jQuery( this ).datepick( 'getDate' )[0],
+				$end_date_input = jQuery( this ).parents( '.hb-season-dates-row' ).find( '.hb-season-date-end' ),
+				end_date = $end_date_input.datepick( 'getDate' )[0];
+			if ( start_date && end_date && ( start_date.getTime() >= end_date.getTime() ) ) {
+				$end_date_input.datepick( 'setDate', null );
+			}
+			if ( start_date ) {
+				$end_date_input.datepick( 'option', 'minDate', start_date );
+			}
+		});
 	}
-	
+
 }
 
 ko.applyBindings( new SeasonsViewModel() );

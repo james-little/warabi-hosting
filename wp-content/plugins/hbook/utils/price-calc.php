@@ -1,16 +1,16 @@
 <?php
 class HbPriceCalc {
-	
+
 	private $rates;
 	private $rates_nights;
 	private $hbdb;
 	private $utils;
-		
+
 	public function __construct( $hbdb, $utils ) {
-				
+
 		$this->hbdb = $hbdb;
 		$this->utils = $utils;
-		
+
 		$types = array( 'accom', 'extra_adults', 'extra_children' );
 		$rules = $this->hbdb->get_all_rate_booking_rules();
 		$rules_ids = array( 0 );
@@ -56,7 +56,7 @@ class HbPriceCalc {
 			}
 		}
 	}
-	
+
 	public function get_price( $accom_id, $str_check_in, $str_check_out, $adults, $children, &$price_breakdown = NULL ) {
 
 		$price_info = array(
@@ -73,9 +73,9 @@ class HbPriceCalc {
 				'label' => ''
 			)
 		);
-		
+
 		$nb_nights = $this->utils->get_number_of_nights( $str_check_in, $str_check_out );
-		
+
 		$accom_occupancy = get_post_meta( $accom_id, 'accom_occupancy', true );
 		$accom_max_occupancy = get_post_meta( $accom_id, 'accom_max_occupancy', true );
 		if ( $adults > $accom_occupancy ) {
@@ -84,7 +84,7 @@ class HbPriceCalc {
 		} elseif ( $adults + $children > $accom_occupancy ) {
 			$price_info['extra_children']['number'] = $adults + $children - $accom_occupancy;
 		}
-		
+
 		if ( $price_info['extra_adults']['number'] > 1 ) {
 			$price_info['extra_adults']['label'] = str_replace( '%nb_adults', '%d', $this->hbdb->get_string( 'price_breakdown_extra_adults_several' ) );
 			$price_info['extra_adults']['alt_label'] = str_replace( '%nb_adults', '%d', $this->hbdb->get_string( 'price_breakdown_adults_several' ) );
@@ -92,7 +92,7 @@ class HbPriceCalc {
 			$price_info['extra_adults']['label'] = $this->hbdb->get_string( 'price_breakdown_extra_adult_one' );
 			$price_info['extra_adults']['alt_label'] = $this->hbdb->get_string( 'price_breakdown_adult_one' );
 		}
-		
+
 		if ( $price_info['extra_children']['number'] > 1 ) {
 			$price_info['extra_children']['label'] = str_replace( '%nb_children', '%d', $this->hbdb->get_string( 'price_breakdown_extra_children_several' ) );
 			$price_info['extra_children']['alt_label'] = str_replace( '%nb_children', '%d', $this->hbdb->get_string( 'price_breakdown_children_several' ) );
@@ -107,7 +107,7 @@ class HbPriceCalc {
 			$nights[] = $current_night;
 			$current_night = date( 'Y-m-d', strtotime( $current_night . ' + 1 day' ) );
 		}
-		
+
 		$rule_ids = array();
 		$rules = $this->hbdb->get_rate_booking_rules();
 		if ( $rules ) {
@@ -116,23 +116,23 @@ class HbPriceCalc {
 			foreach ( $rules as $rule ) {
 				$allowed_check_in_days = explode( ',', $rule['check_in_days'] );
 				$allowed_check_out_days = explode( ',', $rule['check_out_days'] );
-				if ( 
-					( in_array( $check_in_day, $allowed_check_in_days ) ) && 
-					( in_array( $check_out_day, $allowed_check_out_days ) ) && 
-					( $nb_nights >= $rule['minimum_stay'] ) && 
+				if (
+					( in_array( $check_in_day, $allowed_check_in_days ) ) &&
+					( in_array( $check_out_day, $allowed_check_out_days ) ) &&
+					( $nb_nights >= $rule['minimum_stay'] ) &&
 					( $nb_nights <= $rule['maximum_stay'] )
 				) {
 					$rule_ids[] = $rule['id'];
 				}
 			}
 		}
-		
+
 		$price = 0;
 		$accom_price = 0;
 		$price_breakdown = '';
-	
+
 		foreach ( $price_info as $type => $p ) {
-			
+
 			if ( $p['number'] > 0 ) {
 				$price_before = $price;
 				$result = $this->get_price_per_type( $type, $p['number'], $rule_ids, $accom_id, $nights, $str_check_out, $price );
@@ -167,27 +167,27 @@ class HbPriceCalc {
 								if ( $r['multiple_nights_rate'] && $number_of_nights % $r['multiple_nights_rate']['nb_nights'] == 0  ) {
 									$stay_length = $number_of_nights / $r['multiple_nights_rate']['nb_nights'];
 									$sub_sub_price = $r['multiple_nights_rate']['rate'];
-	                                $stay_str = $this->hbdb->get_string( 'price_breakdown_multiple_nights' );
-	                                $stay_str = str_replace( '%nb_nights', $r['multiple_nights_rate']['nb_nights'], $stay_str );
+									$stay_str = $this->hbdb->get_string( 'price_breakdown_multiple_nights' );
+									$stay_str = str_replace( '%nb_nights', $r['multiple_nights_rate']['nb_nights'], $stay_str );
 								} else {
 									$stay_length = $number_of_nights;
 									$sub_sub_price = $r['price'];
-	                                if ( $stay_length == 1 ) {
-	                                    $stay_str = $this->hbdb->get_string( 'price_breakdown_night_one' );
-	                                } else {
-	                                    $stay_str = $this->hbdb->get_string( 'price_breakdown_nights_several' );
-	                                }
+									if ( $stay_length == 1 ) {
+										$stay_str = $this->hbdb->get_string( 'price_breakdown_night_one' );
+									} else {
+										$stay_str = $this->hbdb->get_string( 'price_breakdown_nights_several' );
+									}
 								}
-								$price_breakdown .= 
-										'<span class="hb-price-breakdown-section">' . 
+								$price_breakdown .=
+										'<span class="hb-price-breakdown-section">' .
 										$price_breakdown_dates .
-										' ' . 
+										' ' .
 										$stay_length . ' ' . $stay_str .
-										' x ' . 
-										$sub_number . 
-										$this->utils->price_with_symbol( $sub_sub_price ) . 
-										' = ' . 
-										$this->utils->price_with_symbol( $sub_price ) . 
+										' x ' .
+										$sub_number .
+										$this->utils->price_with_symbol( $sub_sub_price ) .
+										' = ' .
+										$this->utils->price_with_symbol( $sub_price ) .
 										'</span>';
 							}
 						}
@@ -196,7 +196,7 @@ class HbPriceCalc {
 				}
 			}
 		}
-		
+
 		$discount_ids = array();
 		$discounts = $this->hbdb->get_discounts_rules( $accom_id );
 		if ( $discounts ) {
@@ -207,15 +207,15 @@ class HbPriceCalc {
 				$allowed_check_in_days = explode( ',', $discount['check_in_days'] );
 				$allowed_check_out_days = explode( ',', $discount['check_out_days'] );
 				if ( ( in_array( $check_in_day, $allowed_check_in_days ) ) &&
-					 ( in_array( $check_out_day, $allowed_check_out_days ) ) &&
-					 ( $nb_nights >= $discount['minimum_stay'] ) &&
-					 ( $nb_nights <= $discount['maximum_stay'] ) 
+					( in_array( $check_out_day, $allowed_check_out_days ) ) &&
+					( $nb_nights >= $discount['minimum_stay'] ) &&
+					( $nb_nights <= $discount['maximum_stay'] )
 				) {
 					$discount_ids[] = $discount['id'];
 				}
 			}
 		}
-		
+
 		$total_discount_amount = 0;
 		$nb_discount = 0;
 		foreach ( $discount_ids as $discount_id ) {
@@ -242,9 +242,9 @@ class HbPriceCalc {
 				$total_discount_amount += $discount_amount;
 			}
 		}
-		
+
 		if ( $total_discount_amount ) {
-			$price_breakdown .= 
+			$price_breakdown .=
 				'<span class="hb-price-breakdown-discount">' .
 					'<span class="hb-price-breakdown-title">' .
 					$this->hbdb->get_string( 'price_breakdown_discount' ) . ' ' .
@@ -257,24 +257,24 @@ class HbPriceCalc {
 					'<span class="hb-price-breakdown-section">' .
 					$this->hbdb->get_string( 'price_breakdown_discount' ) . ' ';
 			if ( $nb_discount == 1 && $discount_info['amount_type'] == 'percent' ) {
-				$price_breakdown .= 
+				$price_breakdown .=
 					$discount_percent_value .
 					'% x ' .
 					$this->utils->price_with_symbol( $price ) .
 					' = ';
 			}
-			$price_breakdown .= 
+			$price_breakdown .=
 					$this->utils->price_with_symbol( $total_discount_amount ) .
-					'</span>' . 
+					'</span>' .
 					'<span class="hb-price-breakdown-section">' .
 					$this->hbdb->get_string( 'price_breakdown_after_discount' ) . ' ' .
 					$this->utils->price_with_symbol( $price - $total_discount_amount ) .
 					'</span>' .
 				'</span>';
-			
+
 			$price = $price - $total_discount_amount;
 		}
-		
+
 		$fees = $this->hbdb->get_fees( $accom_id );
 		if ( $fees ) {
 			$price_before_fee = $price;
@@ -282,7 +282,7 @@ class HbPriceCalc {
 			$this->apply_fees( $fees, $nb_nights, $adults, $children, $price, $fee_breakdown );
 			$price_breakdown .=
 				'<span class="hb-price-breakdown-fees">' .
-					'<span class="hb-price-breakdown-title">' . 
+					'<span class="hb-price-breakdown-title">' .
 					$this->hbdb->get_string( 'price_breakdown_fees' ) . ' ' .
 					$this->utils->price_with_symbol( $price - $price_before_fee ) .
 					'</span>';
@@ -290,21 +290,21 @@ class HbPriceCalc {
 			$price_breakdown .=
 				'</span>';
 		}
-		
-        if ( get_option( 'hb_price_precision' ) == 'no_decimals' ) {
-            $price = round( $price );
-        }
-        
+
+		if ( get_option( 'hb_price_precision' ) == 'no_decimals' ) {
+			$price = round( $price );
+		}
+
 		return array( 'success' => true, 'value' => $price );
 	}
 
-	private function get_price_per_type( $type, $multi, $rule_ids, $accom_id, $nights, $str_check_out, &$price ) {	
+	private function get_price_per_type( $type, $multi, $rule_ids, $accom_id, $nights, $str_check_out, &$price ) {
 		$list_of_price = array();
 		$current_night_price = -1;
 		$current_count_nights = -1;
 		$multiple_nights_rate = false;
 		$night_groups = array();
-		
+
 		$previous_season_id = 0;
 		$current_night_group = array();
 		foreach ( $nights as $night ) {
@@ -327,11 +327,11 @@ class HbPriceCalc {
 			'season_id' => $previous_season_id,
 			'nights' => $current_night_group
 		);
-		
+
 		foreach ( $night_groups as $night_group ) {
 			$season_id = $night_group['season_id'];
 			$nights = $night_group['nights'];
-			
+
 			$rates = array();
 			foreach ( $rule_ids as $rule_id ) {
 				$rates = $this->rates[ $type ][ $rule_id ][ $accom_id ][ $season_id ];
@@ -355,14 +355,14 @@ class HbPriceCalc {
 				$error_message = str_replace( '%accom_name', '<b>' . get_the_title( $accom_id ) . '</b>', $error_message );
 				return $error_message;
 			}
-			
+
 			$rate_nb_nights_value = array();
 			foreach ( $rates as $rate ) {
 				$rate_nb_nights_value[ $rate['nb_nights'] ] = $rate['amount'];
 			}
 			$available_rate_nb_nights = array_keys( $rate_nb_nights_value );
 			sort( $available_rate_nb_nights );
-			
+
 			$night_sub_groups = array();
 			$available_rate_nb_nights_pointer = count( $available_rate_nb_nights ) - 1;
 			$rate_nb_nights = $available_rate_nb_nights[ $available_rate_nb_nights_pointer ];
@@ -384,7 +384,7 @@ class HbPriceCalc {
 					}
 				}
 			} while ( count( $nights ) > 0 );
-			
+
 			foreach ( $night_sub_groups as $nights ) {
 				$is_multiple_nights_rate = false;
 				if ( isset( $rate_nb_nights_value[ count( $nights ) ] ) ) {
@@ -401,7 +401,7 @@ class HbPriceCalc {
 					$night_price = $rate_amount / $rate_nb_nights;
 					$price += $night_price * count( $nights ) * $multi;
 				}
-				
+
 				if ( $night_price != $current_night_price || count( $nights ) != $current_count_nights ) {
 					if ( $is_multiple_nights_rate ) {
 						$multiple_nights_rate = array(
@@ -428,30 +428,30 @@ class HbPriceCalc {
 				}
 			}
 		}
-		
+
 		if ( ( count( $list_of_price ) > 0 ) && ( ! $list_of_price[ count( $list_of_price ) - 1 ]['end_date'] ) ) {
 			$list_of_price[ count( $list_of_price ) - 1 ]['end_date'] = date( 'Y-m-d', strtotime( $str_check_out ) );
 		}
 		return $list_of_price;
-	}	
-	
+	}
+
 	private function apply_fees( $fees, $nb_nights, $adults, $children, &$price, &$price_breakdown ) {
 		$price_before_fee = $price;
-        if ( $nb_nights == 1 ) {
-            $night_str = $this->hbdb->get_string( 'price_breakdown_night_one' );
-        } else {
-            $night_str = $this->hbdb->get_string( 'price_breakdown_nights_several' );
-        }
-        if ( $adults == 1 ) {
-            $adults_str = $this->hbdb->get_string( 'fee_details_adult_one' );
-        } else {
-            $adults_str = $this->hbdb->get_string( 'fee_details_adults_several' );
-        }
-        if ( $children == 1 ) {
-            $children_str = $this->hbdb->get_string( 'fee_details_child_one' );
-        } else {
-            $children_str = $this->hbdb->get_string( 'fee_details_children_several' );
-        }
+		if ( $nb_nights == 1 ) {
+			$night_str = $this->hbdb->get_string( 'price_breakdown_night_one' );
+		} else {
+			$night_str = $this->hbdb->get_string( 'price_breakdown_nights_several' );
+		}
+		if ( $adults == 1 ) {
+			$adults_str = $this->hbdb->get_string( 'fee_details_adult_one' );
+		} else {
+			$adults_str = $this->hbdb->get_string( 'fee_details_adults_several' );
+		}
+		if ( $children == 1 ) {
+			$children_str = $this->hbdb->get_string( 'fee_details_child_one' );
+		} else {
+			$children_str = $this->hbdb->get_string( 'fee_details_children_several' );
+		}
 		foreach ( $fees as $fee ) {
 			$fee_name = $this->hbdb->get_string( 'fee_' . $fee['id'] );
 			if ( ! $fee_name ) {
@@ -460,83 +460,82 @@ class HbPriceCalc {
 			$fee_name .= ' ';
 			$price_breakdown .= '<span class="hb-price-breakdown-section">' . $fee_name;
 			switch ( $fee['apply_to_type'] ) {
-				
+
 				case 'per-person' :
 					$fee_value = $fee['amount'] * $adults + $fee['amount_children'] * $children;
 					$price += $fee_value;
-					$price_breakdown .= 
+					$price_breakdown .=
 						$adults . ' ' . $adults_str .
 						' x ' .
 						$this->utils->price_with_symbol( $fee['amount'] );
-                    if ( $children != 0 ) {
-                        $price_breakdown .= 
-                        ' + ' .
-                        $children . ' ' . $children_str .
-                        ' x ' .
-                        $this->utils->price_with_symbol( $fee['amount_children'] );
-                    }
-                    $price_breakdown .=
-						' = ' . 
+					if ( $children != 0 ) {
+						$price_breakdown .=
+						' + ' .
+						$children . ' ' . $children_str .
+						' x ' .
+						$this->utils->price_with_symbol( $fee['amount_children'] );
+					}
+					$price_breakdown .=
+						' = ' .
 						$this->utils->price_with_symbol( $fee_value ) .
 						'</span>';
 				break;
-				
+
 				case 'per-accom' :
 					$price += $fee['amount'];
 					$price_breakdown .=  $this->utils->price_with_symbol( $fee['amount'] );
 				break;
-				
+
 				case 'per-person-per-day' :
 					$fee_value = $fee['amount'] * $adults * $nb_nights + $fee['amount_children'] * $children * $nb_nights;
 					$price += $fee_value;
-					$price_breakdown .= 
+					$price_breakdown .=
 						$nb_nights . ' ' . $night_str .
 						' x ' .
 						$adults . ' ' . $adults_str .
 						' x ' .
 						$this->utils->price_with_symbol( $fee['amount'] );
-                    if ( $children != 0 ) {
-                        $price_breakdown .= 
-                        ' + ' .
-                        $nb_nights . ' ' . $night_str .
+					if ( $children != 0 ) {
+						$price_breakdown .=
+						' + ' .
+						$nb_nights . ' ' . $night_str .
 						' x ' .
 						$children . ' ' . $children_str .
 						' x ' .
 						$this->utils->price_with_symbol( $fee['amount_children'] );
-                    }
-                    $price_breakdown .=
-						' = ' . 
+					}
+					$price_breakdown .=
+						' = ' .
 						$this->utils->price_with_symbol( $fee_value ) .
 						'</span>';
 				break;
-				
+
 				case 'per-accom-per-day' :
 					$fee_value = $fee['amount'] * $nb_nights;
 					$price += $fee_value;
-					$price_breakdown .= 
+					$price_breakdown .=
 						$nb_nights . ' ' . $night_str .
 						' x ' .
-						$this->utils->price_with_symbol( $fee['amount'] ) . 
-						' = ' . 
+						$this->utils->price_with_symbol( $fee['amount'] ) .
+						' = ' .
 						$this->utils->price_with_symbol( $fee_value ) .
 						'</span>';
 				break;
-				
-				case 'accom-percentage' :	
-					$fee_value = round( $price_before_fee * ( $fee['amount'] / 100 ), 2 ); 
+
+				case 'accom-percentage' :
+					$fee_value = round( $price_before_fee * ( $fee['amount'] / 100 ), 2 );
 					$price += $fee_value;
-					$price_breakdown .= 
-						$fee['amount'] . 
+					$price_breakdown .=
+						$fee['amount'] .
 						'% x ' .
-						$this->utils->price_with_symbol( $price_before_fee ) . 
-						' = ' . 
+						$this->utils->price_with_symbol( $price_before_fee ) .
+						' = ' .
 						$this->utils->price_with_symbol( $fee_value ) .
 						'</span>';
 				break;
-	
+
 			}
 		}
 	}
-	
+
 }
-?>

@@ -2,11 +2,11 @@
 class HbAdminPageIcal extends HbAdminPage {
 
 	private $resa_ical;
-	
+
 	public function __construct( $page_id, $hbdb, $utils, $options_utils ) {
-		require_once dirname( dirname( dirname( plugin_dir_path( __FILE__ ) ) ) ) . '/utils/resa-ical.php';
+		require_once $utils->plugin_directory . '/utils/resa-ical.php';
 		$this->resa_ical = new HbResaIcal( $hbdb, $utils );
-		
+
 		$this->data = array(
 			'hb_text' => array(
 				'confirm_delete' => esc_html__( 'Stop synchronizing with this calendar?', 'hbook-admin' ),
@@ -17,21 +17,21 @@ class HbAdminPageIcal extends HbAdminPage {
 
 	public function display() {
 		?>
-		
+
 		<div class= "wrap" >
-			
+
 			<h1><?php esc_html_e( 'Ical synchronization and import/export', 'hbook-admin' ); ?></h1>
-			
+
 			<?php $this->display_right_menu(); ?>
-			
+
 			<hr/>
-			
+
 			<p>
 				<?php printf( esc_html__( 'For iCal synchronization to work properly, we strongly recommend that %s is used as your main calendar.', 'hbook-admin' ), '<b>HBook</b>' ); ?><br/>
 				<?php printf( esc_html__( 'If there are dates that you need to block, you should set these unavailable dates using %s and not add them manually in the external calendars.', 'hbook-admin' ), '<b>' . esc_html__( 'Reservations->Block accommodation', 'hbook-admin' ) . '</b>' ); ?><br/>
 				<?php esc_html_e( 'With the synchronization, they will be set automatically as unavailable in your other calendars.', 'hbook-admin' ); ?>
 			</p>
-			
+
 		<?php
 		if ( isset( $_POST['ical-upload-form-action'] ) && wp_verify_nonce( $_POST['hb_import_ical_file'], 'hb_import_ical_file' ) && current_user_can( 'manage_options' ) ) {
 			$import_file = $_FILES['hb-import-ical-file']['tmp_name'];
@@ -83,7 +83,7 @@ class HbAdminPageIcal extends HbAdminPage {
 						$this->hbdb->add_ical_calendar( $accom_id, $accom_num, $synchro_url, $synchro_id, $calendar_id, $calendar_name );
 					}
 				} else if ( $_POST['ical-url-form-action'] == 'edit-calendar' ) {
-					$db_calendar_id = intval( $_POST['edit-ical-calendar-id'] ); 
+					$db_calendar_id = intval( $_POST['edit-ical-calendar-id'] );
 					$db_synchro_url = wp_strip_all_tags( $_POST['edit-ical-calendar-url'] );
 					if ( $db_synchro_url != $synchro_url ) {
 						$calendar_imported = $this->resa_ical->ical_parse( $response['body'], $accom_num, $accom_id, $calendar_name );
@@ -97,7 +97,7 @@ class HbAdminPageIcal extends HbAdminPage {
 				}
 			}
 		}
-		
+
 		if ( isset(	$_POST['ical-synchro-deletion'] ) && wp_verify_nonce( $_POST['ical-synchro-deletion'], 'ical-synchro-deletion'  ) && current_user_can( 'manage_options' ) ) {
 			$db_synchro_url = wp_strip_all_tags( $_POST['ical-calendar-url'] );
 			$this->hbdb->delete_ical_calendar( $db_synchro_url );
@@ -106,12 +106,12 @@ class HbAdminPageIcal extends HbAdminPage {
 		if ( isset(	$_POST['update-sync-calendars'] ) && wp_verify_nonce( $_POST['update-sync-calendars'], 'update-sync-calendars' ) && current_user_can( 'manage_options' ) ) {
 			$this->resa_ical->update_calendars();
 		}
-		
+
 		if ( $this->utils->nb_accom() == 0 ) {
 			echo( '<p>' . esc_html__( 'At least one accommodation must be created in order to set iCal synchronization.', 'hbook-admin' ) . '</p>' );
 		} else {
 		?>
-		
+
 			<form class="update-sync-calendars" method="post">
 				<input type="hidden" name="update-sync-calendars" value="" />
 				<?php wp_nonce_field( 'update-sync-calendars', 'update-sync-calendars' ); ?>
@@ -119,14 +119,14 @@ class HbAdminPageIcal extends HbAdminPage {
 			</form>
 			<p>
 				<i>
-					<?php 
+					<?php
 					esc_html_e( 'Last synchronized on: ', 'hbook-admin' );
-					$last_synced = get_option( 'hb_last_synced' ); 
+					$last_synced = get_option( 'hb_last_synced' );
 					$local_last_sync = $this->utils->get_blog_datetime( $last_synced );
 					echo( esc_html( $local_last_sync ) );
 					?>
-				</i>		
-			</p>		
+				</i>
+			</p>
 			<table class="wp-list-table widefat hb-ical-table">
 				<thead>
 					<tr>
@@ -233,9 +233,9 @@ class HbAdminPageIcal extends HbAdminPage {
 			<br/>
 
 			<form id="hb-settings-form">
-		
+
 				<?php
-				foreach ( $this->options_utils->ical_settings as $section_id => $section ) {
+				foreach ( $this->options_utils->get_ical_settings() as $section_id => $section ) {
 					$this->options_utils->display_section_title( $section['label'] );
 					foreach ( $section['options'] as $id => $option ) {
 						$function_to_call = 'display_' . $option['type'] . '_option';
@@ -244,12 +244,12 @@ class HbAdminPageIcal extends HbAdminPage {
 					$this->options_utils->display_save_options_section();
 				}
 				?>
-				
+
 				<input type="hidden" name="action" value="hb_update_ical_settings" />
 				<input id="hb-nonce" type="hidden" name="nonce" value="" />
-				
+
 				<?php wp_nonce_field( 'hb_nonce_update_db', 'hb_nonce_update_db' ); ?>
-				
+
 			</form>
 
 		</div><!-- end .wrap -->

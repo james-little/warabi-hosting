@@ -1,29 +1,29 @@
 function hb_date_str_2_obj( str_date ) {
-    if ( str_date ) {
-        var array_date = str_date.split( '-' );
-        return new Date( array_date[0], array_date[1] - 1, array_date[2] );
-    } else {
-        return false;
-    }
+	if ( str_date ) {
+		var array_date = str_date.split( '-' );
+		return new Date( array_date[0], array_date[1] - 1, array_date[2] );
+	} else {
+		return false;
+	}
 }
 
 function hb_date_obj_2_str( obj_date ) {
-    if ( obj_date ) {
-        var y = obj_date.getFullYear(),
-            m = obj_date.getMonth() + 1,
-            d = obj_date.getDate();
-        m = m + '';
-        d = d + '';
-        if ( m.length == 1 ) {
-            m = '0' + m;
-        }
-        if ( d.length == 1 ) {
-            d = '0' + d;
-        }
-        return y + '-' + m + '-' + d;
-    } else {
-        return false;
-    }
+	if ( obj_date ) {
+		var y = obj_date.getFullYear(),
+			m = obj_date.getMonth() + 1,
+			d = obj_date.getDate();
+		m = m + '';
+		d = d + '';
+		if ( m.length == 1 ) {
+			m = '0' + m;
+		}
+		if ( d.length == 1 ) {
+			d = '0' + d;
+		}
+		return y + '-' + m + '-' + d;
+	} else {
+		return false;
+	}
 }
 
 function hb_format_date() {
@@ -40,9 +40,9 @@ function hb_get_season_id( date ) {
 	var seasons = hb_booking_form_data.seasons,
 		nb_day,
 		copied_date = new Date( date.valueOf() );
-	
+
 	copied_date.setHours( 0, 0, 0, 0 );
-		
+
 	nb_day = date.getDay();
 	if ( nb_day == 0 ) {
 		nb_day = 6;
@@ -50,7 +50,7 @@ function hb_get_season_id( date ) {
 		nb_day = nb_day - 1;
 	}
 	nb_day += '';
-	
+
 	for ( var i = 0; i < seasons.length; i++ ) {
 		var start = hb_date_str_2_obj( seasons[ i ]['start_date'] ),
 			end = hb_date_str_2_obj( seasons[ i ]['end_date'] );

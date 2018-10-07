@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
 			$( '.hb-stripe-mode-test' ).slideDown();
 		}
 	}
-	
+
 	$( 'input[name="hb_stripe_mode"]' ).change( function() {
 		stripe_api_key();
 	});

@@ -1,5 +1,5 @@
 jQuery( document ).ready( function( $ ) {
-	
+
 	var Field = function( standard, id, name, displayed, required, type, choices, form_name, data_about, column_width ) {
 		var self = this;
 		this.standard = standard;
@@ -13,7 +13,7 @@ jQuery( document ).ready( function( $ ) {
 		}, this );
 		this.displayed_no_input_id = ko.computed( function() {
 			return this.id() + '_displayed_no';
-		}, this );		
+		}, this );
 		this.required_yes_input_id = ko.computed( function() {
 			return this.id() + '_required_yes';
 		}, this );
@@ -34,7 +34,7 @@ jQuery( document ).ready( function( $ ) {
 			this.choices.push( choices[i] );
 		}
 		this.editing_name = ko.observable( false );
-		
+
 		this.add_choice = function() {
 			var id = get_unique_choice_id( 'new_choice' );
 			if ( id ) {
@@ -44,19 +44,19 @@ jQuery( document ).ready( function( $ ) {
 				alert( 'Too many new choices. Please start renaming choices.' );
 			}
 		}
-		
+
 		this.remove_choice = function( choice ) {
 			if ( confirm( hb_text.confirm_delete_choice.replace( '%choice_name', choice.name() ) ) ) {
 				self.choices.remove( choice );
 				form_saved = false;
 			}
 		}
-		
+
 		this.edit_choice_name = function( choice ) {
 			choice.editing_choice( true );
 			form_saved = false;
 		}
-		
+
 		this.stop_edit_choice_name = function( choice ) {
 			choice.editing_choice( false );
 			$( '.hb-input-choice-name' ).blur();
@@ -66,23 +66,23 @@ jQuery( document ).ready( function( $ ) {
 			}
 			form_saved = false;
 		}
-		
+
 		function get_unique_choice_id( name ) {
 			return get_unique_id( name, self.choices() );
 		}
-		
+
 	}
-	
+
 	var Choice = function( id, name ) {
 		this.id = ko.observable( id );
 		this.name = ko.observable( name );
-		
+
 		this.editing_choice = ko.observable( false );
 	}
-	
+
 	var FieldsViewModel = function() {
 		var self = this;
-		
+
 		var observable_fields = [];
 		for ( var i = 0; i < hb_fields.length; i++ ) {
 			var observable_choices = [];
@@ -92,7 +92,7 @@ jQuery( document ).ready( function( $ ) {
 			observable_fields.push( new Field( hb_fields[i].standard, hb_fields[i].id, hb_fields[i].name, hb_fields[i].displayed, hb_fields[i].required, hb_fields[i].type, observable_choices, hb_fields[i].form_name, hb_fields[i].data_about, hb_fields[i].column_width ) );
 		}
 		self.fields = ko.observableArray( observable_fields );
-		
+
 		function new_field( id ) {
 			var standard = 'no',
 				id = id,
@@ -104,14 +104,14 @@ jQuery( document ).ready( function( $ ) {
 				required = 'no',
 				type = 'text',
 				choices = [];
-				
+
 			if ( form_name != 'contact' ) {
 				data_about = 'customer';
 			}
-			
+
 			return new Field( standard, id, name, displayed, required, type, choices, form_name, data_about, column_width );
 		}
-		
+
 		this.add_field_top = function() {
 			$( '#hb-form-add-field-top' ).blur();
 			var id = get_unique_field_id( 'new_field' );
@@ -123,7 +123,7 @@ jQuery( document ).ready( function( $ ) {
 				alert( 'Too many new fields. Please start renaming fields.' );
 			}
 		}
-		
+
 		this.add_field_bottom = function() {
 			$( '#hb-form-add-field-bottom' ).blur();
 			var id = get_unique_field_id( 'new_field' );
@@ -133,14 +133,14 @@ jQuery( document ).ready( function( $ ) {
 				$( '.hb-form-fields-container .hb-form-field' ).last().hide().slideDown();
 			} else {
 				alert( 'Too many new fields. Please start renaming fields.' );
-			}			
+			}
 		}
-		
+
 		this.remove_field = function( field ) {
 			var confirm_text,
 				no_info_fields = [ 'column_break', 'title', 'sub_title', 'explanation', 'separator' ],
 				no_name_fields = [ 'column_break', 'separator' ];
-			
+
 			if ( no_name_fields.indexOf( field.type() ) > -1 ) {
 				confirm_text = hb_text.confirm_delete_field_no_name;
 			} else {
@@ -156,12 +156,12 @@ jQuery( document ).ready( function( $ ) {
 				});
 			}
 		}
-		
+
 		this.edit_field_name = function( field ) {
 			field.editing_name( true );
 			form_saved = false;
 		}
-		
+
 		this.stop_edit_field_name = function( field ) {
 			field.editing_name( false );
 			$( '.hb-input-field-name' ).blur();
@@ -171,11 +171,11 @@ jQuery( document ).ready( function( $ ) {
 			}
 			form_saved = false;
 		}
-			
+
 		function get_unique_field_id( name ) {
 			return get_unique_id( name, self.fields() );
 		}
-		
+
 		this.variables_list = ko.computed( function() {
 			var fields = self.fields(),
 				ids = [],
@@ -192,9 +192,9 @@ jQuery( document ).ready( function( $ ) {
 			}
 			return hb_text.variables_intro + ids.join( '&nbsp;&nbsp;-&nbsp;&nbsp;' );
 		});
-		
+
 	}
-	
+
 	function get_unique_id( name, stack ) {
 		var id_already_taken,
 			id_candidate_max_length = 45,
@@ -224,7 +224,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		return false;
 	}
-	
+
 	ko.bindingHandlers.slideVisible = {
 		init: function( element, valueAccessor ) {
 			if ( valueAccessor()() == 'no' ) {
@@ -241,20 +241,20 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	ko.bindingHandlers.sortable.options = { distance: 5 };
-	
+
 	var viewModel = new FieldsViewModel();
-	
-	ko.applyBindings( viewModel );	
-	
+
+	ko.applyBindings( viewModel );
+
 	//$( '.hb-form-fields-container .hb-form-field' ).show();
 
 	$( '.hb-saved' ).html( hb_text.form_saved );
-	
+
 	$( '.hb-options-save' ).click( function() {
 		$( this ).blur();
 		var $save_section = $( this ).parent().parent();
 		$save_section.find( '.hb-ajaxing' ).css( 'display', 'inline' );
-		
+
 		var data = {
 			'nonce': $( '#hb_nonce_update_db' ).val(),
 			'hb_fields': ko.toJSON( viewModel )
@@ -270,7 +270,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 			data['hb_contact_message_type'] = contact_message_type;
 			data['hb_contact_message'] = $( '#hb_contact_message' ).val();
-		} else { // hb_form_name == 'booking' 
+		} else { // hb_form_name == 'booking'
 			data['action'] = 'hb_update_forms';
 			data['hb_maximum_adults'] = $( '#hb_maximum_adults' ).val();
 			data['hb_maximum_children'] = $( '#hb_maximum_children' ).val();
@@ -311,10 +311,10 @@ jQuery( document ).ready( function( $ ) {
 				alert( 'Connection error: ' + textStatus + ' (' + errorThrown + ')' );
 			}
 		});
-		
+
 		return false;
 	});
-	
+
 	var form_saved = true;
 
 	if ( hb_form_name == 'booking' ) {
@@ -322,11 +322,11 @@ jQuery( document ).ready( function( $ ) {
 			form_saved = false;
 		});
 	}
-	
+
 	window.onbeforeunload = function() {
 		if ( ! form_saved ) {
 			return hb_text.unsaved_warning;
 		}
-     }
-	 
+	}
+
 });

@@ -1,17 +1,17 @@
 jQuery( document ).ready( function( $ ) {
 	$( '.hb-no-label' ).parent().css( 'margin-top', '-10px' );
 	$( '.hb-saved' ).html( hb_text.form_saved );
-	
+
 	$( '.hb-options-save' ).click( function() {
 		$( this ).blur();
 
 		if ( $( 'input[name="action"]' ).val() == 'hb_update_payment_settings' ) {
 			var deposit = $( '#hb_deposit_amount' ).val().trim();
-			if ( 
-				$( 'input[name="hb_deposit_type"]:checked' ).val() != 'none' && 
-				$( 'input[name="hb_deposit_type"]:checked' ).val() != 'one_night' && 
-				deposit && 
-				! $.isNumeric( deposit ) 
+			if (
+				$( 'input[name="hb_deposit_type"]:checked' ).val() != 'none' &&
+				$( 'input[name="hb_deposit_type"]:checked' ).val() != 'one_night' &&
+				deposit &&
+				! $.isNumeric( deposit )
 			) {
 				alert( hb_text.deposit_not_valid );
 				$( '#hb_deposit_amount' ).focus();
@@ -24,7 +24,7 @@ jQuery( document ).ready( function( $ ) {
 				return false;
 			}
 		}
-		
+
 		if ( $( 'input[name="action"]' ).val() == 'hb_update_misc_settings' ) {
 			var lang_settings = {};
 			$( '.hb-lang-settings' ).each( function () {
@@ -34,7 +34,7 @@ jQuery( document ).ready( function( $ ) {
 				}
 			});
 			$( '#hb_front_end_date_settings' ).val( JSON.stringify( lang_settings ) );
-			
+
 			var min_date_fixed = $( '#hb_min_date_fixed' ).val();
 			if ( min_date_fixed && ! min_date_fixed.match( /^\d{4}-\d{2}-\d{2}$/ ) ) {
 				alert( hb_text.date_not_valid );
@@ -48,12 +48,12 @@ jQuery( document ).ready( function( $ ) {
 				return false;
 			}
 		}
-		
+
 		if ( $( 'input[name="action"]' ).val() == 'hb_update_appearance_settings' ) {
 			var calendar_colors = {},
 				buttons_options = {},
 				inputs_selects_options = {};
-				
+
 			$( '.hb-calendar-color' ).each( function () {
 				calendar_colors[ $( this ).attr( 'id' ) ] = $( this ).val();
 			});
@@ -71,50 +71,50 @@ jQuery( document ).ready( function( $ ) {
 					inputs_selects_options[ $( this ).attr( 'id' ) ] = $( this ).val();
 				}
 			});
-			
+
 			$( '#hb_calendar_colors' ).val( JSON.stringify( calendar_colors ) );
 			$( '#hb_buttons_css_options' ).val( JSON.stringify( buttons_options ) );
 			$( '#hb_inputs_selects_css_options' ).val( JSON.stringify( inputs_selects_options ) );
 		}
-		
-        var $save_section = $( this ).parent().parent();
-        $save_section.find( '.hb-ajaxing' ).css( 'display', 'inline' );
-        $( '#hb-nonce' ).val( $( '#hb_nonce_update_db' ).val() );
-        $.ajax({
-            type: 'POST',
-            timeout: hb_ajax_settings.timeout,
-            url: ajaxurl,
-            data : $( '#hb-settings-form' ).serialize(),
-            success: function( ajax_return ) {
-                form_saved = true;
-                $save_section.find( '.hb-ajaxing' ).css( 'display', 'none' );
-                if ( ajax_return.trim() != 'settings saved' ) {
-                    alert( ajax_return );
-                } else {
-                    $save_section.find( '.hb-saved' ).show();
-                    setTimeout( function() {
-                        $save_section.find( '.hb-saved ' ).fadeOut();
-                    }, 4000 );
-                }
-            },
-            error: function( jqXHR, textStatus, errorThrown ) {
-                $save_section.find( '.hb-ajaxing' ).css( 'display', 'none' );
-                alert( textStatus + ' (' + errorThrown + ')' )
-            }
-        });
-		
-        return false;
+
+		var $save_section = $( this ).parent().parent();
+		$save_section.find( '.hb-ajaxing' ).css( 'display', 'inline' );
+		$( '#hb-nonce' ).val( $( '#hb_nonce_update_db' ).val() );
+		$.ajax({
+			type: 'POST',
+			timeout: hb_ajax_settings.timeout,
+			url: ajaxurl,
+			data : $( '#hb-settings-form' ).serialize(),
+			success: function( ajax_return ) {
+				form_saved = true;
+				$save_section.find( '.hb-ajaxing' ).css( 'display', 'none' );
+				if ( ajax_return.trim() != 'settings saved' ) {
+					alert( ajax_return );
+				} else {
+					$save_section.find( '.hb-saved' ).show();
+					setTimeout( function() {
+						$save_section.find( '.hb-saved ' ).fadeOut();
+					}, 4000 );
+				}
+			},
+			error: function( jqXHR, textStatus, errorThrown ) {
+				$save_section.find( '.hb-ajaxing' ).css( 'display', 'none' );
+				alert( textStatus + ' (' + errorThrown + ')' )
+			}
+		});
+
+		return false;
 	});
-    
-    var form_saved = true;
+
+	var form_saved = true;
 
 	$( '#hb-settings-form input, #hb-settings-form select, #hb-settings-form textarea' ).change( function() {
 		form_saved = false;
 	});
-	
+
 	window.onbeforeunload = function() {
 		if ( ! form_saved ) {
 			return hb_text.unsaved_warning;
 		}
-     }
+	}
 });

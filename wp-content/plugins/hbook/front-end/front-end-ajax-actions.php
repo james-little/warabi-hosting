@@ -3,19 +3,20 @@ class HbFrontEndAjaxActions {
 
 	private $hbdb;
 	private $utils;
-	
-	public function __construct( $db, $utils ) {
-		$this->hbdb = $db;
+
+	public function __construct( $hbdb, $utils ) {
+		$this->hbdb = $hbdb;
 		$this->utils = $utils;
 	}
-	
+
 	public function hb_get_available_accom() {
-		require_once plugin_dir_path( __FILE__ ) . 'booking-form/available-accom.php';
-		require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/resa-options.php';
-		require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/price-calc.php';
+		require_once $this->utils->plugin_directory . '/front-end/booking-form/available-accom.php';
+		require_once $this->utils->plugin_directory . '/utils/resa-options.php';
+		require_once $this->utils->plugin_directory . '/utils/price-calc.php';
 		$price_calc = new HbPriceCalc( $this->hbdb, $this->utils );
-        $options_form = new HbOptionsForm( $this->hbdb, $this->utils );
-        $available_accom = new HbAvailableAccom( $this->hbdb, $this->utils, $price_calc, $options_form );
+		$options_form = new HbOptionsForm( $this->hbdb, $this->utils );
+		$strings = $this->hbdb->get_strings();
+		$available_accom = new HbAvailableAccom( $this->hbdb, $this->utils, $strings, $price_calc, $options_form );
 		$search_request = array(
 			'check_in' => $_POST['check_in'],
 			'check_out' => $_POST['check_out'],
@@ -31,7 +32,7 @@ class HbFrontEndAjaxActions {
 		echo( json_encode( $response ) );
 		die;
 	}
-	
+
 	public function hb_save_details() {
 		$response['success'] = true;
 		$accom_num = $this->hbdb->get_first_available_accom_num( $_POST['hb-details-accom-id'], $_POST['hb-details-check-in'], $_POST['hb-details-check-out'] );
@@ -44,21 +45,21 @@ class HbFrontEndAjaxActions {
 			if ( isset( $_POST[ 'hb_email' ] ) ) {
 				$customer_email = stripslashes( strip_tags( $_POST[ 'hb_email' ] ) );
 			}
-			
+
 			$customer_id = $this->hbdb->get_customer_id( $customer_email );
 			if ( $customer_id ) {
 				$customer_id = $this->hbdb->update_customer_on_resa_creation( $customer_id, $customer_email, $customer_info );
 			} else {
 				$customer_id = $this->hbdb->create_customer( $customer_email, $customer_info );
 			}
-			
+
 			if ( ! $customer_id ) {
 				$response['success'] = false;
 				$response['error_msg'] = 'Error (could not create customer).';
 			} else {
 				$customer_info['id'] = $customer_id;
-				
-				require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/price-calc.php';
+
+				require_once $this->utils->plugin_directory . '/utils/price-calc.php';
 				$price_calc = new HbPriceCalc( $this->hbdb, $this->utils );
 				$price = $price_calc->get_price( $_POST['hb-details-accom-id'], $_POST['hb-details-check-in'], $_POST['hb-details-check-out'], $_POST['hb-details-adults'], $_POST['hb-details-children'] );
 				if ( ! $price['success'] ) {
@@ -66,42 +67,42 @@ class HbFrontEndAjaxActions {
 					$response['error_msg'] = 'Error (could not calculate price).';
 				} else {
 					$options = $this->hbdb->get_options_with_choices( $_POST['hb-details-accom-id'] );
-                    $adults = intval( $_POST['hb-details-adults'] );
-                    $children = intval( $_POST['hb-details-children'] );
-                    $nb_nights = $this->utils->get_number_of_nights( $_POST['hb-details-check-in'], $_POST['hb-details-check-out'] );
-                    $price_options = $this->utils->calculate_options_price( $adults, $children, $nb_nights, $options );
-                    $options_total_price = 0;
-                    $chosen_options = array();
+					$adults = intval( $_POST['hb-details-adults'] );
+					$children = intval( $_POST['hb-details-children'] );
+					$nb_nights = $this->utils->get_number_of_nights( $_POST['hb-details-check-in'], $_POST['hb-details-check-out'] );
+					$price_options = $this->utils->calculate_options_price( $adults, $children, $nb_nights, $options );
+					$options_total_price = 0;
+					$chosen_options = array();
 					foreach ( $options as $option ) {
-                        if ( $option['apply_to_type'] == 'quantity' || $option['apply_to_type'] == 'quantity-per-day' ) {
-                            $quantity = intval( $_POST[ 'hb_option_' . $option['id'] ] );
-                            $chosen_options[ $option['id'] ] = $quantity;
-                            $options_total_price += $quantity * $price_options[ 'option_' . $option['id'] ];
-                        } else if ( $option['choice_type'] == 'single' ) {
-                            if ( isset( $_POST[ 'hb_option_' . $option['id'] ] ) ) {
-                                $chosen_options[ $option['id'] ] = 'chosen';
-                                $options_total_price += $price_options[ 'option_' . $option['id'] ];
-                            }
-                        } else {
-                            foreach ( $option['choices'] as $choice ) {
-                                if ( $_POST[ 'hb_option_' . $option['id'] ] == $choice['id'] ) {
-                                    $chosen_options[ $option['id'] ] = $choice['id'];
-                                    $options_total_price += $price_options[ 'option_choice_' . $choice['id'] ];
-                                }
-                            }
-                        }
-                    }
+						if ( $option['apply_to_type'] == 'quantity' || $option['apply_to_type'] == 'quantity-per-day' ) {
+							$quantity = intval( $_POST[ 'hb_option_' . $option['id'] ] );
+							$chosen_options[ $option['id'] ] = $quantity;
+							$options_total_price += $quantity * $price_options[ 'option_' . $option['id'] ];
+						} else if ( $option['choice_type'] == 'single' ) {
+							if ( isset( $_POST[ 'hb_option_' . $option['id'] ] ) ) {
+								$chosen_options[ $option['id'] ] = 'chosen';
+								$options_total_price += $price_options[ 'option_' . $option['id'] ];
+							}
+						} else {
+							foreach ( $option['choices'] as $choice ) {
+								if ( $_POST[ 'hb_option_' . $option['id'] ] == $choice['id'] ) {
+									$chosen_options[ $option['id'] ] = $choice['id'];
+									$options_total_price += $price_options[ 'option_choice_' . $choice['id'] ];
+								}
+							}
+						}
+					}
 					$chosen_options = json_encode( $chosen_options );
-                    
-                    $price = $options_total_price + $price['value'];
-					
+
+					$price = $options_total_price + $price['value'];
+
 					$validated_coupon_code = '';
 					$coupon_id = '';
 					if ( isset( $_POST['hb-pre-validated-coupon-id'] ) ) {
 						$coupon_id = $_POST['hb-pre-validated-coupon-id'];
 					}
 					if ( $coupon_id ) {
-						require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/resa-coupon.php';
+						require_once $this->utils->plugin_directory . '/utils/resa-coupon.php';
 						$coupon_info = $this->hbdb->get_coupon_info( $coupon_id );
 						$coupon = new HbResaCoupon( $this->hbdb, $this->utils, $coupon_info );
 						if ( $coupon->is_valid( $_POST['hb-details-accom-id'], $_POST['hb-details-check-in'], $_POST['hb-details-check-out'] ) ) {
@@ -115,18 +116,18 @@ class HbFrontEndAjaxActions {
 						}
 					}
 
-                    $fees = $this->hbdb->get_global_fees();
-                    $fees_amount = 0;
-                    foreach ( $fees as $fee ) {
-                        if ( $fee['apply_to_type'] == 'global-percentage' ) {
-                            $fees_amount += $fee['amount'] * $price / 100;
-                        } else {
-                            $fees_amount += $fee['amount'];
-                        }
-                    }
-                    
-                    $price += $fees_amount;
-                    
+					$fees = $this->hbdb->get_global_fees();
+					$fees_amount = 0;
+					foreach ( $fees as $fee ) {
+						if ( $fee['apply_to_type'] == 'global-percentage' ) {
+							$fees_amount += $fee['amount'] * $price / 100;
+						} else {
+							$fees_amount += $fee['amount'];
+						}
+					}
+
+					$price += $fees_amount;
+
 					$deposit = 0;
 					if ( get_option( 'hb_deposit_type' ) == 'one_night' ) {
 						$deposit = $price / $nb_nights;
@@ -135,10 +136,10 @@ class HbFrontEndAjaxActions {
 						if ( $deposit > $price ) {
 							$deposit = $price;
 						}
-			        } else if ( get_option( 'hb_deposit_type' ) == 'percentage' ) {
-		                $deposit = $price * get_option( 'hb_deposit_amount' ) / 100;
-			        }
-					
+					} else if ( get_option( 'hb_deposit_type' ) == 'percentage' ) {
+						$deposit = $price * get_option( 'hb_deposit_amount' ) / 100;
+					}
+
 					$security_bond = 0;
 					$security_bond_deposit = 0;
 					if ( get_option( 'hb_security_bond_online_payment' ) == 'yes' ) {
@@ -150,13 +151,13 @@ class HbFrontEndAjaxActions {
 
 					$currency_to_round = array( 'HUF', 'JPY', 'TWD' );
 					if ( in_array( get_option( 'hb_currency' ), $currency_to_round ) || ( get_option( 'hb_price_precision' ) == 'no_decimals' ) ) {
-                        $price = round( $price );
+						$price = round( $price );
 						$deposit = round( $deposit );
-                    } else {
+					} else {
 						$price = round( $price, 2 );
 						$deposit = round( $deposit, 2 );
 					}
-					
+
 					if ( $_POST['hb-payment-type'] == 'store_credit_card' && ( get_option( 'hb_resa_payment_store_credit_card' ) == 'yes' || get_option( 'hb_resa_payment' ) == 'store_credit_card' ) ) {
 						$amount_to_pay = 0;
 						$payment_type = 'store_credit_card';
@@ -170,7 +171,7 @@ class HbFrontEndAjaxActions {
 						$amount_to_pay = $price + $security_bond;
 						$payment_type = 'offline';
 					}
-					
+
 					$resa_info = array(
 						'booking_form_num' => $_POST['hb-details-booking-form-num'],
 						'accom_id' => $_POST['hb-details-accom-id'],
@@ -188,11 +189,10 @@ class HbFrontEndAjaxActions {
 						'additional_info' => $this->utils->get_posted_additional_booking_info(),
 						'options' => $chosen_options,
 						'coupon' => $validated_coupon_code,
-                        'lang' => get_locale(),
 						'payment_token' => '',
 						'origin' => 'website',
 					);
-                    
+
 					if ( $_POST['hb-payment-flag'] == 'yes' ) {
 						$payment_gateway = $this->utils->get_payment_gateway( $_POST['hb-payment-gateway'] );
 						if ( $payment_gateway ) {
@@ -211,11 +211,11 @@ class HbFrontEndAjaxActions {
 						}
 						if ( $payment_gateway->has_redirection == 'no' ) {
 							if ( get_option( 'hb_resa_paid_has_confirmation' ) == 'no' ) {
-					            $status = 'new';
-	                        } else {
-	                            $status = 'pending';
-	                            $accom_num = 0;
-	                        }
+								$status = 'new';
+							} else {
+								$status = 'pending';
+								$accom_num = 0;
+							}
 							$resa_info['paid'] = $amount_to_pay;
 						} else {
 							$status = 'waiting_payment';
@@ -224,29 +224,29 @@ class HbFrontEndAjaxActions {
 						}
 					} else {
 						$resa_info['payment_gateway'] = '';
-                        if ( get_option( 'hb_resa_unpaid_has_confirmation' ) == 'no' ) {
-				            $status = 'new';
-                        } else {
-                            $status = 'pending';
-                            $accom_num = 0;
-                        }
+						if ( get_option( 'hb_resa_unpaid_has_confirmation' ) == 'no' ) {
+							$status = 'new';
+						} else {
+							$status = 'pending';
+							$accom_num = 0;
+						}
 					}
-                    
+
 					$resa_info['accom_num'] = $accom_num;
 					$resa_info['status'] = $status;
-					
+
 					$resa_id = $this->hbdb->create_resa( $resa_info );
 					if ( ! $resa_id && ! $resa_info['paid'] ) {
 						$response['success'] = false;
 						$response['error_msg'] = 'Error (could not create reservation).';
 					} else {
 						if ( $status == 'waiting_payment' ) {
-							$response['resa_id'] = $resa_id;					
+							$response['resa_id'] = $resa_id;
 						} else {
 							if ( $status == 'new' ) {
 								$this->hbdb->block_linked_accom( $resa_info['accom_id'], $resa_info['check_in'], $resa_info['check_out'], $resa_id );
 							}
-                            $this->utils->send_email( 'new_resa', $resa_id );
+							$this->utils->send_email( 'new_resa', $resa_id );
 						}
 					}
 				}
@@ -262,7 +262,7 @@ class HbFrontEndAjaxActions {
 		$response['msg'] = $this->hbdb->get_string( 'invalid_coupon' );
 		$coupon_ids = $this->hbdb->get_coupon_ids_by_code( $_POST['coupon_code'] );
 		if ( $coupon_ids ) {
-			require_once dirname( plugin_dir_path( __FILE__ ) ) . '/utils/resa-coupon.php';
+			require_once $this->utils->plugin_directory . '/utils/resa-coupon.php';
 			foreach ( $coupon_ids as $coupon_id ) {
 				$coupon_info = $this->hbdb->get_coupon_info( $coupon_id );
 				$coupon = new HbResaCoupon( $this->hbdb, $this->utils, $coupon_info );
@@ -290,4 +290,3 @@ class HbFrontEndAjaxActions {
 		die;
 	}
 }
-?>

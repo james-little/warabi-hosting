@@ -7,18 +7,18 @@ class HbDetailsForm {
 	private $hb_strings;
 	private $form_fields;
 	private $global_fees;
-    
+
 	public function __construct( $hbdb, $utils, $hb_strings, $form_fields, $global_fees ) {
 		$this->hbdb = $hbdb;
 		$this->utils = $utils;
 		$this->hb_strings = $hb_strings;
 		$this->form_fields = $form_fields;
-        $this->global_fees = $global_fees;
+		$this->global_fees = $global_fees;
 	}
-	
+
 	public function get_details_form_mark_up( $resa, $booking_form_num ) {
-		return 
-			'<form class="hb-booking-details-form">' . 
+		return
+			'<form class="hb-booking-details-form">' .
 				$this->get_details_fields( $resa ) .
 				$this->get_coupon_area() .
 				$this->get_resa_summary() .
@@ -27,7 +27,7 @@ class HbDetailsForm {
 				$this->get_confirm_area() .
 			'</form><!-- end .hb-booking-details-form -->';
 	}
-	
+
 	public function get_details_fields( $resa ) {
 		$fields = $this->hbdb->get_form_fields( 'booking' );
 		$output = '';
@@ -65,7 +65,7 @@ class HbDetailsForm {
 				}
 
 				$output .= $this->form_fields->get_field_mark_up( $field, $resa );
-				
+
 				if ( $current_columns_wrapper && ( $current_columns_wrapper == $column_num ) ) {
 					$column_num = 0;
 					$nb_columns = 0;
@@ -79,10 +79,10 @@ class HbDetailsForm {
 			$output .= '</div><!-- end .hb-clearfix -->';
 		}
 		$output = '<div class="hb-details-fields">' . $output . '</div>';
-        $output = apply_filters( 'hb_details_form_markup', $output );
-        return $output;
+		$output = apply_filters( 'hb_details_form_markup', $output );
+		return $output;
 	}
-	
+
 	private function get_coupon_area() {
 		$output = '<span class="hb-coupon-amount">0</span>';
 		if ( $this->hbdb->site_has_coupons() ) {
@@ -112,9 +112,9 @@ class HbDetailsForm {
 		$amount_types = array( 'full_amount', 'deposit_amount', 'full_minus_deposit_amount' );
 		if ( get_option( 'hb_resa_payment_multiple_choice' ) == 'yes' ) {
 			$display_payment_title = true;
-            $payment_choice_text = '<p class="hb-payment-type-multiple-choice">';
-            $payment_choice_text .= '<b>' . $this->hb_strings['payment_type'] . '</b><br/>';
-			$payment_types = array( 'offline', 'store_credit_card', 'deposit', 'full' );
+			$payment_choice_text = '<p class="hb-payment-type-multiple-choice">';
+			$payment_choice_text .= '<b>' . $this->hb_strings['payment_type'] . '</b><br/>';
+			$payment_types = apply_filters( 'hb_payment_types', array( 'offline', 'store_credit_card', 'deposit', 'full' ) );
 			foreach ( $payment_types as $payment_type ) {
 				if ( get_option( 'hb_resa_payment_' . $payment_type ) == 'yes' ) {
 					$payment_choice_text .= '<input type="radio" id="hb-payment-type-' . $payment_type . '" name="hb-payment-type" value="' . $payment_type . '" />';
@@ -131,10 +131,10 @@ class HbDetailsForm {
 					$payment_type_explanation .= $explanation;
 				}
 			}
-            $payment_choice_text .= '</p>';
-        } else {
+			$payment_choice_text .= '</p>';
+		} else {
 			$payment_type = get_option( 'hb_resa_payment' );
-            $payment_choice_text = '<input class="hb-payment-type-hidden" type="radio" name="hb-payment-type" value="' . $payment_type . '" />';
+			$payment_choice_text = '<input class="hb-payment-type-hidden" type="radio" name="hb-payment-type" value="' . $payment_type . '" />';
 			if ( $payment_type == 'deposit' || $payment_type == 'full' ) {
 				$display_payment_title = true;
 			}
@@ -146,26 +146,26 @@ class HbDetailsForm {
 				}
 				$payment_type_explanation = '<p class="hb-payment-type-explanation hb-payment-type-explanation-' . $payment_type . '">' . $explanation . '</p>';
 			}
-        }
+		}
 		$output .= $payment_choice_text;
 		$output .= $payment_type_explanation;
-		
+
 		$output .= '<div class="hb-payment-method-wrapper">';
-		
+
 		$payment_gateways = $this->utils->get_active_payment_gateways();
 		$payment_gateways_text = esc_html__( 'There is no active payment gateways. Please activate at least one payment gateway in HBook settings (Hbook > Payment).', 'hbook-admin' );
 		if ( count( $payment_gateways ) == 1 ) {
-            $payment_gateways_text = '<input class="hb-payment-method-hidden" type="radio" name="hb-payment-gateway" value="' . $payment_gateways[0]->id . '" data-has-redirection="' . $payment_gateways[0]->has_redirection . '" />';
+			$payment_gateways_text = '<input class="hb-payment-method-hidden" type="radio" name="hb-payment-gateway" value="' . $payment_gateways[0]->id . '" data-has-redirection="' . $payment_gateways[0]->has_redirection . '" />';
 		} else if ( count( $payment_gateways ) > 1 ) {
 			$payment_gateways_text = '<p class="hb-payment-method"><b>' . $this->hb_strings['payment_method'] . '</b><br/>';
 			foreach ( $payment_gateways as $gateway ) {
 				$payment_gateways_text .= '<input type="radio" id="hb-payment-gateway-' . $gateway->id . '" name="hb-payment-gateway" value="' . $gateway->id . '" data-has-redirection="' . $gateway->has_redirection . '" />';
-                $payment_gateways_text .= ' <label for="hb-payment-gateway-' . $gateway->id . '">' . $gateway->get_payment_method_label() . '</label><br/>';
+				$payment_gateways_text .= ' <label for="hb-payment-gateway-' . $gateway->id . '">' . $gateway->get_payment_method_label() . '</label><br/>';
 			}
 			$payment_gateways_text .= '</p>';
 		}
 		$output .= $payment_gateways_text;
-		
+
 		$payment_forms = '';
 		foreach ( $payment_gateways as $gateway ) {
 			if ( $gateway->payment_form() ) {
@@ -173,22 +173,22 @@ class HbDetailsForm {
 			}
 		}
 		$output .= $payment_forms;
-		
+
 		$output .= '</div>';
-		
+
 		$output .= '<input type="hidden" name="hb-payment-flag" class="hb-payment-flag" />';
-		
+
 		if ( $display_payment_title ) {
 			$payment_section_title = $this->hb_strings['payment_section_title'];
 			if ( $payment_section_title ) {
-				$output = '<h3 class="hb-title hb-title-payment">' . $payment_section_title . '</h3>' . $output;	
+				$output = '<h3 class="hb-title hb-title-payment">' . $payment_section_title . '</h3>' . $output;
 			}
 		}
-		
+
 		$output = '<div class="hb-payment-info-wrapper">' . $output . '</div>';
 		return $output;
 	}
-	
+
 	private function get_resa_summary() {
 		$change_link = '<small><a href="#">' . $this->hb_strings['summary_change'] . '</a></small>';
 		$change_search = '<span class="hb-summary-change-search"> - ' . $change_link . '</span>';
@@ -248,7 +248,7 @@ class HbDetailsForm {
 		$output = apply_filters( 'hb_resa_summary_no_external_payment_markup', $output );
 		return $output;
 	}
-	
+
 	private function get_hidden_fields( $booking_form_num ) {
 		$output = '
 			<input type="hidden" class="hb-details-check-in" name="hb-details-check-in" />
@@ -259,7 +259,7 @@ class HbDetailsForm {
 			<input type="hidden" name="hb-details-booking-form-num" value="' . $booking_form_num . '"/>';
 		return $output;
 	}
-	
+
 	private function get_confirm_area() {
 		$policies = '';
 		if ( get_option( 'hb_display_terms_and_cond' ) == 'yes' ) {
@@ -277,7 +277,7 @@ class HbDetailsForm {
 				'</p>';
 		}
 		if ( $policies && ( $this->hb_strings['terms_and_cond_title'] ) ) {
-			$policies = 
+			$policies =
 				'<h3 class="hb-title hb-title-terms">' . $this->hb_strings['terms_and_cond_title'] . '</h3>' .
 				$policies;
 		}
@@ -285,7 +285,7 @@ class HbDetailsForm {
 		if ( $this->hb_strings['txt_before_book_now_button'] ) {
 			$txt_before_book_now_button = '<p>' . $this->hb_strings['txt_before_book_now_button'] . '</p>';
 		}
-		$output = 
+		$output =
 		'<div class="hb-confirm-area">' .
 			$policies .
 			'<p class="hb-saving-resa">' . $this->hb_strings['processing'] . '</p>' .
@@ -297,5 +297,5 @@ class HbDetailsForm {
 		$output = apply_filters( 'hb_confirm_area_markup', $output );
 		return $output;
 	}
-	
+
 }

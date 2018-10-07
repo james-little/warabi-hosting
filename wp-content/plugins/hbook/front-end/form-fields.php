@@ -1,12 +1,12 @@
 <?php
 class HBFormFields {
-	
+
 	private $hb_strings;
-	
+
 	public function __construct( $hb_strings ) {
 		$this->hb_strings = $hb_strings;
 	}
-	
+
 	public function get_field_mark_up( $field, $form_data = array(), $show_required = true, $display_column = true ) {
 		if ( $field['type'] == 'column_break' ) {
 			return '';
@@ -50,7 +50,7 @@ class HBFormFields {
 			if ( isset( $form_data[ $field['id'] ] ) ) {
 				$field_value = esc_textarea( $form_data[ $field['id'] ] );
 			}
-			$output .= '<textarea ' . $field_attributes . '/>';
+			$output .= '<textarea ' . $field_attributes . '>';
 			$output .= $field_value;
 			$output .= '</textarea>';
 		} else if ( $field['type'] == 'select' || $field['type'] == 'radio' || $field['type'] == 'checkbox' ) {
@@ -105,7 +105,7 @@ class HBFormFields {
 		$output = apply_filters( 'hb_details_form_markup_field', $output, $field );
 		return $output;
 	}
-	
+
 	private function get_field_display_name( $field ) {
 		$display_name = '';
 		if ( isset( $this->hb_strings[ $field['id'] ] ) ) {
@@ -117,7 +117,7 @@ class HBFormFields {
 			return $field['name'];
 		}
 	}
-	
+
 	private function get_field_attributes( $field ) {
 		$data_validation = '';
 		if ( $field['required'] == 'yes' ) {
@@ -131,5 +131,5 @@ class HBFormFields {
 		}
 		return 'id="' . $field['id'] . '" name="hb_' . $field['id'] . '" class="hb-detail-field" data-validation="' . $data_validation . '"';
 	}
-	
+
 }

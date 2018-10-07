@@ -1,13 +1,13 @@
 <?php
 abstract class HbPaymentGateway {
-    
-    public $id = '';
-    public $name = '';
-    public $version = '1.0';
-    public $has_redirection = 'no';
+
+	public $id = '';
+	public $name = '';
+	public $version = '1.0';
+	public $has_redirection = 'no';
 	public $hbdb;
 	public $utils;
-	
+
 	public function get_strings_section() {
 		return array();
 	}
@@ -35,38 +35,38 @@ abstract class HbPaymentGateway {
 		return $hb_strings;
 	}
 
-    public function get_payment_method_label() {
-        return '';
-    }
-    
-    public function admin_fields() {
-        return array();
-    }
-	
+	public function get_payment_method_label() {
+		return '';
+	}
+
+	public function admin_fields() {
+		return array();
+	}
+
 	public function admin_js_scripts() {
-        return array();
-    }
-    
-    public function js_scripts() {
-        return array();
-    }
-    
-    public function js_data() {
-        return array();
-    }
-    
-    public function payment_form() {
-        return '';
-    }
-    
-    public function hb_http_api_curl_ssl_version( $handle ) {
-        curl_setopt( $handle, CURLOPT_SSLVERSION, 6 );
-    }
-    
-    public function hb_http_api_curl_timeout( $handle ) {
-        curl_setopt( $handle, CURLOPT_TIMEOUT, 0 );
-    }
-	
+		return array();
+	}
+
+	public function js_scripts() {
+		return array();
+	}
+
+	public function js_data() {
+		return array();
+	}
+
+	public function payment_form() {
+		return '';
+	}
+
+	public function hb_http_api_curl_ssl_version( $handle ) {
+		curl_setopt( $handle, CURLOPT_SSLVERSION, 6 );
+	}
+
+	public function hb_http_api_curl_timeout( $handle ) {
+		curl_setopt( $handle, CURLOPT_TIMEOUT, 0 );
+	}
+
 	public function hb_remote_post( $url, $post_args ) {
 		$ssl_verify = true;
 		if ( get_option( 'hb_ssl_verify' ) == 'no' ) {
@@ -75,20 +75,20 @@ abstract class HbPaymentGateway {
 		$post_args = array_merge( $post_args, array( 'sslverify' => $ssl_verify, 'httpversion' => '1.1') );
 		if ( get_option( 'hb_curl_set_ssl_version' ) == 'yes' ) {
 			add_action( 'http_api_curl', array( $this, 'hb_http_api_curl_ssl_version' ) );
-		}		
+		}
 		if ( get_option( 'hb_curl_set_timeout' ) == 'yes' ) {
 			add_action( 'http_api_curl', array( $this, 'hb_http_api_curl_timeout' ) );
 		}
 		$response = wp_remote_post( $url, $post_args );
 		if ( get_option( 'hb_curl_set_ssl_version' ) == 'yes' ) {
 			remove_action( 'http_api_curl', array( $this, 'hb_http_api_curl_ssl_version' ) );
-		}		
+		}
 		if ( get_option( 'hb_curl_set_timeout' ) == 'yes' ) {
 			remove_action( 'http_api_curl', array( $this, 'hb_http_api_curl_timeout' ) );
 		}
 		return $response;
 	}
-    
+
 	public function get_payment_token() {
 		return false;
 	}
@@ -131,7 +131,7 @@ abstract class HbPaymentGateway {
 		}
 		return $payment_desc;
 	}
-	
+
 	public function get_return_urls( $parameters_to_remove = array() ) {
 		$parameters_to_remove = array_merge( $parameters_to_remove, array( 'payment_gateway', 'payment_confirm', 'payment_cancel' ) );
 		$current_url = $_POST['hb-current-url'];
@@ -155,12 +155,12 @@ abstract class HbPaymentGateway {
 		$return_urls['payment_cancel'] = $current_url . 'payment_cancel=1';
 		return $return_urls;
 	}
-	
+
 	public function confirm_payment() {
 		$reponse = array( 'success' => true );
 		return $response;
 	}
-	
-    abstract public function process_payment( $resa_info, $customer_info, $amount_to_pay );
-    
+
+	abstract public function process_payment( $resa_info, $customer_info, $amount_to_pay );
+
 }

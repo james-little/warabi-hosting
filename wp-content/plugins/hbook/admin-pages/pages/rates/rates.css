@@ -1,8 +1,8 @@
 .hb-add-new.spinner {
-    margin: -3px 0 0 3px;
+	margin: -3px 0 0 3px;
 }
 
-.wrap .add-new-h2, 
+.wrap .add-new-h2,
 .wrap .add-new-h2:active {
 	margin-left: 10px;
 	top: -1px;

@@ -1,6 +1,6 @@
 <?php
 class HbAdminPageSeasons extends HbAdminPage {
-	
+
 	public function __construct( $page_id, $hbdb, $utils, $options_utils ) {
 		$this->data = array(
 			'hb_text' => array(
@@ -12,7 +12,7 @@ class HbAdminPageSeasons extends HbAdminPage {
 		);
 		parent::__construct( $page_id, $hbdb, $utils, $options_utils );
 	}
-	
+
 	public function display() {
 	?>
 
@@ -23,18 +23,18 @@ class HbAdminPageSeasons extends HbAdminPage {
 			<a href="#" class="add-new-h2" data-bind="click: create_season"><?php esc_html_e( 'Add new season', 'hbook-admin' ); ?></a>
 			<span class="hb-add-new spinner"></span>
 		</h2>
-		
+
 		<?php $this->display_right_menu(); ?>
-		
+
 		<br/>
-		
+
 		<!-- ko if: seasons().length == 0 -->
 		<?php esc_html_e( 'No seasons set yet.', 'hbook-admin' ); ?>
 		<!-- /ko -->
-		
+
 		<!-- ko if: seasons().length > 0 -->
 		<div class="hb-table hb-season-table">
-		
+
 			<div class="hb-table-head hb-clearfix">
 				<div class="hb-table-head-data"><?php esc_html_e( 'Season name', 'hbook-admin' ); ?></div>
 				<div class="hb-table-head-data"><?php esc_html_e( 'Start date', 'hbook-admin' ); ?></div>
@@ -65,7 +65,7 @@ class HbAdminPageSeasons extends HbAdminPage {
 				</div>
 				<div data-bind="template: { name: $parent.child_template_to_use, foreach: dates, beforeRemove: $parent.hide_setting }"></div>
 			</script>
-			
+
 			<script id="child_text_tmpl" type="text/html">
 				<div class="hb-season-dates-row hb-clearfix">
 					<div class="hb-table-data"></div>
@@ -75,7 +75,7 @@ class HbAdminPageSeasons extends HbAdminPage {
 					<div class="hb-table-data hb-table-data-action"><?php $this->display_admin_action( 'season_dates' ); ?></div>
 				</div>
 			</script>
-			
+
 			<script id="child_edit_tmpl" type="text/html">
 				<div class="hb-season-dates-row hb-clearfix">
 					<div class="hb-table-data"></div>
@@ -85,10 +85,10 @@ class HbAdminPageSeasons extends HbAdminPage {
 					<div class="hb-table-data hb-table-data-action"><?php $this->display_admin_on_edit_action( 'season_dates' ); ?></div>
 				</div>
 			</script>
-			
+
 		</div>
 		<!-- /ko -->
-		
+
 	</div><!-- end .wrap -->
 
 	<?php

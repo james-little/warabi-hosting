@@ -196,11 +196,11 @@ hbdcob => hb-resa-day-checkout-blocked
 	color: #fff;
 	display: inline-block;
 	font-weight: 600;
-    position: relative;
+	position: relative;
 	text-align: left;
 	text-decoration: none;
 	white-space: nowrap;
-    z-index: 89;
+	z-index: 89;
 }
 
 .hbdbc {
@@ -264,14 +264,14 @@ hbdcob => hb-resa-day-checkout-blocked
 }
 
 @-moz-document url-prefix() {
-    .hbdtci div {
-        border-right: 21px solid;
-        border-top: 32px solid #fff;
-    }
-    .hbdtco div {
-        border-right: 21px solid #FFF;
-        border-top: 32px solid;
-    }
+	.hbdtci div {
+		border-right: 21px solid;
+		border-top: 32px solid #fff;
+	}
+	.hbdtco div {
+		border-right: 21px solid #FFF;
+		border-top: 32px solid;
+	}
 }
 
 .hbdb.hbdt {
@@ -288,11 +288,11 @@ hbdcob => hb-resa-day-checkout-blocked
 }
 
 .hbdb.hbdtci div {
-	border-top-color: #ffb5c3;	
+	border-top-color: #ffb5c3;
 }
 
 .hbdb.hbdtco div {
-	border-right-color: #ffb5c3;	
+	border-right-color: #ffb5c3;
 }
 
 .hbd-new.hbdt {
