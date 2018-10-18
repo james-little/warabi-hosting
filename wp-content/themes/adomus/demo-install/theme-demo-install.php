@@ -4,7 +4,7 @@ function hotelwp_demo_install_get_nb_demo() {
 	return 3;
 }
 
-function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
+function hotelwp_demo_install_get_img_list($demo_num, $sub_step) {
 	$demo_img_list = array(
 		'demo_1' => array(
 			'step_0' => array(
@@ -52,7 +52,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 9,
 					'name' => 'wine.jpg',
 					'title' => 'Wine',
-				)
+				),
 			),
 			'step_1' => array(
 				array(
@@ -104,7 +104,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 19,
 					'name' => 'affair.jpg',
 					'title' => 'Affair',
-				)
+				),
 			),
 			'step_2' => array(
 				array(
@@ -156,7 +156,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 29,
 					'name' => 'fitness.jpg',
 					'title' => 'Fitness',
-				)
+				),
 			),
 			'step_3' => array(
 				array(
@@ -208,8 +208,8 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 39,
 					'name' => 'singleroom.jpg',
 					'title' => 'Single Room',
-				)
-			)
+				),
+			),
 		),
 		'demo_2' => array(
 			'step_0' => array(
@@ -257,7 +257,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 9,
 					'name' => 'fisherman.jpg',
 					'title' => 'Fisherman',
-				)
+				),
 			),
 			'step_1' => array(
 				array(
@@ -309,7 +309,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 19,
 					'name' => 'foot.jpg',
 					'title' => 'Foot',
-				)
+				),
 			),
 			'step_2' => array(
 				array(
@@ -361,7 +361,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 29,
 					'name' => 'cafe.jpg',
 					'title' => 'Cafe',
-				)
+				),
 			),
 		),
 		'demo_3' => array(
@@ -410,7 +410,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 9,
 					'name' => 'hall.jpg',
 					'title' => 'Hall',
-				)
+				),
 			),
 			'step_1' => array(
 				array(
@@ -462,7 +462,7 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'id' => 19,
 					'name' => 'dinner.jpg',
 					'title' => 'Dinner',
-				)
+				),
 			),
 			'step_2' => array(
 				array(
@@ -510,22 +510,22 @@ function hotelwp_demo_install_get_img_list( $demo_num, $sub_step ) {
 					'name' => 'house.jpg',
 					'title' => 'House',
 				),
-			/*	array(
+				/*	array(
 					'id' => 29,
 					'name' => 'cafe.jpg',
 					'title' => 'Cafe',
 				)*/
-			)
-		)
+			),
+		),
 	);
-	if ( isset( $demo_img_list[ 'demo_' . $demo_num ][ 'step_' . $sub_step ] ) ) {
-		return $demo_img_list[ 'demo_' . $demo_num ][ 'step_' . $sub_step ];
+	if (isset($demo_img_list['demo_' . $demo_num]['step_' . $sub_step])) {
+		return $demo_img_list['demo_' . $demo_num]['step_' . $sub_step];
 	} else {
 		return array();
 	}
 }
 
-function hotelwp_demo_install_get_categories( $demo_num ) {
+function hotelwp_demo_install_get_categories($demo_num) {
 	$demo_categories = array(
 		'demo_1' => array(),
 		'demo_2' => array(
@@ -533,29 +533,29 @@ function hotelwp_demo_install_get_categories( $demo_num ) {
 				'name' => 'Local agenda',
 				'slug' => 'local_agenda',
 				'description' => 'We share with you the local events in the area!',
-				'post_ids' => array( 102 )
+				'post_ids' => array(102),
 			),
 			3 => array(
 				'name' => 'Sightseeing',
 				'slug' => 'sightseeing',
 				'description' => 'Here you can find a list of place worth visiting during your stay!',
-				'post_ids' => array( 103, 104 )
+				'post_ids' => array(103, 104),
 			),
 			4 => array(
 				'name' => 'Campground news',
 				'slug' => 'campground_news',
 				'description' => 'Here you can read about events happening in the Adomus Campgrounds!',
-				'post_ids' => array( 101 )
-			)
+				'post_ids' => array(101),
+			),
 		),
 		'demo_3' => array(),
 	);
-	return $demo_categories[ 'demo_' . $demo_num ];
+	return $demo_categories['demo_' . $demo_num];
 }
 
-function hotelwp_demo_install_get_posts( $demo_num ) {
+function hotelwp_demo_install_get_posts($demo_num) {
 	$demo_posts = array(
-		
+
 		'demo_1' => array(
 			101 => array(
 				'post_info' => array(
@@ -570,7 +570,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'_wp_page_template' => 'template-advanced-layout.php',
 					'hotelwp_meta' => '{"hero_type":"image","hero_youtube_video_id":"","hero_youtube_video_ratio":"","hero_youtube_video_start":"","hero_slider":"","hero_alt_image":"","hero_shortcode":"","hero_full_screen":"no","display_title":"no","tagline":"","alt_title":"","title_pos":"default","hero_ratio":"","hero_min_height":"","hero_max_height":"","display_booking_form":"no","booking_page_id":"","booking_custom_shortcode":"","booking_form_pos":"inside_hero","booking_form_style_hero":"horizontal","booking_form_vertical_pos_hero":"bottom_hero","booking_form_horizontal_pos_hero":"left_hero","booking_form_vertical_pos_hero_narrow_screen":"bottom_hero","display_scroll_arrow":"no","scroll_text":"","display_footer":"yes"}',
 					'hotelwp_organizer' => 'gallery__1,gallery__2',
-					'hotelwp_meta_sections' => '{"gallery__1_section_editor_state":"opened","gallery__1_tagline":"Adomus Bar - Asian food corner","gallery__1_title":"Open all day from 7am to 11pm","gallery__1_layout":"left","gallery__1_desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum, eros molestie vestibulum congue, felis augue consectetur neque, in porta neque erat vel lectus. Etiam vel commodo tellus. Suspendisse id nisl sit amet orci tincidunt auctor id eu felis. Aliquam dignissim nulla quis cursus porttitor. Cras pharetra libero ut volutpat luctus.","gallery__1_imgs":"2,3,4,5,6,7,8,9","gallery__1_link_text":"Check our gallery and menus","gallery__1_linked_page_id":"102","gallery__2_section_editor_state":"opened","gallery__2_tagline":"Adomus restaurant - European cuisine","gallery__2_title":"Opens for lunch and dinner","gallery__2_layout":"right","gallery__2_desc":"Morbi diam ipsum, ultrices et hendrerit in, blandit sed est. Suspendisse neque arcu, consequat at ligula sit amet, semper blandit justo. Curabitur vehicula feugiat libero in sodales. Cras scelerisque nec ante vitae porttitor. Aliquam molestie sit amet tortor eu mattis. Morbi luctus enim sit amet ultricies vulputate. Ut eu efficitur nibh. Pellentesque aliquam tincidunt tristique.","gallery__2_imgs":"9,8,7,6,5,4,3,2","gallery__2_link_text":"Check our gallery and menus","gallery__2_linked_page_id":"102"}'
+					'hotelwp_meta_sections' => '{"gallery__1_section_editor_state":"opened","gallery__1_tagline":"Adomus Bar - Asian food corner","gallery__1_title":"Open all day from 7am to 11pm","gallery__1_layout":"left","gallery__1_desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum, eros molestie vestibulum congue, felis augue consectetur neque, in porta neque erat vel lectus. Etiam vel commodo tellus. Suspendisse id nisl sit amet orci tincidunt auctor id eu felis. Aliquam dignissim nulla quis cursus porttitor. Cras pharetra libero ut volutpat luctus.","gallery__1_imgs":"2,3,4,5,6,7,8,9","gallery__1_link_text":"Check our gallery and menus","gallery__1_linked_page_id":"102","gallery__2_section_editor_state":"opened","gallery__2_tagline":"Adomus restaurant - European cuisine","gallery__2_title":"Opens for lunch and dinner","gallery__2_layout":"right","gallery__2_desc":"Morbi diam ipsum, ultrices et hendrerit in, blandit sed est. Suspendisse neque arcu, consequat at ligula sit amet, semper blandit justo. Curabitur vehicula feugiat libero in sodales. Cras scelerisque nec ante vitae porttitor. Aliquam molestie sit amet tortor eu mattis. Morbi luctus enim sit amet ultricies vulputate. Ut eu efficitur nibh. Pellentesque aliquam tincidunt tristique.","gallery__2_imgs":"9,8,7,6,5,4,3,2","gallery__2_link_text":"Check our gallery and menus","gallery__2_linked_page_id":"102"}',
 				),
 			),
 			102 => array(
@@ -726,7 +726,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'post_type' => 'post',
 				),
 				'meta_info' => array(
-					'_thumbnail_id' => 34
+					'_thumbnail_id' => 34,
 				),
 			),
 			112 => array(
@@ -738,7 +738,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'post_type' => 'post',
 				),
 				'meta_info' => array(
-					'_thumbnail_id' => 36
+					'_thumbnail_id' => 36,
 				),
 			),
 			113 => array(
@@ -750,7 +750,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'post_type' => 'post',
 				),
 				'meta_info' => array(
-					'_thumbnail_id' => 32
+					'_thumbnail_id' => 32,
 				),
 			),
 			114 => array(
@@ -1034,7 +1034,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 			108 => array(
 				'post_info' => array(
 					'post_title' => 'Reservation',
-					'post_content' => '[hb_booking_form paypal_return_url="' . get_permalink( 107 ) . '"]',
+					'post_content' => '[hb_booking_form paypal_return_url="' . get_permalink(107) . '"]',
 					'post_excerpt' => '',
 					'post_name' => 'reservation',
 					'post_type' => 'page',
@@ -1050,7 +1050,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 			109 => array(
 				'post_info' => array(
 					'post_title' => 'Gallery',
-					'post_content' => '[hb_booking_form paypal_return_url="' . get_permalink( 107 ) . '"]',
+					'post_content' => '[hb_booking_form paypal_return_url="' . get_permalink(107) . '"]',
 					'post_excerpt' => '',
 					'post_name' => 'gallery',
 					'post_type' => 'page',
@@ -1078,7 +1078,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'hotelwp_organizer' => 'posts__1',
 					'hotelwp_meta_sections' => '{"posts__1_section_editor_state":"closed","posts__1_tagline":"Our campgrounds are full of life!","posts__1_title":"Latest Adomus news","posts__1_number":"4","posts__1_layout":"img_right_left","posts__1_meta":"no","posts__1_selected_elts":"all"}',
 				),
-			),	
+			),
 			111 => array(
 				'post_info' => array(
 					'post_title' => 'Canoeing',
@@ -1124,7 +1124,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'htw-testimonial-author' => 'William',
 					'htw-testimonial-info' => 'from Adelaide, Australia',
 					'htw-testimonial-intro' => 'William comes every winter to relax and find inspiration for his novels at Adomus Campgrounds. Always ready to share a story!',
-			
+
 				),
 			),
 			114 => array(
@@ -1140,7 +1140,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'htw-testimonial-author' => 'The Smith family',
 					'htw-testimonial-info' => 'from Philadelphia, Pennsylvanie',
 					'htw-testimonial-intro' => 'John, Mary and their lovely daughters Anna and Suzie spent 2 weeks with us last summer. They felt relaxed and ready to go back to business after that break at Adomus Campgrounds.',
-			
+
 				),
 			),
 			115 => array(
@@ -1479,22 +1479,22 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 				),
 			),
 			/*
-			112 => array(
-				'post_info' => array(
-					'post_title' => 'Accommodation',
-					'post_content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ex ipsum, molestie quis venenatis eu, accumsan eget risus. Donec elementum eros lorem, id ornare nulla vehicula blandit. Phasellus iaculis finibus libero id rutrum. Pellentesque odio nulla, tempor vel varius sit amet, blandit nec nibh.',
-					'post_excerpt' => '',
-					'post_name' => 'gallery',
-					'post_type' => 'page',
+				112 => array(
+					'post_info' => array(
+						'post_title' => 'Accommodation',
+						'post_content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ex ipsum, molestie quis venenatis eu, accumsan eget risus. Donec elementum eros lorem, id ornare nulla vehicula blandit. Phasellus iaculis finibus libero id rutrum. Pellentesque odio nulla, tempor vel varius sit amet, blandit nec nibh.',
+						'post_excerpt' => '',
+						'post_name' => 'gallery',
+						'post_type' => 'page',
+					),
+					'meta_info' => array(
+						'_thumbnail_id' => 9,
+						'_wp_page_template' => 'template-advanced-layout.php',
+						'hotelwp_meta' => '{"hero_type":"image","hero_youtube_video_id":"","hero_youtube_video_ratio":"","hero_slider":"","hero_alt_image":"","hero_shortcode":"","hero_full_screen":"yes","display_title":"yes","tagline":"High standard unique accommodation","alt_title":"","title_pos":"below_hero","hero_ratio":"3\/2","hero_min_height":"500","hero_max_height":"700","display_booking_form":"yes","booking_page_id":"109","booking_custom_shortcode":"","booking_form_pos":"inside_hero","booking_form_style_hero":"vertical","booking_form_vertical_pos_hero":"bottom_hero","booking_form_horizontal_pos_hero":"right_hero","booking_form_vertical_pos_hero_narrow_screen":"bottom_hero","display_scroll_arrow":"yes","scroll_text":"","display_footer":"yes"}',
+						'hotelwp_organizer' => 'accom__1,cta__1',
+						'hotelwp_meta_sections' => '{"accom__1_section_editor_state":"closed","accom__1_tagline":"","accom__1_title":"","accom__1_selected_elts":"116,117,118","cta__1_section_editor_state":"opened","cta__1_text":"Fell in love with Adomus B&amp;B?","cta__1_link_text":"Send us a booking request","cta__1_link_page_id":"109"}',
+					),
 				),
-				'meta_info' => array(
-					'_thumbnail_id' => 9,
-					'_wp_page_template' => 'template-advanced-layout.php',
-					'hotelwp_meta' => '{"hero_type":"image","hero_youtube_video_id":"","hero_youtube_video_ratio":"","hero_slider":"","hero_alt_image":"","hero_shortcode":"","hero_full_screen":"yes","display_title":"yes","tagline":"High standard unique accommodation","alt_title":"","title_pos":"below_hero","hero_ratio":"3\/2","hero_min_height":"500","hero_max_height":"700","display_booking_form":"yes","booking_page_id":"109","booking_custom_shortcode":"","booking_form_pos":"inside_hero","booking_form_style_hero":"vertical","booking_form_vertical_pos_hero":"bottom_hero","booking_form_horizontal_pos_hero":"right_hero","booking_form_vertical_pos_hero_narrow_screen":"bottom_hero","display_scroll_arrow":"yes","scroll_text":"","display_footer":"yes"}',
-					'hotelwp_organizer' => 'accom__1,cta__1',
-					'hotelwp_meta_sections' => '{"accom__1_section_editor_state":"closed","accom__1_tagline":"","accom__1_title":"","accom__1_selected_elts":"116,117,118","cta__1_section_editor_state":"opened","cta__1_text":"Fell in love with Adomus B&amp;B?","cta__1_link_text":"Send us a booking request","cta__1_link_page_id":"109"}',
-				),
-			),
 			*/
 			113 => array(
 				'post_info' => array(
@@ -1524,7 +1524,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'_thumbnail_id' => '13',
 					'htw-testimonial-author' => 'John and Jane Doe',
 					'htw-testimonial-info' => ', from Dublin',
-					'htw-testimonial-intro' => 'Jane is from Dublin. She came in July. She spent a really nice week and has already booked her next stay with us!'
+					'htw-testimonial-intro' => 'Jane is from Dublin. She came in July. She spent a really nice week and has already booked her next stay with us!',
 				),
 			),
 			115 => array(
@@ -1539,7 +1539,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'_thumbnail_id' => '10',
 					'htw-testimonial-author' => 'Lila and Max',
 					'htw-testimonial-info' => ', from New-York',
-					'htw-testimonial-intro' => 'Lila and Max flew from London and visited us in July. They spent a really nice week. Here is what they think about their stay:'
+					'htw-testimonial-intro' => 'Lila and Max flew from London and visited us in July. They spent a really nice week. Here is what they think about their stay:',
 				),
 			),
 			116 => array(
@@ -1548,7 +1548,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'post_content' => '<h2>Luxury and Comfort</h2><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse convallis lacus lacus, in ullamcorper dolor pellentesque a. Aliquam aliquet eu metus et accumsan. Vestibulum placerat eget ipsum quis laoreet. Praesent ac magna sit amet urna pulvinar accumsan. Mauris ultricies, odio a auctor pretium, neque orci aliquet eros, sit amet pulvinar magna est sagittis dui. Pellentesque lacinia sagittis ipsum et facilisis.<br/>[gallery ids="14" padding="1"]',
 					'post_excerpt' => '',
 					'post_name' => 'bordeaux-room',
-					'post_type' =>  'hb_accommodation',
+					'post_type' => 'hb_accommodation',
 				),
 				'meta_info' => array(
 					'_thumbnail_id' => 14,
@@ -1567,7 +1567,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'post_content' => '<h2>Luxury and Comfort</h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse convallis lacus lacus, in ullamcorper dolor pellentesque a. Aliquam aliquet eu metus et accumsan. Vestibulum placerat eget ipsum quis laoreet. Praesent ac magna sit amet urna pulvinar accumsan. Mauris ultricies, odio a auctor pretium, neque orci aliquet eros, sit amet pulvinar magna est sagittis dui. Pellentesque lacinia sagittis ipsum et facilisis.[gallery ids="16,17,16" padding="1"]',
 					'post_excerpt' => '',
 					'post_name' => 'pistache-room',
-					'post_type' =>  'hb_accommodation',
+					'post_type' => 'hb_accommodation',
 				),
 				'meta_info' => array(
 					'_thumbnail_id' => 16,
@@ -1586,7 +1586,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'post_content' => '<h2>Luxury and Comfort</h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse convallis lacus lacus, in ullamcorper dolor pellentesque a. Aliquam aliquet eu metus et accumsan. Vestibulum placerat eget ipsum quis laoreet. Praesent ac magna sit amet urna pulvinar accumsan. Mauris ultricies, odio a auctor pretium, neque orci aliquet eros, sit amet pulvinar magna est sagittis dui. Pellentesque lacinia sagittis ipsum et facilisis.[gallery ids="15,17,15" padding="1"]',
 					'post_excerpt' => '',
 					'post_name' => 'apartment',
-					'post_type' =>  'hb_accommodation',
+					'post_type' => 'hb_accommodation',
 				),
 				'meta_info' => array(
 					'_thumbnail_id' => 15,
@@ -1662,7 +1662,7 @@ function hotelwp_demo_install_get_posts( $demo_num ) {
 					'hotelwp_meta_sections' => '{"pages__2_section_editor_state":"closed","pages__2_tagline":"Unique bedrooms and appartements","pages__2_title":"Accommodation","pages__2_ids":"116,117,118","pages__2_content":"excerpt","pages__2_link_title":"yes","pages__2_learn_more":"yes","pages__2_thumb_link":"full_size_img","text_img__1_section_editor_state":"closed","text_img__1_tagline":"Home away from home","text_img__1_title":"Welcome to Adomus B&amp;B","text_img__1_layout":"text_right","text_img__1_desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam tortor, posuere eget massa quis, placerat maximus purus. Nullam sodales consequat urna, ac fringilla magna. Maecenas sit amet laoreet neque. Nunc interdum rhoncus velit sit amet convallis. Pellentesque laoreet vel elit et congue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean elementum iaculis accumsan.\r\n\r\nVestibulum eu diam semper, consequat risus a, vestibulum risus. Curabitur id dolor nec urna consectetur imperdiet ut non libero. Maecenas aliquam eleifend ante et commodo. Nulla consectetur arcu id massa hendrerit varius. Nullam blandit, velit sit amet tincidunt tincidunt, nisi massa dictum est, ut ultrices risus ex vel ex. Praesent et tellus viverra, commodo massa id, commodo orci.\r\n\r\nVestibulum aliquet felis nunc, non aliquam lacus dapibus id. Ut sed sapien odio. Vivamus in pulvinar urna. Sed rutrum lectus tellus, vel viverra mauris placerat ac. Fusce dui turpis, lacinia nec scelerisque quis, convallis eget risus. Nulla id lorem nunc. Nam dignissim velit sed ultricies iaculis.\r\n<p class=\"highlight\">We hope to meet you soon!<\/p>","text_img__1_img":"28","testi__1_section_editor_state":"opened","testi__1_tagline":"What people say about us","testi__1_title":"Testimonials","testi__1_layout":"big_img_right","testi__1_nav":"thumbs_and_bullets","testi__1_selected_elts":"all","cta__2_section_editor_state":"closed","cta__2_text":"We offer different boarding options","cta__2_link_text":"Learn more","cta__2_link_page_id":"113","map_contact__1_section_editor_state":"closed","map_contact__1_layout":"full_width_map","map_contact__1_map_position":"right","map_contact__1_contact_form_position":"right","map_contact__1_contact_form_tagline":"","map_contact__1_contact_form_title":"","map_contact__1_contact_info_tagline":"","map_contact__1_contact_info_title":"","map_contact__1_contact_info":"","map_contact__1_type":"satellite","map_contact__1_zoom":"12","map_contact__1_map_points":"[{\"lat\":\"43.689299\",\"lng\":\"7.303367\",\"caption\":\"Adomus\"}]"}',
 				),
 			),
-		)
+		),
 	);
-	return $demo_posts[ 'demo_' . $demo_num ];
+	return $demo_posts['demo_' . $demo_num];
 }
